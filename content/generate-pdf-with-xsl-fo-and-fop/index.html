@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - generate PDF with XSL-FO and FOP</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/generate-pdf-with-xsl-fo-and-fop/index.html" class="active">generate PDF with XSL-FO and FOP</a></li>
+</ul>
+
+<h1>generate PDF with XSL-FO and FOP</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Matthias Willerich on April 3 2007, 08:57</p>
+</div>
+
+<div class="article">
+    	<p>A lot of 3-letter abbrevations here, I wanted to share some notes about this.<br />
+So, the scenario I was faced with was to create a pdf with some dynamic content (text, pixel-based image). As usual, nobody wants to spend any money and the &#8220;open-source&#8221; card is played early.<br />
+So, after a short look I find <a href="http://xmlgraphics.apache.org/fop/index.html">FOP</a>, an apache project that renders pdf and other formats out of a <a href="http://www.w3schools.com/xslfo/default.asp">XSL-FO</a> source.<br />
+XSL-FO is an XML subset, that allows you to mark up content in order to generate print formats, such as pdf, rtf or postscript.</p>
+
+	<p>My trouble started when I had to embed a font, as pdf only comes with <a href="http://xmlgraphics.apache.org/fop/0.20.5/fonts.html#Base-14+Fonts">a small preconfigured set</a> :<br />
+<cite>The Adobe PDF Specification specifies a set of 14 fonts that must be available to every PDF reader: Helvetica (normal, bold, italic, bold italic), Times (normal, bold, italic, bold italic), Courier (normal, bold, italic, bold italic), Symbol and ZapfDingbats.</cite></p>
+
+	<p>For FOP you could create a metrics file needed to embed a font with an accompanying tool. On OS X I discovered that Preview did not display the text using the font. Luckily that was fixed quickly when I tried out the <a href="http://xmlgraphics.apache.org/fop/0.93/fonts.html#truetype-metrics">-enc ansi</a> option. I&#8217;m not sure why there are 2 ways to create a metrics file, but hey, the ansi version works with Preview, the default one (CID-keyed) doesn&#8217;t.<br />
+Everything seemed fine.</p>
+
+	<p>Until I realised that this version only creates 72dpi output, regardless what you specify. Not great when the pdf is meant to be printed out.<br />
+So I went for the most recent release, <a href="http://xmlgraphics.apache.org/fop/0.93/index.html">fop 0.93</a>. While I could now generate 150dpi output (or any kind of resolution, for that matter), it didn&#8217;t recognize my previously generated metrics file, or font, and gave me grief with some warnings similar to this:</p>
+
+<pre>
+SEVERE: Failed to read font metrics file null
+java.io.EOFException: Reached EOF, file size=5104 offset=5104
+</pre>
+
+	<p>After some international swearing, a lunch-break and some research I found <a href="http://www.mail-archive.com/fop-users@xmlgraphics.apache.org/msg06266.html">this little gem</a> in their mailing list. It kinda reads as if they literally forgot to test with their own test fonts before release. But who am I to complain, I didn&#8217;t spend a minute developing it, did I? <br />
+So, after downloading an <a href="http://svn.apache.org/viewvc?view=rev&#38;revision=496860">updated font file reader</a> together with ant and the source package of the 0.93 release, I compiled the whole thing again, without any problems, and started rendering away happily.</p>
+
+
+ 
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

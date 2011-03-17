@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Fixing the Back Button and Enabling Bookmarking for AJAX Apps</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/fixing-the-back-button-and-enabling-bookmarking-for-ajax-apps/index.html" class="active">Fixing the Back Button and Enabling Bookmarking for AJAX Apps</a></li>
+</ul>
+
+<h1>Fixing the Back Button and Enabling Bookmarking for AJAX Apps</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Mike Stenhouse on June 15 2005, 09:01</p>
+</div>
+
+<div class="article">
+    <h2>The problem</h2>
+<p>Everyone's favourite AJAX technology app is Google Maps. Google have done a stunning job... But when I came to try to bookmark a page I had to hunt around for 'link to this page' over on the right hand side. Why have they broken such a basic function of the web? I use bookmarks A LOT and the extra effort bothered me. I got over it though, and life went on. </p>
+
+<p>Then I came to flick through the drop down on Kottke.org (now removed) and I kept hitting the back button on my mouse by accident, taking me off the site. Really irritating. The most fundamental online behaviour - click then back, is broken.</p>
+
+<p>I've not picked on these sites for any particular reason. They both happen to be great sites that I visit regularly enough to notice these flaws, which will be common to many AJAX-based applications.</p>
+
+<p>After a chat with <a href="http://www.adactio.com">Jeremy Keith</a>, <a href="http://www.clagnut.com">Rich Rutter</a> and <a href="http://www.andybudd.com">Andy Budd</a> about exactly this problem I decided to take a shot at fixing it.</p>
+
+<p>Read on for the explanation or <a href="http://donotremove.co.uk/extra/ajax-nav/index.html">go straight to the demo</a> to see it in action.</p>
+
+<h2>Standing on the shoulders of giants</h2>
+<p>I'm not the first person to tackle this type of problem. I've drawn inspiration and know-how from several places to get this up and running:</p>
+
+<dl>
+    <dt>The original bookmark/back button fix, as used by Flash developers for a little while now:</dt>
+    <dd><a href="http://www.robertpenner.com/experiments/backbutton/backbutton.html">www.robertpenner.com/experiments/backbutton/flashpage.html</a></dd>
+    
+    <dt>I've not actually looked at how they implemented their solution but this is where I got the idea for replacing Robert Penner's frames with iframes:</dt>
+    <dd><a href="http://dojotoolkit.org/intro_to_dojo_io.html#so-about-that-thorny-back-button">dojotoolkit.org/intro_to_dojo_io.html#so-about-that-thorny-back-button</a></dd>
+    
+    <dt>Rich Rutter's use of the hash for bookmarking:</dt>
+    <dd><a href="http://www.clagnut.com/sandbox/slideshow.html#5">www.clagnut.com/sandbox/slideshow.html#5</a></dd>
+    
+    <dt>For this little experiment I've used Harry Fuecks' <a href="http://jpspan.sourceforge.net/wiki/doku.php">JPSpan</a> </dt>
+    <dd>It's a fantastic framework that makes the methods you define in your server-side PHP classes available to your Javascript via XmlHttpRequest. It's the simplest way I've come across to get started with AJAX. I had the guts of my demo up and running in about 10 minutes!</dd>
+    
+    <dt>I'm using Algorithm's Timer object:</dt>
+    <dd><a href="http://www.codingforums.com/archive/index.php/t-10531.html">www.codingforums.com/archive/index.php/t-10531.html</a></dd>
+    
+    <dt>And Scott Andrew's cross-browser event handler:</dt>
+    <dd><a href="http://www.scottandrew.com/weblog/articles/cbs-events">www.scottandrew.com/weblog/articles/cbs-events</a></dd>
+</dl>
+
+<h2>Setting things up</h2>
+<p>I created a PageLocator object to act as an interface to both real querystrings and my hash pseudo-querystrings. It's nothing complicated but it allows me to access both using the same methods...</p>
+
+<pre>
+function PageLocator(propertyToUse, dividingCharacter) {
+    this.propertyToUse = propertyToUse;
+    this.defaultQS = 1;
+    this.dividingCharacter = dividingCharacter;
+}
+PageLocator.prototype.getLocation = function() {
+    return eval(this.propertyToUse);
+}
+PageLocator.prototype.getHash = function() {
+    var url = this.getLocation();
+    if(url.indexOf(this.dividingCharacter) &gt; -1) {
+        var url_elements = url.split(this.dividingCharacter);
+        return url_elements[url_elements.length-1];
+    } else {
+        return this.defaultQS;
+    }
+}
+PageLocator.prototype.getHref = function() {
+    var url = this.getLocation();
+    var url_elements = url.split(this.dividingCharacter);
+    return url_elements[0];
+}
+PageLocator.prototype.makeNewLocation = function(new_qs) {
+    return this.getHref() + this.dividingCharacter + new_qs;
+}
+</pre>
+
+<p>I also have a setContent function that simply takes whatever you pass it and inserts it into the content container div on the page. I'm using the innerHtml property because it's really not the point of this demo. If I was doing it properly I'd probably go for something a little cleverer.</p>
+
+<pre>
+function setContent(new_content) {
+    if(!document.getElementById || !document.getElementsByTagName) return;
+    var container = document.getElementById("content");
+    container.innerHTML = new_content;
+}
+</pre>
+
+<p>In the spirit of 'proper' scripting my demo will work with javascript turned off. The links on the page point  to content.php, which loads the same content as the AJAX app, but server side.</p>
+
+<h2>It's all too easy</h2>
+<p>So, I'm trying to store the session state in the address bar to allow bookmarking. What can be changed in the URL that won't trigger a page reload? The hash portion. So what I need to do is add my AJAX application's parameters after a #. </p>
+
+<p>There is an additional benefit to this approach: When you click on page anchors, these points are added to the browser's history object so that when you press the back button you're taken back to these points within the same page. That's important because items are being added to the history without leaving the current page. </p>
+
+<p>To make use of this behaviour I wrote written a simple DOM script to change the links on my page into # anchors, with the # portion containing the argument that would have been passed to content.php (the server-side equivalent of this app). This effectively maps the real querystring to a hash pseudo querystring.</p>
+
+<p>Now when the links are clicked, the address bar is changed but the page itself doesn't change. To sync the page content with the URL I've set a Javascript timer to poll the window.location.href property on a regular basis and use any changes to trigger an AJAX content-load action. This effectively de-couples the default browser functionality, so instead of changing the page when a link is pressed, this now happens whenever something in the address bar changes. This means that if we change the URL manually or, importantly, with a bookmark, the page's content is automatically changed to reflect the new url.</p>
+
+<p>To my surprise, it was very simple to get this all set up and working in Firefox. I was even more surprised to see that it worked reasonably well in IE6 as well. Reasonably, but not completely. For some reason, IE wasn't adding my anchors to the history so when I hit back, I was taken off my page and the AJAX app reset its state. </p>
+
+<pre>
+function AjaxUrlFixer() {
+    this.fixLinks();
+    
+    this.locator = new PageLocator("window.location.href", "#");
+    this.timer = new Timer(this);
+    this.checkWhetherChanged(0);
+}
+AjaxUrlFixer.prototype.fixLinks = function () {
+    var links = document.getElementsByTagName("A");
+    for(var i=0; i&lt;links.length; i++) {
+        var href = links[i].getAttribute("href");
+        var hash = href.substr(href.indexOf("hash=")+5);
+        links[i].setAttribute("href","#"+hash);
+    }
+}
+AjaxUrlFixer.prototype.checkWhetherChanged = function(location){
+    if(this.locator.getHash() != location) {
+        doGetPage(this.locator.getHash());
+    }
+    this.timer.setTimeout("checkWhetherChanged", 200, this.locator.getHash());
+}
+</pre>
+
+<h2>Now you're just being difficult</h2>
+<p>So, IE won't add my modified anchors to the history object. There is a fix that's been in use by Flash developers for a little while that uses frames to trick the browser into thinking that it's loading new pages, and use that to trap and mimic the back button action within the Flash apps. See <a href="http://www.holler.co.uk">www.holler.co.uk</a> for an example of this in action.</p>
+
+<p>After reading through the Flash back button fix and remembering Dojo Toolkit's reference to their own back button fix I decided to give iframes a shot. The catch is that the iframe has to be present on the page before the DOM tree is complete so it has to be document.written out inline. It's not the cleanest solution because it means that I need to have a script block in the BODY, which I like to avoid, but as far as I know there's no way around that.</p>
+
+<p>With the iframe in, the mechanism is roughly the same... </p>
+
+<p>Instead of changing the links on the page to # anchors, they are modified to change the src attribute of the iframe, loading a page called mock-page.php with a querystring that contains the same argument as the hash did before. A timer polls the iframe for it's location and if it detects a change then a content load is triggered in the AJAX app, same as before. </p>
+
+<p>This is complicated by the fact that the iframe's src property doesn't change when the back button is pressed. To get around this I've written a little function to sit within mock-page.php and report it's location when asked.</p>
+
+<pre>
+function getLocation() {
+    return '&lt;?php print "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'] ?&gt;';
+}
+</pre>
+
+<p>When a change in mock-page.php's url is detected an AJAX content load is triggered and the parameters from it's querystring are duplicated into the url, to make sure that bookmarking will still work. It's sounds a bit convoluted but the code is quite straight forward. Except for one thing... IE wouldn't let me access the window.location immediately. I have no idea why... As a simple workaround, I've added a tiny 100ms delay to the firing of the script, which seems to sort it out.</p>
+
+<pre>
+function AjaxIframesFixer(iframeid) {
+    this.iframeid = iframeid;
+    if (document.getElementById('ajaxnav')) {
+        this.fixLinks();
+	
+        this.locator = new PageLocator("document.frames['"+this.iframeid+"'].getLocation()", "?hash=");
+        this.windowlocator = new PageLocator("window.location.href", "#");
+        this.timer = new Timer(this);
+	
+        this.delayInit(); // required or IE doesn't fire
+    }
+}
+AjaxIframesFixer.prototype.fixLinks = function (iframeid) {
+    var links = document.getElementsByTagName("A");
+    for(var i=0; i&lt;links.length; i++) {
+        var href = links[i].getAttribute("href");
+        var hash = href.substr(href.indexOf("hash=")+5);
+        links[i].setAttribute("href", "Javascript:document.getElementById('"+this.iframeid+"').setAttribute('src', 'mock-page.php?hash="+hash+"');");
+    }
+}
+AjaxIframesFixer.prototype.delayInit = function(){
+    this.timer.setTimeout("checkBookmark", 100, "");
+}
+AjaxIframesFixer.prototype.checkBookmark = function(){
+    window.location = this.windowlocator.makeNewLocation(this.locator.getHash());
+    this.checkWhetherChanged(0);
+}
+AjaxIframesFixer.prototype.checkWhetherChanged = function(location){
+    if(this.locator.getHash() != location) {
+        doGetPage(this.locator.getHash());
+        window.location = this.windowlocator.makeNewLocation(this.locator.getHash());
+    }
+    this.timer.setTimeout("checkWhetherChanged", 200, this.locator.getHash());
+}
+</pre>
+
+<h2>It's not what you said it's how you said it</h2>
+<p>I hate branching scripts but I couldn't find a method that would work across all browsers. To make things as easy as possible I've made the fixes objects so they can be plugged or removed as easily as possible.</p>
+
+<pre>
+function FixBackAndBookmarking() {
+    if(!document.getElementById || !document.getElementsByTagName) return;
+    if(document.iframesfix) {
+        fix = new AjaxIframesFixer('ajaxnav');
+    } else {
+        fix = new AjaxUrlFixer();
+    }
+}
+</pre>
+
+<h2>Moving on</h2>
+
+<p>What I've produced here is a simple illustration of a method for storing the browser state in the URL bar, to allow bookmarking, replaced the default browser linking mechanism to use that url-stored state and mimic traditional web behaviour. For a real world application the querystring used is likely to be far more complicated... I've separated out my code into distinct objects to try and make customisation easier.</p>
+
+<p>To see it in action, I have put up <a href="http://donotremove.co.uk/extra/ajax-nav/index.html">a demo page with everything hooked together</a>.</p>
+
+<p>This method could be applied to Flash as well. As far as I know most people are still using the full frames method documented by Robert Penner. Using some Javascript we can do away with that extra complexity to make going back and bookmarking a plug-and-play addition.</p>
+
+<h2>Reservations</h2>
+<p>As I was writing this it occurred to me that what I've been doing here is remarkably like the old Frames hacks from back in the day. Should we be trying so hard to duplicate traditional browser behaviour? If it's important enough to put in the effort to duplicate it then should we really be breaking it in the first place? It's a question that can only be answered on a project-by-project basis but it seems important enough to be worth asking...</p>
+
+<h2>Components</h2>
+
+<dl>
+    <dt>index.html</dt>
+    <dd>The important part, from the point of view of this article. Contains:
+        <ul>
+            <li>Timer object</li>
+            <li>addEvent fix</li>
+            <li>JPSpan AJAX functions</li>
+            <li>PageLocator object</li>
+            <li>AjaxIframesFixer object for IE</li>
+            <li>AjaxUrlFixer object for Firefox and others</li>
+        </ul>
+    </dd>
+    
+    <dt>test.php</dt>
+    <dd>Sets up JPSpan server side.</dd>
+    
+    <dt>mock-page.php</dt>
+    <dd>Loaded into iframe. Has getLocation function that reports it's current URL.</dd>
+    
+    <dt>pageholder.class.php</dt>
+    <dd>Simple class used to serve content. </dd>
+</dl>
+
+<table cellpadding="5" cellspacing="0" border="0" summary="Browser support for the back button and bookmarking fix">
+<caption>Browser support</caption>
+<tr>
+    <th>Browser</th>
+    <th>Bookmarking</th>
+    <th>Back button</th>
+</tr>
+<tr>
+    <td>IE6/PC</td>
+    <td>Yes</td>
+    <td>Yes</td>
+</tr>
+<tr>
+    <td>IE5.5/PC</td>
+    <td>Yes</td>
+    <td>Yes</td>
+</tr>
+<tr>
+    <td>IE5/PC</td>
+    <td>Yes</td>
+    <td>Yes</td>
+</tr>
+<tr>
+    <td>IE5/Mac</td>
+    <td>No</td>
+    <td>No</td>
+</tr>
+<tr>
+    <td>Firefox/PC</td>
+    <td>Yes</td>
+    <td>Yes</td>
+</tr>
+<tr>
+    <td>Firefox/Mac</td>
+    <td>Yes</td>
+    <td>Yes</td>
+</tr>
+<tr>
+    <td>Safari1.2/Mac</td>
+    <td>Yes</td>
+    <td>No</td>
+</tr>
+</table>
+
+<p>If you want to have a play with this yourself, I've zipped up <a href="http://www.contentwithstyle.co.uk/resources/ajax-nav/ajax-nav.zip">the whole lot ready for download</a>.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

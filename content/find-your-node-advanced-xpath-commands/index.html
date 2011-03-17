@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Find your node: Advanced XPATH commands</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/find-your-node-advanced-xpath-commands/index.html" class="active">Find your node: Advanced XPATH commands</a></li>
+</ul>
+
+<h1>Find your node: Advanced XPATH commands</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on May 21 2005, 11:49</p>
+</div>
+
+<div class="article">
+    <h2>XSLT and XPATH?</h2>
+
+<p>
+	All that XSLT does is applying code-templates on XML-nodes. In order to do this you need to find the right node.
+	XPATH offers you an advanced toolkit to do that within an XSL-file.
+</p>
+
+<h2>Go dynamic</h2>
+
+<p>
+	XPATH and XSLT offer you dynamic features that remind more of a scripting-language rather than a stylesheet language, 
+	but keep in mind that all you can do is transforming the data you've got, so on a more abstract level it is 
+	still just styling up the content, just that this time you can choose what to display triggered with variables and
+	control-structures.
+</p>
+
+<h3>Locations in XPATH</h3>
+
+<p>
+	Let's have a look into a simple, concatinated XML structure:
+</p>
+
+<pre>
+&lt;root&gt;
+  &lt;node&gt;
+    &lt;subnode /&gt;
+    &lt;subnode /&gt;
+    &lt;subnode /&gt;
+  &lt;/node&gt;
+  &lt;node&gt;
+    &lt;subnode&gt;
+      &lt;subsubnode /&gt;
+    &lt;/subnode&gt;
+  &lt;/node&gt;
+&lt;/root&gt;
+</pre>
+
+<p>
+	In order to navigate between the nodes you'll need to use Location Path Expressions.
+	The basic ones work pretty much the same like in an operating-system enviroment.
+	<code class="inline">/node/subnode</code> for example would be the absolute path to all subnodes in the example above.
+	<br />
+	On top of that XPATH offers you differnet types of axes like <code class="inline">ancestor</code>, <code class="inline">parent</code> or
+	<code class="inline">child</code>. Even attributes can be selected with <code class="inline">attribute</code> or you can use <code class="inline">*</code> as a wildcard.
+	<br />
+	<br />
+	A full reference can be found at at <a href="http://www.w3schools.com/xpath/xpath_location.asp">w3schools</a>.
+</p>
+
+<h3>Node-tests</h3>
+
+<p>
+	On top of these axes you can test nodes against expressions that most of you might know as operators when 
+	using scripting- or programming-languages.
+	<br />
+	There are expressions like <code class="inline">+</code>, <code class="inline">-</code> but also relational ones like <code class="inline">=</code>, <code class="inline">&gt;</code> and
+	<code class="inline">!=</code>.
+	Keep in mind that within valid XML <code class="inline">&gt;</code> and <code class="inline">&lt;</code> need to be escaped as <code class="inline">&amp;gt;</code> and <code class="inline">&amp;lt;</code>.
+</p>
+
+<h3>Functions in XPATH</h3>
+
+<p>
+	For those that already used basic XSLT functionallity the functions won't be new, either.
+ 	The function <code class="inline">current()</code> for example gives back the node that you are in now, maybe while within a loop.
+	<br />
+	But there is also string-functions like <code class="inline">contains()</code> or <code class="inline">substring()</code>. 
+	Those can be used to manipulate the data that you will use for outputting data or locating nodes.
+	<br />
+	<br />
+	Again, find a full list of XPATH functions at <a href="http://www.w3schools.com/xpath/xpath_functions.asp">w3schools</a>.
+</p>
+
+<h3>Combine them!</h3>
+
+<p>
+	Now you can combine the location path, the axes and the node tests to get the node you really want. The syntax is <code class="inline">axisname::nodetest[predicate]</code>.
+	<br />
+	I'll fit everything in one expression and you'll immediatly figure what I mean:
+	<br />
+	<br />
+	<code class="inline">current()/child::*[attribute::type='classic']</code>
+	<br />
+	<br />
+	This expression selects all subnodes of the child-elements within the current node, that have the attribute type with the value 'classic'.
+</p>
+
+<h2>An example please!</h2>
+
+<p>
+	I know, that was pretty abstract, but now we'll move straight on to the practical example.
+	We will use dynamic XPATH expressions to display a node-set, remember that when using server side techniques
+	or client-side scripting this also could be triggered by a variable.<br />
+	Let's have a look at the piece of XML that will be transformed.
+</p>
+
+
+<pre>
+&lt;?xml version="1.0" ?&gt;
+&lt;company_list&gt;
+  &lt;company country="uk"&gt;
+    &lt;name&gt;Company 1&lt;/name&gt;
+    &lt;sales&gt;3200900&lt;/sales&gt;
+    &lt;employees&gt;250&lt;/employees&gt;
+  &lt;/company&gt;
+  &lt;company country="usa"&gt;
+    &lt;name&gt;4th capitalist&lt;/name&gt;
+    &lt;sales&gt;102310000&lt;/sales&gt;
+    &lt;employees&gt;3050&lt;/employees&gt;
+  &lt;/company&gt;
+
+....
+
+  &lt;company country="uk"&gt;
+    &lt;name&gt;UK stores&lt;/name&gt;
+    &lt;sales&gt;12300000&lt;/sales&gt;
+    &lt;employees&gt;3301&lt;/employees&gt;
+  &lt;/company&gt;
+  &lt;company country="uk"&gt;
+    &lt;name&gt;THEUSTOYSTORES&lt;/name&gt;
+    &lt;sales&gt;22200000&lt;/sales&gt;
+    &lt;employees&gt;18639&lt;/employees&gt;
+  &lt;/company&gt;
+&lt;/company_list&gt;	
+</pre>
+
+<p>
+	What we're going to do now is to find out the top 3 in the UK
+	regarding the ration of employees and sales.
+	<br />
+	Let's have a look at the XSL file:
+</p>
+
+
+<pre>
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;xsl:stylesheet version="1.0" 
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt; 
+  &lt;xsl:template match="/company_list"&gt;
+  &lt;html&gt;
+    &lt;body style="font-family: Arial"&gt;
+      &lt;h1&gt;Top 3 stores in the uk regarding employees per sales&lt;/h1&gt;
+      &lt;ul&gt;
+        &lt;xsl:for-each select="company[@country = 'uk']"&gt;
+        &lt;xsl:sort select="sales div employees"/&gt;
+          &lt;xsl:if test="position() &lt; 4"&gt;
+            &lt;li&gt;
+              Company: &lt;xsl:value-of select="name" /&gt;
+              &lt;br /&gt;
+              Employees: &lt;xsl:value-of select="employees" /&gt;
+              &lt;br /&gt;
+              Sales: &lt;xsl:value-of select="sales" /&gt;
+            &lt;/li&gt;
+          &lt;/xsl:if&gt;  
+        &lt;/xsl:for-each&gt;
+      &lt;/ul&gt;    
+    &lt;/body&gt;
+  &lt;/html&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</pre>
+
+<p>
+	Download the files here:
+	<br />
+	<a href="/resources/advanced_xpath/company_list.xml">company_list.xml</a>
+	<br />
+	<a href="/resources/advanced_xpath/uk_top3.xsl">uk_top3.xsl</a>
+</p>
+
+
+<h2>Conclusion</h2>
+
+<p>
+	That wasn't bad, but now imagine what you could do when you have dynamic variables.
+	Especially with the MSXML toolkit or Sarissa that have the method selectSingleNode()
+	these expressions are a piece of cake.
+</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

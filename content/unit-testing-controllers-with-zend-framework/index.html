@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Unit testing controllers with Zend Framework</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/unit-testing-controllers-with-zend-framework/index.html" class="active">Unit testing controllers with Zend Framework</a></li>
+</ul>
+
+<h1>Unit testing controllers with Zend Framework</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on April 2 2009, 14:47</p>
+</div>
+
+<div class="article">
+    <p>Unit testing your Zend Framework driven MVC applications is not hard at all. This post tries to give a brief overview on how to test your Controllers with Zend_Test.</p>
+
+<h2>Install PHPUnit</h2>
+
+<p>Zend Framework integrates with PHPUnit. PHPUnit is a <a href="http://pear.php.net/">PEAR</a> module, and the usual way is to install PEAR that first and then <a href="http://www.phpunit.de/manual/current/en/installation.html">use the pear installer to install PHPUnit for you</a>.</p>
+
+<h2>Create an application bootstrap include</h2>
+
+<p>If you're using the <a href="http://framework.zend.com/manual/en/zend.controller.front.html">front controller pattern</a> and have all your variables set up in the index.php of your web folder, now is the time to <a href="http://framework.zend.com/docs/quickstart/create-a-bootstrap-file">move things into an include file</a>, before you create the controller and dispatcher. We'll use this very file when doing unit tests with Zend_Test</p>
+
+<h2>Start Testing Controllers</h2>
+
+<p>
+With the help of Zend_Test we're now able to create tests that dispatch our controllers. We're then able to do assertions against the response, using the provided methods of the <a href="http://framework.zend.com/apidoc/core/Zend_Test/PHPUnit/Zend_Test_PHPUnit_ControllerTestCase.html">ControllerTestCase</a>.
+</p> 
+
+<pre><code>
+class IndexTest extends Zend_Test_PHPUnit_ControllerTestCase
+{
+  public function setUp() {
+    $this->bootstrap = array($this, 'appBootstrap');
+    parent::setUp();
+  }
+
+  public tearDown() {
+    $this->resetRequest();
+    $this->resetResponse();
+    parent::tearDown();
+  }
+
+  public function appBootstrap() {
+    require_once('/my/bootstrap.php');
+  }
+
+  public function testHomepage() {
+    $this->dispatch('/');
+    $this->assertController('index');
+    $this->assertAction('index');
+    $this->assertXpath("//form[@action = '/foo']");
+  }
+}
+</code></pre>
+
+<h3>Manipulate the request, evaluate the response</h3>
+
+<p>
+Now that we've dispatched our controller, we can manipulate the request and access the response, to see what the dispatched action does. For example an action that requires post data, and then redirects us to another page:
+</p>
+
+<pre><code>
+public testPostAction() {
+  $request = $this->getRequest();
+
+  $request->setMethod('POST');
+  $request->setPost(array(
+    'foo' => 'bar',
+    'baz' => 'x',
+  ));
+
+  $this->dispatch('/my/post/action');
+  $this->assertRedirectTo('/my/expected/redirect');
+}
+</code></pre>
+
+<h3>Checking data manipulation</h3>
+
+<p>
+If we're working with data manipulations in our tests, we could use models to create the data we manipulate, and then to evaluate it after the controller has been dispatched. Finally we'll clean up after the test. Of course you'd want to have stable models at that point.
+</p>
+
+<pre><code>
+public function testSave() {
+  $my_id = $model->create();
+
+  $request = $this->getRequest();
+  
+  $request->setMethod('POST');
+  $request->setPost(array(
+    'name' => 'unittest modified',
+    'id' => $my_id,
+  ));
+
+  $this->dispatch("/save/object/");
+  $this->assertRedirectRegex('#/edit/object/id/[\d]+$#');
+
+  $data = $model->get($my_id);
+  $this->assertEquals($data['name'], 'unittest modified');
+  
+  $my_id = $model->delete($my_id);  
+}
+</code></pre>
+
+<h2>Related links</h2>
+
+<ul>
+<li><a href="http://framework.zend.com/manual/en/zend.test.html">Zend_Test Reference Guide</a></li>
+<li><a href="http://devzone.zend.com/article/2772-An-Introduction-to-the-Art-of-Unit-Testing-in-PHP">An Introduction to the Art of Unit Testing in PHP</a></li>
+<li><a href="http://blog.fedecarg.com/2008/12/27/phpunit-testing-zend-framework-controllers/">PHPUnit: Testing Zend Framework Controllers</a></li>
+<li><a href="http://www.zfforums.com/zend-framework-general-discussions-1/installation-configuration-3/zend_test-how-set-up-1569.html">Zend_Test: how to set up?</a></li>
+</ul>
+
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

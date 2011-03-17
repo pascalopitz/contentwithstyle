@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Looking at free charts and stats APIs</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/looking-at-free-chart-and-stat-apis/index.html" class="active">Looking at free charts and stats APIs</a></li>
+</ul>
+
+<h1>Looking at free charts and stats APIs</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on December 4 2008, 14:28</p>
+</div>
+
+<div class="article">
+    <p>At the moment I am looking for a nice way to convert HTML tables into stats. I am thinking along the lines of <a href="http://www.mikeindustries.com/blog/archive/2004/12/sifr-2.0-release-candidate-2">SIFR</a>, where flash replaces markup and displays dynamic data. But first I need something that displays dynamic stats ...</p>
+
+
+<h2>Flash Based:</h2>
+
+<p>The first thing that I found was <a href="http://www.maani.us/xml_charts/">XML/SWF Charts</a>, which did look brilliant at first glance. Unfortunately the free version includes a link to their homepage, whenever one clicks on the object, and of course that's out of discussion.</p>
+
+<p>I then looked at <a href="http://www.fusioncharts.com/Free/">FusionCharts Free</a>, but didn't find a way to quickly modify the shadows for the bar charts. Another Google search lead me to <a href="http://teethgrinder.co.uk/open-flash-chart-2/bar-chart.php">Open Flash Chart 2</a>, which pretty much does want I want it to.</p>
+
+<p>All of the above are meant to work with a datafile that is loaded, like XML or JSON, and to get them to work with inline data requires a bit of JavaScript trickery, as this example for OpenFlashChart illustrates:</p>
+
+<pre><code class="js">
+function get_data(id) {
+ return $.toJSON(data_obj);
+}
+
+var data_obj = { 
+  "elements": [ { "type": "bar", "values": [ 9, 8] } ], 
+  "title": { "text": "Thu Dec 04 2008" } 
+};
+var swf_config = { "get-data": "get_data", "id": "my_chart"};
+$.swfobject.embedSWF("../3rdparty/open_flash_chart_2/open-flash-chart.swf", "my_chart", "200", "200", "9.0.0", "expressInstall.swf", swf_config);
+</code></pre>
+
+<p>
+Not ideal in my books, I thought to myself, but I could work around this somehow. Some further Google search (and at the same time, Matthias), however, pointed me towards solutions based on the canvas tag.
+</p>
+
+<h2>Canvas Based:</h2>
+
+<p>The lack of support for canvas in IE was one of the reasons for me to pretty much ignore it. Probably the reason why I missed the ventures that try to work around the lack of support, namely a<a href="http://ajaxian.com/archives/using-canvas-in-ie-via-flash"> flash based canvas integration</a>, but also an emulated <a href="http://me.eae.net/archive/2005/12/29/canvas-in-ie/">canvas for IE</a> implementation based on SVG, and its successor, <a href="http://sourceforge.net/projects/excanvas/">excanvas</a>.</p>
+
+<p>Some tools utilizing this technique are <a href="http://www.liquidx.net/plotkit/">PlotKit</a>, <a href="http://webfx.eae.net/dhtml/chart/chart.html">WebFX Chart</a>, its rewrite <a href="http://www.sprymedia.co.uk/article/Canvas+Charts#download">Canvas Charts</a> and <a href="http://bluff.jcoglan.com/">Bluff</a>.</p>
+
+<p>I managed to quickly get something off the ground with Bluff, and not only does the built in facility to use an HTML table as data source works great towards what I want to do, but the whole script looks considerably more tidy as well:</p>
+
+<pre><code class="js">
+window.onload = function() {
+var g = new Bluff.Mini.Bar('example', 400);
+ g.theme_keynote();
+ g.minimum_value = 0;
+ g.maximum_value = 10;
+ g.data_from_table('data');
+ g.draw(); 
+}
+</code></pre>
+
+<h2>Others:</h2>
+
+<p>Of course there is a variety of other techniques and APIs to generate charts and stats. From the <a href="http://www.smashingapps.com/2008/01/10/the-google-chart-api-lets-you-dynamically-generate-free-charts-in-your-website.html">Google Charts API</a> down to <a href="http://search.cpan.org/dist/SVG-TT-Graph/">Perl based CPAN modules that generate SVG</a>. But most of those won't work on the client, but will require some server action, and client based rendering was one of my initial requirements.</p>
+
+<h2>Bottom Line:</h2>
+
+<p>It will canvas rather than SWF based charts, I think.</p>
+
+<p>Also it seams that canvas offers better answers to the problems that we were facing before, like the image replacement for headlines, nicely tackled by <a href="http://css-tricks.com/typefacejs-a-sifr-alternative/">Typface.js</a>.</p> 
+
+<p>While for some of you web folks this might all be yesterdays news, I am amazed about how far the dynamic client side has come now. The <a href="http://squeedlyspooch.com/firelight/xaml.xhtml">Silverlight implementation without Silverlight</a>, for example, is a step that goes so far beyond anything that I'd have ever expected, that I can only say: Amazing stuff.</p>
+
+<h2>Related:</h2>
+
+<ul>
+<li><a href="http://ajaxian.com/archives/round-the-web-vector-graphics">Nice little vector graphics roundup by the Ajaxian</a></li>
+<li><a href="http://ajaxian.com/by/topic/canvas">Canvas tag on Ajaxian</a></li>
+<li><a href="https://developer.mozilla.org/en/Canvas_tutorial">Canvas tutorial at the Mozilla Developer Center</a></li>
+<li><a href="http://free-wiz.blogspot.com/2008/07/best-free-chart-apis.html">Free Wiz: 10 Best Free Chart APIs</a></li>
+</ul>
+
+<h2><em>Update</em></h2>
+
+<p>
+The longer I do search around the web, the more I discover:
+</p>
+
+<ul>
+<li><a href="http://www.phpied.com/canvas-pie/">Canvas Pie</a></li>
+<li><a href="http://blogs.atalayasec.org/dev/2008/02/a-jquery-plugin-for-canvas-pies/">Canvas Pie jQuery plugin</a></li>
+<li><a href="http://code.google.com/p/flot/">Flot</a></li>
+<li><a href="http://www.filamentgroup.com/lab/creating_accessible_charts_using_canvas_and_jquery/">fgCharting</a></li>
+</ul>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

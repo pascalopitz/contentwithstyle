@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - A CSS Framework</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/a-css-framework/index.html" class="active">A CSS Framework</a></li>
+</ul>
+
+<h1>A CSS Framework</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Mike Stenhouse on May 22 2005, 16:20</p>
+</div>
+
+<div class="article">
+    <p>In my <a href="/Articles/12/modular-css/">Modular CSS</a> article I documented the possibility of breaking down stylesheets into components that could be reused across projects. All well and good. The next logical step is to extend this to become a CSS framework, allowing rapid development of sites with pre-written and tested components. All that's really required to produce this is a set of naming conventions and a flexible base template... </p>
+
+<h2>Who is this for?</h2>
+<p>If you've been creating sites with CSS for a while you may be getting frustrated with having to recreate and retest basic layouts on a regular basis. In this article I'm trying to illustrate a simple way of skipping the tedious startup on your average project, letting you get to the interesting stuff as quickly and efficiently as possible. I've not attempted to explain the layouts included here so it may not be suitable if you're a CSS beginner. Sorry about that... Feel free to dissect them yourself if you're interested; I've kept them as simple as possible.</p>
+
+<h2>How many layouts are there? </h2>
+<p>Well, loads but the majority of them fall into rough groups. Any framework must account for the most common layouts, otherwise it'll never get used. </p>
+
+<ul>
+    <li>Vertical navigation with one content column</li>
+    <li>Vertical navigation with two columns of content</li>
+    
+    <li>Horizontal navigation with one content column</li>
+    <li>Horizontal navigation with 2 columns of content</li>
+    <li>Horizontal navigation with local navigation and one column of content</li>
+    <li>Horizontal navigation with local navigation and 2 columns of content</li>
+</ul>
+
+<p>These 6 cover most of the blogs out there and most of the corporate sites as well. How can we structure a document so that it'll be useful in all 6 of these scenarios?</p>
+
+<h2>What are the common elements?</h2>
+<p>Malarkey had a shot at pinning down <a href="http://www.stuffandnonsense.co.uk/archives/whats_in_a_name_pt2.html">websites' common elements and giving them names</a> a while back but I want something a little more general so that the building blocks can be retasked without slipping their labelling.</p>
+<p>So... what are the common building blocks in the above 6 layouts?</p>
+
+<ul>
+    <li>Header</li>
+    <li>Footer</li>
+    
+    <li>Main content</li>
+    <li>Sub content</li>
+    
+    <li>Main nav</li>
+    <li>Local nav</li>
+</ul>
+
+<p>These elements are used mix and match across most sites you visit so these are the constituent elements that any framework will have to cater for. No designs will use all of them but most will use header, footer, main content and main nav with optional sub content and sub nav.</p>
+
+<h2>The ideal structure</h2>
+<p>For me the most important single aspect of accessibility is the source code order: if it makes sense you're well on your way to building an accessible site. </p>
+<p>You can't spent much time on the accessibility mailing lists or forums without someone being told that they should structure their HTML so that the content preceeds the navigation. This stops screenreader users from having to sit through the site's navigation every time they travel to a new page. You can get around this with skip links but that's an extra link to follow...</p>
+<p>So, in an ideal world, how would we structure our websites?</p>
+<ol>
+    <li>Header</li>
+    <li>Main content</li>
+    <li>Sub content</li>
+    <li>Local nav</li>
+    <li>Main nav</li>
+    <li>Footer</li>
+</ol>
+<p>This source order follows the exact structure people are expected to want: once they have read/listened to the content of your page they are most likely to want to navigate within the current section or to related pages. After they have worked their way through those they'll probably want another section of your site so the main navigation follows.</p>
+
+<h2>The page structure</h2>
+
+<p>This page structure above looks something like this when turned into (X)HTML:</p>
+
+<pre>
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;
+    &lt;head&gt;
+    	&lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id="page"&gt;
+        
+            &lt;div id="header" class="clearfix"&gt;
+                &lt;hr /&gt;
+            &lt;/div&gt;&lt;!-- end header --&gt;
+            
+            &lt;div id="content" class="clearfix"&gt;
+                &lt;div id="main"&gt;
+                    &lt;hr /&gt;
+                &lt;/div&gt;
+                
+                &lt;div id="sub"&gt;
+                    &lt;hr /&gt;
+                &lt;/div&gt;
+                
+                &lt;div id="local"&gt;
+                    &lt;hr /&gt;
+                &lt;/div&gt;
+                
+                &lt;div id="nav"&gt;
+                    &lt;hr /&gt;
+                &lt;/div&gt;
+                
+            &lt;/div&gt;&lt;!-- end content --&gt;
+            
+            &lt;div id="footer" class="clearfix"&gt;
+            &lt;/div&gt;&lt;!-- end footer --&gt;
+            
+        &lt;/div&gt;&lt;!-- end page --&gt;
+        
+        &lt;div id="extra1"&gt;&amp;nbsp;&lt;/div&gt;
+        &lt;div id="extra2"&gt;&amp;nbsp;&lt;/div&gt;
+        
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<h2>The magic of CSS</h2>
+<p>We're going to need some farily advanced CSS tricks to turn this source order into useful layouts. They all have to be flexible, to account for text resizing, which with the footer rules out absolute positioning...</p>
+<p>The eureka moment for me was when <a href="http://www.1976design.com/blog/archive/2004/11/21/solving-css-problems-mozilla-europe/">Dunstan published his absolutely positioned menu technique</a> as part of his Mozilla Europe work. Suddenly it became possible, using an incredibly sneaky trick, to pull the nav bar from the bottom of the source and use it horizontally in the header and still allow for text resizing. Now that's genius. </p>
+
+<p>Then you've got the negative margin tricks for moving floats around. I first came across these when <a href="http://www.mezzoblue.com/archives/2004/01/23/friday_chall/">Ryan Brill posted about them on Mezzoblue</a>... Dead handy.</p>
+
+<p>If we're going to use floated layouts we're going to need some way of clearing the contents. I could put clearing divs into each of my elements but there is the black magic <a href="http://positioniseverything.net/easyclearing.html">clearfix method by Tony Aslett</a> that will do this for me, keeping the source clean.</p>
+
+<p>A few other things that might come in handy:</p>
+<ul>
+    <li>Body ids to switch styles</li>
+    <li><a href="http://positioniseverything.net/explorer/floatIndent.html">Display: inline to cure IE's double float bug</a></li>
+</ul>
+
+<h2>See where I'm going with this?</h2>
+<p>We have a single, flexible source document that will take a variety of content and a load of CSS techniques to manipulate them... To make this framework useful I have to be able to get my single source document to display as any of the common layouts listed above. Once that's done I'll be able to drop any content into the HTML framework, plug in the appropriate layout stylesheet for the design, tweak it and the job will be done. No more rewriting XHTML and CSS for every project; every time I start I will begin work with a solid foundation that I can tweak to fit the specifics of the job. Startup time will be next to nothing.</p>
+
+<h2>Back to our five main layouts</h2>
+<p>Okay, so the source code is fixed. What we want is to be able to plug in tried and tested layout stylesheets for reuse on future projects. I'm going to stick with fixed width layouts for this because they're simpler but using negative margins we could get these fluid with a bit of extra work.</p>
+
+<ul>
+    <li><a href="/resources/css-framework/1.1/?css=layout-navleft-1col.css&amp;demo=true">Vertical navigation with one content column</a></li>
+    <li><a href="/resources/css-framework/1.1/?css=layout-navleft-2col.css&amp;demo=true">Vertical navigation with two columns of content</a></li>
+    
+    <li><a href="/resources/css-framework/1.1/?css=layout-navtop-1col.css&amp;demo=true">Horizontal navigation with one content column</a></li>
+    <li><a href="/resources/css-framework/1.1/?css=layout-navtop-subright.css&amp;demo=true">Horizontal navigation with 2 columns of content</a></li>
+    
+    <li><a href="/resources/css-framework/1.1/?css=layout-navtop-localleft.css&amp;demo=true">Horizontal navigation with local navigation and one column of content</a></li>
+    <li><a href="/resources/css-framework/1.1/?css=layout-navtop-3col.css&amp;demo=true">Horizontal navigation with local navigation and 2 columns of content</a></li>
+</ul>
+
+<h2>Achieved: Level 2!</h2>
+<p>That's it - all the common layouts done with pluggable stylesheets and ready to go. They're set up in a kind of Zen Allotment for you to <a href="/resources/css-framework/1.1/">have a flick through</a>...</p>
+<p>If you want to have a play with these yourself, <a href="/resources/css-framework/1.1/css-framework.zip">all the source files</a> are packaged up in quick-grow zip file.</p>
+
+<p><strong>30/11/2007 UPDATE:</strong> I've uploaded a slightly updated version of the framework. Very little has changed but a few people have voiced concerns over the lack of a formal license. Taking advice from <a href="http://paul-m-jones.com">Paul Jones</a> (thanks!) I've added the new BSD terms, which are about as open as they come. I'm happy for people to use the framework for whatever they want. If you do, please drop me a line - I'd love to see what you come up with!</p>
+
+<p><strong>6/09/2010 UPDATE:</strong> This article is <a href="http://www.fatcow.com/edu/a-css-framework-be/">now available in Belorussian</a>, apparently, translated by Amanda Lynn.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

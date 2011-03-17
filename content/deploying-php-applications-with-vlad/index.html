@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Deploying PHP applications with Vlad and SVN</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/deploying-php-applications-with-vlad/index.html" class="active">Deploying PHP applications with Vlad and SVN</a></li>
+</ul>
+
+<h1>Deploying PHP applications with Vlad and SVN</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Matthias Willerich on May 8 2009, 15:12</p>
+</div>
+
+<div class="article">
+    <p>In my current day job I have to deploy a number of web apps every few weeks. 
+The person I took over from did the whole thing in a manual and terribly cumbersome way:</p>
+<ul>
+	<li>exporting the project locally,</li>
+	<li>zipping it up,</li>
+	<li>moving it to the server,</li>
+	<li>unpacking and symlinking it, to finally</li>
+	<li>run a small script that would set the correct production config, chmod log and cache folders etc.</li>
+</ul>
+<p>In the following article, I'm going to describe how I went from there to deploying my Zend Framework-driven PHP apps with Vlad. To save yourself some time, feel free to <a href="#ruby-setup">skip the back story</a>, the <a href="#pre-configure" title="skip installing ruby, gem and rake">pre-requisite of installing ruby, gem and rake</a>, or <a href="#deployment-recipes">go straight to the deployment recipes</a>.</p>
+
+<p id="backstory">I did the above method for a while, and realized quickly how much time is wasted by this process. Remembering my efforts of <a href="http://www.contentwithstyle.co.uk/content/php-deployment-with-capistrano">deploying PHP apps with Capistrano</a>, I felt
+it was time to set up an automated deployment routine. While re-reading the article, thoughts returned of how unwieldy and badly documented Capistrano came across,
+and I started looking for something more lean, that wouldn't scare of my non-ruby colleagues who might have to do my job when I'm away.</p>
+
+<p>Very quickly I was lead to <a href="http://rubyhitsquad.com/Vlad_the_Deployer.html">Vlad the Deployer</a>, replacing one deployment app where the person in charge of the name had one tipsy field day with, well, another.</p>
+
+<p>Taking it for its first spin, I felt that while there's a lot of confidence behind Vlad, the word "simple" crops up lots of times, but again, 
+the documentation is a bit of a thinking man's manual; As soon as you go beyond the initial example it skips a few steps here and there, 
+which can leave someone who is unfamiliar with the concept struggling. Maybe it's a case of "it's advanced stuff, just live with it". </p>
+
+<p>Luckily I have my Capistrano experience, so I got started fairly quickly using Vlad for my own purposes. What I liked immediately about Vlad was that it declares as one of the project goals to "use the right tool for the job (ssh, rsync, etc)."</p>
+
+<p id="vlad-goals">My initial goal was to use Vlad</p>
+<ul>
+	<li>to have a deployment one-liner,</li>
+	<li>to roll back if needed, and</li>
+	<li>to be able to share logs and other assets between releases</li>
+</ul>
+
+<p id="example-app">For the example below I created a demo Zend Framework application with <a href="http://devzone.zend.com/article/4559-Zend_Tool-and-ZF-1.8">Zend_Tool</a>, 
+but what I'm describing should work for any PHP app out of the box, actually for any app, if you add any potential server tasks yourself.
+This example is using Subversion, but there is other examples out there that'll tell you how to use it with Git and other SCM software.
+</p>
+
+<h2 id="ruby-setup">Setup</h2>
+
+<p>To be able to deploy with Vlad you need to have the following 4 things set up:</p>
+
+<h3>1. unix/linux development platform with SVN</h3>
+<p>not much to add, Vlad works on Mac OS X and various linux flavours, but not under Windows. For this setup I'm assuming you're working with SVN.</p>
+
+<h3>2. server with SVN client</h3>
+<p>Your webserver should be able to work with SVN, and it should be able to reach your SVN repository.</p>
+
+<h3>3. install vlad dependencies</h3>
+<p>on OS X 10.5 you already have a rails installation coming with the developer tools; just do</p>
+<pre><code>% gem update rails</code></pre>
+
+<p>Alternatively and on earlier OS X, you can use MacPorts, to install Ruby with</p>
+<pre><code>% port install ruby</code></pre>
+
+<p>You might also be able to use fink, and on debian/ubuntu you can install via aptitude</p>
+<pre><code>
+% sudo apt-get install ruby
+% sudo apt-get install rubygems</code></pre>
+
+<p>For other platforms and compiling from source see here:<br/>
+<a href="http://www.ruby-lang.org/en/downloads/">http://www.ruby-lang.org/en/downloads</a></p>
+
+<p>Next you need to install Rake. For all systems, to update gem and install Rake, do the following. You don't need to <code>gem update</code> if you started from scratch:</p>
+<pre><code>
+% gem update --system
+% gem update</code></pre>
+
+<p>
+<a href="http://www.virtualmin.com/index.php?option=com_flyspray&Itemid=82&do=details&task_id=4901&Itemid=82&project=1&pagenum=4">Gem may fail initially</a> - if so this is due to a bug in the gem command and requires you to edit the gem script (found with the command <code>which gem</code> on the command line, it's probably in <code>/usr/bin/gem</code>) by adding to the require statements (under <code>require 'rubygems'</code>):</p>
+<pre><code>
+require 'rubygems/gem_runner'
+</code></pre>
+
+<p>And finally, to install Rake itself:</p>
+<pre><code>% gem install rake</code></pre>
+
+<p>There are 3 more dependencies,</p> 
+<ul>
+<li>Hoe</li>
+<li>Rubyforge</li>
+<li>open4</li></ul>
+
+<p>but they're installed automatically with the next step.</p>
+
+<h3>4. install vlad as a gem</h3>
+<p>To install vlad as a gem, all you need to do is</p>
+<pre><code>% sudo gem install vlad</code></pre>
+
+<p>while allowing for dependencies to be installed, which is set by default. Congratulations, you're ready to configure Vlad.</p>
+
+<h2 id="pre-configure">Pre-Configure</h2>
+
+<p>As Vlad is working closely with your system tools, you should set up your SSH for it first. You need to make sure the remote user is set up correctly, and you'll want some way of not having to enter your password a million times. Luckily <a href="http://www.contentwithstyle.co.uk/content/4-ssh-config-tips-for-faster-remote-working" title="4 ssh config tips for faster remote working">I wrote about this recently</a>. For the server I'd like to deploy to I added this. You might not need the ControlMaster/ControlPath, the important line is to set the remote user:</p>
+<pre><code>
+Host myserver.pretendco.com
+    ControlMaster auto
+    ControlPath ~/.ssh/master-%r@%h:%p
+    User remoteuser
+</code></pre>
+
+<p>Now let's have a look at the server itself. There is a possibility that the web directory isn't writable by your remote user and you need to have root permissions. As you should use the root user for all this, and sudo croaks on remote commands, it's best to set your future releases directory to be owned by your remote user.</p>
+
+<p>on the remote machine</p>
+<pre><code>
+% sudo chown remoteuser:remotegroup /path/to/releases/directory
+% chmod 775 /path/to/releases/directory
+</code></pre>
+
+<h2>Configure and Deploy</h2>
+
+<p>Next you need to create 2 files for Vlad: A Rakefile in your root directory, and a deploy.rb config file in application/configs. Your project should look a little something like this (yes, this is slightly abbreviated):</p>
+
+<pre> |-application
+ |---configs
+ |-----config.ini
+ |-----deploy.rb  &lt;-- just created
+ |---controllers
+ |---models
+ |---views
+ |-library
+ |-public
+ |-Rakefile     &lt;-- just created
+</pre>
+
+<p id="deployment-recipes">At its core, the Rakefile is very straight forward; I've lifted the initial loading step more or less from the Vlad documentation, with the exception of setting the path for deploy.rb manually. Should your application have a root folder <code>/config</code>, you're following default convention and won't need the instructions in the curly braces. Further down I'm resetting the <code>:update_symlinks</code> task to link to shared logs and media folders, as well as linking the Zend library into my library. By default Vlad would set 3 shared folders: /log, /system and /pids, which I am all omitting here.</p>
+<pre><code>
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+begin
+  require 'vlad'
+  Vlad.load {:config => 'application/configs/deploy.rb'} # set path for deploy.rb
+rescue LoadError
+  # do nothing
+end
+
+namespace :vlad do
+  # Clear existing symlink task so that we can redefine.
+  Rake.clear_tasks('vlad:update_symlinks')
+
+  # we've only got log to share
+  remote_task :update_symlinks, :roles => :app do
+    run "rm -Rf #{latest_release}/log && ln -s #{shared_path}/log #{latest_release}/log && chmod -f 666 #{latest_release}/log/*"
+    run "rm -Rf #{latest_release}/public/media && ln -s #{shared_path}/cache #{latest_release}/public/media"
+    run "rm -Rf #{latest_release}/library/Zend && ln -s #{shared_path}/Zend #{latest_release}/library/Zend"
+  end
+end
+</code></pre>
+
+<p>Next up is deploy.rb, the config file for the to-be-deployed app. The only 3 mandatory lines in all cases are <code>:domain</code>, <code>:deploy_to</code>, and <code>:repository</code>.</p>
+<pre><code>
+set :application, "Example application"
+set :domain, "pretendco.com"
+set :deploy_to, "/project/example_releases"
+set :repository, 'http://svn.pretendco.com/example/trunk'
+set :svn_cmd, 'svn --username svnuser --password svnpwd'
+</code></pre>
+<p>The default SVN command is <code>svn</code>, but in my case the SVN user is different to local and remote user, and for some reason the SVN password prompt from within the deployment step kept failing on me, so I added it right here. Not the safest thing in the world, but I'm using a limited read-only SVN user for these purposes, so that's good enough for me. Any suggestions of improvement are welcome.</p>
+<p>For your convenience I have zipped up <a href="http://www.contentwithstyle.co.uk/resources/vlad-config.zip">both files</a>, or if you like, the <a href="http://www.contentwithstyle.co.uk/resources/vlad-example.zip">whole demo project</a>.</p>
+<p>The first time you run vlad, you do</p>
+<pre><code>
+% rake vlad:setup vlad:update
+</code></pre>
+<p>You can skip the additional <code>vlad:migrate vlad:start</code> mentioned in the <a href="http://hitsquad.rubyforge.org/vlad/doco/getting_started_txt.html">vlad documentation</a>, as we're neither migrating DBs (this time), nor does Apache need to be restarted.</p>
+<p><code>vlad:setup</code> has now created a folder structure on your server that looks like this (abbreviated again):</p>
+<pre> |-project
+ |---example_releases
+ |-----current           &lt;-- link to your web application
+ |-----releases
+ |-------yyyymmddhhiiss  &lt;-- your web application
+ |---------application
+ |---------library
+ |-----------Zend        &lt;-- link to Zend Framework
+ |---------log           &lt;-- link to shared logs
+ |---------public
+ |-----------media       &lt;-- link to shared media
+ |-----revisions.log
+ |-----scm               &lt;-- folder used to checkout release
+ |-----shared
+ |-------log
+ |-------media
+ |-------Zend
+</pre>
+<p><code>vlad:update</code> has exported your application from the HEAD of your SVN repository, pushed it into a release folder, and pointed <code>/current</code> to this release. This means once you've verified this initial deployment step you can set your Apache webroot to point to <code>/project/example_releases/current</code>. You can also see that the folders <code>/log</code>, <code>/public/media</code> and <code>/library/Zend</code> have been symlinked, so you'll want to move all your dynamically created files into the shared folder now.</p>
+<p>As a side note, I've had two major criticisms about this, out of which I have fixed one in this example: The first one was that initially I didn't include Zend Framework in my release, but rather added it to the global include_path on the server. "Your applications should be self-contained!", Pascal was shouting from his desk, including some expletives. The other thing he flagged up was that the version of my application config checked into SVN was set up for the live environment, so that I didn't have to change a thing when deploying. I have fixed this in the meantime as well, with a set of other convenient changes, but you'll have to be patient for me to write my next post about it and stick with this solution for now.</p>
+<p id="finish-line">The good news are that you're ready to go now!
+To release a new version:</p>
+<ul>
+	<li>check in your changes into SVN</li>
+	<li>make sure that the repository URL in deploy.rb points to the same as yours</li>
+	<li>run <code>% rake vlad:update</code> to deploy your app</li>
+	<li>put your feet up, and enjoy the rest of your day.</li>
+</ul>
+<p>If your release is broken, roll back with</p>
+<pre><code>% rake vlad:rollback</code></pre>
+<p>This will remove the last release and symlink to the previous version.</p>
+<p>As a final word of warning: Using any means of deployment that rely on your code versioning software mean that you have to keep it clean. Only check in code you've tested locally, don't use the branch you deploy from as a backup mechanism. If you and any other people working with your code follow this advice, Vlad will save you lots of time, and turn the pain of updating a site into the joy of releasing something new.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

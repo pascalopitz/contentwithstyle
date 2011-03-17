@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Conditional get in PHP - with some problems on the way</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/conditional-get-in-php-with-some-problems-on-the-way/index.html" class="active">Conditional get in PHP - with some problems on the way</a></li>
+</ul>
+
+<h1>Conditional get in PHP - with some problems on the way</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on January 1 2009, 18:05</p>
+</div>
+
+<div class="article">
+    <p>Happy new year everyone. If you're anything like me, the credit crunch doomsday news and the gross overeating of the past festivities make you want to slim down and become more resourceful. Using Caching, <a href="http://en.wikipedia.org/wiki/HTTP_ETag">ETags</a> and the <a href="http://www.checkupdown.com/status/E304.html">304 HTTP code</a> can help to cut down on traffic. But working on a conditional get came with some problems ...</p>
+
+<p>The first issue I had is that Firefox didn't send the proper headers. I was't entirely sure why, but after a long google search and trial and error it turned out that it was happening as long as there weren't the correct Cache-Control or Pragma directives. Setting Cache-Control to 'public, must-revalidate' and Pragma to 'cache' got it finally working.</p>
+
+<p>However, the PHP snippets that <a href="http://annevankesteren.nl/2005/05/http-304">I looked at</a> <a href="http://simonwillison.net/2003/Apr/23/conditionalGet/">for reference</a> utilize the HTTP_IF_MODIFIED_SINCE and HTTP_IF_NONE_MATCH entries in the $_SERVER array. Something that I could not get to work at all. Using the <code>apache_request_headers()</code> circumnavigates this issue, and the headers If-None-Match and If-Modified-Since are pulled correctly.</p>
+
+<p>So here's the code that works for me as it stands:</p>
+
+<pre><code>
+function checkBrowserCache($identifier, $last_modified) {
+  $arr = apache_request_headers();
+  $etag = '"' . md5($last_modified . $identifier) . '"';
+  $client_etag = @$arr['If-None-Match'] ? trim(@$arr['If-None-Match']) : false;
+  $client_last_modified_date = @$arr['If-Modified-Since'] ? trim(@$arr['If-Modified-Since']) : false;
+  $client_last_modified = date('D, d M Y H:i:s \G\M\T', strtotime($client_last_modified_date));
+
+  $etag_match = true;    
+  
+  if(!$client_last_modified || !$client_etag) {
+    $etag_match = false;
+  }
+  
+  if($etag_match &amp;&amp; $client_last_modified &gt; $last_modified) {
+    $etag_match = false;
+  } 
+  
+  if($etag_match &amp;&amp; $client_etag != $etag) {
+    $etag_match = false;
+  }
+
+  header('Cache-Control:public, must-revalidate', true);
+  header('Pragma:cache', true);
+  header('ETag: '.$etag);
+
+  if($etag_match) {
+    header('Not Modified',true,304);
+    die();
+  }
+
+  header('Last-Modified:'.date('D, d M Y H:i:s \G\M\T', $last_modified));
+}
+</code></pre>
+
+<p>Still, one problem remained: Firefox refuses to do as all other browsers that I tested. After getting a 304 correctly, it will pull the page again in its entirety. This means a full 200 OK response every second time Firefox does a request.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

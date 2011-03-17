@@ -1,0 +1,20 @@
+.clearfix {
+	zoom: 1;
+}
+
+.sidebar h2 {
+	zoom: 1;
+}
+
+html div.header form label,
+html form#register-form label {
+	font-size: 11px;
+}
+
+div.header form label {
+	top: 5px;
+}
+
+form#register-form label {
+	top: 21px;
+}

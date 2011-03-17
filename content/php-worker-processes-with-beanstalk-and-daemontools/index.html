@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - PHP worker processes with Beanstalk and Daemontools</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/php-worker-processes-with-beanstalk-and-daemontools/index.html" class="active">PHP worker processes with Beanstalk and Daemontools</a></li>
+</ul>
+
+<h1>PHP worker processes with Beanstalk and Daemontools</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on March 31 2010, 22:26</p>
+</div>
+
+<div class="article">
+    <p>
+Before I get started on this one I want to apologize for being slack the last couple of months. Maybe being on holiday for two months slightly corrupted my morale, or maybe that was down to the nice wine tasting sessions in the Barossa Valley and the McLaren Vale.
+In any case, it's been a long time. I have been back for one month but I am still finding it hard to live up to my own expectations in terms of writing and tech research.
+</p>
+
+<p>But after moaning, on with the programme:</p>
+
+<p>
+Sometimes things just get too heavy for a straight forward approach. Memory usage might be too high or interaction might be delayed. In this case it might make sense to queue the task up for later execution.
+</p>
+
+<h2>A message queue</h2>
+
+<p>
+<a href="http://kr.github.com/beanstalkd/">Beanstalkd</a> is a very easy to use message queue. There are client libraries for it in many languages, and it seems to be very popular amongst the Ruby crowd.
+</p>
+
+<p>Installing it on OSX using macports is easy peasy:</p>
+
+<pre><code>sudo port install beanstalkd</code></pre>
+
+<p>Kicking it off is equally as easy:</p>
+
+<pre><code>beanstalkd -d -l 127.0.0.1 -p 11300</code></pre>
+
+<h2>Pushing things into the queue</h2>
+
+<p>
+We're using pheanstalk as the client library to connect to beanstalkd, and this script is just generating 1000 dummy jobs to be picked up later by our daemonized worker process.
+</p>
+
+<pre><code>&lt;?php
+require_once('pheanstalk/pheanstalk_init.php');
+$pheanstalk = new Pheanstalk('127.0.0.1:11300');
+
+for($i=0; $i&lt;1000; $i++) {
+  $job = new stdClass();
+  $job-&gt;envelope_id = rand();
+  $job-&gt;date = date('Y-m-d H:i:s');
+  $job_data = json_encode($job);
+  $pheanstalk-&gt;useTube('test')-&gt;put($job_data);
+  echo "pushed: " . $job_data . "\n";
+}
+</code></pre>
+
+<h2>Picking up things from the queue</h2>
+
+<p>Our worker script now needs to connect to the queue and pick up the jobs. Things get dumped into a logfile which we can have an eye on to see if it's running alright. In order to prevent memory leaks it terminates itself when it hits a certain memory threshold. In this case the threshold is just picked for demo purposes, and the counter and the done_jobs array are just there to increase the memory footprint.</p>
+
+<pre><code>&lt;?php
+class Worker {
+  
+  private $path;
+
+  public function __construct($path) {
+    $this-&gt;setBasePath($path);
+    $this-&gt;log('starting');
+    require_once('pheanstalk/pheanstalk_init.php');
+    $this-&gt;pheanstalk = new Pheanstalk('127.0.0.1:11300');
+  }
+   
+  public function __destruct() {
+    $this-&gt;log('ending');
+  }
+  
+  private function setBasePath($path) {
+    $this-&gt;path = $path;
+  }
+
+  public function run() {
+    $this-&gt;log('starting to run');
+    $cnt = 0;
+    $done_jobs = array();
+
+    while(1) {
+      $job = $this-&gt;pheanstalk-&gt;watch('test')-&gt;ignore('default')-&gt;reserve();
+      $job_encoded = json_decode($job-&gt;getData(), false);
+      $done_jobs[] = $job_encoded;
+      $this-&gt;log('job:'.print_r($job_encoded, 1));
+      $this-&gt;pheanstalk-&gt;delete($job);
+      $cnt++;
+
+      $memory = memory_get_usage();
+
+      $this-&gt;log('memory:' . $memory);
+
+      if($memory &gt; 1000000) {
+        $this-&gt;log('exiting run due to memory limit');
+        exit;
+      }
+
+      usleep(10);
+    }
+  }
+  
+  private function log($txt) {
+    file_put_contents($this-&gt;path . '/log/worker.txt', $txt . "\n", FILE_APPEND);
+  }
+}
+
+$worker = new Worker(dirname($argv[0]));
+$worker-&gt;run();
+</code></pre>
+
+<h2>Daemonize the worker process.</h2>
+
+<p>Now the only problem we have is keeping the worker process running. <a href="http://cr.yp.to/daemontools.html">Deamontools</a> are a collection of binaries that can supervise processes and restart them when they stop.</p>
+
+<h3>Installing daemontools</h3>
+
+<p>Again, installing on OSX is pretty straight forward:</p>
+
+<pre><code>sudo port install daemontools</code></pre>
+
+<p>We also need a shell script called <code>./run</code> to be supervised by daemontools. Usually these go into a subfolder of <code>/service</code>, but the macports installation uses <code>/opt/local/var/svscan/service</code> instead. I chose to create a subfolder in my application and then symlink it into there. The shell script itself is pretty simple:</p>
+
+<pre><code>#!/bin/sh
+php ../worker.php</code></pre>
+
+<p>Now launch daemontools and you're up and away. Kick off the push script and the worker activity should show up nicely in the logfile.</p>
+
+<p>
+In this case I am using daemontools to do this, but there are other tools to do it as well.
+The best option seemed to be <a href="http://supervisord.org/">supervisord</a>, but the download page was down when I did the proof of concept and I had to settle for something else. Supervisord also seems to be able to watch the memory footprint of a task so this bit in the worker script might be obsolete.</p>
+
+<p>There are also options to use init.d scripts, but my knowledge of that is lacking. If you cannot be bothered to daemonize, you could also just kick off a cron job.
+</p>
+
+<p>I hope this is a helpful little writeup. Feel free to <a href="http://www.contentwithstyle.co.uk/resources/queue_test.zip">download the nicely zipped up demo code</a>, and do drop a comment if you have anything to add.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

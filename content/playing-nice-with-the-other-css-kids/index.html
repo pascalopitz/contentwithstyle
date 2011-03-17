@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Playing Nice with the Other CSS Kids</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/playing-nice-with-the-other-css-kids/index.html" class="active">Playing Nice with the Other CSS Kids</a></li>
+</ul>
+
+<h1>Playing Nice with the Other CSS Kids</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Mike Stenhouse on October 31 2005, 12:51</p>
+</div>
+
+<div class="article">
+    <p><a href="http://simon.incutio.com/">Simon Willison</a> recently posted to <a href="http://css-discuss.incutio.com/?page=MaintainableCss">css-d</a> asking for peoples' thoughts on writing maintanable CSS and that got me thinking... Over the years I've had the privilege of working on some very large web standards projects in small teams of other CSS/XHTML developers, but I've also spent a lot of time building little sites on my own for smaller clients. Maintenance on a small project involves being able to understand your own code when you come back to it months later. On larger projects it means your team mates being able to understand and edit your code as quickly and efficiently as possible at any point in the future. It's a far more complicated objective.</p>
+
+<p>My <a href="http://www.contentwithstyle.co.uk/Articles/17/a-css-framework">CSS Framework</a> and <a href="http://www.contentwithstyle.co.uk/Articles/12/modular-css">Modular CSS</a> articles touched on maintainability but here I am going to expand on those ideas, and attempt to suggest some guidelines  to make team CSS coding and maintenance easier.</p>
+
+<h2>Bite sized pieces</h2>
+<p>If you have read my previous articles you will already know that I favour breaking my CSS down into <a href="http://www.contentwithstyle.co.uk/Articles/12/modular-css">manageable pieces</a>. I started doing this back in early 2003 when I coded the first few versions of <a href="http://business.gov.uk">business.gov.uk</a> with 3 other developers at <a href="http://www.nykris.com">Nykris (now defunct)</a>. In the first phase of the project I developed a base set of templates and extracted from them the core stylesheets and and an HTML framework. In subsequent phases, each member of the team then took these as their starting point, adding their own section- or page-specific CSS files. This isolated the individual pages and sections but ensured a consistent overall look. The complicated version merging that a single large file would have required was also avoided. The small section/page sheets had a defined purpose and could easily be digested by any other member of the team, requiring less orientation. </p>
+
+<p>The major drawback to this approach comes when the client decides to make changes that effects the base files. These changes cascade through the entire site, which is great, but with so many small files following up on the new developments can get time consuming. The answer is obvious - get a detailed project specification finalised and signed off at the very beginning... But it's never that simple. Web projects are organic and like it or not the goalposts move. I don't really have an answer to this problem - I believe that there has to be some trade off between the team environment and flexibility. </p>
+
+<h2>Self-documenting code</h2>
+<p>The base HTML featured meaningful ids and classes, as good web standards practice suggests. This is a concept that bears a distinct similarity to ideas I've come across recently as part of the Extreme Programming methodology: the class and method names should make sense when read as a sentence, resulting in self-documenting code. The rationale is that programmers hate documentation. How many people ever read it? How many people know how to write it well? The number of times I've come to comments in code that bear no relevance to the code itself because a developer (often me!) has forgotten to update these embedded tips in his rush to get the job done... Using sensible, meaningful ids and classes is as close as we can get in HTML and CSS to this self-documentation nirvana.</p>
+
+<p>Take this CSS snippet:</p>
+<p><code>div#content div#main p.intro</code></p>
+
+<p>Anyone can look at that, figure out what is going on and find the effected HTML in the source without any trouble. I am restyling the introductory paragraph in my main content div. Simple. In the source that is a &lt;p class="intro"&gt; inside &lt;div id="main"&gt; inside &lt;div id="content"&gt;. </p>
+
+<h2>Sandboxing</h2>
+<p>The little snippet above also demonstrates something else... I tend to over-specify my rules. Classes and ids aren't orphaned (div#content instead of #content) and as much of the path is specified as possible (div#content div#main p.intro instead of just p.intro). Yes, this increases the size of the resulting stylesheet but when anyone else comes to look at it they will be able to see generate their own HTML from the CSS, if necessary. It makes for heavier code but far better maintainability... </p>
+
+<p>Over-specifying also helps to avoid name clashes later on. <a href="http://css-discuss.incutio.com/?page=MaintainableCss">I've heard</a> this approach called 'sandboxing', which describes it very well. Sandboxing your CSS to apply to a very select set of elements and widening it only when required helps you keep a tight reign on your code as it expands. </p>
+
+<p>If you take a look at my <a href="http://www.contentwithstyle.co.uk/Articles/17/a-css-framework">CSS Framework</a> HTML you will see that every page section is given an ID. Within those sections I tend to use classes (I'm not going to get into when to use classes vs ids here). This clearly separates the rules for each part of the page.</p>
+
+<h2>Controlled use of <code>!important</code></h2>
+<p>If you want sandboxing to work for you properly you should make sure that you keep away from <code>!important</code> as much as possible. I use it almost exclusively as a debugging tool - if something isn't behaving as I expect it to, I will add <code>!important</code> to the rules... If <code>!important</code> cures the problem then my rule is under specified, otherwise it's something more complicated. </p>
+
+<p>Controlled use of <code>!important</code> is essential when your CSS is distributed across several files. I ran into this problem on the <a href="http://business.gov.uk">business.gov.uk</a> project while trying to set the width of an input button - for some reason it just wasn't working. After trawling  my way up through the cascade I eventually found that someone had added <code>width: 30px !important</code> to the core forms.css file. Poor practice and wasted time.</p>
+
+
+<h2>Redundant rules</h2>
+<p>In addition to overspecifying  I also tend to reuse sets of rules. I set margins and padding as a pair even if I don't strictly need them. My most common layout problems come from unintentional inheritance so I use this redundancy to attempt to minimise the chance of this happening.</p>
+
+<h2>Consistent naming conventions</h2>
+<p>Over the years I have come up with a consistent vocabular for ids and class names that I reuse across projects. Most of these ids are documented in my <a href="http://www.contentwithstyle.co.uk/Articles/17/a-css-framework">CSS Framework</a> article but there are a few classes that turn up again and again too - things like 'promo' for promotional spots and 'intro' for the unique styling often applied to introductory paragraphs. This is hardly rocket science but I find it helps when it comes to maintenance. Once a member of the team becomes familiar with the naming conventions they can edit the CSS without constantly having to refer to the HTML source code. </p>
+
+<h2>Version control</h2>
+<p>Back on the <a href="http://business.gov.uk">business.gov.uk</a> project we used the most lo-fi of all versioning systems: Comments at the top of the code, emailed files to a single developer in charge of the CSS source (that thankless task fell to me as lead developer) and shouts of &quot;You got x open?&quot;. This didn't really work, creating no end of accidental overwrites, but the deadlines were so tight that we couldn't afford the time to stop and implement a proper versioning system. I would never work like that again. </p>
+
+<p>Since then I have become a convert to CVS. CVS is a brilliant piece of technology allowing automated versioning, diffing and merging of text files, with a more basic set of tools for binaries. This means that several people can edit the same file all their changes can be merged together automatically.</p>
+
+<p>CVS's successor, SVN, provides very similar functionality but with a few enhancements. On css-d Alan Stevens explained the importance of SVN to his team's workflow:</p>
+
+<blockquote>
+<p>We do lots and lots of projects for smaller customers, and it became impossible to try to remember the details of them all. Also, customers would ask for changes, and then after everything was live would ask for roll-backs of some of the changes (&quot;we want this, no we dont, we want this, no we dont...&quot;). We solved the problem with Subversion (<a href="http://subversion.tigris.org/">http://subversion.tigris.org/</a>), an open-source version control system. We now have a history of everything that was done for a client, and it's easy to roll things back. At first it seemed like overkill, but now I can't imagine working without it.</p>
+</blockquote>
+
+<p>I've been working with CVS on a large project for about 6 months now and I can't imagine getting by without it either.</p>
+
+<h2>Intelligent commenting for easy scanning</h2>
+<p>Last but not least is formatting the stylesheets for easy consumption later. A consistent format for your team's source code will allow anyone to make changes with the minimum of orientation. This is good old common sense and anyone who's ever worked on ANY programming project in a team environment will understand the benefits.</p>
+
+<p>I surround all id blocks with: </p>
+<pre><code>
+/* THE ID IN CAPS */ 
+    .... 
+/* END THE ID IN CAPS */
+</code></pre> 
+
+<p>And all class blocks with: </p>
+<pre><code>
+/* the class in lowercase */ 
+    .... 
+/* end the class in lowercase */
+</code></pre>
+
+<p>I also indent child blocks by one extra tabs each time to give me a visual representation of the cascade and specificity.</p>
+
+<p>The resulting code looks like:</p>
+
+<pre><code>
+/* MAIN */
+    div#main {
+    }
+    /* intro */
+        div#main p.intro {
+        }
+        div#main p.intro strong {
+        }
+    /* end intro */
+/* END MAIN */
+</code></pre>
+
+<p>Doug Bowman has suggested using what he calls <a href="http://www.stopdesign.com/log/2005/05/03/css-tip-flags.html">'flags' in your comments</a> to aid the finding of blocks of code in large stylesheets, which are also worth considering when you come to work on your next project.</p>
+
+
+<h2>The road to maintainable team CSS</h2>
+<p>This set of guidelines is by no means the last word in the art of writing maintainable CSS but I hope it can mark the start of a broader discussion. They have worked for me on both large and small projects but I would love to hear how other people tackle the same problems. </p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

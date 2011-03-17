@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - UTF-8: Documents with a lot of character</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/utf-8-documents-with-a-lot-of-character/index.html" class="active">UTF-8: Documents with a lot of character</a></li>
+</ul>
+
+<h1>UTF-8: Documents with a lot of character</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on June 21 2006, 05:21</p>
+</div>
+
+<div class="article">
+    <h2>Sloppy?</h2>
+
+<p>
+	Did you ever built a webpage in Homesite and then you didn't encode the html-entities? Then, probably when the client has a look on it, all the german Umlaut characters look awkward on a mac?
+	And did you figure out why? It's because of the charsets and the encoding of the characters in the saved file!
+</p>
+
+<h2>Charset?</h2>
+
+<p>
+	Yeah, a charset! Actually a charset is the first bit you have to be aware of when you start using any kind of characters on a computer.
+	Most of the time we still use <a href="http://www.asciitable.com/">ASCII</a> with the encoding type &#8220;Latin-1&#8221;, where every character is encoded by using 8 bit, means 1 byte, means 256 charachters.
+	Obviously this doesn't cover all european languages, that's why, when using ASCII some characters have to be escaped as <a href="http://www.htmlhelp.com/reference/html40/entities/latin1.html">entities</a>.
+	Or you could use another language encoding than &#8220;Latin-1&#8221;, there are <a href="http://www.iana.org/assignments/character-sets">many of them</a> for languages like turkish or polish.
+</p>
+
+<h2>Wait a minute! Did you say european?</h2>
+
+<p>
+	Yeah, and what about asian languages? Or russian? Or chinese? I heard they had <a href="http://www.logoi.com/notes/how_to_study_chinese_characters.html">more than 3000 signs</a>, how does that fit into those 256 possibilities?
+	<br />
+	Here we go, good question! An you're not the first one to ask it. That's why, from the information-technology point some people moved on and created the 
+	<a href="http://www.unicode.org/">Unicode</a> character set. And again there is many types of Unicode, but there is two really relevant ones: UTF-16 and UTF-8.
+	Both offer 16bit encoded characters, means 65536 possible characters. Obviously this needs more memory to store it, because suddenly a page with the same amount of characters takes up twice the memory.
+	That's why <a href="http://www.unicode.org/versions/Unicode4.0.0/ch02.pdf#G11165">UTF-8 goes a more intelligent way</a> and saves ASCII as single bytes and everything beyond as double-byte. This saves memory.
+</p>
+
+<h2>Alright, got the concept, but how do I use it?</h2>
+
+<p>
+	If you are coding plain HTML you can put in this bit of code in the top, to ensure your browser get's it right:
+</p>
+
+<pre>
+ &lt;meta http-equiv="Content-type" value="text/html; charset=utf-8"&gt;
+</pre>
+
+<p>
+	Once you've done that you need to save the files you worked in as UTF-8, which means that you need a text-editor that can save UTF-8, obviously. And you won't believe how rare those are!
+	Anyway, BBedit or Homesite should do the job. And wordpad as well. Ohh, and for those of you that decided to stick to iso Latin-1, please put in that as charset then, rather than giving the browser the possibility to use the wrong encoding.
+	For those who stick to what I said: From now on there's no need to escape german Umlaut characters or chinese signs anymore.
+	<br />
+	And if you use PHP you can set the content-type with the header already:
+</p>
+
+<pre>
+ &lt;?
+   header("Content-type: text/html; charset=utf-8");
+ ?&gt;
+</pre>
+
+
+<h2>BOM trouble</h2>
+
+<p>
+	A big trouble could be the <a href="http://www.unicode.org/faq/utf_bom.html#22">BOM</a>, because some older browsers don't get what it means, so they put it in as characters, which has the quite painfull effect to show this on top of the pages: <code class="inline">ï»¿</code>.
+	My workaround for that would be a page saved in UTF-8, set as UTF-8 in the meta-tag, but without BOM. I know it sounds odd, and you have to find a way to do that. But once you use templates and dynamic data it might be worth the effort.
+</p>
+
+
+<h2>Where does XSLT come in?</h2>
+
+<p>
+	I think that UTF-8 starts really making sense when you start using XML and XSLT. Because suddenly, whithin XSL, you can define the output-encoding:
+</p>
+
+<pre>
+ &lt;xsl:output method="html" indent="no" encoding="utf-8"/&gt; 
+</pre>
+
+<p>
+	The good thing is, that no matter which encoding the XML has, the output will be transformed into UTF-8.
+	Or, if you want to have a special language-encoding like iso-8551-9 for example, you can feed UTF-8 data via XML into the transformation process
+	and get the correct encoding out.
+</p>
+
+<h2>Server stuff</h2>
+
+<p>
+	It starts getting really interesting when a database comes on top of that. It makes perfectly sense to have a utf-8 or utf-16 compliant database, so the stored content can contain any kind of language.
+	<a href="http://dev.mysql.com/tech-resources/articles/4.1/unicode.html">MySQL supports utf-8 since the version 4.1</a>, The SQL-Server from Microsoft has a built-in UTF-16 support (nvarchar, ntext).
+	<br />
+	The sad bit is that in PHP dealing with different encodings is not really big fun, but the <a href="http://uk2.php.net/iconv">iconv extension</a> makes it possible to convert encodings. 
+	In ASP the support for codepages is much stronger integrated and it is just one line of code to set the <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/iissdk/iis/ref_vbom_sesopcp.asp">codepage that ASP works with internally</a> or <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/iissdk/iis/ref_vbom_resopch.asp">the charset it outputs the data with</a>.
+</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

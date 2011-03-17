@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - 4 ssh config tips for faster remote working</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/4-ssh-config-tips-for-faster-remote-working/index.html" class="active">4 ssh config tips for faster remote working</a></li>
+</ul>
+
+<h1>4 ssh config tips for faster remote working</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Matthias Willerich on April 17 2009, 12:00</p>
+</div>
+
+<div class="article">
+    <p>With the vast majority of web developers deploying their own code, and ssh playing a central role in the toolbox, I felt that tweaking this part of my work saves me some time, and if not, definitely some frustration over mistyping passwords and host names.</p>
+<p>So, for myself as much as everyone out there, here is my collected useful knowledge that has helped me ease the pain of remote work.</p>
+		<h3>1. Execute commands remotely as one-liners</h3>
+		<p>This is what some deployment tools such as <a href="http://rubyhitsquad.com/Vlad_the_Deployer.html">vlad</a> use, but for a quick look at something, it cuts out valuable seconds you could look at web comics instead.</p>
+
+		<p>Let's try a simple example:</p>
+		<pre><code>
+matthias:~ matthias$ ssh remoteuser@myserver.pretendco.com ls -l
+remoteuser@myserver.pretendco.com's password: 
+total 804
+lrwxrwxrwx   1 remoteuser remoteuser      31 Nov 10  2007 access-logs -> /links/to/my/access-logs
+drwxr-xr-x   2 remoteuser remoteuser    2048 Apr  6  2008 cgi-bin
+-rw-r--r--   1 remoteuser remoteuser  808417 Jul 17  2007 error_log_dump
+drwxr-x---   3 remoteuser mail     2048 Oct  1  2007 etc
+drwxrwx---   7 remoteuser remoteuser    2048 Apr  4 02:33 mail
+drwxr-x---   3 remoteuser remoteuser    2048 May 23  2008 public_ftp
+drwxr-x---  30 remoteuser nobody   2048 Dec  4 06:33 public_html
+drwxr-xr-x   7 remoteuser remoteuser    2048 Sep 24  2008 tmp
+lrwxrwxrwx   1 remoteuser remoteuser      11 Apr  1  2006 www -> public_html
+matthias:~ matthias$
+		</code></pre>
+		
+		<p>You can even <a href="http://lookherefirst.wordpress.com/2007/11/29/executing-command-remotely-via-ssh/">pipe through to a remote command</a>. Here's an example taken from Look Here First, where the content of a local file is concatenated to a remote file.</p>
+		<pre><code>
+matthias:~ matthias$ cat localfile.txt | ssh remoteuser@myserver.pretendco.com "cat - >> remotefile.txt"
+		</code></pre>
+
+		<h3>2. Add your public key to your remote server</h3>
+		<p>Next let's see how we can get around typing our password all the time. One way of doing this is to <a href="http://sial.org/howto/openssh/publickey-auth/" title="OpenSSH Public Key Authentication">add your public key to your remote server</a>.</p>
+		<pre><code>
+# first, upload public key from client to server
+client$ scp ~/.ssh/id_rsa.pub remoteuser@myserver.pretendco.com:~
+
+# next, setup the public key on server
+server$ mkdir ~/.ssh
+server$ chmod 700 ~/.ssh
+server$ cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
+server$ chmod 600 ~/.ssh/authorized_keys
+server$ rm ~/id_rsa.pub
+		</code></pre>
+		<p>Of course, we can combine with the previous example and run it like this:</p>
+		<pre><code>
+matthias:~ matthias$ cat ~/.ssh/id_dsa.pub | ssh remoteuser@myserver.pretendco.com "cat - >> ~/.ssh/authorized_keys2"
+		</code></pre>
+		<p>Windows users fear not, <a href="http://www.aota.net/Telnet/puttykeyauth.php4" title="Key Authentication with PuTTY">you can do this too</a>, with PuTTY and PuTTYgen.</p>
+
+		<h3>3. Let the ControlMaster handle your sessions</h3>
+		<p>Sadly this might not always possible, maybe your key management on your server is different, or you don't have permissions to the file.</p>
+		<p>Luckily you can get around this by <a href="http://blog.zenlinux.com/?p=270">letting your first ssh connection act as ControlMaster</a>. By adding the following to ~/.ssh/config, you only need to enter your password once, and all parallel sessions won't ask for a password</p>
+		<pre><code>
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/master-%r@%h:%p
+		</code></pre>
+
+		<h3>4. Set your user and hostname for your host</h3>
+		<p>Finally, more often than not your username won't be the same on your local machine and on whatever server you'd like to connect to, or your server might not use the default ssh port. Or maybe you're just tired of typing that superlong domain name, and look for a less challenging typing task. ~/.ssh/config to the rescue.</p>
+		<p>As final example:</p>
+		<pre><code>
+Host myserver
+    User remoteuser
+    Port 22022
+    HostName myserver.pretendco.com
+		</code></pre>
+		<p>Most likely you won't need the Port instruction in there, because your server runs ssh on the default port 22, so just drop the line.</p>
+<p>All this allows us something as compact as:</p>
+<pre><code>
+matthias:~ matthias$ ssh myserver mycommand
+</code></pre>
+<p>Have fun, and let's hope this got you into your weekend early!</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

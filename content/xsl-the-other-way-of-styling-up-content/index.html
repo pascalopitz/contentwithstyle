@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - XSL: the other way of styling up content</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/xsl-the-other-way-of-styling-up-content/index.html" class="active">XSL: the other way of styling up content</a></li>
+</ul>
+
+<h1>XSL: the other way of styling up content</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on May 21 2005, 11:24</p>
+</div>
+
+<div class="article">
+    <h2>Buzz-words</h2>
+
+<p>
+	Two of the best known acronyms around right now are XML and XSL, often being mentioned as &#8220;the way to go&#8221; or 
+	some abstract technique that stands for a new direction within the whole web.
+	Rather than dealing with the languages itself in detail I'll try to give a pragmatic approach and to show basic examples 
+	how to transform data into browser-ready HTML.
+</p>
+
+
+
+<h2>Data?</h2>
+
+<p>
+	To transform XML we will need XML.
+	<br />
+	<br />
+	To say it very simple, an XML-file is just structured Data.
+	It works with tags as well, and we'll leave out that validating thing so far and be just working with well-formed XML.
+	<br />
+	<br />
+	This article will deal with a piece of well formed XML code, that stands for data coming straight out of a database.
+	<a href="/resources/xsl_basic/example_loadxsl.zip">Download the example files</a>
+</p>
+	
+
+
+
+
+<h2>Getting started</h2>
+
+
+<h3>Simple way</h3>
+
+<p>
+	Now we are going to transform that using XSLT. To do that we first have to know how we apply the XSL to the XML file.<br />
+	There is several ways to do that.<br />
+	First possibility would be to just have a reference to the XSL within the XML.
+	The code for that would look like that:
+</p>
+	
+<pre>
+&lt;?xml-stylesheet type="text/xsl" href="example.xsl"?&gt;
+</pre>
+
+
+<p>
+	To test if the XSL is applied we will use an XSL-file that is doing nothing but having &#8220;Hello world&#8221; as output which looks like this:
+</p>
+
+<pre>
+&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;xsl:stylesheet version="1.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt; 
+&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt; 
+
+&lt;xsl:template match="/"&gt;
+  &lt;test&gt;Hello world&lt;/test&gt;
+&lt;/xsl:template&gt; 
+
+&lt;/xsl:stylesheet&gt; 
+</pre>
+
+
+<h3>Scripting way</h3>
+
+<p>
+	Using IE and <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=3144b72b-b4f2-46da-b4b6-c5d7485f2b42&amp;displaylang=en">MSXML</a> 
+	we could use Active Scripting to load the XML and the XSL. For example you could, in any XHMTL-File, embed a javascript contaiming code for that would look simmilar to this:
+</p>
+
+<pre>
+// Load XML file
+xmlDoc = new ActiveXObject("Msxml2.DOMDocument.4.0");
+xmlDoc.async = false;
+xmlDoc.load("data.xml");
+
+// Load XSL file
+xslDoc = new ActiveXObject("Msxml2.FreeThreadedDOMDocument.4.0");
+xslDoc.async = false;
+xslDoc.load("example.xsl");
+
+// XSL Transformation
+xslTpl = new ActiveXObject("Msxml2.XSLTemplate.4.0");
+xslTpl.stylesheet = xslDoc;
+xslProc = xslTpl.createProcessor();
+xslProc.input = xmlDoc;
+
+xslProc.transform;
+// Transform
+document.write(xslProc.output);
+</pre>
+
+<p>
+	Like this the XSL and the XML will be pulled in without changing them in any kind of way.
+	This obviously just works with javascript activated.
+</p>
+
+<p>
+	For Mozilla it would look like this:
+</p>
+
+<pre>
+function onload() {
+  processor.importStylesheet(xslDoc);
+}
+
+function transform() {
+  doc = processor.transformToDocument(xmlDoc);
+  var xmls = new XMLSerializer();
+  document.write(xmls.serializeToString(doc));
+}
+
+var processor = new XSLTProcessor();
+
+var xslDoc = 
+document.implementation.createDocument("", "xslDoc", null);
+// onload handler
+xslDoc.addEventListener("load", onload, false);
+xslDoc.load("example.xsl");
+
+var xmlDoc = document.
+implementation.createDocument("", "xmlDoc", null);
+xmlDoc.addEventListener("load", transform, false);
+xmlDoc.load("data.xml");
+</pre>
+
+
+<h3>Server-side way</h3>
+
+<p>
+	Rather than having all the transformation on the client, we also could use server-sided transformation using sablotron or something similar.
+	The PHP-code for using Sablotron would loke like this:
+</p>
+
+<pre>
+//create the processor
+$my_xslt=xslt_create();
+
+//filepath on UNIX
+$xml = getcwd()."data.xml";
+$xsl = getcwd()."example.xsl";
+
+//process the fiel and echo the result
+echo xslt_process($my_xslt,$xml,$xsl,NULL,$arguments);
+
+//free the processor
+xslt_free($my_xslt);
+</pre>
+
+<p>
+	Note that on win32-systems you need to put in a path like this: 
+</p>
+
+<pre>$xml = "file://".getcwd()."data.xml";</pre>
+
+<p>
+	See an example of a transformed file <a href="/resources/xsl_basic/example_loadxsl/transform.php">here</a>
+</p>
+
+
+<h3>So what do I do?</h3>
+
+<p>
+	Depends. Obviously the stylesheet-reference is a nice and easy way, but you have to modify the XML-file and you cannot pass parameters or anything to the XSL,
+	which would make things like expanding menus or highlighted table-rows possible.<br />
+	This is possible when using client-side scripting, but you have to provide a sophisticated script for IE and Mozilla.<br />
+	Anyway, for any client-side solution IE needs to have the MSXML-parser installed.
+	<br />
+	So you could let the server do the work, IIS with MSXML or an apache with PHP and Sablotron should do the job.
+	The output can be any kind of HTML and XHTML you specify. But that obviously requires a server.
+</p>
+
+
+
+
+<h2>Ok, let&#8217;s transform</h2>
+
+<h3>find your node</h3>
+
+<p>
+	The first thing to get is that in XSL you can break the structure down to different templates and apply those on nodes of the
+	DOM-tree found in the XML Document. That means that first you have to navigate through the DOM-tree using XPATH-commands.
+	We will begin carefully with creating our basic output-document by inserting the title and finding the page element.
+	The example files are <a href="/resources/xsl_basic/example_transform_1.zip">here</a>.
+</p>
+
+<pre>
+&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;xsl:stylesheet version="1.0" 
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt; 
+&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt; 
+
+&lt;xsl:template match="/site"&gt;
+
+  &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;xsl:value-of select="current()/title" /&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;xsl:value-of select="current()/page/@label" /&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+&lt;/xsl:template&gt; 
+
+&lt;/xsl:stylesheet&gt; 
+</pre>
+
+<p>
+	So according to our XML-Structure we navigate to the node named &#8220;site&#8221;, the slash in front of it indicates that it is child of the root element.
+	With the &#8220;xsl:value-of&#8221; statement we get the data that is held in the selected node, in this case &#8220;current()/title&#8221; where current() points to the node that the template is applied on, in this case &#8220;/site&#8221;
+	<br />
+	It is also possible to display values of attributes, in this case the &#8220;label&#8221;-attribute of the &#8220;page&#8221;-node
+	<br /><br />
+	<a href="/resources/xsl_basic/example_transform_1/transform.php">Check the output transformed with sablotron</a>
+</p>
+
+<h3>templates</h3>
+
+<p>
+	Now we'll apply templates to repeating nodes.
+	Let's have a look on the new code first!
+	Get the example files <a href="/resources/xsl_basic/example_transform_2.zip">here</a>.
+</p>
+
+<pre>
+&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
+&lt;xsl:stylesheet version="1.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt; 
+&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt; 
+
+
+&lt;xsl:template match="/site"&gt;
+  
+  &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;xsl:value-of select="current()/title" /&gt;&lt;/title&gt;
+    &lt;style&gt;@import url(css/example.css);&lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class="content"&gt;
+      &lt;h1&gt;&lt;xsl:value-of select="current()/page/@label" /&gt;&lt;/h1&gt;
+      &lt;xsl:for-each select="current()/page/contentblock"&gt;
+        &lt;xsl:call-template name="contentblock"/&gt;
+      &lt;/xsl:for-each&gt; 
+    &lt;/div&gt;
+  
+    &lt;div class="right"&gt;
+      &lt;xsl:for-each select="current()/page/box"&gt;
+        &lt;xsl:call-template name="box"/&gt;
+      &lt;/xsl:for-each&gt; 
+    &lt;/div&gt;
+
+    &lt;div class="clear"&gt;&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+&lt;/xsl:template&gt; 
+
+
+&lt;xsl:template name="contentblock"&gt;
+
+  &lt;xsl:param name="url" select="current()/image/@url" /&gt;
+  &lt;xsl:param name="width" select="current()/image/param/@width" /&gt;
+  &lt;xsl:param name="height" select="current()/image/param/@height" /&gt;
+
+  &lt;div class="contentblock"&gt;
+    &lt;p&gt;&lt;xsl:value-of select="current()/text" /&gt;&lt;/p&gt;
+    &lt;div class="img"&gt;
+      &lt;img src="{$url}" width="{$width}" height="{$height}" /&gt; 
+      &lt;p&gt;&lt;xsl:value-of select="current()/image/subtitle" /&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/xsl:template&gt; 
+
+&lt;xsl:template name="box"&gt;
+  &lt;div class="box"&gt;
+    &lt;h2&gt;&lt;xsl:value-of select="current()/headline" /&gt;&lt;/h2&gt;
+    &lt;p&gt;&lt;xsl:value-of select="current()/boxtext" /&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/xsl:template&gt; 
+
+&lt;/xsl:stylesheet&gt; 
+
+</pre>
+
+<p>
+	Ok, first thing you should put your eye on is the code, that loops through all nodes with a particular name.
+	I have used this code for all elements named &#8220;contentblock&#8221; and &#8220;box&#8221;.
+	The xsl-command for looping in this case was
+</p>
+
+<pre>
+ &lt;xsl:for-each select="current()/page/contentblock"&gt;
+</pre>
+
+<p>
+	Within this loop I have called different templates. The xsl-command for calling a template is
+</p>
+
+<pre>
+ &lt;xsl:call-template name="contentblock"/&gt;
+</pre>
+
+<p>
+	Annother interesting thing that you will have noticed is the possibility to insert values inline using <code class="inline">{@attribute}</code>.
+
+	Like this its becomes easily possible to insert values into attributes of tags, 
+	<br />
+	which would be not possible with 
+	<code class="inline">&lt;xsl:value-of /&gt;</code>
+	<br /><br />
+	The other way to do that would be <code class="inline">&lt;xsl:attribute /&gt;</code>, wich I hardly ever use, but feel free to search google for it.
+	<br /><br />
+	You also may have noticed that I introduced the use of variables by using
+</p>
+	
+<pre>&lt;xsl:param name="width" select="current()/image/param/@width" /&gt;</pre>
+
+<p>
+	The value of this variable can now be called with <code class="inline">{$width}</code> or <code class="inline">&lt;xsl:value-of select="$width" /&gt;</code>.
+	Using javascript or server-side techniques for XSLT, working with these variables becomes more important (and makes more sense as well).
+	But I am afraid that this would be to much in-depth for just the start.
+</p>
+
+<h2>Style it up</h2>
+
+<p>
+	Now we have our XML-document already transformed into browser-ready HTML. All we need to add now is some CSS, and I guess you allready have noticed the <code class="inline">&lt;style&gt;@import url(css/exaple.css);&lt;/style&gt;</code> in the document-head.
+	Have a look at the <a href="/resources/xsl_basic/example_transform_2/transform.php">final output with sablotron</a> or the <a href="/resources/xsl_basic/example_transform_2/data_ref.xml">xml file including a stylesheet-link</a>!
+</p>
+
+
+<h2>Conclusion</h2>
+
+<h3>benefits</h3>
+
+<p>
+	Even without looking into the really dynamic bits of XSL we can see that XSL is esspecially usefull when it comes to repeating data-patterns which have to be displayed as table-row or something simmilar.
+	This keeps your data lean and the look seperated from the content. It gets even more interesting when we start using dynamic scripting to call the transformation and variables within the XSL. 
+	In addition it becomes possible to test the output without being sure about how the data will be transformed, either on the server or on the client side.
+</p>
+
+<h3>problems</h3>
+
+<p>
+	XSL on the client is not really implemented yet. To use dynamic processing you have to script solutions for every browser, and many don't even support it.
+	This problem is solved when you are using XSLT on the server.
+</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

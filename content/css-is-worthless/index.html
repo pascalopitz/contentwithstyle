@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - CSS is Worthless</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/css-is-worthless/index.html" class="active">CSS is Worthless</a></li>
+</ul>
+
+<h1>CSS is Worthless</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Mike Stenhouse on June 6 2006, 08:22</p>
+</div>
+
+<div class="article">
+    <p>CSS does not make a site accessible. CSS does not make your site rank higher in search engines. 
+Good CSS does not make you an elite web programmer. I don't code CSS. CSS is misunderstood.</p>
+
+<h2>Misconceptions</h2>
+<p>I was looking at the HTML source of a website the other day and something a creative director 
+once said to me popped into my head:</p>
+
+<p><q>I really like this site. It's a really interesting design and it's done with CSS so 
+it's accessible.</q></p>
+
+<p>Wrong wrong wrong. CSS does not an accessible site make.</p>
+
+<h2>The forgotten basics of CSS</h2>
+<p>Let me quickly recap what cascading style sheets actually do... They allow you to redefine 
+the presentation of any HTML tag. This means that there is no need to be bound by how a tag displays 
+by default because you can change it. We can now use whatever markup makes sense and then redefine 
+it to fit our design. That's the key benefit of CSS – it lets you use the right HTML.</p>
+
+<h2>CSS is misunderstood</h2>
+<p>This is the biggest misunderstanding that I come across when trying to teach someone CSS: 
+They've heard that CSS is <em>the thing</em>; it's the way web pages should be done these days. It 
+lets you do away with spacer gifs, achieve pixel perfect precision and carries accessibility and SEO 
+benefits to boot. They want to learn CSS. I have a really hard time hammering home that CSS is only 
+the icing and the real benefit comes from how they do the rest of their coding... And I suspect that 
+an awful lot of people who say they can 'do' CSS have the same problem. </p>
+
+<p>While consulting at a company a couple of weeks ago I was chatting to one of their developers, 
+trying to gauge his level with web standards, and he told me that he could do CSS1 but not CSS2. What 
+does that mean? I also see 'CSS2' as a requirement in a lot of job ads these days, as though knowledge of 
+these extra properties somehow makes for a more accomplished web developer. I do not see any distinction 
+(other than the obvious historical one) between CSS1 and 2 - I code my HTML properly and then use whatever 
+rules come to hand the redefine the behaviour of those tags to fit into the required design. </p>
+
+<p>A given site may not use a 
+single property from the <a href="http://www.w3.org/TR/REC-CSS2/">CSS2 spec</a> but if the HTML is good it will have 
+all the benefits people associate with CSS.</p>
+
+<h2>HTML matters</h2>
+<p>Now, at the beginning of this article I said that I don't code CSS. That's not entirely true but 
+let me finish that sentence. I don't code CSS, I code semantic HTML. I happen to use CSS to restyle that 
+HTML, to make it look the way I want, but that's an aside. <strong>I only use CSS because I use semantic HTML</strong>. I 
+use HTML tags for their <em>appropriateness for the information they contain</em> (instead of for how they look) so I have to 
+<em>redefine</em> how they behave.</p>
+
+<p>Almost all of the benefits people normally attribute to CSS are actually down to the underlying (X)HTML. 
+The better your markup, the better sense machines will be able to make of it – that includes both screenreaders 
+and search engine spiders. </p>
+
+<p>A bit of care and attention to what your page's markup actually means will go a long way. I'm not saying 
+that everyone should agonise over whether to use a definition list or an unordered list for navigation – pedantry aside, either 
+will do pretty well, but it pays to think about the content you are wrapping up. Do the headers go 
+sequentially from <code>h1</code> down? Are your lists in <code>ol</code>, <code>ul</code> and <code>dl</code>s? Are you using 
+<code>div</code> elements unnecessarily? Is there 
+something more meaningful you could use instead? I get the bulk of my HTML done before I touch the CSS – if it 
+makes sense <a href="http://www.dustindiaz.com/naked-day/">naked</a> then I'm on the right track.</p>
+
+<h2>Turning it around</h2>
+<p>HTML can make a site accessible. HTML can make your site rank higher in search engines. Good HTML can make 
+you an elite web programmer. HTML is misunderstood.</p>
+
+<h2>Read on</h2>
+<ul>
+    <li><a href="http://www.456bereastreet.com/archive/200605/writing_good_html_is_a_craft/">Writing good HTML is a craft</a></li>
+    <li><a href="http://www.clagnut.com/blog/228/">Mark-up tactics</a></li>
+    <li><a href="http://www.simplebits.com/bits/simplequiz/">SimpleQuiz</a></li>
+    <li><a href="http://bazzinet.info/Semantic">Semantic HTML (or: Search Engine Optimization (SEO) Made Easy)</a></li>
+    <li><a href="http://www.garrettdimon.com/archives/front-end-architecture-markup-is-the-technical-foundation">Front-End Architecture: Markup is the Technical Foundation</a></li>
+    <li><a href="http://diveintomark.org/archives/2002/12/29/million_dollar_markup">Million dollar markup</a></li>
+</ul>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

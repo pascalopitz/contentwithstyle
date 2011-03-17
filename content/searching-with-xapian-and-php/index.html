@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Fulltext searches with Xapian and PHP</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/searching-with-xapian-and-php/index.html" class="active">Fulltext searches with Xapian and PHP</a></li>
+</ul>
+
+<h1>Fulltext searches with Xapian and PHP</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on November 3 2009, 16:35</p>
+</div>
+
+<div class="article">
+    <p>Sometimes MySQL just isn't quick enough. Especially when it comes to fulltext searches. Everything needs to be indexed correctly, and if we're using different fields with different weights for a relevance percentage, things get very complicated quickly. <a href="http://xapian.org/">Xapian</a> to the rescue.</p>
+
+<h2>What is Xapian?</h2>
+
+<p>Xapian is a Search Engine Library, similar to Lucene and Sphinx. It's compiled from C++ code and therefore pretty low level. There are PHP, Perl and Python bindings available for it, which are straight forward to use. Packages are available for Ubuntu and Red Hat, it compiles on OSX and you can run it on Windows via CygWin.</p>
+
+<h2>Demo Scripts</h2>
+
+<p>
+Rather than explaining why and how, I decided to create some demo scripts instead.
+The XapianWrapper PHP class I've created is quite large, so feel free to <a href="http://www.contentwithstyle.co.uk/resources/xapian-example.zip">download the example zip file</a> as well.
+</p>
+
+<h3>db.sql</h3>
+
+<pre><code>
+CREATE DATABASE `demo`;
+
+CREATE TABLE `demo`.`demo` (
+`id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`unique_key` VARCHAR( 255 ) NOT NULL ,
+`name` VARCHAR( 255 ) NULL DEFAULT NULL ,
+`summary` TEXT NULL DEFAULT NULL ,
+`date` DATETIME NULL DEFAULT NULL ,
+UNIQUE (`unique_key`));
+
+INSERT INTO `demo`.`demo` 
+(`id`, `unique_key`, `name`, `summary`, `date`)
+VALUES (NULL, 'foo', 'foo', 'foo bar test', '2008-11-05 00:00:00'), 
+(NULL , 'bar', 'bar', 'test foo bar', '2009-11-05 00:00:00');        
+</code></pre>
+
+<h3>XapianWrapper.php</h3>
+
+<pre><code>
+&lt;?php
+// includes
+require_once 'xapian.php';
+
+// main class
+class XapianWrapper {
+  const XAPIAN_FIELD_URL = 0;
+  const XAPIAN_FIELD_NAME = 1;
+  const XAPIAN_FIELD_DATE = 2;
+  const XAPIAN_FIELD_UID = 3;
+  const XAPIAN_FIELD_SUMMARY = 4;
+  const XAPIAN_PREFIX_UID = "UID:";
+  
+  const SETTINGS_XAPIAN_DB = './xapian_db';
+
+  const SETTINGS_MYSQL_HOST = 'localhost';
+  const SETTINGS_MYSQL_USER = 'root';
+  const SETTINGS_MYSQL_PASS = 'root';
+  const SETTINGS_MYSQL_DB = 'demo';
+  const SETTINGS_MYSQL_TABLE = 'demo';
+
+  const DEFAULT_COUNT = 10;
+
+  private $mysql_link;
+  private $category_cache;
+  
+  private $xapian_read_db;
+  private $xapian_write_db;
+  private $xapian_stemmer;
+  private $xapian_indexer;
+  private $xapian_enquire;
+
+  private function xapian_init_readonly() {
+    try{
+      $this-&gt;xapian_read_db = new XapianDatabase(self::SETTINGS_XAPIAN_DB);
+      $this-&gt;xapian_stemmer = new XapianStem("english");
+      $this-&gt;xapian_enquire = new XapianEnquire($this-&gt;xapian_read_db);
+    } catch(Exception $e) {
+      throw new Exception('Could initialize Xapian: ' . $e->getMessage());
+    } 
+  }
+  
+  private function xapian_init_writable() {
+    try{
+      $this-&gt;xapian_write_db = new XapianWritableDatabase(self::SETTINGS_XAPIAN_DB, Xapian::DB_CREATE_OR_OPEN);  
+      $this-&gt;xapian_indexer = new XapianTermGenerator();
+      $this-&gt;xapian_stemmer = new XapianStem("english");
+      $this-&gt;xapian_indexer-&gt;set_stemmer($this-&gt;xapian_stemmer);
+    } catch(Exception $e) {
+      throw new Exception('Could initialize Xapian: ' . $e->getMessage());
+    } 
+  }
+  
+  private function mysql_init() {
+    $this-&gt;mysql_link = mysql_connect(self::SETTINGS_MYSQL_HOST, self::SETTINGS_MYSQL_USER, self::SETTINGS_MYSQL_PASS);
+    if (!$this-&gt;mysql_link) {
+      throw new Exception('Could not connect: ' . mysql_error());
+    }
+
+    $db_selected = mysql_select_db(self::SETTINGS_MYSQL_DB, $this-&gt;mysql_link);
+    if (!$db_selected) {
+      throw new Exception('Can\'t use db : ' . mysql_error());
+    }
+  }
+  
+  /**
+   * Index method
+   *
+   */
+  public function index($params) {
+    $this-&gt;xapian_init_writable();
+    $this-&gt;mysql_init();
+    
+    $start = microtime(true);
+
+    $response = new stdClass();
+    $response-&gt;indexed = array();
+
+    $offset = (isset($params['offset'])) ? intval($params['offset']) : 0;
+    $count = (isset($params['count'])) ? intval($params['count']) : self::DEFAULT_COUNT;
+    $sql = 'SELECT * FROM '.self::SETTINGS_MYSQL_TABLE.' LIMIT ' . $offset . ', ' . $count . ';';
+
+    $result = mysql_query($sql);
+
+    if (!$result) {
+      throw new Exception('Invalid query: ' . mysql_error());
+    }
+    
+    $this-&gt;xapian_write_db-&gt;begin_transaction();
+
+    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+       $response-&gt;indexed[] = $this-&gt;index_row($row);      
+    }
+
+    $this-&gt;xapian_write_db-&gt;commit_transaction();
+    mysql_free_result($result);
+    mysql_close($this-&gt;mysql_link);
+
+    return $response;
+  }
+    
+
+  private function index_row($row) {
+    $doc = new XapianDocument();
+
+    $this-&gt;xapian_indexer-&gt;set_document($doc);
+    $this-&gt;xapian_indexer-&gt;index_text($row['name'],50);
+    $this-&gt;xapian_indexer-&gt;index_text($row['summary'], 1);
+
+    $GUID = self::XAPIAN_PREFIX_UID . $row['unique_key'];
+    $doc-&gt;add_term($GUID);
+
+    $doc-&gt;add_value(self::XAPIAN_FIELD_URL, $row['url']);
+    $doc-&gt;add_value(self::XAPIAN_FIELD_DATE, date('Ymd', strtotime($row['date'])));
+    $doc-&gt;add_value(self::XAPIAN_FIELD_UID, $row['unique_key']);
+    $doc-&gt;add_value(self::XAPIAN_FIELD_NAME, $row['name']);
+    $doc-&gt;add_value(self::XAPIAN_FIELD_SUMMARY, $row['summary']);
+    
+    $this-&gt;xapian_write_db-&gt;replace_document(strval($GUID), $doc);
+
+    $row_response = array();
+    $row_response['name'] = $row['name'];
+    $row_response['guid'] = $row['unique_key'];
+    $row_response['url'] = $row['url'];
+    return $row_response; 
+  }
+  
+  /**
+   * Delete method
+   *
+   */
+  public function delete($params) {
+    $this-&gt;xapian_init_writable();
+
+    $this-&gt;xapian_write_db-&gt;begin_transaction();
+
+    $response = array();
+
+    foreach($params['items'] as $param_guid) {      
+      $GUID = self::XAPIAN_PREFIX_UID . $param_guid;
+      $this-&gt;xapian_write_db-&gt;delete_document(strval($GUID));
+      $response[] = $param_guid;
+    }
+    
+    $this-&gt;xapian_write_db-&gt;commit_transaction();
+    return $response;
+  }
+
+  /**
+   * Search method
+   *
+   */
+  public function search($params) {
+    $this-&gt;xapian_init_readonly();
+
+    $start = microtime(true);
+
+    // queries array to later construct full query
+    $arr_queries = array();
+
+    // from date
+    if(!empty($params['date_from'])) {
+      $arr_queries[] = new XapianQuery(XapianQuery::OP_VALUE_GE, 6, date('Ymd', strtotime($params['date_from'])));
+    }
+
+    // to date
+    if(!empty($params['date_to'])) {
+      $arr_queries[] = new XapianQuery(XapianQuery::OP_VALUE_LE, 6, date('Ymd', strtotime($params['date_to'])));
+    }
+
+    // unique key
+    if(!empty($params['unique_key'])) {
+      $arr_queries[] = new XapianQuery(self::XAPIAN_PREFIX_UID . $params['unique_key']);
+    }
+
+    // normal search query parsed
+    if(!empty($params['search'])) {
+      $qp = new XapianQueryParser();
+      $qp-&gt;set_stemmer($this-&gt;xapian_stemmer);
+      $qp-&gt;set_database($this-&gt;xapian_read_db);
+      $qp-&gt;set_stemming_strategy(XapianQueryParser::STEM_SOME);
+      $arr_queries[] = $qp-&gt;parse_query($params['search']);
+    }
+
+    // Find the results for the query.
+        // construct final query
+    $query = array_pop($arr_queries);
+
+    foreach($arr_queries as $sq) {
+      $query = new XapianQuery(XapianQuery::OP_AND, $query, $sq);
+    }    
+    $this-&gt;xapian_enquire-&gt;set_query($query);
+  
+    // set the count to the specified params
+    $offset = (isset($params['offset'])) ? intval($params['offset']) : 0;
+    $count = (isset($params['count'])) ? intval($params['count']) : self::DEFAULT_COUNT;
+    $matches = $this-&gt;xapian_enquire-&gt;get_mset($offset, $count);
+
+    $response = new stdClass();
+    $response-&gt;result_count = $matches-&gt;get_matches_estimated();
+    $results = array();
+
+    $i = $matches-&gt;begin();
+    while (!$i-&gt;equals($matches-&gt;end())) {
+      $m = array();
+
+      $n = $i-&gt;get_rank() + 1;
+      $doc = $i-&gt;get_document();
+
+      $m['position'] = $n;
+      $m['url'] = $doc-&gt;get_value(self::XAPIAN_FIELD_URL);
+      $m['name'] = $doc-&gt;get_value(self::XAPIAN_FIELD_NAME);
+      $m['summary'] = $doc-&gt;get_value(self::XAPIAN_FIELD_SUMMARY);
+      $m['date'] = $doc-&gt;get_value(self::XAPIAN_FIELD_DATE);
+      $m['unique_key'] = $doc-&gt;get_value(self::XAPIAN_FIELD_UID);
+      $m['percent'] = $i-&gt;get_percent();
+
+      $results[count($results)] = $m;
+      $i-&gt;next();
+    }
+
+    $response-&gt;results = $results;
+    $end = microtime(true);
+    
+    // runtime info
+    $response-&gt;execute = new stdClass();
+    $response-&gt;execute-&gt;call = 'search';
+    $response-&gt;execute-&gt;offset = $offset;
+    $response-&gt;execute-&gt;count = $count;
+    $response-&gt;execute-&gt;start = $start;
+    $response-&gt;execute-&gt;end = $end;
+    $response-&gt;execute-&gt;time = $end - $start;
+
+    // debug stuff
+    $response-&gt;execute-&gt;debug = $query-&gt;get_description();
+
+    return $response;
+  }
+}
+</code></pre>
+
+<h3>index.php</h3>
+
+<pre><code>
+&lt;?php
+
+require_once 'XapianWrapper.php';
+
+$x = new XapianWrapper();
+$res = $x-&gt;index(array());
+print_r($res);               
+</code></pre>
+
+<h3>search.php</h3>
+
+<pre><code>
+&lt;?php
+
+require_once 'XapianWrapper.php';
+
+$x = new XapianWrapper();
+$params = array('search' =&gt; 'foo');
+$res = $x-&gt;search($params);
+print_r($res);           
+</code></pre>
+
+<h3>delete.php</h3>
+
+<pre><code>
+&lt;?php
+
+require_once 'XapianWrapper.php';
+$x = new XapianWrapper();
+$params = array(
+	'items' =&gt; array('foo'),
+);
+$res = $x-&gt;delete($params);
+print_r($res);
+</code></pre>
+
+<h3>Using the example</h3>
+
+<p>Once you've unzipped the <a href="http://www.contentwithstyle.co.uk/resources/xapian-example.zip">expamples</a>, you should now be able to create the DB from the db.sql file, and run the php examples via command line.</p>
+
+<pre><code>
+bash$ php index.php 
+stdClass Object
+(
+    [indexed] =&gt; Array
+        (
+            [0] =&gt; Array
+                (
+                    [name] =&gt; foo
+                    [guid] =&gt; foo
+                    [url] =&gt; 
+                )
+
+            [1] =&gt; Array
+                (
+                    [name] =&gt; bar
+                    [guid] =&gt; bar
+                    [url] =&gt; 
+                )
+
+        )
+
+)
+bash$ php search.php 
+stdClass Object
+(
+    [result_count] =&gt; 2
+    [results] =&gt; Array
+        (
+            [0] =&gt; Array
+                (
+                    [position] =&gt; 1
+                    [url] =&gt; 
+                    [name] =&gt; foo
+                    [summary] =&gt; foo bar test
+                    [date] =&gt; 20081105
+                    [unique_key] =&gt; foo
+                    [percent] =&gt; 100
+                )
+
+            [1] =&gt; Array
+                (
+                    [position] =&gt; 2
+                    [url] =&gt; 
+                    [name] =&gt; bar
+                    [summary] =&gt; test foo bar
+                    [date] =&gt; 20091105
+                    [unique_key] =&gt; bar
+                    [percent] =&gt; 50
+                )
+
+        )
+
+    [execute] =&gt; stdClass Object
+        (
+            [call] =&gt; search
+            [offset] =&gt; 0
+            [count] =&gt; 10
+            [start] =&gt; 1256674866.79
+            [end] =&gt; 1256674866.79
+            [time] =&gt; 0.000944852828979
+            [debug] =&gt; Xapian::Query(Zfoo:(pos=1))
+        )
+
+)
+bash$ php delete.php 
+Array
+(
+    [0] =&gt; foo
+)
+bash$ php search.php 
+stdClass Object
+(
+    [result_count] =&gt; 1
+    [results] =&gt; Array
+        (
+            [0] =&gt; Array
+                (
+                    [position] =&gt; 1
+                    [url] =&gt; 
+                    [name] =&gt; bar
+                    [summary] =&gt; test foo bar
+                    [date] =&gt; 20091105
+                    [unique_key] =&gt; bar
+                    [percent] =&gt; 100
+                )
+
+        )
+
+    [execute] =&gt; stdClass Object
+        (
+            [call] =&gt; search
+            [offset] =&gt; 0
+            [count] =&gt; 10
+            [start] =&gt; 1256674876.02
+            [end] =&gt; 1256674876.02
+            [time] =&gt; 0.000872850418091
+            [debug] =&gt; Xapian::Query(Zfoo:(pos=1))
+        )
+
+)
+</code></pre>
+
+<p>Right, I leave it up to you to amend the examples to suit your individual needs. As always any feedback or improvements are welcome. Happy indexing and searching everyone.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

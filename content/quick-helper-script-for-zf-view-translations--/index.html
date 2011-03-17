@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Quick helper script for ZF view translations  </title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/quick-helper-script-for-zf-view-translations--/index.html" class="active">Quick helper script for ZF view translations  </a></li>
+</ul>
+
+<h1>Quick helper script for ZF view translations  </h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on October 29 2009, 10:34</p>
+</div>
+
+<div class="article">
+    <p>Manual copy and paste jobs are a pain. Faced with the prospect of internationalizing 30+ big view files, I thought there had to be a better way. When I started to use the reg exp search facility in Textmate, the penny dropped. A helper script is what was needed.</p>
+
+<h2>PHP cli script 'internationalize.php'</h2>
+
+<pre><code>
+&lt;?php
+// check for CLI
+if (php_sapi_name() != "cli") {
+  print "This script is written to run under the command line ('cli') version of\n";
+  print "the PHP interpreter, but you're using the '".php_sapi_name()."' version\n";
+  exit(1);
+}
+
+// check for valid syntax
+if(empty($argv[1])) {
+  die('syntax: php internationalize.php &lt;file&gt; &lt;optional token prefix&gt;');
+}
+
+
+function get_key($str, $prefix) {
+  $key = str_replace(' ', '_', strtolower($str));
+  $key = preg_replace('/[\\:\\.\\,\\!\\?]{0,}/', '', $key);
+  $prefix = $GLOBALS['prefix'];
+  return $prefix.$key;
+}
+
+function key_replace($matches) {
+  if(trim($matches[2]) != "") {
+    $key = get_key($matches[2]);
+    return '&lt;'.$matches[1].'&gt;&lt;?php echo $this-&gt;translate-&gt;_("'.$key.'"); ?&gt;&lt;/'.$matches[3].'&gt;';
+  } else {
+    return $matches[0];
+  }
+}
+
+
+// get a prefix for the tokens
+$prefix = (!empty($argv[2])) ? $argv[2] . '_' : '';
+
+// identify and load file
+$file = realpath($argv[1]);
+$contents = file_get_contents($file);
+
+// create backup file
+copy($file, $file.'.bak');
+
+// reg exp to find all text in between tags
+$pattern = '/&lt;([\\w \\=\\%\\"\\(\\)\\\'\\:]+)&gt;([\\w\\s\\:\\.\\,\\!\\?_-]+)&lt;\\/([\\w]+)&gt;/';
+
+// replace with translation calls
+$translated = preg_replace_callback($pattern, 'key_replace', $contents);
+file_put_contents($file, $translated);
+
+
+// start generate ini file
+$rows = array();
+$matches = array();
+preg_match_all($pattern, $contents, $matches);
+
+for($i=0; $i&lt;count($matches[1]); $i++) {
+  if(trim($matches[2][$i]) != "") {
+    $key = get_key($matches[2][$i]);
+    $rows[] = $key.'="'.addslashes($matches[2][$i]).'"';
+  }
+}
+
+$ini_string = implode("\n", $rows);
+file_put_contents($file.'.translation.ini', $ini_string);
+</code></pre>
+
+<h2>Example view file 'test.phtml'</h2>
+
+<pre><code>
+&lt;p&gt;Fooo&lt;/p&gt;
+
+&lt;blockquote style="test"&gt;Ich teste gerade&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Test list&lt;/li&gt;
+  &lt;li&gt;Test list  2&lt;/li&gt;
+&lt;/ul&gt;                                                                        
+</code></pre>
+
+<h2>Translate it!</h2>
+
+<p>Now we're set. We just need to call:</p>
+
+<pre><code>
+php internationalize.php test.phtml
+</code></pre>
+
+<p>We end up with a this in test.phtml:</p>
+
+<pre><code>
+&lt;p&gt;&lt;?php echo $this-&gt;translate-&gt;_("fooo"); ?&gt;&lt;/p&gt;
+
+&lt;blockquote style="test"&gt;&lt;?php echo $this-&gt;translate-&gt;_("ich_teste_gerade"); ?&gt;&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;?php echo $this-&gt;translate-&gt;_("test_list"); ?&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;?php echo $this-&gt;translate-&gt;_("test_list__2"); ?&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>and this in test.phtml.translation.ini:</p>
+
+<pre><code>
+fooo="Fooo"
+ich_teste_gerade="Ich teste gerade"
+test_list="Test list"
+test_list__2="Test list  2"
+</code></pre>
+
+<h2>In progress</h2>
+
+<p>This is not meant as THE solution. It's merely a quick script I put together in a couple of minutes. There are a couple of things that it can't do, like translating attributes and all that.
+</p>
+
+<p>I'm no reg exp guru, and if you can improve please feel free to comment. Otherwise, have fun.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

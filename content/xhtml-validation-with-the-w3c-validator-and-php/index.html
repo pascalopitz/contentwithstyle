@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - XHTML Validation with the W3C validator and PHP</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/xhtml-validation-with-the-w3c-validator-and-php/index.html" class="active">XHTML Validation with the W3C validator and PHP</a></li>
+</ul>
+
+<h1>XHTML Validation with the W3C validator and PHP</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on January 4 2009, 12:25</p>
+</div>
+
+<div class="article">
+    <p>
+Amongst other changes, I am working on getting this blog over to use application/xhtml+xml as the content type. Of course this calls for a much stricter validation before content can be put live, otherwise users will be confronted with a broken page. The W3C validator and Zend_Http_Client make validation in PHP easy.
+</p>
+
+<p>
+People that remember my <a href="http://www.contentwithstyle.co.uk/content/a-mass-validation-shellscript">validation shell script</a> from last year (cough) already know that <a href="http://validator.w3.org/feed/docs/soap.html">there is a SOAP-like response format available from the w3c validator</a>. Like other people I am <a href="http://yoast.com/w3c-validator-api/">unhappy that the whole thing is not really a proper SOAP endpoint</a>, but merely the same script that returns a SOAP envelope when the post parameter 'output' is set to 'soap12'.
+<br />
+This is very unfortunate. I wasn't able to use <a href="http://framework.zend.com/manual/en/zend.soap.client.html">Zend_Soap_Client</a> to construct the request, since the passed parameters are wrapped into a SOAP envelope as well, which the validator doesn't interpret.
+</p>
+
+<p>
+Instead I used the <a href="http://framework.zend.com/manual/en/zend.http.html#zend.http.client.parameters">Zend_Http_Client to do a POST request</a>, which works neatly, but requires processing of the SOAP response as XML document. Below is an example of a validation controller that validates a URL and handles the SOAP response:
+</p>
+
+<pre><code>
+&lt;?php
+class Admin_ValidationController extends Zend_Controller_Action
+{
+  public function indexAction() {
+    $url = $this-&gt;_request-&gt;getParam('url');
+    $client = new Zend_Http_Client($url);
+    $response = $client-&gt;request();
+    $fragment = $response-&gt;getBody();
+    
+    $params = array(
+      'fragment' =&gt; $fragment,
+      'output' =&gt; 'soap12',
+    );
+    
+    $client = new Zend_Http_Client('http://validator.w3.org/check');
+    $client-&gt;setParameterPost('fragment', $fragment);
+    $client-&gt;setParameterPost('output', 'soap12');
+    $validator_response = $client-&gt;request('POST');
+    $soap_response = $validator_response-&gt;getBody();
+    
+    $xml = new DomDocument();
+    @$xml-&gt;loadXML($soap_response);
+    $xpath = new DOMXpath($xml);
+    $xpath-&gt;registerNamespace("m", "http://www.w3.org/2005/10/markup-validator");
+    $elements = $xpath-&gt;query("//m:errorcount");
+  
+    $error_str = '';
+
+    if($elements-&gt;item(0) &amp;&amp; $elements-&gt;item(0)-&gt;nodeValue &gt; 0) {
+      $errors = $xpath-&gt;query("//m:errors/m:errorlist/m:error/m:message");
+      foreach ($errors as $node) {
+          $error_str .= $node-&gt;nodeValue. "\n";
+      }
+    }
+
+    if(!empty($error_str)) {
+      $this-&gt;view-&gt;message = $error_str;
+    } else {      
+      $this-&gt;view-&gt;message = 'Validation of ' . $url . ' passed without errors.';
+    }
+}
+</code></pre>
+
+<h2>No Zend_Http_Client?</h2>
+
+<p>
+For people that cannot or don't want to use Zend Framework at all (or need a facility to encode post parameters as multipart form data), maybe it's worth having a look at the <a href="http://uk2.php.net/manual/en/ref.curl.php">cURL functions in PHP</a>. They provide another easy interface to do HTTP and even FTP requests. A possible snippet could look like this:
+</p>
+
+<pre><code>
+$params = array(
+  'fragment' =&gt; '&lt;html /&gt;',
+  'output' =&gt; 'soap12',
+);
+
+$url = 'http://validator.w3.org/check';
+
+$recieved_headers = "";
+$ch = curl_init(); 
+curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $params); // multipart encoding
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); 
+curl_setopt($ch, CURLOPT_REFERER,''); 
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1); 
+curl_setopt($ch, CURLOPT_TIMEOUT,30);
+
+$recieved_headers = curl_exec($ch);         
+if (curl_errno($ch)) {
+   print curl_error($ch);
+} else {
+   curl_close($ch);
+}
+
+echo $recieved_headers;   
+</code></pre>
+
+<p>In this example I didn't include the handling of the SOAP response, but you can easily grab that from the previous example.</p>
+
+<p>Happy validating everyone!</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

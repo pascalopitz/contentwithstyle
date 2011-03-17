@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Zend Framework: XSL and self-serializing Views</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/zend-framework-xsl-and-self-serializing-views/index.html" class="active">Zend Framework: XSL and self-serializing Views</a></li>
+</ul>
+
+<h1>Zend Framework: XSL and self-serializing Views</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on November 17 2008, 01:39</p>
+</div>
+
+<div class="article">
+    <p>A long time ago I argued that MVC style frameworks should use XSL instead of inline PHP code and so on. That's why I knocked together a little proof of concept for Zend Framework where the views files are XSLs and the View object serializes itself into XML for rendering.</p>
+
+<h2>Basic MVC structure</h2>
+
+<p>I just created a demo layout, utilizing the standard MVC structure of Zend_Controller:</p>
+
+<pre> |-application
+ |---default
+ |-----controllers
+ |-----models
+ |-----views
+ |-------filters
+ |-------helpers
+ |-------scripts
+ |---------index
+ |---------test
+ |-library
+ |---demo
+ |---zendframework_1.6.2
+ |-webroot
+</pre>
+
+<p>Of course now we need a bootstrap file:</p>
+
+<pre><code class="php">set_include_path('.'
+	. PATH_SEPARATOR . '../library/zendframework_1.6.2/'
+	. PATH_SEPARATOR . '../library/demo/'
+	. PATH_SEPARATOR . '../application/default/controllers'
+	. PATH_SEPARATOR . get_include_path());
+
+require_once('Zend/Loader.php');
+Zend_Loader::loadClass('Zend_Controller_Front');
+Zend_Loader::loadClass('Zend_Controller_Action_Helper_ViewRenderer');
+
+$frontController = Zend_Controller_Front::getInstance();
+$frontController-&gt;setControllerDirectory(array(
+	'default' =&gt; '../application/default/controllers',
+));
+
+require_once 'View_Xslt.php';
+$view = new View_Xslt;
+$options = array();
+$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer($view, $options);
+$viewRenderer-&gt;setViewSuffix('xsl');
+Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+
+$frontController-&gt;dispatch();</code></pre>
+
+<p>Note that I have provided a new viewRenderer and view object, which is called View_Xslt.php and is located in the library/demo folder.
+Also I set the view suffix to xsl.</p><p><a href="http://www.contentwithstyle.co.uk/resources/xslt_views_demo.zip">A ZIP file containing the whole demo (excluding the Zend Framework files) can be downloaded here</a>. </p>
+
+<h2>The View Object</h2>
+
+<p>
+The view object itself needs to be a class that extends Zend_View_Abstract. The rendering of the views happens in the _run method, and the view file will be passed as the first argument. However, this argument needs to be accessed with func_get_arg, otherwise we're confronted with a neat error message that our declaration is incompatible with Zend_View_Abstract.</p><p>In order to make my view object self-serializing later, I also added the Serializer in the constructor magic method, plus I added a private function that serializes the view into XML using the Serializer just created.</p>
+
+<pre><code class="php">require_once('Serializer.php');
+
+class View_Xslt extends Zend_View_Abstract
+{
+ private $serializer;
+ private $rootName;
+ 
+ public function __construct($data = array()) {
+ $this-&gt;serializer = new Serializer();
+ parent::__construct($data);
+ }
+
+ public function setRootName($name) {
+ $this-&gt;rootName = $name;
+ }
+ 
+ protected function _run() {
+ $template = func_get_arg(0); 
+ $xslDoc = new DOMDocument();
+ $xslDoc-&gt;load($template);
+ $xmlDoc = $this-&gt;toXml();
+ $proc = new XSLTProcessor();
+ $proc-&gt;importStylesheet($xslDoc);
+ echo $proc-&gt;transformToXML($xmlDoc);
+ }
+ 
+ private function toXml() {
+ $xml_str = $this-&gt;serializer-&gt;Serialize($this, $this-&gt;rootName);
+ return $xml_str;
+ }
+}</code></pre>
+
+<h2>The Serializer</h2>
+
+<p>So what does this Serializer do? It utilizes the <a href="http://uk2.php.net/manual/en/language.oop5.reflection.php">Reflection</a> functionality to serialize the object into an XML string. This enables us to normally assign variables to the view from within our controller actions, just by saying <code>$this-&gt;foo = 'bar'</code>.</p><p><a href="http://www.contentwithstyle.co.uk/content/xml-serialization-and-php-reflection">I did a quick post on XML Serialization before</a>, and the Serializer I have provided is inspired by what I have found there. DISCLAIMER: Keep in mind that this is just a proof of concept, and to get this working perfectly it probably needs a bit more work.</p>
+<pre><code class="php">class Serializer
+{
+ private $xmlDoc;
+ 
+ public function __construct() {
+ $this-&gt;xmlDoc = new DOMDocument();
+ }
+ 
+ public function Serialize($inst, $nodeName=null) {
+ if(is_object($inst))
+ {
+  $nodeName = ($nodeName == null) ? get_class($inst) : $nodeName;
+  $root = $this-&gt;xmlDoc-&gt;createElement($nodeName);
+  $this-&gt;xmlDoc-&gt;appendChild($root);
+  $this-&gt;SerializeObject($inst, $nodeName, $root);
+ } else if(is_array($inst)) {
+  $nodeName = ($nodeName == null) ? get_class($inst) : $nodeName;
+  $root = $this-&gt;xmlDoc-&gt;createElement($nodeName);
+  $this-&gt;xmlDoc-&gt;appendChild($root);
+  $this-&gt;SerializeArray($inst, $nodeName, $root);
+ }
+
+ return $this-&gt;xmlDoc;
+ }
+ 
+ private function SerializeObject($inst, $nodeName, $parent) {
+ $obj = new ReflectionObject($inst);
+ $properties = $obj-&gt;getProperties();
+ 
+ foreach($properties as $prop) {
+  if(!$prop-&gt;isPrivate()) {
+  $elem = $this-&gt;SerializeData($prop-&gt;getName(), $prop-&gt;getValue($inst), $parent);
+  }
+ }
+ }
+ 
+ private function SerializeArray($array, $nodeName, $parent) {
+ foreach($array as $key =&gt; $val) {
+  $keyStr = (is_numeric($key)) ? 'ArrayValue' : $key;
+  $elem = $this-&gt;SerializeData($keyStr, $val, $parent);
+  
+  if(is_numeric($key)) {
+  $elem-&gt;setAttribute('index', $key);
+  }
+ }
+ }
+ 
+ private function SerializeData($key, $val, $parent) {
+ if(is_object($val)) {
+  $propNodeName = get_class($val);
+  $elem = $this-&gt;xmlDoc-&gt;createElement($propNodeName);
+  $parent-&gt;appendChild($elem);   
+  $this-&gt;SerializeObject($val, $propNodeName, $parent);
+  $elem-&gt;setAttribute('type', 'object');
+ } else if(is_array($val)) {
+  $elem = $this-&gt;xmlDoc-&gt;createElement($key);
+  $parent-&gt;appendChild($elem);
+  $this-&gt;SerializeArray($val, $key, $elem);
+  $elem-&gt;setAttribute('type', 'array');
+ } else {
+  $elem = $this-&gt;xmlDoc-&gt;createElement($key, $val);
+  $parent-&gt;appendChild($elem);
+  $elem-&gt;setAttribute('type', 'property');
+ }
+ 
+ return $elem;
+ }
+}</code></pre>
+
+
+
+<h2>Controller and View files</h2><p>Nearly there. We'll just need some XSL file and a controller with an action to get the demo running. First the controller and action. I included a little Demo class, so we can see the Serializer in action:</p> 
+
+<pre><code class="php">class IndexController extends Zend_Controller_Action {
+	public function indexAction() {
+	 $this-&gt;view-&gt;setRootName('DataObject');
+
+	 $this-&gt;view-&gt;foo = 'bar';
+	 $this-&gt;view-&gt;super = array(
+	 'here' =&gt; 'there', 'foo' =&gt; array(1,2,'test'),
+	 );
+	 $this-&gt;view-&gt;testObject = new DemoObject();
+	 $this-&gt;view-&gt;testObject-&gt;var = 'testObjectVar';
+	}
+}
+
+class DemoObject {}</code></pre>
+
+<p>Then the view file(s). You could get away with just one, but because I wanted to imitate Zend_Layout, I did utilize xsl:import in order to do something similar.</p>
+
+<pre><code class="xml">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+ &lt;xsl:import href="../layout.xsl"/&gt;
+
+ &lt;xsl:template match="DataObject"&gt;
+ &lt;xsl:apply-templates select="*" /&gt;
+ &lt;/xsl:template&gt;
+ 
+ &lt;xsl:template match="*"&gt;
+ &lt;div&gt;
+  &lt;h2&gt;&lt;xsl:value-of select="name()" /&gt;&lt;/h2&gt;
+  &lt;xsl:apply-templates select="text()" /&gt;
+  &lt;xsl:apply-templates select="*" /&gt;
+ &lt;/div&gt; 
+ &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;</code></pre>
+
+<pre><code class="xml">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+ &lt;xsl:output method="xml" encoding="ISO-8859-1" omit-xml-declaration="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" indent="yes" /&gt;
+ &lt;xsl:template match="/"&gt;
+ &lt;html&gt;
+  &lt;head&gt;
+  &lt;title&gt;Test&lt;/title&gt;
+  &lt;/head&gt;
+  
+  &lt;body&gt;
+  &lt;xsl:apply-templates select="/*" /&gt;
+  &lt;/body&gt;
+ &lt;/html&gt;
+ &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;</code></pre>
+
+<h2>Result</h2>
+
+<p>And that's it! Rendering the index page should give you an output looking somehow like this:</p>
+
+<pre><code class="xml">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+ &lt;head&gt;
+ &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /&gt;
+ &lt;title&gt;Test&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ &lt;div&gt;&lt;h2&gt;foo&lt;/h2&gt;bar&lt;/div&gt;
+
+ &lt;div&gt;
+ &lt;h2&gt;super&lt;/h2&gt;
+ &lt;div&gt;&lt;h2&gt;here&lt;/h2&gt;there&lt;/div&gt;
+ &lt;div&gt;
+ &lt;h2&gt;foo&lt;/h2&gt;
+ &lt;div&gt;&lt;h2&gt;ArrayValue&lt;/h2&gt;1&lt;/div&gt;
+
+ &lt;div&gt;&lt;h2&gt;ArrayValue&lt;/h2&gt;2&lt;/div&gt;
+ &lt;div&gt;&lt;h2&gt;ArrayValue&lt;/h2&gt;test&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div&gt;
+ &lt;h2&gt;DemoObject&lt;/h2&gt;
+
+ &lt;/div&gt;
+ &lt;div&gt;&lt;h2&gt;var&lt;/h2&gt;testObjectVar&lt;/div&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

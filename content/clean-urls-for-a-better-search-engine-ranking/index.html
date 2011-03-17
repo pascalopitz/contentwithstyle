@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Clean URLs for a better search engine ranking</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/clean-urls-for-a-better-search-engine-ranking/index.html" class="active">Clean URLs for a better search engine ranking</a></li>
+</ul>
+
+<h1>Clean URLs for a better search engine ranking</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on February 28 2006, 04:22</p>
+</div>
+
+<div class="article">
+    <p>
+    Search engines are often key to the successful promotion and running of your website, with high traffic making or breaking your online
+    business. To maximise the visibility of your site in the organic listings of the biggest search engines it is important to strategically work 
+    out how <a href="http://www.wordtracker.com/academy-articles-ultimate-primer.html">keywords</a> are used.
+	
+	<br />
+	<br />
+	
+	While link building (placing links to the site or from the site) and, most importantly, writing useful content form the foundation of search engine rankings,
+	some careful attention to how your site treats <a href="http://en.wikipedia.org/wiki/URL">URLs</a> will influence its ranking massively.
+</p>
+
+
+<h2>URLs</h2>
+
+
+<h3>The messy ones</h3>
+
+<p>
+	Most big websites are rendered out of a database and it is very rare to find systems generating the pages statically onto a webserver
+	to save processing power. Most small to mid-range CMS make use of on-the-fly rendering and the same applies to most of the tailor-made
+	dynamic sites I've seen so far.
+	<br />
+    The most common ways of passing information between these dynamic pages are:
+</p>
+
+<ul>
+	<li>In a cookie</li>
+	<li>In a session</li>
+	<li>In the host-header (POST)</li>
+	<li>In a the URL as a querystring (GET)</li>
+</ul>
+
+<p>
+	The last one mentioned is by far the most common. 
+	It's also the only way that variables passed to an application can be bookmarked and sent by email to other people, 
+	since cookies and sessions are bound to the specific computer and browser.
+	But let's have a look how a URL works:
+</p>
+
+<pre>
+  protocol://myserver/folder/file.ext?queryvariable=value#anchorname
+</pre>
+
+<p>
+    Historically, search engines were not able to spider links with querystring parameters because of page rendering speeds and so-called
+    spider traps. Today, most of the big search engine spiders will follow these untidy links, doing their best to strip out the portions that
+    can cause them trouble. Forcing them to do this, however, makes one of the most common and easy techniques, the GET method and the use 
+    of the GET array in various scripting languages, the worst coding technique when it comes to search page rankings. 
+	<br />
+	A URL like this is not ideal for most search engines:
+</p>
+
+<pre>
+  http://myserver/folder/file.php?pageid=230
+</pre>
+
+
+<h3>The clean ones</h3>
+
+<p>
+	Therefore the first step to improve your URLs would be to move information needed to trigger the page rendering into another part of the URL...
+	Something similar to these:
+</p>
+
+<pre>
+  http://myserver/folder/230/file.php
+
+  http://myserver/folder/230.php
+
+  http://myserver/GUID_whatever_230.php
+</pre>
+
+
+<h3>The meaningful ones</h3>
+
+<p>
+	But this still is not the ideal URL. Not for people who have to type it in, nor for search engine rankings, since it doesn't contain 
+	any meaningful keywords. An ideal example would look more like this:
+</p>
+
+<pre>
+  http://myserver/this/url/is/stuffed/with/keywords/index.htm
+</pre>
+
+<p>
+	As you can see, this is more legible than any kind of cryptic ID. It is far more easy to remember for human visitors and 
+    it is keyword rich for search engines as well.
+	Google pays especially close attention to the keywords within the URL, and they can, if they match what can be found in the content,
+	drastically improve the ranking. I suggest you try to think of a system that logically makes sense and that represents the path to your page, 
+	similar to a <a href="http://www.webdesignpractices.com/navigation/breadcrumb.html">breacrumb navigation</a> maybe.
+	<br />
+	A nice article about dirty and clean URLs can be found on the website of <a href="http://www.port80software.com/support/articles/nextgenerationurls">Port80 Software</a>.
+</p>
+
+
+
+
+<h2>Technique</h2>
+
+<h3>How to rewrite URLs</h3>
+
+<p>
+	Now that we have worked out how a good URL should look we can actually rethink the way our web-application renders pages.
+	It's obvious that we need to point the URLs that contain the information to the same file that contained the script 
+    dealing with the query string. 
+	
+	<br />
+	There are a couple of ways to do this: Apache's <a href="http://www.evolt.org/article/Making_clean_URLs_with_Apache_and_PHP/18/22880/">Force Type</a> for example, 
+	with others for <a href="http://www.aspnetworld.com/articles/2004011901.aspx">ASP and .Net</a>, but with PHP and Apache the most comnmon technique to rewrite URLs is the 
+	Apache module <a href="http://httpd.apache.org/docs/1.3/mod/mod_rewrite.html">mod_rewrite</a>.
+</p>
+
+<h3>What is mod_rewrite?</h3>
+
+<p>
+	Basically, mod_rewrite is a module for Apache that provides an engine that is able to rewrite URLs to other locations using regular expressions.
+	It is not activated in Apache by default though, and if you run your website on a shared hosting server you might have to ask your hosting 
+	provider to get it up and running for you.
+	<br />
+	To get yourself right into the sytax for URL rewriting I recommend reading <a href="http://www.sitepoint.com/article/guide-url-rewriting">A Beginner's Guide to URL Rewriting</a> 
+	on <a href="http://www.sitepoint.com">sitepoint.com</a> and the <a href="http://httpd.apache.org/docs/2.0/misc/rewriteguide.html">URL Rewriting Guide</a> written by <a href="http://engelschall.com/">Ralf S. Engelschall</a>, 
+	the guy who wrote the module.
+</p>
+
+<h3>Rewrite rules and htaccess files</h3>
+
+<p>
+	Usually you would define a rewrite rule in an htaccess file put into the roots folder of your site. 
+    I'm just giving a little example here rather than going into too much detail.
+	Please check the comments to see what each line does.
+</p>
+
+<pre>
+RewriteEngine On                          # activate mod_rewrite
+
+RewriteCond %{REQUEST_URI} ^/admin.* [OR] # if in folder admin
+RewriteCond %{REQUEST_FILENAME} -f [OR]   # or if the request is a real file
+RewriteCond %{REQUEST_FILENAME} -d        # or if an existing directory
+RewriteRule ^(.+) - [PT,L]                # then leave the URL as it is
+
+RewriteRule ^(.*) myscript.php            # else rewrite is to myscript.php
+</pre>
+
+<p>
+	A more detailed introduction to Rewrite rules can be found on the 
+	<a href="http://httpd.apache.org/docs/1.3/misc/rewriteguide.html">manual pages of mod_rewrite</a>.
+	Even a quick look will show you that mod_rewrite offers a sophisticated toolkit for rewriting URLs including
+	the search for files in multiple locations and even time-dependent rewriting. Clean URLs 
+	are only one of many reasons to get amiliar with mod_rewrite.
+</p>
+
+
+<h2>Fancy an example now?</h2>
+
+<p>
+	Enough of the theory. Now that we've found out how to rewrite URLs to a specific files I want to give a quick and very simple example
+	of how I tweaked old code quickly and efficiently using mod_rewrite and a bit of code. Afterwards my PHP application 
+	was capable of handling clean URLs instead of GET parameters... and the whole thing took me just half an hour.
+</p>
+
+<h3>The old URL</h3>
+
+<p>
+	In the existing application the rendering output got triggered by the GET parameter "page_id"
+</p>
+
+<pre>
+http://server/index.php?page_id=100
+</pre>
+
+<h3>The new URL</h3>
+
+<p>
+	The pattern for a quick tweak I worked out uses the set prefix "page", then the page_id (that before was found in the get parameter) 
+	and finally a modified title slug to improve the indexing.
+</p>
+
+<pre>
+http://server/page/100/here+are+my+keywords
+</pre>
+
+<h3>Three lines of code</h3>
+
+<p>
+	All I needed to do was to read the page_id from the URL and assigning it to the GET variable.
+	In this case I used a simple regular expression but you could use explode or any other technique.
+</p>
+
+<pre>
+&lt;?php
+preg_match("//page/(d+)/.*+/", $_SERVER['REQUEST_URI'], $match);
+
+if($match[1])
+  $_GET['page_id'] = $match[1];
+?&gt;
+</pre>
+
+<h3>Security</h3>
+
+<p>
+	Always bear in mind that you never should trust the URL. 
+	As with all form inputs and GET parameters you need to escape variables taken out of the REQUEST_URI before you use them in your script, 
+	otherwise you're inviting script kiddies to hack your application. This is particularly important for scripts that use eval() or write values into databases,
+	store files or do anything else that could cause crucial damage.
+</p>
+
+<h2>Conclusion</h2>
+
+<p>
+	Using clean URLs improves your site and the search engine rankings. 
+	It's more likely that people will be able to remember certain locations within the site.
+	Your page-rank in Google is likely to go up and you stand a better chance of turning up in search engines. 
+	<br />
+	With mod_rewrite and a couple of small tweaks existing applications 
+	can usually be coaxed into using clean URLs.
+</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Figure microformats</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/figure-microformats/index.html" class="active">Figure microformats</a></li>
+</ul>
+
+<h1>Figure microformats</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Matthias Willerich on November 20 2007, 08:28</p>
+</div>
+
+<div class="article">
+    	<p>Recently I&#8217;ve built a <a href="http://www.iwm.org.uk/myboyjack">very small and compact project</a>, an 8-page static website actually (first time I&#8217;ve built anything static in about 7 years!), and I took the opportunity to get a bit deeper into the microformat madness that seems to be so en vogue since the last year or so.</p>
+
+	<h2>hCard yay, figure nay?</h2>
+
+	<p>While the whole hCard/vCard thing for contacts is a very nice and half-decent working solution, the <a href="http://microformats.org/wiki/figure-examples">discussion for image/figure markup</a> is just confusing.</p>
+
+	<p>The issues are that some solutions are worrying mostly about positioning, others about specific output formats, <a href="http://www.pearsonified.com/2007/06/how-to-format-images-for-feed-readers.php">for example for feed readers</a> (<a href="http://www.simplebits.com/notebook/2005/07/10/figures.html">also here</a>).</p>
+
+	<p>And then of course there&#8217;s <a href="http://edward.oconnor.cx/2007/04/marking-up-figures">the solution by Edward O&#8217;Connor</a> that wants to follow the html 5 draft as closely as possible, which is the reasoning I could follow the easiest, because it&#8217;s also, in my eyes, the one closest to the concept that was used for the hCard.</p>
+
+	<h2>Break it, fix it</h2>
+
+	<p>I started using a variation of it, and the first thing that annoyed me was that I did want to mark-up caption and credit individually, but I needed to position it quite freely as a block. The <a href="http://microformats.org/wiki/figure-examples#Revenue_Watch_Institute_.28website_forthcoming.29">suggestion on the microformats wiki</a> would allow for individual positioning, the <a href="http://www.alistapart.com/articles/figurehandler">solution at A List Apart</a> seemed a bit over the top, so I adjusted the original idea as follows:</p>
+
+<pre>
+&lt;div class="figure"&gt;
+  &lt;img src="look_up_dere__small.jpg" width="400" height="602" alt="Matthias and lots of blue sky" /&gt;
+  &lt;div class="legend"&gt;
+&lt;p class="caption"&gt;
+        Matthias and lots of blue sky
+ &lt;/p&gt;
+&lt;p class="credit"&gt;
+  &lt;abbr class="type" title="Photograph"&gt;Photo&lt;/abbr&gt;
+  &amp;copy; &lt;cite&gt;Matthias Willerich&lt;/cite&gt;
+&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+	<p>This follows the html 5 draft as per suggestion on one hand, even more so because &#8220;legend&#8221; is used, on the other it allows me to specify caption and copyright individually, but I have the freedom to style and position it anywhere together or individually.</p>
+
+	<p>It took me a while to understand what Edward meant by &#8220;This has block-level elements with inline-level siblings, which is gross&#8221;, until I read Anne van Kesteren&#8217;s opinion about <a href="http://annevankesteren.nl/2005/05/content-models">Markup content models</a>.</p>
+
+	<p>I would&#8217;ve followed what he&#8217;s saying, but at that point my project was already out the door. Nevermind, here&#8217;s a suggested amendment:</p>
+
+<pre>
+&lt;div class="figure"&gt;
+  &lt;p class="image"&gt;&lt;img src="look_up_dere__small.jpg" width="400" height="602" alt="Matthias and lots of blue sky" /&gt;&lt;/p&gt;
+  &lt;div class="legend"&gt;
+&lt;p class="caption"&gt;
+        Matthias and lots of blue sky
+ &lt;/p&gt;
+&lt;p class="credit"&gt;
+  &lt;abbr class="type" title="Photograph"&gt;Photo&lt;/abbr&gt;
+  &amp;copy; &lt;cite&gt;Matthias Willerich&lt;/cite&gt;
+&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+	<h2>what&#8217;s the benefit?</h2>
+
+	<p>With all this highbrow talk I don&#8217;t want to miss the point that I&#8217;ll never be in the situation again where I&#8217;m creating a template with text information associated to an image and I just don&#8217;t know how to do it <em>right</em>. This had been bugging me forever! With all the other concepts I just default to when I see a screen design the first time, this one fits right in. Here&#8217;s a <a href="http://www.willerich.com/demo/figure_microformats/">little example page</a> to have a look at how flexible this can be used.</p>
+
+	<h2>Back to the highbrow future</h2>
+
+	<p>Still, it left me wondering if I&#8217;m breaking a structure that&#8217;s used in other places; but I couldn&#8217;t find any (if you disagree, now is the time). If there was nothing using the figure markup, hell, why think about it in the first place, and not just throw together any old image and paragraph? Now, I was at that point with the hCards a while ago, but since then an hCard extension for firefox has come along, and with the current version it&#8217;s actually reasonably useful. I also agree very much with <a href="http://www.simplebits.com/notebook/2005/07/10/figures.html">Dan Cederholms feedreader train of thought</a> about how it <em>could</em> be used. While his article is already 2 years old, and not much technical seems to have happened in between, it doesn&#8217;t mean that its theoretical meaning isn&#8217;t picked up and formatted or used otherwise in the future.</p>
+
+	<h2>Homework</h2>
+
+	<p>Although they&#8217;re spread out all over the article, here&#8217;s the reading list that helped me with my conclusion. Have fun reading and let me know what you think.</p>
+
+	<ul>
+	<li><a href="http://microformats.org/wiki/figure-examples">Microformats figure examples</a>, find more links I&#8217;ve also mentioned here <a href="http://microformats.org/wiki/figure-examples#Further_discussion">at the bottom of the article</a></li>
+		<li>Edward O&#8217;Connor, <a href="http://edward.oconnor.cx/2007/04/marking-up-figures">Marking up figures</a> and <a href="http://edward.oconnor.cx/2007/08/figure-markup-redux">Figure markup redux</a></li>
+		<li>Anne van Kesteren, <a href="http://annevankesteren.nl/2005/05/content-models">Markup content models</a></li>
+		<li>SimpleBits, <a href="http://www.simplebits.com/notebook/2005/07/10/figures.html">When Floated Figures Attack!</a></li>
+	</ul>
+
+
+ 
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

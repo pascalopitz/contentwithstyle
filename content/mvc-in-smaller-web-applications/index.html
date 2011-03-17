@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - MVC in smaller web applications</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/mvc-in-smaller-web-applications/index.html" class="active">MVC in smaller web applications</a></li>
+</ul>
+
+<h1>MVC in smaller web applications</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Matthias Willerich on June 7 2005, 15:57</p>
+</div>
+
+<div class="article">
+    <h2>The real world</h2>
+<p>Web development is, in many cases, a process where time is a crucial factor. As coding is usually the last step in the process, all things come together and prior mistakes are revealed. 
+<br /><br />
+"Build this so it looks the same in all browsers, works better than the IA was ever planned and can fly." Or so we hear.
+<br /><br />
+With a limited amount of time, developers are often tempted to fall for quick fixes and, not only due to last-minute changes, find themselves in a huge ball of code at the end of the project.
+<br /><br />
+"What does that matter, if the site is working nicely, nobody complains and it's nodded off by the client?" I hear you ask.
+<br /><br />
+This attitude is something I've encountered many times, and it usually results in a second-phase disaster, be it an extension of the site, a new face or a server change.
+</p>
+<h2>Theory</h2>
+<p>This is where the MVC comes to the rescue. It's basically an attempt to structure a web application into three components:</p>
+
+<ul>
+<li>Model is generally understood as the data-administration component. In the majority of website projects, this is the data retention in a relational database system, but it could also include other persistent business objects, Enterprise Java Beans for example. Model is passive and does not trigger any actions. Data is requested independently of their representation (view); Model does not know anything about the data presentation. Model can work with one (1:1-relation) or several Views and Controllers (1:n-relation).</li>
+<li>View describes the visual representation of the Model. In the case of many dynamic websites, you would imagine one or two Views on the same Model: in the case of this article, one would be the public View - the way you see this article now, and another one would be where I create and edit. Of course, there are many more possibilities: different user levels, each with a distinctive set of permissions; different representations of the same website for regular users; high contrast for easier reading; a View without head and navigation for printing, and so on.</li>
+<li>The Controller has the entire application logic implemented. It is an active component. The application receives inquiries, passes it on to the responsible subcomponents in the system and possibly sends answers back to the user. The Controller carries out various manipulations of the Model for the execution of user actions.</li>
+</ul>
+
+<p>So far, so good. Now that the theory is clear, we can look at how it's used in the web development process. Do I actually need it? This seems to be a very sensitive subject. While researching, I've found several approaches, most are somewhere in the triangle of determined, angry and ignorant. I'd like to point out the most obvious reasons to use it, hopefully not stepping on any toes:</p>
+<ul>
+<li>Match a thought pattern: Putting your code into a programming pattern is difficult when you try doing it while coding, but the idea is to structure the code first, in your head, on a piece of paper or, for large scale projects, with CASE-tools. With the structure documented, your code becomes more manageable, and the number of people that want to see you roast in hell (possibly you yourself in 1 or 2 years time) is decreasing. Every developer that understands MVC will find their way through your stuff quickly, you will both work on the same wavelength, because you both follow the same pattern, in code and thought.</li>
+<li>Reusability. This goes for any kind of modularisation, but it's an argument not to ignore: Once you have thought through and set up your model, you can reuse it many times with no or only minimal changes.</li>
+<li>Extendibility: With a strict modularisation, you have a defined field of work when it comes to changes of face, functionality or data storage. Depending on your web applications needs and real-world situation, you can decide which parts need upgrading.</li>
+</ul>
+
+<h2>Practice</h2>
+<p>I <a href="http://www.sitepoint.com/article/struts-first-steps">discovered</a> that <a href="http://struts.apache.org/">Jakarta Struts</a> is a really good Java-based solution and, more recently, <a href="http://www.phparch.com/">PHP Architect magazine</a> offered a free download of their may 2003 issue, containing a nice introductory article with a solution based on Smarty templates. A very extensive solution incorporating the three-tier architecture (no, <a href="http://www.tonymarston.net/php-mysql/infrastructure-faq.html#faq26">they're not the same</a>) also PHP-based, can be found on <a href="http://www.tonymarston.net/php-mysql/model-view-controller.html">Tony Marston's website</a> along with tons of information on different design patterns.<br />
+I could stop here and leave you with one of the examples, but let me say this: I believe that the size of the project and the probability of exchanging or updating certain components should play as important a role as the reusability of the code. 
+</p>
+<p>
+Over time, Pascal and I have come up with a loose framework of PHP classes, which have saved enormous amounts of time when building medium-scale projects, thanks to their reusable subcomponents.
+<br />
+The Views are set up with CSS and (X)HTML, which is generated with XSL stylesheets (see Pascal's article with his <a href="http://www.contentwithstyle.co.uk/Articles/29/">five-layer structure</a> for more detail). 
+<br />
+In the backend PHP, classes are structured by their functionality. A db-class manages all lower-level database work: replace it or change the configuration for a database change. This class represents the Model. Your server was hacked and you need to refer to a backup db-server? It's done in 10 seconds.
+<br /><br />
+A base class, meanwhile, carries all of the helper functions that are used across most projects, for things like string and date operations. It is extended by a page class, which is the first class to adapt to the project. Here, the site structure is taken care of (usually dug out of the database in one way or another, as a tree or a flat page model), functions for breadcrumbs and navigation grab the data and return the XML, and global site elements find their data. But not only that: All what's generally called business logic, calculations, workflows and so forth, can be found here as well. The class can then be extended for special purpose pages, to keep it nice and tidy. I group them as Controller. They receive all the requests, they instantiate the Model (the db class) to deliver XML, to be transformed by the View, by XSL.
+<br /><br />
+But this does not strictly fit into the MVC pattern: In a clean approach, no SQL would be found in the page class. A common technique here is to set up a class for each table that contains all queries. This way, you know where to find your SQL and what classes to touch should your db-server change. Alternatively, you can extend the db-class and top it up with higher level of functions that build the SQL for you. On the upside, you only have one file to change (as opposed to one per table); on the downside, solutions tend to be developed in a complicated way, thereby making it difficult for the next developer to get their head around it. Furthermore, it may be too specific to one site and, therefore, not very portable.
+<br /><br />
+With these classes set up as a starter package, you'll have incredibly quick results - and working as a frontend/backend team is a joy. Simply set up an abstract XML file with all the data you need, and each of you can work towards it from both sides: one on the xsl/html/css side, the other in the php/db department. 
+<br /><br />
+On several occasions, I left out the table classes as a set-up for medium-sized projects. 
+As an alternative, I either stuck to relational databases (usually sufficient) and coded in <a href="http://www.opengroup.org/public/tech/datam/sql.htm">pure SQL-92</a> - although this tends to be awkward and I'm not sure if all common databases follow this standard entirely - or I made sure the db-application stayed the same throughout the lifetime of the site.
+<br /><br />
+As with most things in modern digital life, sites are ever-changing, but the code hardly ever survives three years. Your budget, timeframe and the purpose of the site will determine to what extent you want to follow MVC. But it's always worth considering.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

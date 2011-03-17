@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - A mass validation shellscript</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/a-mass-validation-shellscript/index.html" class="active">A mass validation shellscript</a></li>
+</ul>
+
+<h1>A mass validation shellscript</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on December 14 2008, 19:45</p>
+</div>
+
+<div class="article">
+    <p>I was looking for a CLI script that validates a whole site for me, but I couldn't find one that would work without installation issues. So I hacked together an example shell script that does the job for me by downloading the whole site and then running the files through a validation.</p>
+
+<h2>Prerequisites</h2>
+
+<p>The shell script uses <a href="http://curl.haxx.se/">CURL</a> and <a href="http://www.gnu.org/software/wget/">WGET</a> (<a href="http://www.statusq.org/archives/2008/07/30/1954/">WGET for OSX</a>, in my case), plus the "SOAP API" of the w3c validator.</p>
+
+<p>I am putting "SOAP API" in quotation marks, because it is not really supporting SOAP calls, but only wraps the response into a Soap Envelope. That's why I am using CURL to post the files.</p>
+
+<p>For this example I installed <a href="http://habilis.net/validator-sac/">Validator S.A.C.</a> and followed the <a href="http://habilis.net/validator-sac/#advancedtopics">instructions to get it running as local service</a>. Of course, if you are on linux, you can <a href="http://validator.w3.org/source/">install it from source</a> or as package. Alternatively you can change the script to use validator.w3.org/check instead of localhost/w3c-validator/check, but it might run pretty slow and create a lot of traffic.</p>
+
+<h2>The script</h2>
+
+<p>Also a word of warning: The script creates a temp directory and a log.txt file, which it deletes before creating them. I am in no way responsible for any of your stuff getting deleted by running this.</p> 
+
+<p>But hey: Feel free to alter this to fit your needs (and maybe post improvements in the comments, for example for my sloppy way of detecting whether it is an HTML file).</p>
+
+<pre><code>
+#!/bin/sh
+#
+# Script to validate files in directory
+#
+is_html() {
+  file=$1 
+  htmlstart=`grep '&lt;html' $1`
+
+  if [ "$htmlstart" != "" ]; 
+  then 
+    echo "1";
+  fi
+}
+
+validate_file() {
+  curl -s -F uploaded_file=@$1 -F output=soap12 localhost/w3c-validator/check
+}
+
+download_site() {
+  cd temp
+  echo 'downloading files ...'
+  wget -r -q -k -x -E -l 0 $1
+  echo 'done downloading files'
+  cd ..
+}
+
+setup() {
+  rm -f log.txt
+  rm -Rf temp
+  mkdir temp
+  touch log.txt
+}
+
+run_validation() {
+  for file in `find $1`;
+    do 
+      htmltrue=`is_html $file`
+    
+      if [ "$htmltrue" = "1" ];
+      then
+        echo "request validation: $file"
+        rpc=`validate_file $file`
+      
+        echo "checking response: $file"
+        noerror=`echo $rpc | grep '&lt;m:errorcount&gt;0&lt;/m:errorcount&gt;'`
+
+        if [ "$noerror" = "" ];
+        then
+          echo "Error in file $file"
+          echo "----------------" &gt;&gt; log.txt
+          echo "Error in file $file\n" &gt;&gt; log.txt
+          echo $rpc &gt;&gt; log.txt
+          echo "\n" &gt;&gt; log.txt
+          echo "----------------" &gt;&gt; log.txt
+        fi
+      fi
+    done;
+  
+  has_errors=`cat ./log.txt | grep Error`
+      
+  if [ "$has_errors" = "" ];
+  then
+    echo "no errors found\n" &gt;&gt; log.txt
+  fi
+}
+
+setup
+download_site $1
+run_validation ./temp/
+</code></pre>
+
+<h2><em>Update</em></h2>
+
+<p>I slightly modified it, so I do get better error messages. I use <a href="http://xmlsoft.org/XSLT/xsltproc2.html">xsltproc</a> for parsing the <a href="http://validator.w3.org/docs/api.html#soap12format">SOAP envelope returned by the validator</a>. Here is the updates script:</p>
+
+<pre><code>
+#!/bin/sh
+#
+# Script to validate files in directory
+#
+is_html() {
+  file=$1 
+  htmlstart=`grep '&lt;html' $1`
+
+  if [ "$htmlstart" != "" ]; 
+  then 
+    echo "1";
+  fi
+}
+
+validate_file() {
+  curl -s -F uploaded_file=@$1 -F output=soap12 localhost/w3c-validator/check
+}
+
+download_site() {
+  cd temp
+  echo 'downloading files ...'
+  wget -r -q -k -x -E -l 0 $1
+  echo 'done downloading files'
+  cd ..
+}
+
+setup() {
+  rm -f log.txt
+  rm -Rf temp
+  mkdir temp
+  touch log.txt
+}
+
+run_validation() {
+  for file in `find $1`;
+    do 
+      htmltrue=`is_html $file`
+    
+      if [ "$htmltrue" = "1" ];
+      then
+        echo "request validation: $file"
+        rpc=`validate_file $file`
+      
+        echo "checking response: $file"
+        noerror=`echo $rpc | grep '&lt;m:errorcount&gt;0&lt;/m:errorcount&gt;'`
+
+        if [ "$noerror" = "" ];
+        then
+		  filelocation=`echo $file | sed "s/\/\//\//g"`
+          echo $rpc &gt; temp_error.xml
+          xsltproc --stringparam location $filelocation error_template.xsl temp_error.xml &gt;&gt; log.txt
+          rm temp_error.xml
+
+          echo "Error in file $file"
+        fi
+      fi
+    done;
+  
+  has_errors=`cat ./log.txt | grep Error`
+      
+  if [ "$has_errors" = "" ];
+  then
+    echo "no errors found\n" &gt;&gt; log.txt
+  fi
+}
+
+setup
+download_site $1
+run_validation ./temp/ $1
+</code></pre>
+
+<p>As you can see, we need a file called error_template.xsl as well, here is an example file:</p>
+
+<pre><code>
+&lt;xsl:stylesheet version="1.0"
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+ xmlns="http://www.w3.org/TR/xhtml1/strict"
+ xmlns:m="http://www.w3.org/2005/10/markup-validator"
+ xmlns:env="http://www.w3.org/2003/05/soap-envelope"
+&gt;
+  &lt;xsl:output 
+    method="text"
+    omit-xml-declaration="yes"    
+  /&gt;
+  
+  &lt;xsl:param name="location" /&gt;
+
+  &lt;xsl:template match="/"&gt;
+  	&lt;xsl:call-template name="divider" /&gt;
+  	&lt;xsl:value-of select="//m:errorcount" /&gt;
+  	&lt;xsl:text&gt; Errors in &lt;/xsl:text&gt;
+  	&lt;xsl:value-of select="$location" /&gt;
+  	&lt;xsl:call-template name="lb" /&gt;
+    &lt;xsl:apply-templates select="//m:error" /&gt;
+  &lt;/xsl:template&gt;
+
+
+  &lt;xsl:template match="m:error"&gt;
+  	&lt;xsl:text&gt; Line &lt;/xsl:text&gt;
+  	&lt;xsl:value-of select="m:line" /&gt;
+  	&lt;xsl:text&gt;, Col &lt;/xsl:text&gt;
+  	&lt;xsl:value-of select="m:col" /&gt;
+  	&lt;xsl:text&gt;:&lt;/xsl:text&gt;
+  	&lt;xsl:call-template name="lb" /&gt;
+  	&lt;xsl:value-of select="m:message" /&gt;
+  	&lt;xsl:call-template name="lb" /&gt;
+  &lt;/xsl:template&gt;
+  
+  &lt;xsl:template name="lb"&gt;&lt;xsl:text&gt;
+&lt;/xsl:text&gt;&lt;/xsl:template&gt;
+
+  &lt;xsl:template name="divider"&gt;
+    &lt;xsl:text&gt;--------------&lt;/xsl:text&gt;&lt;xsl:call-template name="lb" /&gt;
+  &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+
+<p>I think this would be easily adaptable to produce XML or HTML files. I'd like to figure out where WGET did download the file from, so I could insert that into the output generation, as hyperlink for example. But apart from that I think it performs pretty neat.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

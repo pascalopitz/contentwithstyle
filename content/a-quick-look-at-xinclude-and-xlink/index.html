@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - A quick look at XInclude and XLink</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/a-quick-look-at-xinclude-and-xlink/index.html" class="active">A quick look at XInclude and XLink</a></li>
+</ul>
+
+<h1>A quick look at XInclude and XLink</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on December 13 2008, 16:47</p>
+</div>
+
+<div class="article">
+    <p>Part of my current project is to transform thousands of static XML files, all interlinked and some of them referencing others as data subset that I need for the transformation. Time to have a quick look at XInclude and XLink.</p>
+
+<h2>XLink</h2>
+
+<p>
+<a href="http://en.wikipedia.org/wiki/XLink">Xlink</a> is an XML application that defines hyperlinks in XML documents. While <a href="http://www.w3.org/TR/xlink/#extended-link">XLink supports extended links</a>, which are able to define multiple hyperlinks from one XML node, the form that is easy to deal with straight away is the one defined by <code>type="simple"</code>.
+</p>
+
+<p>
+Like with all XML applications that use certain definitions, don't forget to include the namespaces in the XML and XSL document, and if you generate HTML, exclude them from being outputted by the transformation using the <code>exclude-result-prefixes</code> attribute.
+<br />
+Below is an example for a transformation in XSL.
+</p>
+
+<pre><code>
+&lt;xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    exclude-result-prefixes="xlink"&gt;
+    
+    &lt;xsl:output method="html"/&gt;
+
+    &lt;xsl:template match="/"&gt;
+        &lt;xsl:apply-templates/&gt;
+    &lt;/xsl:template&gt;
+
+    &lt;xsl:template match="*[@xlink:type = 'simple' and @xlink:href]"&gt;
+        &lt;a href="{@xlink:href}"&gt;&lt;xsl:apply-templates/&gt;&lt;/a&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+
+<p>As for the extended type of XLink references, this could come in handy to generate link lists for certain text elements and similar stuff where a 1:N relationship is needed.</p>
+
+<h2>XInclude</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/XInclude">XInclude</a> is an inclusion mechanism for XML, think SSI or PHP's <code>include()</code>. Just that it is that bit more powerful, because it can use <a href="http://en.wikipedia.org/wiki/XPointer">XPointer</a> to identify the nodes that it needs to include from the referenced document, and it provides a <a href="http://www.w3.org/TR/xinclude/#fallback_element">fallback element</a> for when the inclusion fails.</p>
+
+<pre><code>
+&lt;xi:include href="my.xml#xpointer(//node)"&gt; 
+  &lt;xi:fallback&gt;
+   &lt;fb&gt;error&lt;/fb&gt;
+  &lt;/xi:fallback&gt;
+&lt;/xi:include&gt;
+</code></pre>
+
+<p>Sadly this is not natively supported in browsers, but various DOM parsers have a mechanism in place that will include the referenced files, e.g. <a href="http://uk2.php.net/manual/en/function.domdocument-xinclude.php">PHP's <code>DomDocument-&gt;xinclude</code></a>:</p>
+
+<pre><code>
+$xml = new DomDocument;
+$xml->load('data.xml');
+$xml->xinclude();
+</code></pre>
+
+<p>Again make sure that the namespaces are included. Also, if you use nested levels of includes, depending on the DOM parser, this might not automatically get resolved. For how to address this behaviour in PHP, <a href="http://uk2.php.net/manual/en/function.domdocument-xinclude.php#44954">see the comments at PHP.net</a>.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

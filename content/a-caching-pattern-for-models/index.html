@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - A caching pattern for models</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/a-caching-pattern-for-models/index.html" class="active">A caching pattern for models</a></li>
+</ul>
+
+<h1>A caching pattern for models</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on April 6 2009, 11:50</p>
+</div>
+
+<div class="article">
+    <p>This is a caching pattern for models using Zend_Cache and the __call magic method.</p>
+
+<h2>The Basic Idea</h2>
+
+<p>
+The initial thought behind this is that a model should be able to return calls either uncached or cached, without initializing some cache object every time. It should be easy to switch between the two calls, and the cache should be coming with the model object already.
+</p>
+
+<h3>The old way</h3>
+
+<p>
+Before introducing the cache pattern, I would create an object that then would use Zend_Cache_Frontend_Class, then initialize a new instance of my model in there, then redefine a method that acts as somewhat like a proxy, but uses the cache.
+And if that wasn't enough, I'd have to initialize them both, like in this example:
+</p>
+
+<pre><code>
+$model = MyModel();
+$model_cached = MyModelCached();
+
+$values_direct = $model-&gt;doStuff();
+$values_cached = $model_cached-&gt;doStuff();
+</code></pre>
+
+<h3>The new way</h3>
+
+<p>
+So Matthias asked me: Would it not be nicer if the cache was already available in the model, and you could do something like this:
+</p>
+
+<pre><code>
+$model = MyModel();
+$values_direct = $model-&gt;doStuff();
+$values_cached = $model-&gt;cache-&gt;doStuff();
+</code></pre>
+
+<p>
+A great idea. As you can see this proposed way saves a bit of code, it's intuitive and easy to change, if you ever need to switch between cached and non-cached calls.
+</p>
+
+<h2>The Code</h2>
+
+<p>First we need to create an object that initializes the cache. We'll initialize a cache with Zend_Cache and then utilize the __call function to check whether a call exists in the cached object or not. This enables us to only do valid calls.</p>
+
+<pre><code>
+class BaseModelCache {
+  private $object;
+  private $cache;
+  
+  public function __construct($object) {
+    $backendName = 'File';
+    $frontendName = 'Class';
+
+    $frontendOptions = array(
+      'lifetime' =&gt; 1800,
+    );
+
+    $backendOptions = array(
+      'cache_dir' =&gt; '/my/cache/dir/',
+    );
+
+    $this-&gt;object = $object;
+    $frontendOptions['cached_entity'] = $object;
+
+    try {
+      Zend_Loader::loadClass('Zend_Cache');
+      $this-&gt;cache = Zend_Cache::factory($frontendName, $backendName, $frontendOptions, $backendOptions);     
+    } catch(Exception $e) {
+      throw($e);
+    }
+  }
+  
+  public function __call($method, $args) {
+    $class = get_class($this-&gt;object);
+    $class_methods = get_class_methods($class);
+
+    if(in_array($method , $class_methods)) {
+        $caller = Array($this-&gt;cache, $method);
+        return call_user_func_array($caller, $args);
+    }
+
+    throw new Exception( " Method " . $method . " does not exist in this class " . get_class($class ) . "." );
+  }
+}
+</code></pre>
+
+<p>The second step is to create a base model class, that we'll use for all our models. It will initialize the cache object using the BaseModelCache and make it available as public property:</p>
+
+<pre><code>
+abstract class BaseModel {
+  public $cache;
+
+  public function __construct() {
+    $this-&gt;cache = new BaseModelCache($this);
+  }
+}
+</code></pre>
+
+<p>Et Voilà! Now we can create models by extending the BaseModel. The cache will be available as described above.</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

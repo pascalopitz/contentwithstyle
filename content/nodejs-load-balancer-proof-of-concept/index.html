@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Node.js load balancer proof of concept</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/nodejs-load-balancer-proof-of-concept/index.html" class="active">Node.js load balancer proof of concept</a></li>
+</ul>
+
+<h1>Node.js load balancer proof of concept</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on May 10 2010, 10:32</p>
+</div>
+
+<div class="article">
+    <p>Down with a cold, the only bit I managed was a bit more experimenting with node.js this weekend. Here's a little example of node.js acting as a very basic load balancer with  fault tolerance.</p>
+
+
+<p>I did create a <a href="http://github.com/pascalopitz/nodeload">repo on github</a>, feel free to contribute or fork if you find this useful.</p>
+
+<h2>Project Files</h2>
+
+<pre><code>
+$ ls -h
+README			cluster.conf.json
+balancer.js		testserver.js
+</code></pre>
+
+
+<h2>Load Balancer</h2>
+
+<pre><code>
+var sys = require('sys'), 
+  http = require('http'),
+  fs = require('fs');
+
+var LoadBalancer = new function() {
+  var _self = this;
+  var _server;
+  var _cluster = [];
+  var _active = [];
+  var _port = 8888;
+  var _checkInterval = 10000;
+  var _checkTimeout = [];
+
+  var _updateActives = function() {
+    _active = [];
+    for(var i=0; i&lt;_cluster.length; i++) {
+      if(_cluster[i].active) {
+        _active[_active.length] = _cluster[i];
+      }
+    }
+  };
+
+  var _loadCluster = function(callback) {
+    fs.readFile('./cluster.conf.json', function (err, data) {
+      if (err) throw err;
+      _cluster = JSON.parse(data.toString().replace('\n', ''));
+      callback();
+    });
+  };
+  
+  var _checkCluster = function() {
+    for(var i=0; i&lt;_cluster.length; i++) {
+      _clusterNodeCheck(_cluster[i]);
+    }
+  };
+  
+  var _clusterNodeCheck = function(node) {
+    var client = http.createClient(parseInt(node.port, 10), node.host);
+    var request = client.request('GET', '/is_up', {"host" : node.host});
+    
+    request.addListener('response', function (response) {
+      if(response.statusCode == 200) {
+        response.addListener('data', function(data) {
+          if(data == 'ok') {
+            node.active = true;
+          } else {
+            node.active = false;
+          }
+        });
+      } else {
+        node.active = false;
+      }
+    });
+    
+    request.addListener('error', function (err) {
+      node.active = false;
+    });
+
+    client.addListener('error', function (err) {
+      node.active = false;
+    });
+
+    request.end();
+
+    setTimeout(_updateActives, 200);
+
+    _checkTimeout[node.host + ':' + node.port] = setTimeout(function() {
+      _clusterNodeCheck(node);
+    }, _checkInterval);
+  };
+
+  var _requestHandler = function(request, response) {
+    if(_active.length == 0) {
+      response.writeHead(500, {'Content-Type': 'text/html'});
+      response.write('no server active');
+      response.end();
+    } else {
+      var index = Math.floor(Math.random()*_active.length);
+      var node = _active[index];
+
+      var proxy_headers = request.headers;
+      var proxy_client = http.createClient(parseInt(node.port, 10), node.host);
+      var proxy_request = proxy_client.request(request.method, request.url, proxy_headers);
+
+      proxy_request.addListener("response", function (proxy_response) {
+        response.writeHeader(proxy_response.statusCode, proxy_response.headers);
+    
+        proxy_response.addListener("data", function (chunk) {
+          response.write(chunk);
+        });
+    
+        proxy_response.addListener("end", function () {
+          response.end();
+        });
+      });
+
+      proxy_client.addListener("error", function (error) {
+        for(var i=0; i&lt;_cluster.length; i++) {
+          if(node.host == _cluster[i].host &amp;&amp; node.port == _cluster[i].port) {
+            sys.puts('error, deactivating: '+node.host+':'+node.port);
+            _cluster[i].active = false;
+            _updateActives();
+          }
+
+          clearTimeout(_checkTimeout[_cluster[i].host + ':' + _cluster[i].port]);
+          _clusterNodeCheck(_cluster[i]);
+        }
+
+        setTimeout(function() {
+          _requestHandler(request, response);
+        }, 200);
+      });
+  
+      proxy_request.end();    
+    }
+  };
+  
+  
+  var _run = function() {
+    _loadCluster(_checkCluster);
+
+    _server = http.createServer().
+            addListener('request', _requestHandler)
+            .listen(_port);
+    sys.puts('Listening to port ' + _port);
+  };
+
+  _run();
+};
+</code></pre>
+
+
+<h2>Config file</h2>
+
+<pre><code>
+[{
+  "host" : "127.0.0.1",
+  "port" : "8200"
+},
+{
+  "host" : "127.0.0.1",
+  "port" : "8300"
+}]
+</code></pre>
+
+
+<h2>Test Server</h2>
+
+<pre><code>
+var sys = require('sys'), 
+  http = require('http');
+var _port;
+
+function checkUsage() {
+  if(process.argv.length != 3) {
+    sys.puts('usage: node testserver.js &lt;port&gt;');
+    process.exit(1);
+  }
+
+  var port = parseInt(process.argv[2], 10);
+
+  if('NaN' == port.toString()) {
+    sys.puts('usage: node testserver.js &lt;port&gt;');
+    process.exit(1);
+  }
+  
+  _port = port;
+};
+
+var TestServer = function() {
+  var _self = this;
+  var _server;
+
+  var _routes = {
+    '/' : function(request, response) {
+      response.writeHead(200, {'Content-Type': 'text/html'});
+      response.write('hello world\n');
+      response.end();
+    },
+
+    '/is_up' : function(request, response) {
+      response.writeHead(200, {'Content-Type': 'text/plain'});
+      response.write('ok');
+      response.end();
+    },
+  }
+
+  var _requestHandler = function(request, response) {
+    sys.puts('Request '+request.url+' from '+request.connection.remoteAddress+' to '+request.headers.host);
+
+    if(_routes[request.url] === undefined) {
+      response.writeHead(404, {'Content-Type': 'text/plain'});
+      response.write('not found\n');
+      response.end();
+    } else {
+      _routes[request.url].call(this, request, response);
+    }
+  };
+  
+  var _run = function() {
+    _server = http.createServer().
+            addListener('request', _requestHandler)
+            .listen(_port);
+    sys.puts('Listening to port ' + _port);
+  };
+
+  _run();
+};
+
+checkUsage();
+server = new TestServer();
+</code></pre>
+
+<h2>Readme</h2>
+<pre><code>
+A simple load balancer in node.js
+
+
+Start testservers in seperate shells:
+
+node testserver.js 8200
+node testserver.js 8300
+                
+
+Start load balancer:
+
+node balancer.js     
+
+
+Request to balancer:
+
+curl http://127.0.0.1:8888
+</code></pre>
+
+
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

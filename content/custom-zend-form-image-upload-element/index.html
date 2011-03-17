@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Custom Zend Form Image Upload Element</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/custom-zend-form-image-upload-element/index.html" class="active">Custom Zend Form Image Upload Element</a></li>
+</ul>
+
+<h1>Custom Zend Form Image Upload Element</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on June 29 2009, 23:59</p>
+</div>
+
+<div class="article">
+    <p>It really is time to post something, isn't it? Here is a quick way to have an image preview inside of a form based on Zend Form.</p>
+
+<h2>Assumptions</h2>
+
+<p>I am using the auto include mechanism for this one, utilizing the PEAR naming convention, and all my files will sit underneath a Shared folder within the library folder.</p>
+
+<h2>A custom form Element</h2>
+
+<p>This is sitting under Shared/Form/Element/Image.php</p>
+
+<pre><code>
+&lt;?php
+class Shared_Form_Element_Image extends Zend_Form_Element 
+{
+  public $helper = "imageUpload";
+  public $options;
+  
+  public function __construct($image_name, $attributes, $data_item) {
+    $this->options = $data_item;
+    parent::__construct($image_name, $attributes);
+  }
+}
+</code></pre>
+
+<p>As you can see, the form Element itself doesn't contain much code, but it does overwrite the property 'helper'. Which bings us to the next file:</p>
+
+<h2>A custom view helper</h2>
+
+<p>In our example, this sits under Shared/Views/Helpers/ImageUpload.php</p>
+
+<pre><code>
+&lt;?php
+class Shared_View_Helper_ImageUpload extends Zend_View_Helper_FormFile {
+
+  public function imageUpload($name, $value, $attribs, $options) {
+    $str = parent::formFile($name, $attribs = null);
+
+    if(!empty($options[$name])) {
+      $str .= $this->getImagePreview($name, $options[$name]);
+    } else {
+      $str .= $this->getEmptyPreview();
+    }
+    
+    return $str;
+  }
+
+  private function getImagePreview($name, $path) {
+    $img = ($this->view->doctype()->isXhtml())
+       ? '&amp;lt;img src="/'.$path.'" alt="'.$name.'" />'
+       : '&amp;lt;img src="/'.$path.'" alt="'.$name.'">';
+    
+    return '&amp;lt;p class="preview">'.$img.'&amp;lt;/p>';
+  }
+  
+  private function getEmptyPreview() {
+    return '&amp;lt;p class="preview">No image uploaded.&amp;lt;/p>';
+  }
+}
+</code></pre>
+
+<p>Pretty straight forward, I am just subclassing the FormFile helper that Zend brings us. However, you might want to create a different helper all together, if you need to use much more customized markup than I do.</p>
+
+<h2>Invocation</h2>
+
+<p>The form itself will no contain the image path as element, therefore we need to inject it into the form data inside the Controller, then invoke the Form with that data:</p>
+
+<pre><code>
+$data['image'] = $image_path;
+$form = new My_From($data);
+</code></pre>
+
+<p>Inside our Form, all we need to do now is to add a new element using our custom ImageUpload element:</p>
+
+<pre><code>
+$preview = new Shared_Form_Element_Image('image', null, $options);
+$preview->addValidator('Count', false, 1);
+$preview->addValidator('Extension', false, 'jpg,png,gif');
+$preview->setLabel('My Image');
+$fields[] = $preview;
+</code></pre>
+
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

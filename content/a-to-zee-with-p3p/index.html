@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - A to Z(ee) with P3P</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/a-to-zee-with-p3p/index.html" class="active">A to Z(ee) with P3P</a></li>
+</ul>
+
+<h1>A to Z(ee) with P3P</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Matthias Willerich on September 22 2005, 07:08</p>
+</div>
+
+<div class="article">
+    <h2>The Situation</h2>
+
+<p>
+The other day I came across a weird security problem at work: While a system to customize a site's appearance worked fine in Firefox, storing the state kept failing in IE. Now, I'm not a big fan of these browser discussions and don't mind using either, but that error made me curious. I quickly found out that it was down to the company's security standard, which defaulted <a href="http://msdn.microsoft.com/workshop/security/privacy/overview/privacyIE6.asp">IE's privacy level</a> to high-medium.
+This level doesn't allow third-party cookies for permanent storage, and as the whole site was running in a Frameset for a couple of days (thank you, domain-hogging cheapie-host), the cookies used were rightly considered third party.
+</p>
+
+<p>
+They are allowed to be stored under this setting, though, when they come with a P3P (Platform for Privacy Preferences) policy. Microsoft offers a <a href="http://msdn.microsoft.com/workshop/security/privacy/overview/createprivacypolicy.asp">nice overview</a> to what this is, but leaves you pretty much in the dark of how you actually get from A (Problem) to B (Solution). P3Ptoolbox.org, a website dedicated to P3P offers an <a href="http://www.p3ptoolbox.org/guide/section3.shtml">all-embracing guide</a>, but the sheer amount is more off-putting than encouraging.
+</p>
+
+<h2>What Is P3P?</h2>
+
+<p>
+	P3P is a protocol designed to offer an &quot;automated way for users to gain more control over the use of personal information on Web sites they visit&quot;, states the <a href="http://www.w3.org/P3P/">W3C</a>.
+Policies are something that is used quite frequently, in the Flash and Java (J2EE) World, usually describing a set of permissions granted or revoked. P3P is an XML based policy that describes the scope or the way how the data in cookies is used. It consists of four logical parts: 
+</p>
+
+<ul>
+	<li>a written, and as they like to state &quot;human readable&quot; policy, as html-file is recommended as the easiest starting point for it all. But, hooray, if you rather track down cookie operations in your code, the policy editor will generate one for you, which you can then amend to your needs.</li>
+	<li>The policy editor helps you create the full XML privacy policy</li>
+	<li>The Policy-Reference File, again as XML, which is stored in a &quot;well-known location&quot;, links to the privacy policy.</li>
+	<li>The compact policy(a string of 3-letter-abbrevations), which is sent in the header of the page containing the cookie-related action.</li>
+</ul>
+
+<h2>How can I build it?</h2>
+
+<p>
+	If you look into tools for generating P3P policies, you'll find yourself in a land of darkness and badly designed websites with dollar signs. But there's light at the end of the tunnel: The <a href="http://www.alphaworks.ibm.com/tech/p3peditor">IBM P3P Editor</a> is free, being an executable jar it's crossplatform, and if you know what you're doing, it's really easy. So what do you have to do?
+</p>
+
+<ol>
+	<li>Do your homework: the first step is, and the P3Ptools site isn't wrong with it, a thorough preparation. Does the company running the website already have a privacy policy? Does it cover all cookie-related actions as well? If not, &quot;Where do you store and read out cookies?&quot;, and &quot;What's stored in them?&quot; are the first key questions to ask. Ideally you know it beforehand, if not, an extended search over the usual cookie-dealing functions should refresh your memory.</li>
+	<li>What to do with the data? Who will be dealing with it? Once you have figured out what it is you'll need to ask yourself or, even better, your client, if they are planning to use the requested data, e.g. for stats on returning users or to find out about preferred customizations and the like. This should be (again ideally) honest, or alternatively passed by a legal department that does the juggling of the words.</li>
+	<li>Fire it up. The IBM P3P policy editor luckily generates XML and P3P strings as well as a good skeleton for the written privacy policy. All you have to do is 
+		<ul>
+			<li>To categorise your cookies into groups and usage.</li>
+			<li>Connect them to their purpose</li>
+			<li>Add information about dispute and contact possibilities</li>
+			<li>Generate policy</li>
+			<li>Deploy: A great word which took me a while to understand, back at university. In this case, all it means is to take the generated xml and html and drop it in a folder.</li>
+		</ul>
+	</li>
+</ol>
+
+
+<h2>An example</h2>
+
+<p>
+	Let's say we set and read a cookie on the homepage that stores a unique ID for tracking reasons and retrieves preferences from the db on how the site is displayed (font size and regular/high-contrast layout, for example).
+</p>
+
+<p>
+Open up the P3P editor, choose &quot;create a blank policy&quot;, and you'll find a well categorized list of elements on the left, and an empty tree on the right.
+</p>
+
+<p>
+<img src="/resources/old_images/17.gif" alt="" />
+</p>
+
+<p>
+Locate and drag the data elements matching your purpose from the list into the &quot;new group&quot; on the right. In our case that's:</p>
+
+<p>
+Broad Categories --> unique identifier and<br />
+Dynamic Data --> http cookie
+</p>
+
+<p>
+You can edit the group name, and you'll probably want to do it in real life situations that are more complex - in order to find grouped entries easier later on.
+</p>
+
+<p>
+When you do so, you are also asked to put down an explanation to why the data is requested and you have to decide if &quot;there is no reasonable way to link this data to the visitor's real-world identity.&quot; (check the help button). As users don't register on my site, they will be unique by identifier, but I won't be able to find out who they really are. The display data is anonymous anyway, so, tick the box here as well. Describe the reasons then on to the next step.
+</p>
+
+<p>
+Make your way through the tabs, I will check &quot;Site customisation&quot; and &quot;Anonymous user tracking&quot;, I offer an opt-out possibility for the site customisation, and uncheck pseudonymous decision-making, as Iâ€™m not tracking that. Recipient is just me, and as Retention I choose indefinitely.
+</p>
+
+<p>
+To the right of the tabs in the lower part of the window is a properties button, click that to add all necessary data for the website, starting with a full contact information of the person/organisation responsible for the site.
+</p>
+
+<p>
+Click on the next tab to enter a generic name for the policy and add an opt-out url (essentially a page where you can choose to get all cookies from your site deleted).
+</p>
+
+<p>
+Make sure your language selection is the right one  and add the url for your privacy policy on your website.
+</p>
+
+<p>
+The Access-tab wants you to indicate what personal data the user can view to doublecheck what's stored on your site. In my case: no identified data is collected.
+</p>
+
+<p>
+Next, let's eliminate that dispute warning: go to &quot;Assurances&quot;, and add a dispute. 
+I call it &quot;all disputes&quot; chose customer service as dispute remedy for &quot;all disputes&quot;, with a link to contact-us, to reach the customer service.
+</p>
+
+<p>
+Lastly, in the global properties, set the expiry date. I chose the same as the cookies lifetime, or up to a date when the cookie situation, and therefore the privacy policy, changes.
+</p>
+
+<p>
+The easiest way to get rid of the must-haves is to eliminate one error after the next. Click the error tab to see them.
+If you have any other errors, fix them accordingly... it's most probably in your data group, or itâ€™s a conflict between your data elements, the group and global properties.
+</p>
+
+<p>
+All done? I had to add a category to my HTTP cookie. Now it looks like this:
+</p>
+
+<p>
+<img src="/resources/old_images/18.gif" alt="" />
+</p>
+
+<p>
+Save it, and go to the final step: deploy your data. For that, you'll need to generate a reference file first. Here's one that fits my example - it directs to the P3P file in all cases (include *).
+</p>
+
+
+<pre>
+&lt;META xmlns=&quot;http://www.w3.org/2000/12/p3pv1&quot;&gt;
+ &lt;POLICY-REFERENCES&gt;
+    &lt;POLICY-REF about=&quot;testsite_com.p3p&quot;&gt;
+       &lt;INCLUDE&gt;*&lt;/INCLUDE&gt;
+       &lt;COOKIE-INCLUDE name=&quot;*&quot; value=&quot;*&quot; domain=&quot;*&quot; path=&quot;*&quot;/&gt;
+    &lt;/POLICY-REF&gt;
+ &lt;/POLICY-REFERENCES&gt;
+&lt;/META&gt;
+</pre>
+
+<p>
+All you have to do now, is:
+</p>
+
+<ul>
+	<li>Save the P3P reference file in a folder called w3c in the webroot, as /w3c/p3p.xml. Feel free to <a href="http://www.contentwithstyle.co.uk/w3c/p3p.xml">look at my example reference</a>.</li>
+	<li>Save the P3P. You can see from how I set up the reference file that I chose to store it in the same folder, which is the easiest and most common thing. Here's my <a href="http://www.contentwithstyle.co.uk/w3c/testsite_com.p3p">example p3p policy for download</a></li>
+	<li>Every time you interact with the cookie, send the created header first. Below is an overview of how to do it for my example, taken directly from the <a href="http://www.privacycouncil.com/implementation.php">privacy council</a>.</li>
+	<li>Finally: <a href="http://www.contentwithstyle.co.uk/resources/p3p-example/">Take a look at it</a> (in IE: view-->privacy report).</li>
+</ul>
+
+
+<table cellpadding="5" cellspacing="0" border="0" summary="Implementations for P3P compact policy example">
+	<caption>P3P compact policy implementations</caption>
+	<tr>
+		<th>Method</th>
+		<th>Code</th>
+	</tr>
+	<tr>
+		<td>HTML</td>
+		<td>&lt;meta http-equiv=&quot;P3P&quot; content=&quot;CP='NOI DSP NID TAIo PSAa OUR IND UNI OTC TST'&quot;&gt;</td>
+	</tr>
+	<tr>
+		<td>PHP</td>
+		<td>Header(&quot;P3P: CP='NOI DSP NID TAIo PSAa OUR IND UNI OTC TST'&quot;)</td>
+	</tr>
+	<tr>
+		<td>ASP</td>
+		<td>Response.AddHeader &quot;P3P&quot;,&quot;CP='NOI DSP NID TAIo PSAa OUR IND UNI OTC TST'&quot;</td>
+	</tr>
+	<tr>
+		<td>JSP</td>
+		<td>Response.setHeader(&quot;P3P&quot;,&quot;CP='NOI DSP NID TAIo PSAa OUR IND UNI OTC TST'&quot;)</td>
+	</tr>
+	<tr>
+		<td>ColdFusion</td>
+		<td>&lt;cfheader name=&quot;P3P&quot; value=&quot;CP='NOI DSP NID TAIo PSAa OUR IND UNI OTC TST'&quot; /&gt;</td>
+	</tr>
+</table>
+
+<h2>Conclusion</h2>
+
+<p>
+Congratulations, you made through this dry and rocky path of an article, or alternatively you found the scrollbar overly useful. I've had my doubts while writing this, about how complex it should be, and decided to go for an overview with a simple A-Z example, as my key problem was piecing it together initially.
+</p>
+
+<p>
+P3P doesn't end here though - there are many more possibilities, from setting up different policies for different parts of a website, to getting deeper into the personal data aspect (there's quite a difference in cookie handling with P3P when personal data is involved), to taking a closer look into the client side and the possibilities that P3P offers, which mostly aren't quite built into browsers yet.
+</p>
+
+<p>
+The idea of P3P is a good one, but it's flawed, as it's so far based on honesty. If I used information differently than I stated in my P3P policy, how would the user ever know? 
+If developers use <a href="http://support.microsoft.com/default.aspx?scid=kb;en-us;323752">half-hearted workarounds</a> by simply adding a non-offensive P3P header, why would the user trust P3P? These are the first things that you'll ask yourself while spending time on this, but there's more elaborated critizism: the <a href="http://www.epic.org/reports/prettypoorprivacy.html">Electronic Privacy Information Center</a> has assessed P3P and is not happy at all with it. So why do it? Given you do use cookies, 3 reasons come to mind, and they seem oddly close to web standards (looking forward to the comments): 
+</p>
+
+<ul>
+	<li><strong>Because you have to:</strong> I don't use cookies very much, maybe a couple of projects a year. But if I do and it doesn't work for a group of users or, even worse (*gasp*) the client, heck, I gotta make it work.</li>
+	<li><strong>Because you would rather solve problems than work around them:</strong> I never like grey areas in projects, identified ones or the ones that are brushed off. The fix-it-now-research-it-later approach usually ends in not researching it at all, and next time round you're none the smarter.</li>
+	<li><strong>Because it makes a better website:</strong> This is the moral high ground for today, but think about it: the web standards movement is something that had to happen sooner or later. Cookies aren't used as much as in the olden days, but as the basics are set and can be extended, any improvement in their handling should improve users trust in using personal data on the internet, with reasonable resonance in the future.</li>
+</ul>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

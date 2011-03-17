@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - DOM scripting or how to keep the code clean</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/dom-scripting-or-how-to-keep-the-code-clean/index.html" class="active">DOM scripting or how to keep the code clean</a></li>
+</ul>
+
+<h1>DOM scripting or how to keep the code clean</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on October 27 2005, 04:24</p>
+</div>
+
+<div class="article">
+    <h2>Required knowledge</h2>
+
+<p>
+	In this tutorial I want to show up the differences between DOM-Scripting and the &#8220;traditional&#8221; JavaScript 
+	technique using event-handlers embedded into the HTML-code.
+	I'll show a way to have accessible popups, and by showing how to do those, I'll explain the proper use of DOM-scripting. 
+	Obviously knowledge of JavaScript is required to get my explanations. 
+</p>
+
+<h2>Pseudo-format javascript:</h2>
+
+<p>
+	So, what was the old way? Well, let's start with the very old way:
+</p>
+
+<pre>
+ &lt;a href="javascript:window.open('http://www.google.de',
+    'popup','width=200,height=400');"&gt;open google&lt;/a&gt;
+</pre>
+
+<p>
+	This is really annoying! First of all it's not even a real link. The use of this pseudo-format takes away the possibility of having
+	an action and a location where the link points to. So this is the very old way. And, as you can see, it's code that is not very good 
+	when it comes to maintaining it. So that's why for a long time we used the following stuff.
+</p>
+
+<h2>Event handlers as HTML attributes</h2>
+
+<p>
+	Yeah, you know what I'm talking about! I mean &#8220;onclick&#8221;, &#8220;onmouseover&#8221; and so on, embedded directly into the
+	HTML-tag. So that now our tag would look like this: 
+</p>
+
+<pre>
+ &lt;a href="#" onclick="window.open('http://www.google.de',
+    'popup','width=200,height=400');"&gt;open google&lt;/a&gt;
+</pre>
+
+<p>
+	And maybe, instead of having the whole thing in there, we'd have a function in javascript where we just pass the URL to? 
+	Because we open popups in the same size throughout the whole site anyway?
+</p>
+
+<pre>
+ &lt;script type="text/javascript"&gt;
+
+ function pop(url)
+ {
+  window.open(url,'popup','width=200,height=400');
+ }
+ 
+ &lt;/script&gt;
+
+ &lt;a href="#" onclick="pop('http://www.google.de');"&gt;open google&lt;/a&gt;
+</pre>
+
+<p>
+	That would be better for maintanance, no doubt, but how about accessible? No, it's not!
+	No textbased browser or no system where javascript has been turned-off could open that link.
+	Now how am I going to make that accessible? Well, there's a way!
+</p>
+
+<h2>Accessible popups</h2>
+
+<p>
+	The way to do accessible popups is quite an overhead:
+</p>
+
+<pre>
+ &lt;script type="text/javascript"&gt;
+
+ function pop(url)
+ {
+  window.open(url,'popup','width=200,height=400');
+ }
+ 
+ &lt;/script&gt;
+
+ &lt;a href="http://www.google.de" target="_blank" 
+   onclick="pop('http://www.google.de');return false;"&gt;open google&lt;/a&gt;
+</pre>
+
+<p>
+	How does this work? Well, first of all it's a simple link with <code class="inline">target="_blank"</code>. 
+	But on top of that we have an event handler with an action inside and a return statement, which quits the click-event.
+	By doing this the browser quits before going to the new location, which would be in another window.
+	But if javascript is off, none of this would happen and just the new location would be opened in a new window.
+</p>
+
+<h2>Shortcut</h2>
+
+<p>
+	Still one annoying thing, though: It's to much code to write! So my first approach would be to take a shortcut: 
+</p>
+
+<pre>
+ &lt;script type="text/javascript"&gt;
+
+ function pop(url)
+ {
+  window.open(url,'popup','width=200,height=400');
+  return false;
+ }
+ 
+ &lt;/script&gt;
+
+ &lt;a href="http://www.google.de" target="_blank" 
+   onclick="return pop('http://www.google.de');"&gt;open google&lt;/a&gt;
+</pre>
+
+<p>
+	The saved amount of characters is not to big, but still, if the site is big and you can save typing &#8220;false&#8221; 300 
+	times you'll be happy about it.
+	<br />
+	Next point is that I'm annoyed about the possibility to type &#8220;www.google.de&#8221; in one and a typo like 
+	&#8220;www.gogole.de&#8221; in the other part of the link. Stuff like that ALWAYS happens, and it sucks so much!
+	But that's the first opportunity to use propper DOM-scripting!
+</p>
+
+<h2>&#8220;this&#8221; or the link as object</h2>
+
+<p>
+	Instead of calling the function now with a string as parameter, we'll call it with an object reference:
+</p>
+
+<pre>
+ &lt;script type="text/javascript"&gt;
+
+ function pop(a)
+ {
+  url = a.getAttribute("href");
+  window.open(url,'popup','width=200,height=400');
+  return false;
+ }
+ 
+ &lt;/script&gt;
+
+ &lt;a href="http://www.google.de" target="_blank" 
+   onclick="return pop(this);"&gt;open google&lt;/a&gt;
+</pre>
+
+<p>
+	Here it is, the link acts as object, it has a method that gives back an attribute. That is DOM (Document Object Model).
+	Well, that's fine for the beginning, but still there's two things that really I consider as below the optimum:
+	We have to writre the handler into each link. And we have changed the markup of the document in the HTML-area, probably many times,
+	depending on how many popup-links we have.
+</p>
+
+<h2>Some of the DOM-toolkit</h2>
+
+<h3>Event-handler just in javascript</h3>
+
+<p>
+	The way to apply event-handler in javascript looks like this:
+</p>
+
+<pre>
+ window.onload = function()
+ {
+ 	alert("window has been loaded now");
+ }
+</pre>
+
+<p>
+	It is possible to apply already existing functions as well:
+</p>
+
+<pre>
+ function alertLoaded()
+ {
+ 	alert("window has been loaded now");
+ }
+ 
+ window.onload = alertLoaded;
+</pre>
+
+<p>
+	The benefit obvoiusly is that we can define handler for HTML-objects without changing their markup. If we can find them, of course!
+</p>
+
+<h3>Navigating the DOM tree</h3>
+
+<p>
+	There are two methods to find elements, <code class="inline">document.getElementById()</code> and <code class="inline">document.getElementsByTagName()</code>.
+	Once the object has been found we can run through the tree up and down by using the object <code class="inline">node.parentNode</code> and the array <code class="inline">node.childNodes</code>.
+	If you want to get deeper into DOM-scripting you might have a look at the <a href="http://www.mozilla.org/docs/dom/domref/dom_doc_ref.html">Gecko DOM interface</a>.
+</p>
+
+<h2>The tree-parsing solution</h2>
+
+<p>
+	Let's get back back to our little example. We'll make use of <code class="inline">document.getElementsByTagName()</code> to change all links with <code class="inline">target="_blank"</code> 
+	to popup-links without adding any markup to them.
+</p>
+
+<pre>
+function applyPopups()
+{
+  a = document.getElementsByTagName("a");
+
+  for(i=0; i&lt;a.length; i++)
+  {
+    if(a[i].getAttribute("target") &amp;&amp; a[i].getAttribute("target") == "_blank")
+    {
+      a[i].onclick = function()
+      {
+        url = this.getAttribute("href");
+        window.open(url,'popup','width=200,height=400');
+        return false;
+      }
+    }
+  }
+}
+ 
+window.onload = applyPopups;
+</pre>
+
+<p>
+	As you can see, you now don't even have the hassle of adding additional markup to your HTML-code, but can apply popup-behaviour by just importing 
+	one js-file in the head of the document. Splendid!
+</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

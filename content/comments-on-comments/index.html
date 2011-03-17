@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="/default/css/shared_rev.REVISION.css" type="text/css" media="screen" />
+<!--[if lte IE 6]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie6.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="/default/css/ie7.css" /><![endif]-->
+
+<meta http-equiv="content-language" content="en" />
+
+<meta name="author" content="Content with Style" />
+<meta name="copyright" content="Content with Style" />
+<meta name="publisher" content="Content with Style" />
+
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="2 days" />
+
+<link rel="alternate" type="rss" href="/feeds/rss" />
+<link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+
+<title>Content with Style - Comments on Comments</title>
+
+
+
+        <link rel="stylesheet" title="Default" href="/3rdparty/highlight/styles/github.css">
+    </head>
+
+    <body class="article">
+    
+        <div class="header">
+            <div class="inner">
+                <ul class="clearfix">
+                    <li><a href="/" class="home">Home</a></li>
+                    <li><a href="/archive" class="archive">Archive</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="title-row">
+    <div>
+        <strong>Content with Style</strong>
+        <p>Web Technique</p>
+    </div>    
+</div>
+
+
+        <div class="content clearfix">
+            <div class="main-col">
+                <ul class="breadcrumb clearfix">
+    <li class="home"><a href="/">Content with Style</a></li>
+    <li><a href="/content/comments-on-comments/index.html" class="active">Comments on Comments</a></li>
+</ul>
+
+<h1>Comments on Comments</h1>
+
+<div class="info clearfix">
+    <p class="credit">by Pascal Opitz on May 30 2006, 03:59</p>
+</div>
+
+<div class="article">
+    <h2>Introduction</h2>
+
+<p>The right kind of comments to speed up the development process and enable a couple of interesting possibilities to generate documentations automatically. This article tries to reflect on the pros and cons of comments and to show some interesting possibilities for automatic comment parsing.</p>
+
+<h2>Comment Basics</h2>
+<p>Comments are basically regions of written characters that don't get interpreted by the PHP parser. Instead they get stripped out, and they solely are functioning as meta data. So just in case you don't know about how to embed comments into your scripts I'll just give you a quick example. In PHP there is two ways of using comments:
+</p>
+
+<pre>
+// a single line comment is preceded by a double slash
+/*
+A multiline comment 
+is enclosed by slashes
+and asterisks
+*/
+</pre>
+
+<p>This style of comments is used by many other languages like Java, JavaScript or ActionScript. You will find the comments in any documentation as one of the first things mentioned, so whatever language you use, adding comments will be no problem for you.</p>
+
+<h2>Reasons to comment your code</h2>
+<p>When I wrote the first drafts of what would become this article I basically reflected the traditional approach on comments: Comments are a good thing, comment your code, it will be more legible, external programmers will find it more easy to get into your code, etc. Interestingly this kicked off a little discussion about coding practices and about what happens when comments are getting out of sync. Obviously wrong comments are a huge problem, and there are some people that actually consider comments as completely redundant, if not even harmful, because they will be hard to maintain once the code gets changed and therefore misleading other developers afterwards.</p>
+
+<p>This is quite an interesting point of view, and makes sense when the code is following naming conventions that are self explanatory and obvious, a state of coding that every coder should aim for.</p>
+
+<p>On the other hand many people still feel the need for comments. Many feel that after a certain amount of time they can find their own thoughts being reflected in the comments more than in the raw code, and it helps them to quickly amend parts of the code without having to read it all.</p>
+
+<p>Not sure what this conflict of beliefs would do to my article I did a little google research to find out more. I turns out that this discussion is not only going on within the CwS team, but all along the developers community (<a href="http://groups.google.co.uk/group/comp.programming/browse_frm/thread/e9e433ce84a1f290/18e831b2491f8ad3?tvc=1&amp;q=%22leave+out%22+code+comments&amp;hl=en#18e831b2491f8ad3">example</a>), especially when it comes to extreme programming. </p>
+
+<p>Pragmatic as I am I think I'll stick with what the <a href="http://www.dagbladet.no/development/phpcodingstandard/#comments">PHP coding standards</a> say:<br />
+<em>&#8220;Comments should document decisions.&#8221;</em></p>
+
+<p>This means that comments should be applied within the code once the code itself is not sufficient enough to explain <strong>why</strong> it does what it does. This also means comments within the code that are redundant should be avoided. As exceptions from the &#8220;avoid redundant comments&#8221; rule I would recommend anyone to use comments for Debugging, Gotchas and Automated Documentation, some applications that at the end of the discussion the members of CwS pretty much could agree on.</p>
+
+<h2>Comments and debugging</h2>
+
+<p>In the middle of development process commenting code to temporarily switching and and off whole blocks is extremely helpful. It avoids deleting parts of the scripts and then by accident (your application crashed, you forgot to save the file, etc) having to rewrite them because the undo function of your editor didn't get you anywhere.</p>
+
+<p>It also is extremely helpful if you find little commented examples of the actual script usage within the script itself or if basic setting possibilities are just commented out so removing the comments enables the debugging mode, sends the emails to the test address or includes a different language library for example. People that ever edited the <a href="http://www.ccl.net/cca/software/UNIX/apache/httpd.conf.3.1b1.shtml">apache httpd.conf file</a> know what I am talking about here and I think this is one of the most basic coding techniques to use.</p>
+
+<h2>Gotchas</h2>
+<p>Gotchas are embedded keywords that are used to point out potential issues or existing problems. Since they are quite easy to use with for example search and replace it is easy to quickly jump to all parts of the code marked with :TODO: or :BUG:.</p>
+
+<p>An interesting aspect to gotchas is the possibility to have a robot finding them automatically. Good IDE's for example would be able to find gotchas and flag up every todo that has been marked as such. Again see the <a href="http://www.dagbladet.no/development/phpcodingstandard/#mge">PHP coding standards</a> for more on this. </p>
+
+<h2>Automated Documentation</h2>
+<p>One of the biggest benefits of doing your comments in a more sophisticated way is that it will enable you to use automated documentation tools.  The most common tool for PHP is PHPDocumentator or <a href="http://www.phpdoc.org/">PHPDoc</a> which I found one of the most helpful tools ever.  The PHPDoc application derived from <a href="http://java.sun.com/j2se/javadoc/">JavaDoc</a> and took over the same comment standards to extract html documentations out of the comments embedded into the PHP code.</p>
+
+<p>The same commenting standard is used by other documentation tools like <a href="http://ccdoc.sourceforge.net/">CcDoc</a> or <a href="http://phpxref.sourceforge.net/">PHPXref</a> and other applications like the <a href="http://www.zend.com/products/zend_studio/feature_list#Phpdoc">Zend Studio IDE</a>. </p>
+
+<p>PHPDoc also can be installed as external tool in <a href="http://www.plog4u.org/index.php/Using_PHPEclipse_:_Installation_:_Installing_the_phpDocumentor">PHPEclipse</a> and there is a variety of little plugins for other editors like <a href="http://www.vim.org/scripts/script.php?script_id=520">VIM</a> that will help you creating the PHPdoc style comments.</p>
+
+<h3>PHDoc in use</h3>
+<p>PHPDoc comments are very easy to apply and contain meta information embedded in <a href="http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_tags.pkg.html">PHPDoc tags</a>. Let's have a look at a comment for a class and see how PHPDoc parses comments:</p>
+
+<pre>
+/**
+  * short desc
+  *
+  * long desc
+  * @package test
+  * @author me
+  * @version 1.0
+  * @abstract
+  * @copyright never
+*/
+class parclass
+{
+}   
+</pre>
+
+<p>As you can see the @ triggers the PHPDoc tags, and there are various tags that can apply depending on whether you document a function, a class or an include for example.  At the end of the development process the comments and PHPDoc tags can be parsed into a complete HTML documentation that will give you a full overview of every class and function in your project. If you have done the comments right during the coding process your documentation will know all required parameters, all return types and the documentation will tell a story about how the classes and functions work.</p>
+
+<p>To get an impression of how this looks like have a look on <a href="http://phpdoc.de/phpdoc/index2.html">PHPDoc documenting itself</a>.</p>
+
+<h3>XML comments in C#</h3>
+<p>Another common example of automatically generated documentation are the <a href="http://msdn.microsoft.com/msdnmag/issues/02/06/XMLC/">XML comments used in C#</a>. </p>
+
+<pre>
+/// &lt;summary&gt;
+/// This is the summary
+/// &lt;/summary&gt;
+/// &lt;param name="myParameter"&gt;The value passed&lt;/param&gt;
+public void MyMethod(string myParameter)
+{
+}
+</pre>
+
+<p>As you can see in the example above this works pretty similar to the JavaDoc/PHPDoc standard and offers a lot of flexibility by applying XSL templates to generate an HTML documentation.</p>
+
+<p>IDE's like <a href="http://www.sharpdevelop.com/OpenSource/SD/">SharpDevelop</a> or <a href="http://msdn.microsoft.com/vstudio/">Visual Studio</a> support this natively and provide <a href="http://www.sharpdevelop.com/OpenSource/SD/Tour/094/XmlDocumentation.aspx">code completion features</a> for adding the comments to Classes and Methods.</p>
+
+
+<h2>Other uses for comments</h2>
+<p>Apart from the ones mentioned above, there might be various other possible applications for comments. The <a href="http://en.wikipedia.org/wiki/Comments">Wikipedia article on comments</a> for example states that syntax highlighting could be one of them, and I can think of a coupe of <a href="http://centricle.com/ref/css/filters/">CSS Hacks</a> and various pieces of ASCII art.</p>
+
+<h2>Bottom line</h2>
+<p>While before writing this article I was clearly stating that comments are an essential addition to good coding style, the discussion about my first drafts made clear that I couldn't hold this up but needed to rethink my approach on how, when and why I was using comments. Quite an interesting lesson that was, and it showed once again that using your own head rather than a learned design/behavior/technique is actually a good thing. </p>
+
+<p>That said it becomes obvious that it's necessary to find an approach that works for the individuals involved in the development process, and if you already have found your approach on commenting code and keeping it maintainable and up to date, then in my opinion there's no need for you to change it.</p>
+
+<p>Personally I gained a lot since I started using generated documentations. Embedding the documentation into the source code in form of comments is probably the only way to make accurate documentations of big projects possible.</p>
+
+<p>If I missed out any useful applications for comments feel free to post them in ... well ... the comments ;)</p>
+</div>
+
+            </div>
+            
+            <div class="sidebar">
+                <div class="box date">
+                    <h2>Browse by Date</h2>
+                    <h3>2011</h3><ul class="clearfix"><li><a href="/archive/date/2011/March">March</a></li><li><a href="/archive/date/2011/January">January</a></li></ul><h3>2010</h3><ul class="clearfix"><li><a href="/archive/date/2010/December">December</a></li><li><a href="/archive/date/2010/November">November</a></li><li><a href="/archive/date/2010/October">October</a></li><li><a href="/archive/date/2010/September">September</a></li><li><a href="/archive/date/2010/August">August</a></li><li><a href="/archive/date/2010/May">May</a></li><li><a href="/archive/date/2010/April">April</a></li><li><a href="/archive/date/2010/March">March</a></li><li><a href="/archive/date/2010/January">January</a></li></ul><h3>2009</h3><ul class="clearfix"><li><a href="/archive/date/2009/November">November</a></li><li><a href="/archive/date/2009/October">October</a></li><li><a href="/archive/date/2009/August">August</a></li><li><a href="/archive/date/2009/July">July</a></li><li><a href="/archive/date/2009/June">June</a></li><li><a href="/archive/date/2009/May">May</a></li><li><a href="/archive/date/2009/April">April</a></li><li><a href="/archive/date/2009/March">March</a></li><li><a href="/archive/date/2009/February">February</a></li><li><a href="/archive/date/2009/January">January</a></li></ul><h3>2008</h3><ul class="clearfix"><li><a href="/archive/date/2008/December">December</a></li><li><a href="/archive/date/2008/November">November</a></li><li><a href="/archive/date/2008/October">October</a></li><li><a href="/archive/date/2008/September">September</a></li><li><a href="/archive/date/2008/August">August</a></li><li><a href="/archive/date/2008/July">July</a></li><li><a href="/archive/date/2008/June">June</a></li><li><a href="/archive/date/2008/May">May</a></li><li><a href="/archive/date/2008/April">April</a></li></ul><h3>2007</h3><ul class="clearfix"><li><a href="/archive/date/2007/December">December</a></li><li><a href="/archive/date/2007/November">November</a></li><li><a href="/archive/date/2007/October">October</a></li><li><a href="/archive/date/2007/August">August</a></li><li><a href="/archive/date/2007/July">July</a></li><li><a href="/archive/date/2007/June">June</a></li><li><a href="/archive/date/2007/May">May</a></li><li><a href="/archive/date/2007/April">April</a></li><li><a href="/archive/date/2007/March">March</a></li><li><a href="/archive/date/2007/February">February</a></li><li><a href="/archive/date/2007/January">January</a></li></ul><h3>2006</h3><ul class="clearfix"><li><a href="/archive/date/2006/November">November</a></li><li><a href="/archive/date/2006/October">October</a></li><li><a href="/archive/date/2006/September">September</a></li><li><a href="/archive/date/2006/August">August</a></li><li><a href="/archive/date/2006/July">July</a></li><li><a href="/archive/date/2006/June">June</a></li><li><a href="/archive/date/2006/May">May</a></li><li><a href="/archive/date/2006/April">April</a></li><li><a href="/archive/date/2006/March">March</a></li><li><a href="/archive/date/2006/February">February</a></li></ul><h3>2005</h3><ul class="clearfix"><li><a href="/archive/date/2005/October">October</a></li><li><a href="/archive/date/2005/September">September</a></li><li><a href="/archive/date/2005/July">July</a></li><li><a href="/archive/date/2005/June">June</a></li><li><a href="/archive/date/2005/May">May</a></li></ul>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+          
+        </ul>
+
+        <div class="footer">
+    <p class="bottom-logo">Content with Style</p>
+    <p>Copyright 2006-2010 Content with Style, All rights reserved.</p>
+</div>
+
+<script type="text/javascript" src="/3rdparty/jquery/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="/3rdparty/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/default/js/cws_rev.REVISION.js"></script>
+
+    </body>
+</html>
+

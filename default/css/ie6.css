@@ -1,0 +1,22 @@
+div.header { 
+	height: 77px;
+}
+
+body div.header li a{
+	border-bottom: none;
+}
+
+body div.header form label {
+	top: 4px;
+}
+
+
+body div.sidebar div.links ul {
+	padding: 0;
+}
+
+body div.sidebar div.links ul li.last {
+	display: inline;	
+}
+
+
