@@ -89,7 +89,7 @@ So in versions before 4.0.11 you should use &#8220;INNER JOIN&#8221; and you wer
 <br />
 When using replace is can become rather ineffective if you have large tables (really large ;)) with indexes. While REPLACE INTO looks like it either performs an update or an insert it will executed in both cases as an insert. If the row exists it will first delete the row and after the delete it will insert the &#8216;new&#8217; row. If you have a large table with rather large indexes both the insert as the delete wil have an impact on the rebuild of your index. Using a simple select to check if the row exists and if so perform an update is with large tables far more effectient and is worth benchmarking on small tables</div>
 <p class="comment-info">by 
-<a href="http://www.internetschoon.nl" rel="nofollow"></a>on May 11 2006, 12:19<a href="#comment-641">#</a>
+<a href="http://www.internetschoon.nl" rel="nofollow">rick</a> on May 11 2006, 12:19 <a href="#comment-641">#</a>
 </p>
 </li>
 <li class="even" id="comment-646">
@@ -101,7 +101,7 @@ Is there a difference between REPLACE and REPLACE INTO, it looks like it&#8217;s
 <br />
 By the way, Rick, I had to slightly edit your comment, it somehow came out with mixed up lines.</div>
 <p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 11 2006, 13:57<a href="#comment-646">#</a>
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on May 11 2006, 13:57 <a href="#comment-646">#</a>
 </p>
 </li>
 <li class="odd" id="comment-651">
@@ -110,7 +110,7 @@ By the way, Rick, I had to slightly edit your comment, it somehow came out with 
 REPLACE INTO someTable (field) VALUEs (value)<br />
 REPLACE someTable set field  = value</div>
 <p class="comment-info">by 
-<a href="http://www.internetschoon.nl" rel="nofollow"></a>on May 12 2006, 07:52<a href="#comment-651">#</a>
+<a href="http://www.internetschoon.nl" rel="nofollow">rick</a> on May 12 2006, 07:52 <a href="#comment-651">#</a>
 </p>
 </li>
 
