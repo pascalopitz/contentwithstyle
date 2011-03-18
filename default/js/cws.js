@@ -1,44 +1,7 @@
 CWS = new function() {
 	this.NS = 'CWS';
 	var _drFunctions = [];
-}
-
-CWS.Form = new function() {
-	this.NS = 'CWS.Form';
-	var _self = this;
-	
-	var _hideLabel = function() {
-		$(this).parents('form').find('label').css('display', 'none');
-	}
-	
-	var _showLabel = function() {
-		if('' == this.value) {
-			$(this).parents('form').find('label').css('display', 'block');
-		}
-	}
-	
-	var _checkEmpty = function(event) {
-		if($(this).find('input[type=text]').get(0).value == '') {
-			return false;
-		}
-	}
-
-	var _init = function(obj) {
-		if('' != obj.value) {
-			_self.hideLabel.call($(obj));
-		}
-
-		$(obj).focus(_hideLabel);
-		$(obj).blur(_showLabel);		
-		$(obj).parents('form').submit(_checkEmpty);
-	}
-	
-	$(document).ready(function() {
-		$('input#site-search,input#register-form-email').each(function() {
-			_init(this);
-		});
-	});
-}
+};
 
 CWS.GoogleAnalytics = new function() {
 	this.NS = 'CWS.GoogleAnalytics';
@@ -53,14 +16,14 @@ CWS.GoogleAnalytics = new function() {
 		} else {
 			window.setTimeout(_checkTracker, _t);			
 		}
-	}
+	};
 	
     var gaJsHost = (("https:" == document.location.protocol) ? 'https://ssl.' : 'http://www.');
 	var str = unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E");
 	$('body').append(str);
 
 	window.setTimeout(_checkTracker, _t);
-}
+};
 
 CWS.CodeHighlight = new function() {
 	if(hljs) {
@@ -74,7 +37,14 @@ CWS.CodeHighlight = new function() {
 };
 
 CWS.DeliciousFeed = new function() {
+    var Store = window.sessionStorage || false;
+    var _self = this;
+    
     this.generateList = function(data) {
+        if(Store && JSON && !Store.getItem('delicious')) {
+            Store.setItem('delicious', JSON.stringify(data));
+        }
+
         var box = $('<div class="box links"><h2><a href="http://delicious.com/contentwithstyle/">Elsewhere</a></h2><ul></ul></div>');
         
         for(i=0; i<data.length; i++) {
@@ -91,6 +61,11 @@ CWS.DeliciousFeed = new function() {
     
 	$(document).ready(function() {
 	    if(!$('.date.box').length) {
+	        if(Store && JSON && Store.getItem('delicious')) {
+                _self.generateList(JSON.parse(Store.getItem('delicious')));
+                return;
+            }
+        
     	    var url = 'http://feeds.delicious.com/v2/json/contentwithstyle?count=10&callback=CWS.DeliciousFeed.generateList';
             $('body').append('<script src="'+url+'" type="application/javascript"></script>');
 	    }
