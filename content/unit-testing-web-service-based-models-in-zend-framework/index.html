@@ -170,6 +170,120 @@ Instead of changing the adapter to intercept the call, we could swap the endpoin
 </ul>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-6601">
+<div class="comment-text">Hello,
+<p>
+I am trying to do the same thing as above but using Zend_Service_Twitter
+</p>
+
+<p>
+I have this:
+</p>
+
+<pre><code>
+$mockReturn = array();
+$mockReturn[\'request\'] = \'/account/verify_credentials.xml\';
+$mockReturn[\'error\'] = \'Could not authenticate you.\';
+
+$stub = $this-&gt;getMock(\'Zend_Service_Twitter\', array(\'verifyCredentials\'),array(),\'\',FALSE);
+
+ $stub-&gt;expects($this-&gt;once())
+              -&gt;method(\'verifyCredentials\')
+              -&gt;will($this-&gt;returnValue($mockReturn));
+
+$model = new Twitter_Model_Twitter(array(\'username\'=&gt;\'test\',\'password\'=&gt;\'passwd\'));
+$model-&gt;setOptions(array(\'twitter\'=&gt;$stub));
+
+$posts = $model-&gt;verifyCredentials();
+$this-&gt;assertEquals($posts, $mockReturn);
+</code></pre>
+
+<p>
+I am confused because it is trying to access the twitter.com API. I know this because when I turned off my internet connection, I got this:
+</p>
+
+<pre><code>
+1) testVerifyCredentials(Model_TwitterTest)
+Zend_Http_Client_Adapter_Exception: Unable to Connect to tcp://twitter.com:80. Error #60: Operation timed out
+</code></pre>
+
+<p>
+FYI: when it connects successfully to the twitter API i get this:
+</p>
+
+<pre><code>
+1) testVerifyCredentials(Model_TwitterTest)
+Failed asserting that two objects are equal.
+--- Expected
++++ Actual
+@@ -1,9 +1,5 @@
+-Zend_Rest_Client_Result Object
++Array
+ (
+-    [_sxml:protected] =&gt; SimpleXMLElement Object
+-        (
+-            [request] =&gt; /statuses/friends.xml
+-            [error] =&gt; This method requires authentication.
+-        )
+-
++    [request] =&gt; /account/verify_credentials.xml
++    [error] =&gt; Could not authenticate you.
+ )
+
+/htdocs/twitter/tests/application/models/TwitterTest.php:57
+</code></pre>
+
+<p>
+How do I properly test Zend_Service_Twitter? 
+When my Twitter_Model_Twitter looks like this:
+</p>
+</div>
+<p class="comment-info">by 
+<a href="http://blog.ekini.net" rel="nofollow"></a>on August 10 2009, 05:18<a href="#comment-6601">#</a>
+</p>
+</li>
+<li class="even" id="comment-5973">
+<div class="comment-text"><p>Hello,</p>
+
+<p>You have a typo in the first code example [...]</p></div>
+<p class="comment-info">by 
+<a href="http://www.jeremyglover.com/blog/" rel="nofollow"></a>on April 29 2009, 16:37<a href="#comment-5973">#</a>
+</p>
+</li>
+<li class="odd" id="comment-5974">
+<div class="comment-text">Fixed, thanks for spotting it.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on April 29 2009, 16:44<a href="#comment-5974">#</a>
+</p>
+</li>
+<li class="even" id="comment-6603">
+<div class="comment-text"><p>Wenbert, it looks to me like the twitter object doesn\'t swap properly in your model. If I was you I\'d var_dump the model after I injected the mock object, to verify what\'s going on, and take it from there.</p>
+
+<p>Also I\'d have a close look at what exactly you are doing in $model->setOptions. Refer to the code above, there it\'s called $model->setProperty. Does this successfully alter the property? Again a var_dump before and after the replacement will probably show this.</p>
+
+<p>If this part works, you\'ll probably have to check whether you overwrite the \'twitter\' property later on.</p>
+
+<p>Finally I\'d recommend you an HTTP tracker like HTTPScoop to see what requests your machine does to the outside. It helps to have a close eye on the HTTP traffic when working with web services.</p>
+
+<p>Good luck!</p></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on August 10 2009, 06:43<a href="#comment-6603">#</a>
+</p>
+</li>
+<li class="odd" id="comment-6973">
+<div class="comment-text">Some nice examples of mocking techniques for web services. Thanks.</div>
+<p class="comment-info">by 
+<a href="http://www.papayasoft.com/" rel="nofollow"></a>on September 24 2009, 13:34<a href="#comment-6973">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

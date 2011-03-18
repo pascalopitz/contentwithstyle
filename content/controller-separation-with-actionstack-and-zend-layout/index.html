@@ -112,6 +112,39 @@ class BarController extends BaseController
 </ul>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-4561">
+<div class="comment-text">With the same problem, cakePHP seems to suggest to pull data by calling methods in other controllers, such as
+<code>
+
+function indexAction() {
+
+&nbsp; //do index stuff 
+&nbsp; $bar_data=$this-&gt;requestAction(\'/controller/method/\');
+&nbsp; $this-&gt;set(\'data\', $bar_data);
+
+}
+</code>
+
+That seems to give you the same tools, although more opportunity for further using this data in the controller. Downside is, from what I can see, it\'s another invitation to not writing clean code by pulling information from everywhere and putting it into one large array for the view here, and different ones there.
+With your way you seem to be limited to working of different data sources in the view.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 10 2008, 22:36<a href="#comment-4561">#</a>
+</p>
+</li>
+<li class="even" id="comment-4564">
+<div class="comment-text"><p>One question that I would ask myself: Should I be working with, what\'s essentialy meant to be output, further down the line in the controller? Personally I could imagine that it can be confusing if the view script spits out something, and then it gets processed massively.</p></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 11 2008, 08:39<a href="#comment-4564">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

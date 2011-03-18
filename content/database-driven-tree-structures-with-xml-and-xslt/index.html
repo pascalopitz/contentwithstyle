@@ -262,6 +262,224 @@ In my example, you can see that the &#8220;page&#8221; template is calling itsel
 	It speeds up your application dramatically and makes it possible to render even large trees with maximum pace.</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-136">
+<div class="comment-text">Great article, Pascal. I have read somewhere that you might run into trouble if you modify the tree very often, as you have to lock the whole tree when updating it.<br />
+In the parent-child approach you only add, and you only read out the parent-id.<br />
+But you could on the other hand prevent this by forming some sort of message queue in a background process, or simply repeat the command until it&#8217;s successful. One might be quite some work, the other one seems a bit of a dirty solution (although, how do YOU make sure your data is actually written?), but all I want to say is that there&#8217;s always a way to use the desired approach, as much as there&#8217;s always a way to misuse it.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 13 2005, 21:08<a href="#comment-136">#</a>
+</p>
+</li>
+<li class="even" id="comment-138">
+<div class="comment-text">If thing get really bad my fix would probably be to store the parentID as well but still do the tree-thing by left and right &#8230;<br />
+<br />
+If things are corrupted you could rebuild the left and right values by using parentID, in a cron script for example &#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 14 2005, 10:56<a href="#comment-138">#</a>
+</p>
+</li>
+<li class="odd" id="comment-217">
+<div class="comment-text">I just ran into an interesting thought about this:<br />
+<br />
+Let&#8217;s say I use this for a navigation, how do I get ONLY the direct children for my page, like a 1st level subnav?<br />
+Right now I&#8217;m thinking I should combine the parent_id approach with the preordered tree traversal, but I didn&#8217;t see this question as a drawback anywhere, so I wonder if I missed that somehow&#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on August 8 2005, 13:43<a href="#comment-217">#</a>
+</p>
+</li>
+<li class="even" id="comment-218">
+<div class="comment-text">I&#8217;d say just do that in the XSL, with an xpath command. For exapmple the depth value of the node that I&#8217;ve put into an attribute helps to do so, but there&#8217;s other ways.<br />
+<br />
+Like that you can, with the XML beeing a whole tree, reuse it for all kind of navigations, you need on your page.<br />
+<br />
+Take a close look in <a href="http://www.contentwithstyle.co.uk/Articles/8/find-your-node-advanced-xpath-commands">Find your node: Advanced XPATH commands</a> again and you&#8217;ll see what I mean.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on August 9 2005, 10:56<a href="#comment-218">#</a>
+</p>
+</li>
+<li class="odd" id="comment-344">
+<div class="comment-text">The primary argument against using a parent-id relationship to define the hierarchy seems to be the number of database requests required. However, it is possible to write SQL, with either recursion or loops, to return the structure in one command. You could also pass in a starting node id to only return child nodes. <br />
+<br />
+I&#8217;m not saying preorder algorithms are bad but they&#8217;re not amazingly better as this article suggests.</div>
+<p class="comment-info">by 
+on November 29 2005, 11:05<a href="#comment-344">#</a>
+</p>
+</li>
+<li class="even" id="comment-369">
+<div class="comment-text">Ben,<br />
+While this is definetely true for big RDBMS, and possibly even for MySQL 4.1 upwards, they are sadly not always available. Without Subselects, I wonder if you could give an example sql for the problem stated above.<br />
+Actually, I&#8217;d be happy to see any recursive SQL in here, I don&#8217;t think that everybody reading this article is aware of this possibility.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 12 2006, 04:05<a href="#comment-369">#</a>
+</p>
+</li>
+<li class="odd" id="comment-371">
+<div class="comment-text">We use the same tree skeleton as a model but added &#8220;SortLevel&#8221; and &#8220;ChildCount&#8221; to each row. At insertion/update time we calculate these, which is cheaper than having to do them on-the-fly (more SQL requests). This seems to offer better performance for  us, but your mileage may very.<br />
+<br />
+SortLevel = depth of node, basically<br />
+ChildCount = self-explanatory</div>
+<p class="comment-info">by 
+on January 13 2006, 12:13<a href="#comment-371">#</a>
+</p>
+</li>
+<li class="even" id="comment-374">
+<div class="comment-text">@cody:<br />
+This is a very good idea indeed. Even though when you do the traversal at least for the depth level it&#8217;s kind of obsolete, since depth can be triggered with just a counter.<br />
+<br />
+@Ben:<br />
+I&#8217;d be curious to see an example of this as well. In fact I wonder how the performance of a recursive statement would be like. Subselects for example will make the query execution slower, and I guess the same goes for any recursive statement.<br />
+Has anyone got any benchmark or something on hand?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 18 2006, 05:40<a href="#comment-374">#</a>
+</p>
+</li>
+<li class="odd" id="comment-478">
+<div class="comment-text">Geza, I don&#8217;t see where the problem is?<br />
+If you order by alphabet, you loose the structure of the tree anyway, right? So therefore you don&#8217;t need to sort by lft anymore I guess &#8230;<br />
+<br />
+The update is by no means a recursion, instead it is just a couple of simple SQL statements, that should even be fast with big amounts of data, pretty similar to the one below:<br />
+<br />
+<code> UPDATE table SET lft = (lft + offset), rgt = (rgt + offset) WHERE lft &gt; startpoint AND rgt &lt; endpoint; </code><br />
+<br />
+Hope that makes sense to you?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on March 8 2006, 08:43<a href="#comment-478">#</a>
+</p>
+</li>
+<li class="even" id="comment-477">
+<div class="comment-text">There is also a couple of other problems with left and right value approach (Modified Preorder Tree Traversal).<br />
+<br />
+How do you order the results alphabetically if you used order by lft?<br />
+<br />
+How do you move nodes with children to an other node without recreating all the left and right numbers which could be exhausting with 100 000 entries or more? (recursive function)<br />
+<br />
+Geza</div>
+<p class="comment-info">by 
+on March 8 2006, 08:29<a href="#comment-477">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1021">
+<div class="comment-text">HI Pascal,<br />
+      I tried getting my 2000 member list to show up in the above example.  I was looking in your previous article that uses adodb but can&#8217;t find anything to get your function getPageTreeXML to work.  Or did I miss out anything.  Appreciate if you could tell me which module to use for the above function.  Thanks.</div>
+<p class="comment-info">by 
+on July 12 2006, 06:39<a href="#comment-1021">#</a>
+</p>
+</li>
+<li class="even" id="comment-1030">
+<div class="comment-text">Sebbie, in fact the above example doesn&#8217;t use ADODB. It uses some kind of not specified DB class. The article you&#8217;ve been lookin into doesn&#8217;t &#8220;use&#8221; ADODB either. Instead it mentions ADODB as possibility of abstraction.<br />
+<br />
+For the example above I used one of my own classes:<br />
+
+<pre><code>
+&lt;
+/**
+* general database connection class
+*/
+class DB {
+  /**
+  * Basic contructor
+  */
+  function DB() {
+       $this->host = \"myhost\";
+       $this->db = \"mydb\";
+       $this->user = \"myuser\";
+       $this->pass = \'mypassword\';
+  }
+
+  /**
+  * Opens connection
+  */
+  function open() {
+       $this->connection = mysql_connect($this->host, $this->user, $this->pass);
+       $this->dbselect = mysql_select_db($this->db);
+       register_shutdown_function(array(&amp;$this, \'close\'));
+   }
+
+  /**
+  * Executes query, returns resultset
+  *
+  * @param  string  String containing the SQL-Statement
+  * @access  public
+  * @return  ressource
+  */
+   function query($query) {
+     $result = mysql_query($query, $this->connection) or die(mysql_error());
+       return $result;
+   }
+
+  /**
+  * closes connection
+  */
+   function close() {
+       mysql_close($this->connection);
+   }
+}
+?&gt;
+</code></pre></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 12 2006, 18:04<a href="#comment-1030">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1395">
+<div class="comment-text">Hi Pascal, what does mysqlDecodeText do ?  Could you email me what it is ? Even better, if you have a complete working example in a zip file that would be nice.  Thanks.<br />
+<br />
+Sebbie</div>
+<p class="comment-info">by 
+on August 14 2006, 05:42<a href="#comment-1395">#</a>
+</p>
+</li>
+<li class="even" id="comment-1412">
+<div class="comment-text">It&#8217;s just a wrapper for undoing whatever you do before you put it in the database &#8230; like add slashes and so on.<br />
+<br />
+It&#8217;s not critical for the app though.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on August 15 2006, 10:47<a href="#comment-1412">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1919">
+<div class="comment-text">You should also check up my blog entry about &#8220;<a href="http://www.frostinnovation.com/Blog.aspx?blogId=1b82e4b8-47fe-453a-a9c3-f11efe8083d8 ">Genetic Trees</a>&#8221; which has another approach called Genetic Trees or &#8220;Materialized Path&#8221; that makes subselection of childne and grandchildrens etc an O(1) operation!!</div>
+<p class="comment-info">by 
+<a href="http://ajaxwidgets.com" rel="nofollow"></a>on January 18 2007, 12:42<a href="#comment-1919">#</a>
+</p>
+</li>
+<li class="even" id="comment-1947">
+<div class="comment-text">(Reply for item #17): Yes, that&#8217;s a solution. However, when I make changes in a node (including a new child, for example), I&#8217;ll have to search for all trees that has the modified node, and update them. It seems to be expensive, but we must think of what is more likely: MODIFY a node or SELECT a node. If SELECT&#8217;s are more frequent, then I think your suggestion will be the best solution.</div>
+<p class="comment-info">by 
+<a href="http://devinstance.wordpress.com" rel="nofollow"></a>on January 25 2007, 11:21<a href="#comment-1947">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1942">
+<div class="comment-text">Hi Pascal, congratulations for the article. And what if I increase the complexity a little bit? Let&#8217;s assume that, in your example, we would like to store different menu trees in the table, one for administrators and another for ordinary users. Both trees should share some nodes (both should see page 1.2.1, for example), and wouldn&#8217;t like to have repeated records for those nodes in the table. How could we do this using the preordered tree traversal method?</div>
+<p class="comment-info">by 
+<a href="http://devinstance.wordpress.com" rel="nofollow"></a>on January 24 2007, 11:13<a href="#comment-1942">#</a>
+</p>
+</li>
+<li class="even" id="comment-1943">
+<div class="comment-text">Hi Ernani,
+<br />
+<br />
+Quick shot: How about you store the node-data itself in a separate table and join node-guid against data-guid via a join table?
+<br />
+In addition you add a user-id to the tree table.
+<br />
+<br />
+This would give you the opportunity to store trees for each user and join them against several data nodes without redundancy.
+<br />
+Does that make sense?
+
+</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 24 2007, 11:46<a href="#comment-1943">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

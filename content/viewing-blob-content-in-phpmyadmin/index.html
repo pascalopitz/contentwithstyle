@@ -73,6 +73,33 @@
 <p>While writing this, I also <a href="http://www.yegq.org/archives/177">saw this page</a>, can anyone translate?</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-7870">
+<div class="comment-text"><p>This worked for me on ubuntu 9.10 lamp\'s /etc/phpmyadmin/config.inc.php:</p>
+
+<pre><code>$cfg[\'ProtectBinary\'] = FALSE;</code></pre>
+
+<p>(remember /etc/init.d/apache2 restart)</p></div>
+<p class="comment-info">by 
+on January 26 2010, 00:55<a href="#comment-7870">#</a>
+</p>
+</li>
+<li class="even" id="comment-7963">
+<div class="comment-text"><p>Got tripped up by the ShowBlob deprecation my self. I guess the documentation is my friend, but I keep forgetting about it:
+<a href=\"http://wiki.phpmyadmin.net/pma/Config\">http://wiki.phpmyadmin.net/pma/Config</a></p>
+
+<p>Seems like the only way to display blob data is with <code>$cfg[\'ProtectBinary\']</code></p></div>
+<p class="comment-info">by 
+on February 4 2010, 16:08<a href="#comment-7963">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

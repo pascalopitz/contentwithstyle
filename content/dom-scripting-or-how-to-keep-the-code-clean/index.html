@@ -282,6 +282,190 @@ window.onload = applyPopups;
 </p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-27">
+<div class="comment-text">Nice article, Pascal!<br />
+<br />
+Here&#8217;s another application to the technique you describe. You can create nice menus automatically from the following code:<br />
+<br />
+<pre><br />
+&lt;ul id="menu"&gt;<br />
+  &lt;li&gt;&lt;a href="home.html"&gt;Home&lt;/a&gt;<br />
+  &lt;li&gt;&lt;a href="products.html"&gt;Products&lt;/a&gt;<br />
+&lt;/ul&gt;<br />
+</pre><br />
+<br />
+What is necessary is to take the URL from the HREF of A tag wrapped with LI and create onClick function on that LI with appropriate HREF. The ID of UL element will allow to find only necessary LI&#8217;s and A&#8217;s. Doing so will guaranty that if user clicks anywhere on the cell (not only on the A tag text) he will be forwarded to a new page. And the processing can be automated down to onLoad=&#8221;processMenu(&#8216;menu&#8217;)&#8221; in BODY tag. In conjuntion with correct cursor shape set for LI in CSS (to mimic the one when over the link) the overal look and feel will be excellent.<br />
+<br />
+We use this technique for several years already and it&#8217;s proved to work wonderfully.</div>
+<p class="comment-info">by 
+<a href="http://www.noizeramp.com" rel="nofollow"></a>on May 22 2005, 07:30<a href="#comment-27">#</a>
+</p>
+</li>
+<li class="even" id="comment-29">
+<div class="comment-text">hmm, why the hassle?<br />
+Using css and switching the &#8220;li&#8221; to inline, the &#8220;a&#8221; within the &#8220;li&#8221; to block should do the same, right? And you don&#8217;t &#8220;pollute&#8221; the body tag. And would ensure that, if JS is off, it still works on new generation browsers. Does that make sense?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 22 2005, 10:24<a href="#comment-29">#</a>
+</p>
+</li>
+<li class="odd" id="comment-34">
+<div class="comment-text">Since the target attribute is not allowed in XHTML 1.0 Strict, would it be better to apply something like <code>class="popupLink"</code> instead?</div>
+<p class="comment-info">by 
+<a href="http://www.electrointeractive.com" rel="nofollow"></a>on May 23 2005, 09:48<a href="#comment-34">#</a>
+</p>
+</li>
+<li class="even" id="comment-38">
+<div class="comment-text">I use the <a href="http://www.w3.org/TR/REC-html40/struct/links.html#adef-rel">rel attribute</a> instead.  Rel=&#8221;external&#8221; for popups is both semantic and human readable&#8230; I&#8217;ve also got a rel=&#8221;choice&#8221; which, at runtime, triggers a script to run through and add a little popup icon after the link to open in a new window, allowing people to choose between same and new windows.</div>
+<p class="comment-info">by 
+<a href="http://donotremove.co.uk" rel="nofollow"></a>on May 23 2005, 12:10<a href="#comment-38">#</a>
+</p>
+</li>
+<li class="odd" id="comment-39">
+<div class="comment-text">Haahahahaa. Hey, Mike, you seem like a smart guy, can I meet you for a pint? Let&#8217;s set up a website!<br />
+<br />
+I have been using the rel attribute for a couple of things in the past, including image rollovers and other things where I wanted to trick the validator; until I got worried that I don&#8217;t follow the idea of the attribute. But your way of using it seems actually close enough to what it&#8217;s supposed to be.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 23 2005, 17:17<a href="#comment-39">#</a>
+</p>
+</li>
+<li class="even" id="comment-66">
+<div class="comment-text">Er, now anyone who&#8217;s not read the <a href="/About">about</a> page will be thinking you&#8217;re my stalker!</div>
+<p class="comment-info">by 
+<a href="http://donotremove.co.uk" rel="nofollow"></a>on May 24 2005, 23:19<a href="#comment-66">#</a>
+</p>
+</li>
+<li class="odd" id="comment-84">
+<div class="comment-text">Pascal, you are right. The same could be established by pure CSS also. You points make sense.</div>
+<p class="comment-info">by 
+<a href="http://www.noizeramp.com" rel="nofollow"></a>on May 26 2005, 10:59<a href="#comment-84">#</a>
+</p>
+</li>
+<li class="even" id="comment-86">
+<div class="comment-text">In fact i always suggest <a href="http://www.deelan.com/docs/html/best/en/#url">this way</a> to insert pop-ups in a web page.<br />
+<br />
+Throw into the popup variant and you are done, accessible popup windows for the masses!<br />
+<br />
+cheers,<br />
+deelan.</div>
+<p class="comment-info">by 
+<a href="http://www.deelan.com" rel="nofollow"></a>on May 26 2005, 12:07<a href="#comment-86">#</a>
+</p>
+</li>
+<li class="odd" id="comment-88">
+<div class="comment-text">Deelan,<br />
+Your suggested solution is getting used more and more, which is good, and Pascal had mentioned it in his article as well (ok, minus the target=&#8221;_blank&#8221;, but that&#8217;s really a question of strict or transitional xhtml).<br />
+<br />
+What I like about Pascals approach is, that you can separate content from functionality. The html stays the same, clean and lean. I&#8217;m sure instead of the target you could use other ways of determining which links are popups and which stay in the same window, such as an id (don&#8217;t forget to keep it unique) or the surrounding html structure.<br />
+<br />
+Cheers,<br />
+Matthias</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 26 2005, 14:56<a href="#comment-88">#</a>
+</p>
+</li>
+<li class="even" id="comment-89">
+<div class="comment-text">Deelan:<br />
+Matthias is right about that. you could trigger the same by using any attribute, a surrounding or a childnode element &#8230; target _blank is just an example and for sure not best practice for accessible HTML.<br />
+<br />
+The weak point of way you suggest is the &#8220;pollution&#8221; with the onclick handler within the markup, and the redundant string for the href, which is exactly what you can get rid of...</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 26 2005, 17:02<a href="#comment-89">#</a>
+</p>
+</li>
+<li class="odd" id="comment-130">
+<div class="comment-text">great site! I mentioned this on my site today and thought you would enjoy my take on this subject. I wrote a javascript function that makes adding XHTML tags easier. I would like to expand on it. Please let me know what you think. It&#8217;s at http://www.heywink.com/files/DOModder.zip you can read about it at http://www.heywink.com/files/DOModder.pdf</div>
+<p class="comment-info">by 
+<a href="http://www.heywink.com" rel="nofollow"></a>on June 6 2005, 22:20<a href="#comment-130">#</a>
+</p>
+</li>
+<li class="even" id="comment-246">
+<div class="comment-text">Great article, althought I won&#8217;t use it, because I don&#8217;t like to pop out windows. As a user, I know how to open a new window when clicking on a link, when I want to&#8230;<br />
+<br />
+Note that the first two old ways are really annoying, because it prevents to allow to drag the link to a tab (in Mozilla or Firefox or custom IE base browser), which is the usual way I use to open a link in another window (that and Ctrl+Click, of course);.<br />
+<br />
+I also just want to point out two typos:<br />
+propper and getElemet (3 times&#8230;)<br />
+HTH.</div>
+<p class="comment-info">by 
+<a href="http://Phi.Lho.free.fr" rel="nofollow"></a>on September 26 2005, 05:52<a href="#comment-246">#</a>
+</p>
+</li>
+<li class="odd" id="comment-280">
+<div class="comment-text">Phillipe: <br />
+Thanks for pointing out the possibility with dragging links to a tab (I never thought of that actually).<br />
+<br />
+Fair enough that you don&#8217;t do popups, but in fact the article was more about showing non-intrusive javascript and the popups were just an example. So if you didn&#8217;t know about this before I hope you could use bits and bobs.<br />
+<br />
+For the typos: Shame on me! Removed them.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on October 27 2005, 04:29<a href="#comment-280">#</a>
+</p>
+</li>
+<li class="even" id="comment-323">
+<div class="comment-text">Keeping the markup hook free:<br />
+<a href="http://www.tjkdesign.com/articles/popups.asp">Opening pop up windows with no extra markup</a></div>
+<p class="comment-info">by 
+<a href="http://www.TJKDesign.com" rel="nofollow"></a>on November 8 2005, 09:57<a href="#comment-323">#</a>
+</p>
+</li>
+<li class="odd" id="comment-326">
+<div class="comment-text">Thierry &#8230; nice one. <br />
+Picking up the discussion above: Is there any reason for using &#8220;class&#8221; instead of &#8220;rel&#8221; to trigger what&#8217;s popup and what&#8217;s not?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 10 2005, 07:11<a href="#comment-326">#</a>
+</p>
+</li>
+<li class="even" id="comment-333">
+<div class="comment-text">Pascal,<br />
+The specs say (about &#8220;rel&#8221;):<br />
+<cite>This attribute describes the relationship from the current document to the anchor specified by the href attribute. The value of this attribute is a space-separated list of link types.</cite><br />
+This <a href="http://www.w3.org/TR/REC-html40/types.html#type-links">section</a> is about link types, it lists their conventional interpretations<br />
+The way I read this, I&#8217;d say using  &#8220;class&#8221; would be more appropriate.<br />
+<br />
+BTW, thanks for the compliment about my article.</div>
+<p class="comment-info">by 
+<a href="http://www.TJKDesign.com" rel="nofollow"></a>on November 16 2005, 23:43<a href="#comment-333">#</a>
+</p>
+</li>
+<li class="odd" id="comment-536">
+<div class="comment-text">Lucas: According to <a href="http://www.w3.org/TR/REC-html40/struct/global.html#h-7.5.2">the w3c definition for id and class</a> both elements can be used &#8220;For general purpose processing by user agents (e.g. for identifying fields when extracting data from HTML pages into a database, translating HTML documents into other formats, etc.)&#8221;.<br />
+<br />
+So scripting wise you have the choice what to do with them. CSS wise there is always the <a href="http://www.stuffandnonsense.co.uk/archives/css_specificity_wars.html">specifity</a> that has to be taken into account. And yes, id has to be unique within the document.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on April 15 2006, 15:58<a href="#comment-536">#</a>
+</p>
+</li>
+<li class="even" id="comment-534">
+<div class="comment-text">Hi there, great article!<br />
+I have a question, I&#8217;ve always used class as a &#8220;second&#8221; identifier, id for unique and class for group of items, am I wrong?<br />
+<br />
+I really enjoy the possibility to describe an object with non-intrusive Js (I dont really knew how to name this) using many class identifiers heh.<br />
+<br />
+Thanks!</div>
+<p class="comment-info">by 
+on April 15 2006, 12:30<a href="#comment-534">#</a>
+</p>
+</li>
+<li class="odd" id="comment-2318">
+<div class="comment-text">I guess then it must be possible as well to combine the lightbox &#8220;popup&#8221; and the DOM popup to achieve a javascriptless popup with background?</div>
+<p class="comment-info">by 
+on September 18 2007, 10:18<a href="#comment-2318">#</a>
+</p>
+</li>
+<li class="even" id="comment-2332">
+<div class="comment-text">Esther: The lightbox popup as well as any DOM scripting is JavaScript. However, if you wonder about the possibility of using lightbox popup together with attaching events to the DOM nodes, all without explicit script tags in the body: Yeah, that&#8217;s possible for sure.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 21 2007, 03:58<a href="#comment-2332">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

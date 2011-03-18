@@ -92,6 +92,91 @@ $test = new test();
  
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-562">
+<div class="comment-text">Glad I could help. This should do:<br />
+<pre>
+$arr = array_filter($arr, array(&quot;self&quot;, &quot;filter&quot;));
+</pre>
+</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on April 21 2006, 02:33<a href="#comment-562">#</a>
+</p>
+</li>
+<li class="even" id="comment-560">
+<div class="comment-text">thanx-a-lot, pascal. a few days ago i had quite a bit of troublewhen i tried to define a class-based callback function for array_filter.<br />
+<br />
+is this definition also working in php5?</div>
+<p class="comment-info">by 
+<a href="http://berlienna.com" rel="nofollow"></a>on April 20 2006, 16:06<a href="#comment-560">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1698">
+<div class="comment-text">Hi there. I&#8217;m currently working with an big array, and i have to filter some info out of it. This tutorial really helps, but i neat some more info.<br />
+<br />
+The array is very multidimentional, like this:<br />
+$array[&#8216;id&#8217;][&#8216;category&#8217;][&#8216;element&#8217;] = value.<br />
+<br />
+So i want to filter out all the ID&#8217;s wich don&#8217;t have the good Value in [&#8216;category&#8217;][&#8216;element&#8217;], how can i do this?<br />
+<br />
+couse the callback function only has $var, i cant give all the $ID&#8217;s:<br />
+function filter($var)<br />
+{<br />
+  return($var[&#8217;$id&#8217;] == &#8217;$askedvalue&#8217;);<br />
+}<br />
+<br />
+would work, but how can i add $id/$askedvalue in the array_filter($array, &#8216;callbackfunction&#8217;)?</div>
+<p class="comment-info">by 
+<a href="http://Aint Telling, srry" rel="nofollow"></a>on November 4 2006, 14:16<a href="#comment-1698">#</a>
+</p>
+</li>
+<li class="even" id="comment-1703">
+<div class="comment-text">How about setting the variables as class members or globals?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 6 2006, 11:06<a href="#comment-1703">#</a>
+</p>
+</li>
+<li class="odd" id="comment-2447">
+<div class="comment-text">Hi thanks for this tut, I really need it, but I&#8217;m having trouble understanding the array filter. I need to make a loop from an array which calls in a simple flat file database for a site menu, the database contains the site menu link names i.e. my web page, and I need the array to filter that data stripping the spaces to return mywebpage.txt (where the actual page is) as well as pull in the link name, all within an li tag so the &#8220;my web page&#8221; shows up as the link name and the mywebpage.txt shows up as the link.  Here&#8217;s my function<br />
+<br />
+function filter_str($string, $page=&#8217;&#8217;)<br />
+{<br />
+if ($page == &#8216;&#8217;)<br />
+   $filter = ereg_replace(&#8217;[^a-zA-Z0-9_]&#8217;, &#8216;&#8217;, $string);<br />
+<br />
+else <br />
+   $filter = ereg_replace(&#8221;[^a-zA-Z0-9_$page]&#8221;, &#8216;&#8217;, $string);<br />
+<br />
+  return $filter;  <br />
+}<br />
+<br />
+$page = filter_str($page);<br />
+<br />
+and my array loop<br />
+<br />
+$array = file(&#8220;menudata.txt&#8221;);//holds menu link names<br />
+<br />
+foreach($array as $page) {<br />
+<br />
+echo &#8220;li a href=&#8221;index.php?page=$page&#8221;{$page}/a/li>&#8221;;<br />
+<br />
+(i had to take the link lesser/greater tags out in this post to get them to show up.)<br />
+<br />
+for the life of me I cannot figure out how to make it work.<br />
+Thanks for any help you have time to provide.<br />
+<br />
+Karen</div>
+<p class="comment-info">by 
+<a href="http://www.lilycreek.com" rel="nofollow"></a>on January 6 2008, 10:12<a href="#comment-2447">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

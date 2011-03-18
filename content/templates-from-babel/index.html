@@ -178,6 +178,116 @@ Why forget the old merits? Sure, frameworks and libraries can help to cut down d
 	<p>I hope I have highlighted some valid points in this article and am looking forward to your feedback.</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-2080">
+<div class="comment-text">You&#8217;re right on the money&#8212;templates should not contain business logic. And, by extension, business logic layers should not contain markup.<br />
+<br />
+I&#8217;m not very enthusiastic about XSLT-based solutions&#8212;I think XSLT is incredibly difficult to write, much less read, esp. for translating angle-bracket-delimited languages. I guess it&#8217;s just me, since there&#8217;s a ton of XSLT out there.<br />
+<br />
+The best templating engine I&#8217;ve seen that addresses these concerns is <a href="http://www.stringtemplate.org/">StringTemplate</a>&#8212;its main intent is to maintain MVC layer separation, as detailed in the canonical <a href="http://www.cs.usfca.edu/~parrt/papers/mvc.templates.pdf">whitepaper</a>.<br />
+<br />
+Unfortunately, it doesn&#8217;t seem to have been ported to PHP&#8230;.</div>
+<p class="comment-info">by 
+on June 4 2007, 17:09<a href="#comment-2080">#</a>
+</p>
+</li>
+<li class="even" id="comment-2081">
+<div class="comment-text">Val, thanks for the comment. I think XSL is one of the easiest things to master once you get used to the weird tags, and it might be worth to give in another go?
+<br />
+<br />
+While the whitepaper on highlights a lot of things that came to my mind even more elaborately than I managed, StringTemplate itself  and your comment on it actually serve as a good  example why I think we need techniques like XSLT.<br />
+The manual is massive, and you cannot jump right in. I&#8217;ve never heard about it before but it&#8217;s part of an ocean of template engines. Last but not least you said yourself that it hasn&#8217;t been ported to PHP, yet.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 4 2007, 17:31<a href="#comment-2081">#</a>
+</p>
+</li>
+<li class="odd" id="comment-2082">
+<div class="comment-text">I find XSLT to be a logical extension to XML and XHTML. Not only does the syntax follow XML, but how you perceive the data is also the same (recursive and tree-like branching structure).<br />
+<br />
+At the core of XSLT, there are only a few instructions that are fundamental to understanding the concepts behind the language. The functional (rather than procedural) aspect of XSLT is also big, big plus.<br />
+<br />
+To me, the perfect templating language is one that naturally understands the structure of XML and XHTML, and XSLT fits the bill here perfectly &#8211; understandably so since it&#8217;s a language developed by the same group for all said lanuages.<br />
+<br />
+...but naturally, I am biased :)</div>
+<p class="comment-info">by 
+<a href="http://www.chaoticpattern.com" rel="nofollow"></a>on June 6 2007, 03:54<a href="#comment-2082">#</a>
+</p>
+</li>
+<li class="even" id="comment-2099">
+<div class="comment-text">Quick and dirty comments. <br />
+The best tool is the tool that you can perfectly use.<br />
+1. Since we have http protocol and html standards, every single one should stick around this basically. <br />
+2. MVC helps to manage medium to large!!! software projects. <br />
+We can choose JSF or Flex or any X way, but should always remember <a href="http://en.wikipedia.org/wiki/KISS_principle">KISS</a>. MVC frameworks helps at this point. I don&#8217;t have to reinvent session handler library for every new app. Just inherit and use it, this is OOP power. Thats why i am using cakephp for a <strong>medium</strong> size apps and <a href="http://www.springframework.org/">Spring</a> + <a href="http://java.sun.com/javaee/javaserverfaces/">JSF</a> (and needed add ins) for a large <strong>enterprise</strong> apps with Java. Java already came up with <a href="http://www.google.com.tr/search?sourceid=navclient-ff&#38;ie=UTF-8&#38;rlz=1B2GGGL_enTR176&#38;q=java+tag">tags</a> solution and also <a href="http://www.ibm.com/developerworks/edu/j-dw-java-tiles-i.html">Tiles</a>,  for a large web apps.<br />
+3. To me, the problem is the quality of the coder. If you can understand OOP and business related requirements, well you can go with any language on presentation layer. Logic is already separated, therefore, web designer designs base skeleton of the site with choosen standars and pass that work the coder with good documentation. If youre skilled coder you can handle the job at this point. Cakephp have a best decision since they give php power back on presentation layer at this moment. After 23 years, when i see that some solution come with an idea to make our lifes easier, only adds more headache (like smarty). Things become more and more complex and life is getting harder.<br />
+4. Sorry but, i hate all x*l based solutions. I am following rfc&#8217;s since sgml times and i&#8217;ve never have a good feeling for this garbage conversion thingies. The idea is safe data conversion and healty conversation between platforms. Of course we can use some techniques in some parts of app, but all of them seems like a temporary solution to me (viva la <a href="http://www.json.org/">JSON</a> for ajax). If i have to write my own data transfer format, i can write my transfer engine too. Always we&#8217;ll have the same story on conversion, vendor specific bugs, version conflicts blah blah. No thanks, i&#8217;ll stay away and trying to find easiest solutions like <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer#RESTful_Example:_The_World_Wide_Web">REST</a>.<br />
+<br />
+Finally, we need to talk about <a href="http://www.qubit.org/">qubits</a> and future of computing, but talking about same all story more and more and more, cheers :)</div>
+<p class="comment-info">by 
+<a href="http://www.mira-soft.com" rel="nofollow"></a>on July 4 2007, 04:27<a href="#comment-2099">#</a>
+</p>
+</li>
+<li class="odd" id="comment-2104">
+<div class="comment-text">Kunthar, thanks for the post and apologies for the delay &#8230;<br />
+<br />
+A couple of points in your post:<br />
+Following the KISS principle, if you have to deal with multiple platforms for doing MVC style, RESTful apps, how does it help that all those have a different template language?<br />
+Sure, you are free to hate anything basically, but I cannot really see how there&#8217;s a clash between an XSLT based rendering of the view and REST? After all, you need to output characters for the HTTP response. The REST principle for the application is neither violated by the usage of XSLT based templates for the response output, nor by using a non-standard template language like Smarty.<br />
+<br />
+While I completely agree with you that, if you understand what OOP is and the business requirements etc. the coding of an app with any language and templating engine should be feasible, I was merely advocating the use of W3C standards for at least the templating side of things, as we would not have to re-learn something for this step everytime we get thrown into a new environment.<br />
+<br />
+Also, with template languages like the one used by cakePHP, the controller logic is NOT separated from the view, at least it doesn&#8217;t have to be. And again, that is leading into a concern of mine: An army of newbie programmers that grab a framework and start doing push-style code for their applications &#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 8 2007, 06:18<a href="#comment-2104">#</a>
+</p>
+</li>
+<li class="even" id="comment-2107">
+<div class="comment-text">Thank you for response, let me explain some more;<br />
+1. xslt, &#8220;which is a language for transforming XML documents into other XML documents<a href="http://www.w3.org/TR/xslt">*</a>.&#8221;  I can use it  to transfer data between two different domains. But template engine is another story. Adopting the xslt to the template system is would be a choice but not my choice, because;<br />
+  a) If i have to interpret parts of html, i can easily use my own, faster translation engine on page when i need, besides, you can check <a href="http://www.25hoursaday.com/weblog/2004/07/09/IsTheW3CBecomingIrrelevant.aspx">that</a>, w3c <a href="http://www.cauldwell.net/patrick/blog/W3CObsoleteAmenBrother.aspx">not</a> always offers well shaped solutions and not a final <a href="http://www.ws-i.org/">technical</a> <a href="http://www.whatwg.org/">authority</a> for me.<br />
+ b) The main question is, who writes the code inside of the presentation layer? This is you and me, coders and coders can use the tools can easily manage. Php itself can be used like a very powerful template engine and what else i need to convert from xml to something again and again and again? cakephp already offers view, layout and element fragments to make things simple. Web designers always separated from our working scope. They have totally different thinking style. Let them go and do their business by using their own way. On the other hand, MVC not helps to unify all my work. If i have to code with Java, sure i have to use it&#8217;s own platform and abilities and vice versa. There is no easy unique way to reuse code between projects. xslt is not an exception. <br />
+ c) MVC itself has a paradox in separation of the layers. This is not quite easy to totally separate controller from view, even in Java too. The answer is not xslt based template system to me on this situation.<br />
+<br />
+What would be an alternate solution?<br />
+Well, use or create same tools and have vast experience on them. <a href="http://www.cs.usfca.edu/~parrt/papers/mvc.templates.pdf">Follow a man</a> criticise about template engines and shows us his own template engine. Basically, if i am talented enough, i do not have to deal with someones ideas, i can write my own, that&#8217;s it. <br />
+<a href="http://en.wikipedia.org/wiki/Rich_Internet_application">RIA</a> is <a href="http://www.laszlosystems.com/">knocking</a> our door and we have to follow native GUI abilities on our web apps too.<br />
+<br />
+And finally, hope an army of programmers could find and start with true OO frameworks to code like cakephp. They could then understand the true world reality, refactoring of the problems and tie things up with power of OOP.</div>
+<p class="comment-info">by 
+<a href="http://www.mira-soft.com" rel="nofollow"></a>on July 9 2007, 14:03<a href="#comment-2107">#</a>
+</p>
+</li>
+<li class="odd" id="comment-2108">
+<div class="comment-text">Kunthar: <br />
+Point taken, and you are free to disagree. <br />
+<br />
+I, for my part, fail to see any benefits in the usage of proprietary, self-coded template languages other than maybe some speed improvement. <br />I do see various benefits in utilizing XSLT for rendering templates. But most of them I already mentioned, and if things work better for you in another way, then there's no reason not to stick with it &#8230;<br />
+<br />
+For the last point: I hope that people that start coding with these new frameworks start looking into them and see the weak points as well, so that they know where and how to introduce some custom stuff in order to improve the app. The web standards movement did quite a good job, and I think we witnessed a huge improvement in quality of HTML code during the last couple of years. If the frameworks get people into using stuff and not abusing stuff, theres no reason to be concerned. It would be a shame if they get people to step away from caring about standards, accessibilty and best practice.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 9 2007, 17:46<a href="#comment-2108">#</a>
+</p>
+</li>
+<li class="even" id="comment-2109">
+<div class="comment-text">I totally agree with you,<br />
+As soon as every single <a href="https://trac.cakephp.org/wiki/bugreport">ticket</a> handled, continuously well <a href="http://api.cakephp.org/1.2/">documented</a>,  <a href="http://bakery.cakephp.org/">explained</a> and the idea <a href="http://bakery.cakephp.org/articles/view/something-fresh">improved</a> on that frameworks, i will give my hand to do something better on. You know, every frog swims in nicely boiled water, can swim :)</div>
+<p class="comment-info">by 
+<a href="http://www.mira-soft.com" rel="nofollow"></a>on July 9 2007, 19:19<a href="#comment-2109">#</a>
+</p>
+</li>
+<li class="odd" id="comment-2401">
+<div class="comment-text">There is a New PHP MVC Framework with an integrated AJAX CMS at: http://macs-framework.sourceforge.net/</div>
+<p class="comment-info">by 
+<a href="http://macs-framework.sourceforge.net" rel="nofollow"></a>on December 2 2007, 14:30<a href="#comment-2401">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

@@ -71,6 +71,288 @@
  
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-1048">
+<div class="comment-text">What&#8217;s the betting that Dojo does it already?! Those guys are ridiculously good&#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 14 2006, 12:42<a href="#comment-1048">#</a>
+</p>
+</li>
+<li class="even" id="comment-1154">
+<div class="comment-text">Geoff: I&#8217;ve read about the HistoryKeeper quite a while ago, (must&#8217;ve been before March?), and back then it claimed to support Safari, but actually didn&#8217;t.<br />
+Other than that, it now looks like a nice and clean way of doing it. Do you have experience in using it? <br />
+<br />
+What I don&#8217;t like about Dojo is its size, and there seems to be quite an overhead going on when you use it. Correct me if I&#8217;m wrong, as I haven&#8217;t looked at it in a while. Ah, now I read the blogpost, and it&#8217;s actually not a solution based on Dojo, but refers to David Blooms solution I mentioned in the post.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 26 2006, 02:51<a href="#comment-1154">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1159">
+<div class="comment-text">Actually, HistoryKeeper does seem to work for me (in Safari 2.0.[something] when I tried it). It does not &#8220;remember&#8221; history entries after you leave the page in Safari, but this could be fixed by caching them in a form field (that is what my script does).<br />
+<br />
+Even though my scrollTop technique is a little more complex, I&#8217;m going to stick with it  in the next version of my script, because it won&#8217;t &#8220;break&#8221; when a version of Safari comes out without the history.length bug.</div>
+<p class="comment-info">by 
+<a href="http://bloomd.home.mchsi.com" rel="nofollow"></a>on July 26 2006, 10:07<a href="#comment-1159">#</a>
+</p>
+</li>
+<li class="even" id="comment-1166">
+<div class="comment-text">Hi David,<br />
+As I said, HistoryKeeper didn&#8217;t work for me on Safari the first time I heard of it, but that&#8217;s quite some time ago. Yours did it right away. What causes problems for me in your version is the &#8221;%5B1%5D&#8221; that seems to creep up all the time. <br />
+I haven&#8217;t analysed your code yet, is it possible to avoid it?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 28 2006, 07:01<a href="#comment-1166">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1130">
+<div class="comment-text">Though some articles linked from here reference his site, <a href="http://codinginparadise.org/weblog/2006/06/ajax-history-support-in-safari.html">Brad Neuberg</a> (who works on Dojo) also has some more recent items on his site about approaches that work under Safari.<br />
+<br />
+It sounds like enough people are working on the problem that there&#8217;ll be a solution soon.</div>
+<p class="comment-info">by 
+<a href="http://www.schillmania.com" rel="nofollow"></a>on July 24 2006, 14:13<a href="#comment-1130">#</a>
+</p>
+</li>
+<li class="even" id="comment-1170">
+<div class="comment-text">The character encoding garbage is due to the fact that I added a Backbase-style counter to the end of the URL fragment so that each fragment would be unique. This got ugly after I (probably unnecessarily) URL-encoded the fragment.</div>
+<p class="comment-info">by 
+<a href="http://bloomd.home.mchsi.com" rel="nofollow"></a>on July 28 2006, 10:44<a href="#comment-1170">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1521">
+<div class="comment-text">Stephan,<br />
+I dabbled a little bit with your approach. I liked its simplicity. Sadly, I couldn&#8217;t get Safari to register the changes in the location bar. It does work combined with Mike&#8217;s work, though.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on August 27 2006, 15:59<a href="#comment-1521">#</a>
+</p>
+</li>
+<li class="even" id="comment-1523">
+<div class="comment-text">Hi Matthias,<br />
+<br />
+I have worked something out but i don&#8217;t know if it will be safe to use, so i need your expert opinion. Now i have tested this only on IE and Firefox, works fine. Here&#8217;s the script<br />
+<br />
+<pre><code>
+window.onload = initialize;
+
+function initialize() {
+  // initialize RSH
+  dhtmlHistory.initialize();
+
+  // add ourselves as a listener for history
+  // change events
+  dhtmlHistory.addListener(handleHistoryChange);
+  // determine our current location so we can
+  // initialize ourselves at startup
+  //var initialLocation = dhtmlHistory.getCurrentLocation();
+  // now initialize our starting UI
+  //updateUI(initialLocation, null);
+  newLocation=&#8221;loaderpage.html&#8221;;
+  ajaxpage(newLocation);
+}
+
+// THIS IS THE FUNCTION I ADDED TO THE TO ADD 
+// THE HISTORY AND TO CALL AJAXPAGE WHICH 
+// LOADS THE INDIVIDUAL PAGES ON THE FLY.
+function mylinker(newLocation,historyData) {
+dhtmlHistory.add(newLocation,historyData);
+ajaxpage(newLocation);
+//handleHistoryChange(newLocation, historyData);
+}
+
+/** A function that is called whenever the user
+    presses the back or forward buttons. This
+    function will be passed the newLocation,
+    as well as any history data we associated
+    with the location. */
+function handleHistoryChange(newLocation, historyData) {
+  // use the history data to update our UI
+  //updateUI(newlocation, historyData);
+
+// THIS WAS ALSO ADDED TO FIND OUT IF ON 
+// CLICKING THE BACK BUTTON THERE WOULD NOT 
+// BE ANY INTIAL LOCATION TO GO TO, 
+// IF NOT THEN SHOW THE FIRST PAGE
+
+  if(!newLocation) {
+  newLocation=&#8221;loaderpage.html&#8221;;
+}
+  ajaxpage(newLocation);
+}
+
+function ajaxpage(url){
+var page_request = false;
+//alert(url);
+//alert(containerid);
+if (window.XMLHttpRequest) // if Mozilla, Safari etc
+page_request = new XMLHttpRequest()
+else if (window.ActiveXObject){ // if IE
+try {
+//alert(&#8220;inside firt try&#8221;);
+page_request = new ActiveXObject(&#8220;Msxml2.XMLHTTP&#8221;)
+} 
+catch (e){
+try{
+//alert(&#8220;inside second try&#8221;);
+page_request = new ActiveXObject(&#8220;Microsoft.XMLHTTP&#8221;)
+}
+catch (e){}
+}
+}
+else
+return false
+page_request.open(&#8220;GET&#8221;, url, true)
+page_request.onreadystatechange=function(){
+//page_request.open(&#8220;GET&#8221;, url, true)
+
+//alert(&#8220;befor call of loadpage&#8221;);
+loadpage(page_request)
+}
+page_request.send(null)
+}
+
+function loadpage(page_request){
+if (page_request.readyState  4 &#38;&#38; page_request.status200){
+document.getElementById(&#8216;contentarea&#8217;).innerHTML=page_request.responseText
+}
+}
+</code></pre>
+
+
+i have borrowed the bits and pieces of code from different people and put it together. I don&#8217;t know if it works on safari or not. Tell me if you can come up with something more substancial then this.<br />
+<br />
+Thanks a lot.<br />
+Bhavin.</div>
+<p class="comment-info">by 
+<a href="http://www.webhostingfx.com" rel="nofollow"></a>on August 29 2006, 01:06<a href="#comment-1523">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1194">
+<div class="comment-text">I&#8217;m implementing this stuff right now for kumaru.com and I think that I&#8217;ve found a simpler way.<br />
+<br />
+What I wanted is the browser to update the back and forward buttons so I started by doing it the normal html way: with anchors. Not surprisingly it works. Even in safari (1.3). After that I just tried to hide the anchors with CSS and have javascript change the anchor in the url instead of clicking on the link. It seems to works. <br />
+<br />
+I think that the following stuff demonstrates the basic principle. Now remains to add a function that checks to see if the url has changed and may be other stuff like other people have done.<br />
+<br />
+<code>
+&lt;html><br />
+&lt;head><br />
+&lt;script type=&#8221;text/JavaScript&#8221; language=&#8221;JavaScript&#8221;><br />
+function addHistory(name) {<br />
+location.hash=name;<br />
+}<br />
+&lt;/script><br />
+&lt;/head><br />
+&lt;body><br />
+&lt;a name=&#8221;com1&#8221; style=&#8221;position:absolute; display:none; top:0px; left:0px;&#8221;><br />
+&lt;a name=&#8221;com2&#8221; style=&#8221;position:absolute; display:none; top:0px; left:0px;&#8221;><br />
+&lt;a name=&#8221;com3&#8221; style=&#8221;position:absolute; display:none; top:0px; left:0px;&#8221;><br />
+<br />
+&lt;a href=&#8221;#com1&#8221;>Normal anchor 1<br />
+&lt;a href=&#8221;#com2&#8221;>Normal anchor 2<br />
+&lt;a href=&#8221;#com3&#8221;>Normal anchor 3<br />
+<br />
+&lt;div onclick=&#8221;addHistory(&#8216;com1&#8217;)&#8221; style=&#8221;cursor:pointer;&#8221;>JS anchor 1<br />
+&lt;div onclick=&#8221;addHistory(&#8216;com2&#8217;)&#8221; style=&#8221;cursor:pointer;&#8221;>JS anchor 2<br />
+&lt;div onclick=&#8221;addHistory(&#8216;com3&#8217;)&#8221; style=&#8221;cursor:pointer;&#8221;>JS anchor 3<br />
+<br />
+&lt;/body><br />
+&lt;/html><br />
+</code></div>
+<p class="comment-info">by 
+<a href="http://www.kumaru.com" rel="nofollow"></a>on August 1 2006, 07:21<a href="#comment-1194">#</a>
+</p>
+</li>
+<li class="even" id="comment-1140">
+<div class="comment-text">Kevin Newman came up with a solution that (mostly) works in Safari too&#8230; <br />
+<br />
+the docs aren&#8217;t that great, but it could be enough to base some new work on:<br />
+<br />
+http://www.unfocus.com/projects/HistoryKeeper/</div>
+<p class="comment-info">by 
+<a href="http://blog.deconcept.com" rel="nofollow"></a>on July 25 2006, 08:19<a href="#comment-1140">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1510">
+<div class="comment-text">Hi all,<br />
+<br />
+I have a problem that i have been pondering upon for a long long time and cannot get it fixed so am asking for your time and knowledge on this.<br />
+<br />
+I am using the ajax back-button fix by Mike Stenhouse. The script works fine but i need to modify the working of the script. According to the script, when a user clicks on the link which is something like this {a href=&#8221;content.php?hash=1&#8221;}Page 1 {/a}. This would fetch the content from a file pageholder.class.php, depending on the value of the hash variable in the link. But what i want to do is to load for example a html file on my own server say ../somefolder/somefile.html. Now you might be wondering why i want to do this as i can put all the the needed content in the pageholder.class.php file. But yes, the links that i want to load are dynamic links created by a .php file. Say for example you have a news column on your website and these are links when clicked reveal the full news section. Now when i click on the news link the full news content should load up in the content holder div tags. Does someone know how i can achieve this? Help is much appreciated. And oh, sorry about the braces, i had to use it instead of the usual tag braces in case it did not show up properly.<br />
+<br />
+Cheers</div>
+<p class="comment-info">by 
+<a href="http://www.webhostingfx.com" rel="nofollow"></a>on August 26 2006, 06:06<a href="#comment-1510">#</a>
+</p>
+</li>
+<li class="even" id="comment-1524">
+<div class="comment-text">oh yes,<br />
+sorry to not have put a link to the working demo.<br />
+it&#8217;s no fun without seeing a working example so here it is<br />
+<br />
+<a href="http://www.webhostingfx.com/test/test.html">http://www.webhostingfx.com/test/test.html</a></div>
+<p class="comment-info">by 
+<a href="http://www.webhostingfx.com" rel="nofollow"></a>on August 29 2006, 01:17<a href="#comment-1524">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1512">
+<div class="comment-text">Bhavin,<br />
+in case  you were thinking of adding the url to the ajax request, read it out on the server and send it back: Don&#8217;t do it. You&#8217;d only open the door for someone replacing your filename with whatever.php, and reads out your source.<br />
+Regarding your example: I&#8217;d think you&#8217;d have your news in a database? You could simply send the id to the server, and rewrite the pageholder.class.php to fetch the relevant data from the db and return the desired html. <br />
+But don&#8217;t forget that like this, your news items won&#8217;t be indexed by searchengines, unless you create a <a href="http://www.sitepoint.com/blogs/2005/03/10/usability-and-accessibility-with-ajax/">fallback link</a>. <br />
+Altogether, I&#8217;m not sure if I would use AJAX at all in a case (without fallback anyway), where significant data is requested that&#8217;s otherwise not available.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on August 26 2006, 21:15<a href="#comment-1512">#</a>
+</p>
+</li>
+<li class="even" id="comment-1513">
+<div class="comment-text">Hi Matthias,<br />
+<br />
+Thanks for the reply. Have a look at this link which loads content on the fly using ajax<br />
+http://www.dynamicdrive.com/dynamicindex17/ajaxcontent.htm<br />
+<br />
+If you go through the coding, you will find that the links are created by a javascript function (ajaxpage) which has two parameters, one is the html file and one is the id of the div to which the fetched file content is loaded into. Only thing lacking in this is the back/forward button functionality. In Mike&#8217;s coding, the linking system works by verifying the hash code sent to the pageholder.class.php file and then getting the content.<br />
+<br />
+How would i be able to achieve back/forward button functionality using Mike&#8217;s code with the links not referencing the pageholder.class.php? I am sure that somehow it can be done, only thing is i am new to AJAX and don&#8217;t know much about javascript. I have downloaded, Mikes code, Dojo, Brad Neuberg&#8217;s code and the script from dynamic drive (although it doesn&#8217;t have back/forward functionality) to try and solve this. Currently i am working with brads theory, let&#8217;s see how far i can get. But i know it might take me probably days or weeks before i finally figure it out. Can you, or someone help me out or guide me with this?<br />
+<br />
+Also you mentioned about security risk. Can you please explain that to me futher.<br />
+<br />
+Thanks,<br />
+Bhavin</div>
+<p class="comment-info">by 
+<a href="http://www.webhostingfx.com" rel="nofollow"></a>on August 27 2006, 03:32<a href="#comment-1513">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1516">
+<div class="comment-text">This is really a case for either a mailinglist, such as <a href="http://webdesign-l.com/">webdesign-L</a> or <a href="http://lists.evolt.org/mailman/listinfo/thelist">thelist@evolt.</a><br />
+Or a cup of coffee, some overtime and a Book. Anyway, I&#8217;d think you know that already.<br />
+<br />
+I&#8217;m not sure which of Brad&#8217;s approaches you&#8217;re using; the link that Scott was pointing out is actually just a blog post mentioning David&#8217;s approach.<br />
+If you want to stay with Mike&#8217;s concept, you&#8217;ll need to start digging in the JPSPAN part of his script, about here:<br />
+<code> var p = new pageholder(PageHolderHandler); </code><br />
+this is where he instantiates the pageholder class that you want to replace. If you write your own class that covers your needs, and thread it in here, you should get there.<br />
+<br />
+I was actually planning to work on a new version of Mike&#8217;s script, focussing on AHAH (avoid the eval() by requesting the HTML that you need) and/or JSON (and ignoring the eval is evil voices). This I&#8217;d want to get to work on Safari as well. As much as I want to use David Bloom&#8217;s version, it crashes my Safari every time. The historykeeper forgets its last state, but that could be combined with that textarea thingy that Brad Neuberg offers somewhere on his site. Give me a couple of months&#8230;<br />
+<br />
+To get back to your problem: I currently don&#8217;t see an &#8220;easy&#8221; way for what you want to do, you&#8217;ll have to understand the code and the concept first. And if you insist on using JS and HTML only, without any serverside scripting, Mike&#8217;s approach would only work if you replaced JPSPAN.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on August 27 2006, 09:19<a href="#comment-1516">#</a>
+</p>
+</li>
+<li class="even" id="comment-4537">
+<div class="comment-text">Don\'t forget to check out <a href=\'http://www.zedwood.com\'>zedwood.com</a>\'s solution to the problem.
+
+It includes a working demo in their <a href=\'http://www.zedwood.com/article/101/ajax-back-button-fix\'>ajax back button fix article</a>.  What do you think?
+
+</div>
+<p class="comment-info">by 
+<a href="http://whitemarker.blogspot.com" rel="nofollow"></a>on November 7 2008, 05:00<a href="#comment-4537">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

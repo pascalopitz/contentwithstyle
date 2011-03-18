@@ -183,6 +183,158 @@ since it would be quite a lot of code and still be platform specific.
 <p>Using output buffering may seem a bit like a loss of control, since you cannot pass parameters to the callback function, but it makes sense to just call one XSL and, similar to use @import in CSS, include XSL files for patricular elements. How to do that will be the next topic, so stay tuned.</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-44">
+<div class="comment-text">Interesting concept. <br />
+<br />
+Perhaps I&#8217;m being obtuse, but what would be the advantage of this approach over a template system like Smarty for example?</div>
+<p class="comment-info">by 
+<a href="http://www.adamthody.com" rel="nofollow"></a>on May 23 2005, 19:35<a href="#comment-44">#</a>
+</p>
+</li>
+<li class="even" id="comment-46">
+<div class="comment-text">Nice article. I use a similar approach for my developments and I love how everything is neatly compartmented. <br />
+When appropriate, I even move XML and XSLT to the client. It trims down on server access and allows for more responsive and faster apps.  Of course it&#8217;s not supported by all browsers.<br />
+<br />
+Adam: I don&#8217;t know Smarty, but XSLT is a W3C standard.. That count for something.<br />
+<br />
+NB: Your comment form is stressing me out&#8230; I thought my caps-lock was broken or something.</div>
+<p class="comment-info">by 
+<a href="http://www.formassembly.com" rel="nofollow"></a>on May 23 2005, 20:49<a href="#comment-46">#</a>
+</p>
+</li>
+<li class="odd" id="comment-48">
+<div class="comment-text">@Adam:<br />
+I&#8217;m not sure about Smarty, since I never bothered to use it, but XML leaves definetly more and as Cedric pointed out, standard compliant opportunies.<br />
+For example could the XML directly be used as feed for web services.<br />
+Also, with developing the frontend using a dummy XML and writing the XSL by testing it on the client, the swap is incredibly easy afterwards. No need to take HTML-templates apart and put in smarty placeholders &#8230;  Point?<br />
+<br />
+@Cedric:<br />
+Thanks, yeah, I see your point and I wish I could go for that, but since especially accessible applications demand markup that screenreaders and lynx can digest I&#8217;ll do it on the server &#8230; ... If I know it&#8217;ll be IE 6 with MSXML I do stuff like my <a href="http://pascal.soulshine.de/projects/">XML Editor</a> in pure JS &#8230;<br />
+<br />
+forms:<br />
+think that&#8217;s better now</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 23 2005, 23:28<a href="#comment-48">#</a>
+</p>
+</li>
+<li class="even" id="comment-67">
+<div class="comment-text">From what little I&#8217;ve seen of Smarty, there&#8217;s an awful lot in there that you&#8217;re never going to use. I was looking to use it quite recently but decided that the added overhead (mental, as much as processor) was just too great and sacked it off in favour of a custom, lightweight approach. That said, I know people who swear by it so I guess it&#8217;s whatever suits you and your project best&#8230;</div>
+<p class="comment-info">by 
+<a href="http://donotremove.co.uk" rel="nofollow"></a>on May 25 2005, 01:27<a href="#comment-67">#</a>
+</p>
+</li>
+<li class="odd" id="comment-93">
+<div class="comment-text">Smarty is the worst. Not only do I have to learn a templating format, I am forced to use a propriety standard and that is something I am not ok with.<br />
+<br />
+In addition, XML and XSLT can be used to provide accessibility for other devices with little to no code changes, so it extremely flexible, unlike Smarty.<br />
+<br />
+Plus, as someone mentioned above Smarty is terribily bloated and you probably won&#8217;t even use half of its &#8220;features&#8221;.</div>
+<p class="comment-info">by 
+<a href="http://www.iangordon.us" rel="nofollow"></a>on May 27 2005, 00:11<a href="#comment-93">#</a>
+</p>
+</li>
+<li class="even" id="comment-114">
+<div class="comment-text">All this sounds fine and dandy but unless you can run the xslt transformations on the client then arent you adding processing overheads? <br />
+<br />
+Surely PHP based templates are the most effective methods. I&#8217;ve followed the arguements on templating engines and come to the conclusion that they are mostly pointless (since php makes a fine template language). <br />
+<br />
+The one advantage of systems like smarty over php is they enforce discipline so nasty php code that shouldn&#8217;t be in the template can&#8217;t be in the template.<br />
+<br />
+Also adding smarty/xslt/xml to the mix adds further complexly and the requirement to know additional markup/code. <br />
+<br />
+My final issue is 5 layers adds to the number of files to think about when trying to nail down an problem. I already find this an anoyance with the MVC system I have in place and 5 layers sound like they will increase the problem.<br />
+<br />
+Phew thats a large post but I am interested to see what you think of my view and to learn of any possible improvements I can make to my MVC code</div>
+<p class="comment-info">by 
+on June 3 2005, 04:49<a href="#comment-114">#</a>
+</p>
+</li>
+<li class="odd" id="comment-121">
+<div class="comment-text">Hey Ben. I don&#8217;t really know if and how much XSLT with e.g. <a href="http://www.gingerall.com/charlie/ga/xml/p_sab.xml">Sablotron</a><br />
+increases the processing load on the server. But even if it increases it, I&#8217;d trade that against a flexible layer that afterwards can be processed into anything. <br />
+If it became a serious issue for the server to handle it i&#8217;d say just cache the XML or even better, the whole page :)<br />
+Also let me point out that with XML as application layer you can use one XML output and transform it for each targeted platform.<br />
+<br />
+It would be interesting to get a Benchmark on how much the processign load and execution time are increased by stuff like that. Anyone got some links?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 3 2005, 18:42<a href="#comment-121">#</a>
+</p>
+</li>
+<li class="even" id="comment-127">
+<div class="comment-text">Hi, I totaly agree with you, and if my host supported XSLT conversions(server-side) I would be far on my way. Though, this also have it&#8217;s problem, as you would have to come up with a standardized way of making your XML, as making new XSLT for every project you do might be a little tedious and I&#8217;ve never had a project where I had time to do this.</div>
+<p class="comment-info">by 
+<a href="http://www.taare.org" rel="nofollow"></a>on June 5 2005, 02:04<a href="#comment-127">#</a>
+</p>
+</li>
+<li class="odd" id="comment-154">
+<div class="comment-text">With MSXML and .NET&#8217;s XSLT implementations (don&#8217;t know about other ones unfortunately) you can cache a compiled version of the XSLT.<br />
+<br />
+In ASP you use the XSLTProcessor and you can put the compiled version into an Application variable, for example. With .NET&#8217;s version you have much more power e.g. putting it into the Cache object and setting a dependency on itself so if you update the XSL you don&#8217;t have to reset the web server or invalidate the cache manually through admin scripts like you would with ASP.<br />
+<br />
+This helps with performance. (The idea is similar to using Stored Procedures or parameterized SQL queries, so the compiled statements can be cached internally, etc.)</div>
+<p class="comment-info">by 
+on June 16 2005, 14:32<a href="#comment-154">#</a>
+</p>
+</li>
+<li class="even" id="comment-156">
+<div class="comment-text">Thanks Anup for flagging that up.<br />
+<br />
+Also I had a chat with Matthias who spotted that there is a little discussion going on on a couple of sites that goes like &#8220;XSLT vs Smarty&#8221;.<br />
+I already made my point on that earlier, but one thing I forgot to mention: Smarty or any PHP templating language is PHP only, XSLT is multi-platform and nearly every up-to-date language offers an XSLT processor.<br />
+<br />
+Means that, if you&#8217;re forced to port your project, you can still keep the XSLs &#8230;<br />
+Also your skills (I guess it&#8217;s more than a five minute job to &#8220;learn&#8221; Smarty) are presistant troughout all platforms and languages. That&#8217;s where I see a major benefit in using w3c techniques.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 16 2005, 17:40<a href="#comment-156">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1167">
+<div class="comment-text">Pascal,<br />
+<br />
+I forgot I posted to this some time ago, and never saw your reply, but your point about keeping the XSL skills when you port is very important, I think.<br />
+<br />
+In fact, my personal site for 8 years has been ASP (glueing a 99% XML/XSL driven content). I have finally decided to port to PHP, and you are right (and that is what I hoped too!) that it is not as much work as needed.<br />
+<br />
+Not finished porting yet, but my XSLs hardly changed at all (the main problem being with ASP (and ASP.NET) you can pass XML Nodes as XSLT parameters, but with PHP 5 it seems you cannot. But that was not a major issue for me anyway, as I simply inserted the nodes into the XML anyway.</div>
+<p class="comment-info">by 
+on July 28 2006, 08:51<a href="#comment-1167">#</a>
+</p>
+</li>
+<li class="even" id="comment-2551">
+<div class="comment-text">As far as I know, a problem with XSLT approach is the designing part&#8212;I haven&#8217;t seen a WYSIWYG editor that would let you see a rendered HTML/CSS result before you run the transformation. However, using a template such as PHPTAL does.<br />
+<br />
+If there&#8217;s an editor that would do that, I&#8217;d like to know what it is.<br />
+<br />
+P.S. It would be good to see in which year posts were made.</div>
+<p class="comment-info">by 
+on March 10 2008, 19:58<a href="#comment-2551">#</a>
+</p>
+</li>
+<li class="odd" id="comment-4944">
+<div class="comment-text"><p>
+I just read this again, after a long long time. It\'s coming to my 6th year in London soon, and even for me \"Why bothering\" is a funny funny headline. I can understand why my partner accuses me of overusing the progressive.
+</p>
+
+</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on December 13 2008, 17:44<a href="#comment-4944">#</a>
+</p>
+</li>
+<li class="even" id="comment-5740">
+<div class="comment-text">This helps with performance. (The idea is similar to using Stored Procedures or parameterized SQL queries, so the compiled statements can be cached internally, etc.) 
+</div>
+<p class="comment-info">by 
+<a href="http://www.ambertreasure.co.uk/" rel="nofollow"></a>on March 20 2009, 10:31<a href="#comment-5740">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

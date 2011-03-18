@@ -484,6 +484,99 @@ stdClass Object
 <p>Right, I leave it up to you to amend the examples to suit your individual needs. As always any feedback or improvements are welcome. Happy indexing and searching everyone.</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-8062">
+<div class="comment-text">Hi I have installed xapian and it is working fine. But I wanted know whether is there anything like displaying the related results using this full text search.
+
+Help is appreciated.</div>
+<p class="comment-info">by 
+on March 8 2010, 13:24<a href="#comment-8062">#</a>
+</p>
+</li>
+<li class="even" id="comment-7542">
+<div class="comment-text">I have problem with xapian with php 5.3.
+
+I have an error: 
+Fatal error: Call to undefined function new_WritableDatabase() in C:\\serwer\\www\\xapian1\\xapian.php on line 1134
+
+Any ideas??</div>
+<p class="comment-info">by 
+<a href="http://mediovski.pl" rel="nofollow"></a>on December 4 2009, 11:37<a href="#comment-7542">#</a>
+</p>
+</li>
+<li class="odd" id="comment-7472">
+<div class="comment-text">Did anyone benchmark any speed results comparing spinx for example?</div>
+<p class="comment-info">by 
+<a href="http://trsplet.com/blog/" rel="nofollow"></a>on November 4 2009, 21:03<a href="#comment-7472">#</a>
+</p>
+</li>
+<li class="even" id="comment-7473">
+<div class="comment-text"><p>
+No real benchmarks from my side, I\'m afraid. All I can say is that I found xapian very quick when searching, but much slower when building up the index itself.
+</p>
+
+<p>From what I gather sphinx is more about indexing an existing mysql table and indexes that very quick. The business requirements for my project however need date comparison and the indexing of aggregated data, rather than an existing table. Therefore I chose xapian, as it was more transparent and tweakable to me.</p>
+
+<p>
+I didn\'t find any good benchmarks either while doing my quick bit of research, apart from this
+<a href=\"http://www.elctech.com/articles/xapian-vs-sphinx-in-rails\">Rails based benchmark</a>.</p>
+
+<p>Hope this helps.</p></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 4 2009, 21:34<a href="#comment-7473">#</a>
+</p>
+</li>
+<li class="odd" id="comment-7471">
+<div class="comment-text"><p>Hi Pascal,</p>
+
+<p>Just to say there are also bindings to C#, Ruby, Tcl and even Guile, and you don\'t need Cygwin for Windows - you can compile it with Visual C++ into a Windows DLL. We\'ve produced some pre-compiled packages for Windows at <a href=\"http://www.flax.co.uk/xapian_windows.shtml\">http://www.flax.co.uk/xapian_windows.shtml</a> </p>
+
+<p>Cheers</p>
+<p>Charlie</p>
+</div>
+<p class="comment-info">by 
+<a href="http://www.flax.co.uk" rel="nofollow"></a>on November 4 2009, 15:37<a href="#comment-7471">#</a>
+</p>
+</li>
+<li class="even" id="comment-7530">
+<div class="comment-text"><p>It is the php bindings for xapian, which usually install in your php include path somewhere.</p>
+
+<code>
+sudo aptitude install xapian-core xapian-bindings
+</code>
+
+<p>On Ubuntu this is all you need to do, and the bindings will go into /usr/share/php5 I believe.</p>
+
+</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 30 2009, 06:11<a href="#comment-7530">#</a>
+</p>
+</li>
+<li class="odd" id="comment-7528">
+<div class="comment-text">just curious, where or what is in xapian.php which is \"require_once\"d by XapianWrapper.php class?</div>
+<p class="comment-info">by 
+on November 29 2009, 16:06<a href="#comment-7528">#</a>
+</p>
+</li>
+<li class="even" id="comment-7524">
+<div class="comment-text"><p>Made a mistake btw. </p>
+
+<code>
+throw(\'message\' . var_dump($e));
+</code>
+
+<p>Not a good idea, unless you want to write straight to the php output! Fixed in the copy and zipped example code.</p></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 26 2009, 10:10<a href="#comment-7524">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

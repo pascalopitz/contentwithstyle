@@ -146,6 +146,241 @@
 </p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-19">
+<div class="comment-text">nice one. wanna see all the funny unicode characters used on this planet? http://decodeunicode.org/ wiki is the right one for you!</div>
+<p class="comment-info">by 
+<a href="http://e27.com" rel="nofollow"></a>on May 20 2005, 15:00<a href="#comment-19">#</a>
+</p>
+</li>
+<li class="even" id="comment-20">
+<div class="comment-text">sweet!<br />
+I like the smooth fluffy navigation through the different character sets, although, I admit, I don&#8217;t really get the idea behind all this, besides entertainment. What kind of information would you add to the wiki (besides more sets)?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 20 2005, 15:14<a href="#comment-20">#</a>
+</p>
+</li>
+<li class="odd" id="comment-139">
+<div class="comment-text">I just found <a href="http://dev.splitbrain.org/reference/dokuwiki/nav.html?inc/utf8.php.html">this site</a>, or rather documentation, by accident. Useful for all kinds of utf8 conversion and replacement crapola.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 14 2005, 14:11<a href="#comment-139">#</a>
+</p>
+</li>
+<li class="even" id="comment-153">
+<div class="comment-text">Are you use Homesite supports UTF-8?<br />
+<br />
+I used Homesite from 3.0 to 5.5 for years, but finally ditched it because of lack of unicode support. The HomeSite web page also admits that it doesn&#8217;t save Unicode (though not checked in about 6 months now).<br />
+<br />
+I switched to JEdit (http://www.jedit.org) as it is also cross platform, and highly customizeable.<br />
+<br />
+One issue with the BOM problem I have found is that if you are using server side processing, e.g. ASP and XML/XSL without output set to UTF-8, it tends not to be a problem.</div>
+<p class="comment-info">by 
+on June 16 2005, 14:26<a href="#comment-153">#</a>
+</p>
+</li>
+<li class="odd" id="comment-157">
+<div class="comment-text">Anup, Homesite plus has UTF-8 support, but you have to activate it in the settings.<br />
+Apart from that I didn&#8217;t really find a nice editor that supports UTF-8. Notepad does! Editpad is nice as well, I use the <a href="http://www.editpadlite.com/">Edit pad lite</a> as notepad replacement. And oviously Ultraedit supports UTF-8 and UTF-16.<br />
+A nice tool for XSLT work is <a href="http://www.xmlcooktop.com/">Cooktop</a>.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 16 2005, 17:48<a href="#comment-157">#</a>
+</p>
+</li>
+<li class="even" id="comment-230">
+<div class="comment-text">Hi Pascal,<br />
+<br />
+I have a question, which I&#8217;m hoping you can help shed some light on.<br />
+<br />
+I&#8217;m just about to create a multilingual website, but very confused about the whole issue regarding UTF-8 characters.<br />
+<br />
+For instance, I am about to create a webpage to display the following language titles in their own language:<br />
+<br />
+Albanian<br />
+Amharic<br />
+Arabic<br />
+Czech<br />
+Farsi<br />
+French<br />
+Kurdish<br />
+Lingala<br />
+Mandarin<br />
+Pashto<br />
+Polish<br />
+Portuguese<br />
+Romanian<br />
+Russian<br />
+Somali<br />
+Sorani<br />
+Spanish<br />
+Tamil<br />
+Tigrinya<br />
+Turkish<br />
+<br />
+Is this possible at all using plain text? Also, if a computer hasn&#8217;t got the language set installed I presume it will not display properly?<br />
+<br />
+To make sure that all the text is displayed properly is the best way then to use .GIFs? I however, aware that this is not accessible.<br />
+<br />
+Hope you can point me in the right direction.<br />
+<br />
+Regards,<br />
+Nicholas</div>
+<p class="comment-info">by 
+<a href="http://www.polemark.com" rel="nofollow"></a>on September 2 2005, 10:13<a href="#comment-230">#</a>
+</p>
+</li>
+<li class="odd" id="comment-231">
+<div class="comment-text">Hi Nicholas.<br />
+theoretcially UTF-8 can display all these characters in one set. Obviously this would require the right fonts to display the pages correctly.  You just need to make sure that you store your data the correct way and avoid conversions to ISO latin-1. And not forget about the doctype, as well.<br />
+<br />
+Also there is <a href="http://www.javascript-page.com/css/dfonts.shtml">a method to make a browser download the right font</a> that I couldn&#8217;t test yet. But I guess this could work for your case.<br />
+<br />
+The approach of replacing characters with GIFs to me sounds like a rediculous overhead that will be impossible to maintain.
+
+<br />
+<br />
+Another way to deal with multiple languages is to set each language version to a different <a href="http://www.w3.org/International/O-charset-lang.html">language charset</a>.
+<br />
+But as you can see in the page I posted the w3c reommends UTF-8 since it is so much more versatile.
+
+<br />
+<br />
+If you have any questions let me know.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 5 2005, 09:55<a href="#comment-231">#</a>
+</p>
+</li>
+<li class="even" id="comment-233">
+<div class="comment-text">Just playing devil&#8217;s advocate here but what about installing the right fonts on the server and generating the gifs on-the-fly server-side? As long as the docs are saved as UTF-8 the alt text will be correct for systems with the right font sets but the screen display will be correct for everyone. Or sIFR with the entire font outline stored?<br />
+<br />
+I&#8217;ve never had to deal with this so I don&#8217;t know what&#8217;s best&#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 6 2005, 07:23<a href="#comment-233">#</a>
+</p>
+</li>
+<li class="odd" id="comment-234">
+<div class="comment-text">Thanks for the reply!  The link  you suggested to &#8220;a method to make a browser download the right font&#8221; sounds great, only problem is that it seems that the links to both TrueDoc and HexMac are no longer working.<br />
+<br />
+With regards to using UTF-8, I believe that not all the languages that I have specified are covered. Further the problem is that the majority of users will be using public web access (mainly libraries), which won&#8217;t allow the download of  new character sets&#8230;<br />
+<br />
+The idea Mike suggested doesn&#8217;t sound too bad. Any idea where to find more info and if this is feasible?</div>
+<p class="comment-info">by 
+<a href="http://www.polemark.com" rel="nofollow"></a>on September 6 2005, 14:12<a href="#comment-234">#</a>
+</p>
+</li>
+<li class="even" id="comment-235">
+<div class="comment-text">You can read about sIFR on Mike Davidson&#8217;s site:<br />
+<a href="http://www.mikeindustries.com/sifr/">www.mikeindustries.com/sifr/</a><br />
+<br />
+The catch is that you&#8217;d have to find a font that supports all the characters you&#8217;re going to need to use. There are probably only one or two out there&#8230; If you can find one though, the rest is easy&#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 8 2005, 07:22<a href="#comment-235">#</a>
+</p>
+</li>
+<li class="odd" id="comment-236">
+<div class="comment-text">Nicholas, why would UTF-8 not cover all languages specified? AFAIK UTF-8 covers pretty much every language out there that ever has been defined as ISO charset anyway.<br />
+<br />
+The problem I see with sFIR is that the flash itself might not be able cope with the funny characters, but I&#8217;m not sure about that one. If the site is used from libraries and public spaces a plugin-based solution might be as bad as a missing font, since you wouldn&#8217;t be able to render the page without flash.<br />
+<br />
+Just as a thought, and based on spectulation only:<br />
+If I am somali, I go to a UTF-8 page and my font is not specified, just serif, sans-serif or something like that, wouldn&#8217;t somlai copy automatically be rendered in the right font? Maybe the chinese wouldn&#8217;t be rendered at all, but would that matter to me as somali user?<br />
+<br />
+I definetly know that Arial Unicode can handle chinese and japanese and cyrillic, so you might have a try with this one as well.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 12 2005, 06:27<a href="#comment-236">#</a>
+</p>
+</li>
+<li class="even" id="comment-237">
+<div class="comment-text">Ohh, found that one for IE only:<br />
+<br />
+<a href="http://www.users.globalnet.co.uk/~arcus/html/testembedded.html">Embedded fonts testpage</a></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 12 2005, 07:11<a href="#comment-237">#</a>
+</p>
+</li>
+<li class="odd" id="comment-247">
+<div class="comment-text">I came accross this interesting blog article about PHP and the BOM  while checking referrers:<br />
+<br />
+<a href="http://juicystudio.com/article/utf-byte-order-mark.php">http://juicystudio.com/article/utf-byte-order-mark.php</a><br />
+<br />
+There are a couple of nice editor suggestions in there.<br />
+Have a read!</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 26 2005, 09:13<a href="#comment-247">#</a>
+</p>
+</li>
+<li class="even" id="comment-380">
+<div class="comment-text">Homesite supports UTF-8????<br />
+Where do i enable it? i cant find it in settings. there is the editor charset but no utf-8 option.</div>
+<p class="comment-info">by 
+<a href="http://www.ufku.com" rel="nofollow"></a>on January 23 2006, 13:00<a href="#comment-380">#</a>
+</p>
+</li>
+<li class="odd" id="comment-406">
+<div class="comment-text">In the preferences &#8230; <a href="http://lists.evolt.org/archive/Week-of-Mon-20020603/114496.html">see this</a></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 30 2006, 09:40<a href="#comment-406">#</a>
+</p>
+</li>
+<li class="even" id="comment-900">
+<div class="comment-text">I have read some of artikle in this blog and I found them very interesting. English is not my first language. Very sorry for my horrible spell. Now come to the point and question. I have problem with some letters in Pashto language. Some of characters are not showen as expected. For example,  U+067C (&#38;#1660).  When I start Character Map in windows, I can see those letters are there and the character code assigned to it corespond to them is also fine. Then what is wrong?</div>
+<p class="comment-info">by 
+on June 21 2006, 03:34<a href="#comment-900">#</a>
+</p>
+</li>
+<li class="odd" id="comment-901">
+<div class="comment-text">Besmellah, what kind of typeface are you using? Not every typeface has all characters available. Try Arial Unicode or some other unicode font and see what happens then?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 21 2006, 05:15<a href="#comment-901">#</a>
+</p>
+</li>
+<li class="even" id="comment-1058">
+<div class="comment-text">&#8220;Anyway, BBedit or Homesite should do the job. And wordpad as well.&#8221;<br />
+<br />
+You meant notepad, right? Unfortunately Wordpad should be better than Notepad, but in this case it&#8217;s a lot worse :/</div>
+<p class="comment-info">by 
+<a href="http://www.homepage7.com" rel="nofollow"></a>on July 15 2006, 11:27<a href="#comment-1058">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1064">
+<div class="comment-text">Yeah, I did</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 17 2006, 05:59<a href="#comment-1064">#</a>
+</p>
+</li>
+<li class="even" id="comment-1832">
+<div class="comment-text">I am planning to update my ecommerce application to support multilanguage.<br />
+<br />
+The point is, system is already completed and has been deployed on many web sites. So if anyone can guide me that what should be the approach. I am not at all looking forward to re-write the whole thing again.<br />
+<br />
+If you want to see the system its here<br />
+http://www.ecommerce-xperts.com/demo<br />
+http://www.ecommerce-xperts.com/demo/index2.php<br />
+<br />
+I really need good suggestions plz. I have been given 1 months time to provide multilanguage support in this system</div>
+<p class="comment-info">by 
+<a href="http://www.ecommerce-xperts.com" rel="nofollow"></a>on December 1 2006, 01:48<a href="#comment-1832">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1835">
+<div class="comment-text">Hi there,<br />
+<br />
+The description of what you wanna achieve is a bit vague. Often you don&#8217;t need to change much to enable UTF-8 based output and input.<br />
+This can be achieved most of the times by changing the charset meta tag or apache/php header for front and back end interfaces.<br />
+<br />
+However, this doesn&#8217;t mean that the application itself will be multilanguage, plus, unless you change the database collation, you will loose some sorting possibility as well.<br />
+<br />
+To incorporate true language support for every button and label you will have to work with configurations in some way, I am afraid, either in a config file or a database.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on December 1 2006, 05:41<a href="#comment-1835">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

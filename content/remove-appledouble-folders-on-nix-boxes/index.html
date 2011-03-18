@@ -77,6 +77,41 @@ find . -name '.AppleDouble' -printf '"%p"\n' | xargs rm -Rf
 </code></pre>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-5357">
+<div class="comment-text">Of course that would work for .svn folders as well, but y\'all knew that, didn\'t ya?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 23 2009, 09:20<a href="#comment-5357">#</a>
+</p>
+</li>
+<li class="even" id="comment-8057">
+<div class="comment-text">Isn\'t it more easy to do this:
+
+<code>
+find . -name \'.AppleDouble\' -type d -exec rm -rf \'{}\' \\;
+</code>
+
+???
+</div>
+<p class="comment-info">by 
+<a href="http://www.mariusvw.com" rel="nofollow"></a>on March 5 2010, 13:02<a href="#comment-8057">#</a>
+</p>
+</li>
+<li class="odd" id="comment-9699">
+<div class="comment-text">solution:
+
+find . -name \'.AppleDouble\' -print0 | xargs -0 rm -Rf</div>
+<p class="comment-info">by 
+on January 11 2011, 17:01<a href="#comment-9699">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

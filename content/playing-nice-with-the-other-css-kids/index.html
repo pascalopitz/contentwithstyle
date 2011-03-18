@@ -149,6 +149,265 @@
 <p>This set of guidelines is by no means the last word in the art of writing maintainable CSS but I hope it can mark the start of a broader discussion. They have worked for me on both large and small projects but I would love to hear how other people tackle the same problems. </p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-290">
+<div class="comment-text">Great article, and very timely for me as I have just started working on a large project which involves handing over HTML and CSS to the client&#8217;s developers.<br />
+<br />
+I&#8217;m a little wary of sandboxing as I&#8217;ve seen it go wrong and make it very difficult to apply sitewide changes. That may have just been poor execution of the concept though ;-).</div>
+<p class="comment-info">by 
+<a href="http://www.456bereastreet.com" rel="nofollow"></a>on October 31 2005, 10:56<a href="#comment-290">#</a>
+</p>
+</li>
+<li class="even" id="comment-291">
+<div class="comment-text">I&#8217;ve had trouble with it as well but I&#8217;ve got myself into a proper pickle doing it the other way too so I&#8217;ve gone for the &#8216;least damaging&#8217; route! The drawback of sandboxing is that it gives you more refactoring to do as the project goes on; the benefit is that you retain a tight grip on your code, which is very useful for debugging&#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on October 31 2005, 11:27<a href="#comment-291">#</a>
+</p>
+</li>
+<li class="odd" id="comment-292">
+<div class="comment-text">Excellent article! I too have some issues with sand-boxing but more and more I am inclined to reduce the size of individual sheet and have them target specific areas. This also allows for modular coding as I use a lot of  &#8220;includes&#8221; of modular components.<br />
+<br />
+As to in-document information and sheet presentation I am in the process of redoing a huge number of sheets to improve this aspect and allow for others to maintain.</div>
+<p class="comment-info">by 
+<a href="http://www.by-rob.com" rel="nofollow"></a>on October 31 2005, 12:45<a href="#comment-292">#</a>
+</p>
+</li>
+<li class="even" id="comment-293">
+<div class="comment-text">If you like subversion you&#8217;ll love this:<br />
+<br />
+http://www.bigbold.com/snippets/posts/show/42<br />
+<br />
+It ssh-s into your server, checks out the latest copy and symlinks it to &#8220;latest&#8217;. And if you need to roll back you can just change the link.</div>
+<p class="comment-info">by 
+<a href="http://www.unfitforprint.com/" rel="nofollow"></a>on October 31 2005, 14:35<a href="#comment-293">#</a>
+</p>
+</li>
+<li class="odd" id="comment-294">
+<div class="comment-text">Interesting article. I definitly agree with the points you&#8217;ve raised, however, i do believe that keeping the css together in one file means you can be much more consise in your css.<br />
+<br />
+Also, i think !important shouldnt be used like you&#8217;ve mentioned, even for debugging. Like you mentioned, begin really specific from the start, stops this problem from occuring in the firstplace.<br />
+<br />
+To get around your redundancy problems, I think simply resetting global atrributes saves everyone problems, and also allows you to use semantic XHTML better too ( for accessibility ).<br />
+<br />
+You didnt mention anything about hacks, I hope your like us, in that creating proper XHTML and specifying css properly you can get around without using them :-)<br />
+<br />
+CVS ftw.<br />
+<br />
+Cheers</div>
+<p class="comment-info">by 
+<a href="http://www.silverstripe.com" rel="nofollow"></a>on October 31 2005, 19:47<a href="#comment-294">#</a>
+</p>
+</li>
+<li class="even" id="comment-296">
+<div class="comment-text">Do you think there is any issue when using sandboxing in the resulting file size increase? It seems in real world use, it doesn&#8217;t make that much of a difference, but some CSS references stress using shorthand as much as humanly possible, splitting the CSS into multiple files, each under 4k for cache reasons, etc.<br />
+<br />
+I personally try to write self-documenting code as well, although I&#8217;m the first to admit in favor of speed it&#8217;s not always written for others to comprehend as easily as I can. I also break out my CSS as much as possible (declaring margins and paddings explicitly everwhere especially) but don&#8217;t follow the practice of sandboxing where everything is written out as <code> div#content div#index p.intro </code> like your example. I think that might be ultimately easier to understand but not as efficient &#8211; with the web developer extension for firefox and a search in the CSS file, it seems pretty easy to figure out the containing element and its code in the CSS.</div>
+<p class="comment-info">by 
+<a href="http://www.jaacob.com" rel="nofollow"></a>on October 31 2005, 23:02<a href="#comment-296">#</a>
+</p>
+</li>
+<li class="odd" id="comment-297">
+<div class="comment-text">Great article. Nice reading for the beginning of my day :-)<br />
+<br />
+Ciao Marco</div>
+<p class="comment-info">by 
+<a href="http://www.geekdotnnet.com/blogs/marco" rel="nofollow"></a>on November 1 2005, 02:17<a href="#comment-297">#</a>
+</p>
+</li>
+<li class="even" id="comment-298">
+<div class="comment-text">Simon: what&#8217;s the problem with using !important for debugging (during the development process, as I take it mike means)?<br />
+<br />
+Also for the hacks, I don&#8217;t think you raise a fair point here. I definetly favour a very clean XHTML with a hacked css (I use * html, html>body and the /*\*/  hack for mac IE) to a solution where you create more divs to get margin/padding consistent or insert clearing elements to get around the float problem.<br />
+Anyone with me here? Mike?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 1 2005, 02:33<a href="#comment-298">#</a>
+</p>
+</li>
+<li class="odd" id="comment-301">
+<div class="comment-text">Re: Hacks:<br />
+I think this can be a very emotional discussion. Essentially there&#8217;s 3 things:<br />
+ &#8211; using hacks<br />
+ &#8211; using extra markup<br />
+ &#8211; adding extra markup via DOM<br />
+<br />
+When you&#8217;re in the situation that you&#8217;re not designing the site, and your designer doesn&#8217;t know much about code or standards, you&#8217;ll quickly end up having to use at least one of these possibilities. I used to happily hack my way through css, but at some point I decided to ditch that approach in favour of extra markup (where possible). <br />
+Recent hints of MS to use conditional comments instead of  *<em>html</em> seem to support that.<br />
+<br />
+[edited]
+Now, lately the semantic markup-lovers seem to be in fashion. (Changed this, as it seemed inappropriate) [/edited]<br />
+Use the markup as a semantic structure and add everything else via DOM, and I&#8217;m not sure what to think of this. It reduces the total number of people getting a visually &#8220;correct&#8221; page, by taking out the no-javascript people. It possibly favours alternative views on the site (screenreaders? but they do the script as well, at least a little, right?), but, statistically speaking, who&#8217;s the winner, besides the coder&#8217;s eye?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 1 2005, 05:34<a href="#comment-301">#</a>
+</p>
+</li>
+<li class="even" id="comment-302">
+<div class="comment-text">Simon:<br />
+!important can save hours while debugging and I can not see any reason for not using it for that purpose&#8230; Care to expand on why you think it should be avoided ALL the time?<br />
+<br />
+The global whitespace reset wouldn&#8217;t help with the redundancy problem &#8211; that&#8217;s caused by inheritance through the cascade, not default settings. I tend to avoid the whitespace reset anyway because when handing templates over to clients you can guaruntee that they will use an element that you didn&#8217;t think of in a content area that never occurred to you. With all whitespace reset you will get them on the phone complaining every time; with defaults in place things might just look okay.<br />
+<br />
+Simon &#38; Pascal:<br />
+The only hacks I use are * html and /* \*/. As a result of my accessibility background I am a semantic purist and those two hacks allow me to avoid the wrapper divs and other extraneous markup that some people use to get around box model problems. Basically, what Pascal said!</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 1 2005, 05:42<a href="#comment-302">#</a>
+</p>
+</li>
+<li class="odd" id="comment-303">
+<div class="comment-text">Jacob:<br />
+I totally agree that sandboxing can lead to less efficient code. I use it as a trade off with maintainability&#8230; I have found that overspecified rules are a lot easier to (re)familiarise myself with at a later date, making maintenance a less painful process. It&#8217;s up to you how much extra code you need versus how quickly you want to get bug fixing months or years down the line.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 1 2005, 06:51<a href="#comment-303">#</a>
+</p>
+</li>
+<li class="even" id="comment-304">
+<div class="comment-text">Good and valid points!<br />
+<br />
+@Matthias: WTH [edited /]</div>
+<p class="comment-info">by 
+<a href="http://meiert.com/" rel="nofollow"></a>on November 1 2005, 09:18<a href="#comment-304">#</a>
+</p>
+</li>
+<li class="odd" id="comment-305">
+<div class="comment-text">[edited/]: I think matthias is making fun of people that consider a standard-compliant but in 75% of the cases non-usable so-called solution a better way than coding a site with a couple of hacks that works in non-standard-compliant browsers.
+
+</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 1 2005, 09:32<a href="#comment-305">#</a>
+</p>
+</li>
+<li class="even" id="comment-306">
+<div class="comment-text">Well, yes and no, <br />
+<br />
+There are designs, that don&#8217;t allow for lean code on its own. In the end I work in a job where I can&#8217;t choose the design (or, for a fact, the interface altogether) that I&#8217;ll build. If I&#8217;m lucky, I&#8217;m not up to my neck in work while the design-phase for the next project happens, so I can comment on it.<br />
+<br />
+The luckier ones either design <em>and</em> build the site, or have designers that are aware of web standard-friendly design; and sadly that can come with a bit of a non-understanding attitude.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 1 2005, 12:14<a href="#comment-306">#</a>
+</p>
+</li>
+<li class="odd" id="comment-307">
+<div class="comment-text">I cant say i&#8217;ve ever used !important for debugging, and have never really  needed it as such, so thats why i dont really think its nessecary as a debugging tool. I prefer to use firefox&#8217;s web developer extension &#8211; it provides much more useful information much faster too.<br />
+<br />
+Pascal, hacks are nasty, thats why i beleive there called hacks. If you resolve the problem that nessecitates a hack ( generally IE6 box model problems or mac IE float / clear issues ) and follow w3c standards, you actually don&#8217;t run into issues, and don&#8217;t need them. I&#8217;ve made several sites which run on the most popular browsers ( IE6, 5.5, 5, firefox, mac IE, safari, opera etc) without using one hack.  The sites even work on cellphone browsers, screen readers and the like. Its all about careful use of css, and the application of semantic XHTML. using it the way it was intended. :-)<br />
+<br />
+The best way to acheive this I believe is to first develop your layout css, and browser test at this stage. Globally resetting margins, padding, font-size, and list style will let you develop your layout css, without the need for hacks. Also the knowledge about why the problems occur, and avoiding them can also help.<br />
+<br />
+Most of the time were in the same boat as Matthias,  we only get to choose the technical side, markup and server code for a particular design, so choosing the correct way to do it is definitly  important.</div>
+<p class="comment-info">by 
+<a href="http://www.silverstripe.com" rel="nofollow"></a>on November 1 2005, 16:10<a href="#comment-307">#</a>
+</p>
+</li>
+<li class="even" id="comment-308">
+<div class="comment-text">Btw, Box model problems can always be solved by not applying padding to an element you specify a width too. <br />
+<br />
+In most cases, you can actually avoid this problem by being careful with your css :-)</div>
+<p class="comment-info">by 
+<a href="http://www.silverstripe.com" rel="nofollow"></a>on November 1 2005, 16:17<a href="#comment-308">#</a>
+</p>
+</li>
+<li class="odd" id="comment-309">
+<div class="comment-text">Simon: I don&#8217;t wanna start lecturing, but to be honest I don&#8217;t think you are right here. What if you want to have a box on the site with padding AND a width?<br />
+Either you nest two elements, one with a set width and one with padding inside, or you HACK the css to make it work. In that case I&#8217;d rather save one element and hack the css. Wich by no means affects the validation though.<br />
+The same thing goes for boxes that have floated elements in them. I&#8217;d rather use the &#8220;holly hack&#8221; than find myself using something like a clearing div.<br />
+<br />
+Another recommandation that you gave, resetting margins, padding, font-size and so on can lead to serious trouble as well.<br />
+If you ever used relative font-sizes (em or %) you&#8217;ll find that you&#8217;ll have to be damn carefull about where you specify the font size, since they will be inherited, and 75% of 75% is not what you thought it should&#8217;ve been anymore.<br />
+Also when you work with content-driven CMS engines you&#8217;ll get to the point where the client inserts markup in places where you didn&#8217;t expect them, like a list or a p and so on. A general reset of margin and padding will let those appear in a way that will be percieved as broken, unless you overwrite the reset for every element that could contain user defined markup.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 1 2005, 16:54<a href="#comment-309">#</a>
+</p>
+</li>
+<li class="even" id="comment-310">
+<div class="comment-text">Picking up on the point about &#8220;Team Maintainable CSS&#8221; ~ I have found that breaking your design into layers (Structure, Typography and Colors/Theme) can bring some big benefits for large team based projects.<br />
+<br />
+This is mostly true where both designers and developers are involved. You can for instance give a designer the &#8220;theme&#8221; template to work with, thus shielding them from complex structural CSS. On the flip side, developers can forget about the pretty colors, concentrating on just the structure of the interface.<br />
+<br />
+It is a technique that&#8217;s paying dividends where I work.<br />
+<br />
+I&#8217;ve explained in <a href="http://www.cssdev.com/index.php/archives/2005/09/17/css-file-structuring">more detail in a recent article</a>.</div>
+<p class="comment-info">by 
+<a href="http://www.cssdev.com" rel="nofollow"></a>on November 1 2005, 17:13<a href="#comment-310">#</a>
+</p>
+</li>
+<li class="odd" id="comment-311">
+<div class="comment-text">It is in fact a similar sort of idea as &#8220;Manageable Pieces&#8221; link you provided in the article. ;)</div>
+<p class="comment-info">by 
+<a href="http://www.cssdev.com" rel="nofollow"></a>on November 1 2005, 17:16<a href="#comment-311">#</a>
+</p>
+</li>
+<li class="even" id="comment-312">
+<div class="comment-text">Cheers Pascal,<br />
+<br />
+I understand where your coming from. I guess we need to make the desicion to either use slightly duplicate markup ( to control the box model problems),  <strong>or</strong> use hacks in css. <br />
+<br />
+There are many browser bugs that can be solved by other, non hack means, eg. adding a line-height to a parent element to solve IE 6&#8217;s Peak-a-boo bug instead of the holly hack etc. &#8211; Thats more what i was meaning with the other IE hacks and things not related to box model problems.<br />
+<br />
+:-)</div>
+<p class="comment-info">by 
+<a href="http://www.silverstripe.com" rel="nofollow"></a>on November 1 2005, 20:08<a href="#comment-312">#</a>
+</p>
+</li>
+<li class="odd" id="comment-313">
+<div class="comment-text">Good tips help to write CSS clean and manageable for future. :)</div>
+<p class="comment-info">by 
+<a href="http://www.einfach-persoenlich.de/" rel="nofollow"></a>on November 2 2005, 10:38<a href="#comment-313">#</a>
+</p>
+</li>
+<li class="even" id="comment-316">
+<div class="comment-text">Simon and Pascal:<br />
+<br />
+Looks like you&#8217;ve reached an amicable agreement on hacks, which is nice! Thought I&#8217;d wade in with one more point. The cleaner your HTML the easier your code is to understand. I&#8217;ll explain&#8230;<br />
+<br />
+On the HTML side you have less chance of missing a closing div if you only have a handful of them. I only mention this because the development version of my new site has wrapper divs everywhere and I keep breaking it by forgetting to close them. In the final version they will be added with a little DOM script.<br />
+<br />
+In the CSS, wrapper divs tend to come with generic names like &#8216;wrapper&#8217; ,&#8217;content&#8217; , &#8216;extra&#8217;, etc. I&#8217;ve had trouble in the past with nesting these. For example, if your &#8216;page&#8217; div needs one and your &#8216;content&#8217;  div also need one then you can get unexpected cascade/inheritance issues.<br />
+<br />
+I much prefer clean HTML and minimal hacking on the CSS. I find it much easier to keep all my compromises are in one place &#8211; the CSS, instead of being split between HTML and CSS. <br />
+<br />
+That said though, I&#8217;ve also had my share of trouble with the * html hack, in particular, when I&#8217;ve changed the width on the original rule and forgotten to reflect the change in the hack and then spent ages trying to track down what had gone wrong&#8230; Yet again, it&#8217;s a trade-off.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 3 2005, 05:59<a href="#comment-316">#</a>
+</p>
+</li>
+<li class="odd" id="comment-319">
+<div class="comment-text">I&#8217;m sure glad this list of maintainable css doesnt say to never use shorthand &#8211; as did someone else&#8217;s guide written a couple months ago. LOL</div>
+<p class="comment-info">by 
+on November 3 2005, 16:10<a href="#comment-319">#</a>
+</p>
+</li>
+<li class="even" id="comment-320">
+<div class="comment-text">Great article mate.<br />
+<br />
+Ive delivered templates to 3rd parties and used to endure banging-head-against-the-wall emails to developers trying to change the font-color in a div.<br />
+<br />
+Ive been using &#8216;sandboxes&#8217; in my css for a while now and  I can estimate about a 95% reduction in headaches. Its proven kids.</div>
+<p class="comment-info">by 
+<a href="http://www.sermad.com" rel="nofollow"></a>on November 7 2005, 09:54<a href="#comment-320">#</a>
+</p>
+</li>
+<li class="odd" id="comment-325">
+<div class="comment-text">Hey guys thanks for your comments :-) <br />
+<br />
+I might try your &#8216;framework&#8217; Mike on our next project, and we&#8217;ll see what happens :-)<br />
+<br />
+Cheers!</div>
+<p class="comment-info">by 
+<a href="http://www.silverstripe.com" rel="nofollow"></a>on November 8 2005, 15:00<a href="#comment-325">#</a>
+</p>
+</li>
+<li class="even" id="comment-2012">
+<div class="comment-text">wonderful article</div>
+<p class="comment-info">by 
+on March 16 2007, 17:09<a href="#comment-2012">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

@@ -348,6 +348,146 @@
 </p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-866">
+<div class="comment-text">@angie: I don&#8217;t think so, as it works fine in my example files when I run them on my machine. <br />
+Maybe  you can post your platform and PHP version, including which parser you&#8217;re using?<br />
+<br />
+Depending on which PHP version and platform you&#8217;re using it might be neccessary to include the &#8220;file://&#8221; protocol in the xml and xsl path in order to get it working:<br />
+<br />
+<pre><code>
+//filepath on windows
+$xml = 'file://' . str_replace("\\", "/", getcwd()) . "/data.xml";
+$xsl = 'file://' . str_replace("\\", "/", getcwd()) . "/example.xsl";
+
+//process the file and echo the result
+echo xslt_process($my_xslt,$xml,$xsl,NULL,array(),$arguments);
+</code></pre></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 12 2006, 06:04<a href="#comment-866">#</a>
+</p>
+</li>
+<li class="even" id="comment-865">
+<div class="comment-text">I wonder why it doesn&#8217;t work when I download  both xml file &#38; xsl file from this sample.  It show output but once i tried to click on either one link for sorting, it doesn&#8217;t work as what sample shown. <br />
+<br />
+What is the problem? Do you miss out some line of the code??</div>
+<p class="comment-info">by 
+on June 12 2006, 05:43<a href="#comment-865">#</a>
+</p>
+</li>
+<li class="odd" id="comment-948">
+<div class="comment-text">I am interested in how you get the variables that are passed into the XSL.  It seems you are somehow taking them from the URL.  You have examples of PHP and JavaScript, but I do not understand how this code works with the XSL.  How does your XSL know that it needs to use PHP or JavaScript?  <br />
+<br />
+Here is another question that I am interested in.  How would this be done in JSP?<br />
+<br />
+This page is very helpful.  Thank you for the great information thus far.</div>
+<p class="comment-info">by 
+on June 28 2006, 16:14<a href="#comment-948">#</a>
+</p>
+</li>
+<li class="even" id="comment-949">
+<div class="comment-text">Hi Mike. Usually the XSL is transfomed by a processor.<br />
+You pass the XML, the XSL and some optional arguments to this processor. In this case I just pass the whole GET collection. <br />
+<br />
+Have a look in the function call for the transformation:<br />
+
+<pre><code>
+$arguments = $_GET;
+xslt_process($my_xslt,$xml,$xsl,NULL,array(),$arguments);
+</code></pre>
+
+You can do this in javascript, c# and in PHP very easily. I have no idea how such a thing would look exactly in JSP, but I assume it will be pretty much the same.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 28 2006, 16:41<a href="#comment-949">#</a>
+</p>
+</li>
+<li class="odd" id="comment-953">
+<div class="comment-text">Thanks for the pointer.  I guess I still need a little more clearing up.<br />
+<br />
+Where would this code (that contains the function call for the transformation) go?  If I use JavaScript in my XSL style sheet, would I need to create a function (with this code) inside the script tags and call it somewhere in the style sheet?  Would it be better to keep the JavaScript in a separate file?<br />
+<br />
+I appreciate your time and help!  Maybe I&#8217;ll finally be able to figure this out.</div>
+<p class="comment-info">by 
+on June 29 2006, 15:24<a href="#comment-953">#</a>
+</p>
+</li>
+<li class="even" id="comment-956">
+<div class="comment-text">Mike, please take some time and look at source of the example files. Then you shouldn&#8217;t have any problem to unscramble these questions yourself.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 29 2006, 17:47<a href="#comment-956">#</a>
+</p>
+</li>
+<li class="odd" id="comment-981">
+<div class="comment-text">no sablatron in ZIP file</div>
+<p class="comment-info">by 
+on July 6 2006, 05:48<a href="#comment-981">#</a>
+</p>
+</li>
+<li class="even" id="comment-983">
+<div class="comment-text">Mikkel:<br />
+You can <a href="http://www.gingerall.org/sablotron.html">find sablotron here</a>. <br />
+It&#8217;s a server extension, so you will have to install it first.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 6 2006, 09:08<a href="#comment-983">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1864">
+<div class="comment-text">Hi <br />
+First of all i would like to thank you for such a good tutorial. With the same code i am trying to display to two dynamic tables. <br />
+In the main body i am calling 2 templates to display:<br />
+xsl:call-template name=&#8221;onuVlanEntry&#8221;<br />
+xsl:call-template name=&#8221;VoipLineEntry&#8221;<br />
+<br />
+In the tbody i am specifying this:<br />
+xsl:apply-templates<br />
+<br />
+in the both the table there are 2 rows. Now in both the tables it is displaying 4 rows. In the tbody <br />
+xsl:call-template name=&#8221;onuVlanEntryRows&#8221;<br />
+is not working. Can you plaease help me out . I am not using sort. simple two table data display.<br />
+<br />
+Thanks In advance<br />
+Nilesh</div>
+<p class="comment-info">by 
+on December 21 2006, 17:37<a href="#comment-1864">#</a>
+</p>
+</li>
+<li class="even" id="comment-3838">
+<div class="comment-text">When I run it, I got the following error message:<br />
+<br />
+Fatal error: Call to undefined function: xslt_create() in /home/cws/public_html/resources/xsl_tables/simple_table/transform.php on line 3<br />
+<br />
+Please help me .</div>
+<p class="comment-info">by 
+on September 10 2008, 23:31<a href="#comment-3838">#</a>
+</p>
+</li>
+<li class="odd" id="comment-3841">
+<div class="comment-text">casey: Make sure you have an XSL processor in your PHP installation. Now, the example I wrote here years ago works with Sablotron, but there is a new, built in processor in PHP5. Check <a href="http://uk2.php.net/xsl">the manual</a> for how to instanciate that one.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on September 11 2008, 03:08<a href="#comment-3841">#</a>
+</p>
+</li>
+<li class="even" id="comment-8926">
+<div class="comment-text">When I click the \"You can view the output here\" link, or the link \"You can view the transformed output here\", it gives the error: 
+
+Fatal error: Call to undefined function xslt_create() in /home/cws/public_html/resources/xsl_tables/simple_table/transform.php on line 3</div>
+<p class="comment-info">by 
+on October 19 2010, 09:54<a href="#comment-8926">#</a>
+</p>
+</li>
+<li class="odd" id="comment-8932">
+<div class="comment-text">Mark, please read the comments above.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on October 20 2010, 16:36<a href="#comment-8932">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

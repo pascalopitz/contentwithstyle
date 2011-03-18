@@ -73,6 +73,36 @@ Whether your favorite conceptual module is pipes and filters, tuple spaces, or j
  
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-2090">
+<div class="comment-text">I did some testing before and after cleaning up my stylesheets. I removed all instances of &#8221;//&#8221; and most &#8220;for-each&#8221; cases and compared performance. The results of the comparison of transform times showed no change(or too small to measure). It was disappointing to do all that work and not see any improvement. <br />
+<br />
+Granted, extensibility increased, but it wasn&#8217;t a big deal given the system we were using.</div>
+<p class="comment-info">by 
+<a href="http://jethrolarson.blogspot.com" rel="nofollow"></a>on June 20 2007, 19:37<a href="#comment-2090">#</a>
+</p>
+</li>
+<li class="even" id="comment-2091">
+<div class="comment-text">Hi jethro,<br />
+<br />
+increases in speed come mainly down to the size of the XML you have to parse. A // on 3 nodes is nearly as fast as navigating to /root/node[position() = 1] but the same query on 10000 nodes is not going to be nearly as fast.<br />
+<br />
+I can understand why you feel a bit disappointed, for sure, but if you haven&#8217;t been experiencing any speed problems before, why did U do a tidy up in the first place? If the performance issues that you had were somewhere else in the application,  then for the next time you might consider to benchmark single steps in order to single out the bottleneck.<br />
+<br />
+Tools like the <a href="http://pear.php.net/package/Benchmark">PEAR benchmark package</a> really help.<br />
+<br />
+In my previous projects we did exactly that, and we successfully pinned down what it was: a // xpath query on a 5 meg XML document.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 21 2007, 18:19<a href="#comment-2091">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

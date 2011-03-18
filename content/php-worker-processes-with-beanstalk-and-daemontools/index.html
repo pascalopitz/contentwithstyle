@@ -190,6 +190,36 @@ The best option seemed to be <a href="http://supervisord.org/">supervisord</a>, 
 <p>I hope this is a helpful little writeup. Feel free to <a href="http://www.contentwithstyle.co.uk/resources/queue_test.zip">download the nicely zipped up demo code</a>, and do drop a comment if you have anything to add.</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-8985">
+<div class="comment-text"><p>Hi</p>
+
+<p>I just came across your post while was looking for ways to save queue data in case of system crash. your post suggest to create a separate txt file to dump data for future restore. I am yet not clear about it. i started beanstalk with -b switch and specified directory. I pushed the data and i did not find any data in folder</p></div>
+<p class="comment-info">by 
+<a href="http://adnansiddiqi.com" rel="nofollow"></a>on November 8 2010, 05:56<a href="#comment-8985">#</a>
+</p>
+</li>
+<li class="even" id="comment-8986">
+<div class="comment-text"><p>
+Yes, start beanstalkd with the -b option. This won\'t be a human readable textfile though, but a bin log.
+Make sure you have the right permissions etc.
+How about killing the process and restarting it to see if the jobs are still in the queue?
+</p>
+
+<p>
+If you want to inspect queues etc via command line, you can use <a href=\"https://github.com/pascalopitz/nodestalker\">beanspector that comes with my nodestalker library</a>.
+</p></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 8 2010, 06:38<a href="#comment-8986">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

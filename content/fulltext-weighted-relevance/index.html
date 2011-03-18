@@ -86,6 +86,33 @@ LIMIT 0,10
  
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-1894">
+<div class="comment-text">Ber, first of all thank you for bringing this up. I can see why you are concerned, even though I don&#8217;t think you have a point here. Let me explain to you why:<br />
+<br />
+By default register_globals is off, and I always have turned it off. Which means that $query in the example above cannot refer to the equivalent of $_GET[&#8216;query&#8217;].<br />
+<br />
+That means that $query is just any variable. SURELY IT SHOULD BE ESCAPED FIRST! But you cannot really tell if that hasn&#8217;t happened by just looking at the example above. <br />
+<br />
+If you were thinking that this refers to a GET variable because you are still working with register_globals turned on, then I strongly advise you to not do so anymore, because that would mean a major security hole.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 15 2007, 07:05<a href="#comment-1894">#</a>
+</p>
+</li>
+<li class="even" id="comment-1893">
+<div class="comment-text">Extremely! Insecure! <br />
+Never! Ever! pass in $query just like that. Its the #1 security hole in most systems. It is called SQL injection.</div>
+<p class="comment-info">by 
+<a href="http://webschuur.com" rel="nofollow"></a>on January 15 2007, 04:52<a href="#comment-1893">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

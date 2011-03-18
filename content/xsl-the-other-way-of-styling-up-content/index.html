@@ -411,6 +411,57 @@ xslt_free($my_xslt);
 </p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-78">
+<div class="comment-text">Really useful tutorial. Cheers :)</div>
+<p class="comment-info">by 
+<a href="http://danbailey.co.uk" rel="nofollow"></a>on May 25 2005, 20:28<a href="#comment-78">#</a>
+</p>
+</li>
+<li class="even" id="comment-82">
+<div class="comment-text">Very welcome.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on May 26 2005, 03:08<a href="#comment-82">#</a>
+</p>
+</li>
+<li class="odd" id="comment-381">
+<div class="comment-text">Very concise and informative.  Discusses the XML/XSL transformation in a nutshell.</div>
+<p class="comment-info">by 
+<a href="http://tuldoklambat.blogspot.com" rel="nofollow"></a>on January 23 2006, 21:58<a href="#comment-381">#</a>
+</p>
+</li>
+<li class="even" id="comment-407">
+<div class="comment-text">Thanks :)</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 30 2006, 09:41<a href="#comment-407">#</a>
+</p>
+</li>
+<li class="odd" id="comment-5598">
+<div class="comment-text"><p>
+Just to remind everyone that this article was written when PHP4 was still on. With PHP5 things are different:</p>
+
+<pre><code>
+$xmlDoc = new DOMDocument();
+$xmlDoc->load(\'file.xml\');
+
+$xslDoc = new DOMDocument();
+$xslDoc->load(\'stylesheet.xsl\');
+
+$proc = new XSLTProcessor();
+$proc->importStylesheet($xslDoc);
+echo $proc->transformToXML($xmlDoc);
+</code></pre></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on February 28 2009, 21:36<a href="#comment-5598">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

@@ -62,6 +62,26 @@
     <p>Via the <a href="http://ajaxian.com">ajaxian</a> I came across the javascript based framework <a href="http://blogs.sun.com/greimer/entry/reglib_javascript_library_now_available">reglib</a>, written by Gregory Reimer. It is based on some very clever thoughts and makes heavy use of <a href="http://icant.co.uk/sandbox/eventdelegation/">Event Delegation</a>.</p><p>Event Delegation is a technique I used quite a lot at Tesco. Back then <a href="http://www.linkedin.com/in/matthewjdunn">Matt Dunn</a>, who was the lead UI developer there, introduced me to its benefits and how it <a href="http://cherny.com/webdev/70/javascript-event-delegation-and-event-hanlders">helps to keep the memory footprint down</a>.</p><p>reglib goes a step further. It utilizes the body element as single entry point for all events, and identifies the nodes that triggered the event so it can match them with&nbsp; functions that were assigned through the library and execute them.</p><p>This cuts out the wait for until the DOM is<span> Loaded by the browser, something that is pretty much essential and implemented into most other frameworks like <a href="http://docs.jquery.com/Events/ready">JQuery</a> or <a href="http://mootools.net/docs/Utilities/DomReady">MooTools</a></span>. Gregory Reimer, who has written reglib based on his work for <a href="http://www.sun.com">sun.com</a>, seems to dislike this and even <a href="http://blogs.sun.com/greimer/entry/on_the_inelegance_of_modern">describes this as anti-pattern</a>.</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-4623">
+<div class="comment-text">I know there was quite a bit of talk about this at the time, both between us and at the PubStandards, but I didn\'t listen in too much. Now that I had the time to read up on it, I\'m very impressed.
+<br /><br />
+Although jQuery doesn\'t do this by nature (or it didn\'t do it back in February 08), some smart people have happily extended it. 
+<br /><br />
+One of them is Pub Standards own Dan Webb, using it in his LowPro project and offering a prototype version too: <a href=\"http://www.danwebb.net/2008/2/8/event-delegation-made-easy-in-jquery\">http://www.danwebb.net/2008/2/8/event-delegation-made-easy-in-jquery</a>
+<br />
+Another one is scarily enough from around the same time AND it looks almost the same, on dev.distilldesign: <a href=\"http://dev.distilldesign.com/log/2008/jan/27/event-delegation-jquery/\">http://dev.distilldesign.com/log/2008/jan/27/event-delegation-jquery/</a></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on November 19 2008, 09:46<a href="#comment-4623">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

@@ -78,6 +78,85 @@ Also there is a <a href="http://perso.ec-lyon.fr/lyonel.vincent/apache/mod_put.h
  
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-947">
+<div class="comment-text">While most browsers and server plateforms supports the 4 HTTP verbs, it is not always easy to find good information on how to use them. <br />
+<br />
+For instance, PHP assumes that a POST always contains form data  ($_POST is an associative array of field name/value pairs). If you want to POST something that is not a a form (a XML document for instance), you&#8217;ll have to resort to the rather obscure file_get_contents(&#8216;php://input&#8217;)  to get the raw data from the POST request.<br />
+<br />
+Also, you may want to take a look at Freja ( http://www.csscripting.com/Freja ) &#8211; Framework for REstful Javascript Applications.<br />
+<br />
+Applications built on Freja:<br />
+1. Run in the browser. <br />
+2. Use XML for data and DOM for data manipulation.<br />
+3. Use XSL for interface templates and client-side XSLT for interface rendering.<br />
+4. Are server-side agnostic. They communicate with RESTful web services using asynchronous HTTP requests.  PUT and DELETE verbs are supported since version 2.0<br />
+<br />
+Freja is not a server-side framework but there are a couple sample server-side scripts that show how to build PHP RESTful web services</div>
+<p class="comment-info">by 
+<a href="http://www.formassembly.com" rel="nofollow"></a>on June 28 2006, 10:37<a href="#comment-947">#</a>
+</p>
+</li>
+<li class="even" id="comment-942">
+<div class="comment-text">Pretty interesting read that &#8220;How I explained REST to my wife&#8221;. It reminds me of the Atom Publishing Protocol which is currently a draft at the IETF  which is using GET, PUT, POST, and DELETE everywhere in order to manage ressources. It&#8217;s true that these verbs aren&#8217;t used as much as they should, and that&#8217;s probably because everyone has been busy working within the limitations of the browser. You can&#8217;t PUT, or DELETE from a browser.</div>
+<p class="comment-info">by 
+<a href="http://www.michelf.com/" rel="nofollow"></a>on June 27 2006, 22:25<a href="#comment-942">#</a>
+</p>
+</li>
+<li class="odd" id="comment-945">
+<div class="comment-text">Unfortunately, too many web &#8220;experts&#8221; are oblivious to the less common REST methods. I&#8217;ve been using them for years, and ensure all my apps are coded in a REST-ful way.<br />
+<br />
+Seems as though its made my life <em>much</em> easier, as I don&#8217;t think about the same problems as most people when developing.<br />
+<br />
+One thing to remember about the difference between PUT and POST &#8211; PUT does exactly what it says on the tin &#8211; it is supposed to PUT a resource onto the server/target. Simple.<br />
+<br />
+POST, however, has become confused. Essentially, it is meant to POST an update to the server, updating a specific resource, a list, or database. Its meant as a catch-all when one of the other methods won&#8217;t do. <br />
+<br />
+So, to PUT something, you&#8217;d use &lt;form method=&#8221;put&#8221; action=&#8221;/path/to/resource/dir/&#8221;&gt;... whereas POST would point to the resource to be updated: &lt;form method=&#8221;post&#8221; action=&#8221;/path/to/resource.ext&#8221;&gt;<br />
+<br />
+However, just like GET, it has become misused by the web community at large. Just like some developers use GET to post updated information to a server (causing a whole host of problems with web &#8220;caching&#8221; software &#8211; see google cache), they use POST to put a new resource online.<br />
+<br />
+Lets hope this practice is forgotten sooner rather than later.<br />
+<br />
+One of the more useful methods of REST is HEAD, where you can get information about a resource without actually GETting the resource. This is useful in confirming updates/changes to a file made from another source or finding out whether a resource exists before updating it.<br />
+<br />
+A really useful resource is the HTTP/1.1 spec:<br />
+http://www.faqs.org/rfcs/rfc2616<br />
+This gives you information on all the HTTP methods, plus all the response codes that can be issued/expected from the server.<br />
+<br />
+If you&#8217;re interested, refactored is a RESTful framework I&#8217;m developing which has a few additional features not seen in most frameworks&#8230; keep your eye out for its first release!</div>
+<p class="comment-info">by 
+<a href="http://refactored.net" rel="nofollow"></a>on June 28 2006, 03:57<a href="#comment-945">#</a>
+</p>
+</li>
+<li class="even" id="comment-952">
+<div class="comment-text">Dude, I went through the same thing like two months ago with REST. I hate acronyms.</div>
+<p class="comment-info">by 
+<a href="http://www.dustindiaz.com" rel="nofollow"></a>on June 29 2006, 11:35<a href="#comment-952">#</a>
+</p>
+</li>
+<li class="odd" id="comment-954">
+<div class="comment-text">I had no idea about PUT or DELETE! Never heard of them and never used them&#8230; Since I don&#8217;t do much server side development I shouldn&#8217;t be all that surprised that I&#8217;ve not used them but, like Pascal, I can&#8217;t believe that I&#8217;ve never even heard of them!</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 29 2006, 16:51<a href="#comment-954">#</a>
+</p>
+</li>
+<li class="even" id="comment-974">
+<div class="comment-text">Michel:<br />
+Actually, some Browsers do support PUT and DELETE as well, at least using javascript&#8217;s xmlhttprequest. As far as I know are Mozilla based browsers and IE perfectly fine with it. Not sure about Opera, but I know that Safari doesn&#8217;t like it.<br />
+<br />
+Also, php&#8217;s php://input will happily accept any sent information in POST as well as PUT and DELETE. I&#8217;m sure HEAD is fine, too.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 4 2006, 10:40<a href="#comment-974">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

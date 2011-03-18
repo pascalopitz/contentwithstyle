@@ -109,6 +109,202 @@ As an alternative, I either stuck to relational databases (usually sufficient) a
 As with most things in modern digital life, sites are ever-changing, but the code hardly ever survives three years. Your budget, timeframe and the purpose of the site will determine to what extent you want to follow MVC. But it's always worth considering.</p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-113">
+<div class="comment-text">Very interesting article. Would the use of an ADODB toolkit as interface to the database stick to the MVC model, because it qould get U rid of database-specific SQL?<br />
+<br />
+<cite>A common technique here is to set up a class for each table that contains all queries.</cite><br />
+<br />
+This actually doesn&#8217;t sound like a very good idea to me, since I work with joint queries and subselects.<br />
+<br />
+But then subselects are server-specific &#8230; Ohh dear &#8230;<br />
+<br />
+I gotta think about this more thoroughly!</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 2 2005, 18:42<a href="#comment-113">#</a>
+</p>
+</li>
+<li class="even" id="comment-115">
+<div class="comment-text">Looks like a very careful introduction to Design Patterns for Graphic Designers. :) In general, I think that you are right about separation and I wonder how many developers around the world still mess presentation with SQL and logic.<br />
+<br />
+I would disagree with you, telling that the main benefit of separation of SQL from the page presentation is an easiness of finding the proper statement in a future. While it&#8217;s also true, the main aims of design patterns (and we are talking about MVC, Facade and some other patterns) are re-usability and isolation. You have uncovered the re-usability part a bit, but isolation plays a great role too (and it&#8217;s not about SQL only).<br />
+<br />
+When you have a team you can define the classes, their roles and goals. After that spend a while to create stubs and spread the job across the team. Everybody will be building its own part: SQL expert &#8211; SQL, designers &#8211; presentation, the rest &#8211; logic programming. When finished, tested and re-joined together the parts form the application. Because of clear separation no one waits for others and knows clearly from A to Z what his own part should do. It&#8217;s just one of possible use-cases.<br />
+<br />
+I have more to say, but I would better stop here as it&#8217;s going to be overloaded. :) Nice article! Keep up doing great job!</div>
+<p class="comment-info">by 
+<a href="http://www.noizeramp.com" rel="nofollow"></a>on June 3 2005, 08:01<a href="#comment-115">#</a>
+</p>
+</li>
+<li class="odd" id="comment-116">
+<div class="comment-text">Aleksey,<br />
+I do agree with you. Thanks for pointing out a nice example for isolation. I know it&#8217;s not only about sql, and I think you summed it up very good.<br />
+<br />
+I guess it slipped my mind, as I wanted to write this up for  smaller projects, which hardly ever have more than 2 people developing it. But you&#8217;re right nevertheless. Feel free to add more, or <a href="http://www.contentwithstyle.co.uk/Contact">drop me a line</a></div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 3 2005, 11:43<a href="#comment-116">#</a>
+</p>
+</li>
+<li class="even" id="comment-117">
+<div class="comment-text">This pattern is very cool but if its obviously that you never use  benfits like changing the view you. Its not so important.</div>
+<p class="comment-info">by 
+on June 3 2005, 13:28<a href="#comment-117">#</a>
+</p>
+</li>
+<li class="odd" id="comment-118">
+<div class="comment-text">Well, OK. Here&#8217;s another use-case for that approach&#8230; When you are planning to build something, you break it into chunks as I commented before and think about clear separation between things. At this stage you don&#8217;t think about how everything will be working specifically, but how the whole thing will be composed of these small reusable parts, having specific roles. A good example, is our favorite SQL layer (I call it Persistence Layer). It isolates database stuff and generally (attention please) PLAYS THE ROLE OF SOURCE OF ALL DATA. It means that if everything is designed well you can replace the layer with some stub, which is returning some test data while you are building the other parts of application and later, when your team-mate or you will implement this layer, you can put it in instead of stub as production version. Why it&#8217;s good? Because it allows you to concentrate on the whole project instead of digging into details too early. You plan and measure the interrelations between parts and design everything from bird-sight view.<br />
+<br />
+The other good thing is that you always can start from writing tests for your future modules to set in stone what EXACTLY they should do (it&#8217;s called TDD &#8211; Test-Driven Development). You write scenario after scenario (generally using PHPUnit or other XYZUnit, depending on technology you are using). These scenarios should reflect the real-life problems the module is intended to solve. In example with Persistence Layer, it could be &#8220;Reading list of posts&#8221;, &#8220;Adding post&#8221;, &#8220;Adding Comment&#8221;... you got the idea. While writing the tests you add methods to your classes which help to solve your problems, group them, rename them, recognizing patterns and following them (over and over again). By the end of this process you will have the stub for your module, which is having all methods and clearly designed to solve your TODAY&#8217;S problems (nothing more, nothing less). After that you just spend some time to put in the implementation and pass all the scenarios you have set in tests. It&#8217;s all about modularity, layering and isolation.<br />
+<br />
+As for me, I always try to work &#8220;from the tests&#8221; because if not, then I&#8217;m always thinking about the module from inside and doing too much assumptions, adding flexibility which is not likely to be necessary and etc. It all takes time.<br />
+<br />
+Save your time, do it right. :) Some good reading on the subject could be anything about TDD, general articles by Martin Fowler (&#8220;Is Design Dead?&#8221;, for example) and of course the design patterns material. They aren&#8217;t the goal and you shouldn&#8217;t aim on using them all the time; they just help you to concentrate on real tasks instead of re-inventing the wheel.<br />
+<br />
+Hope that it&#8217;s interesting and even inspiring to someone. :)</div>
+<p class="comment-info">by 
+<a href="http://www.noizeramp.com" rel="nofollow"></a>on June 3 2005, 14:50<a href="#comment-118">#</a>
+</p>
+</li>
+<li class="even" id="comment-119">
+<div class="comment-text">it is definetely inspiring to me, and although some of it would be hard work to get into practice at work (there&#8217;s always a project manager with a stopwatch, for this and only this project), I appreciate this very much.<br />
+<br />
+I looked into unit-testing before, but in small/medium-ish companies, with small/medium projects, probably focussed on different things than development, it is hard to get through. But I won&#8217;t stop, obviously, and it&#8217;s good to have people around with the same opinions.<br />
+<br />
+Cheers,<br />
+Matthias</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 3 2005, 18:16<a href="#comment-119">#</a>
+</p>
+</li>
+<li class="odd" id="comment-120">
+<div class="comment-text">Matthias, you can use some of the techniques to increase the precision of your estimates for the project. Having the clear architecture and stubs early, you can significantly more precisely tell when you will be done with the given part of work as you will already know what it going to happen (technically) instead of making weird guesses.<br />
+<br />
+Anyway, I&#8217;m happy that it was useful writing!</div>
+<p class="comment-info">by 
+<a href="http://www.noizeramp.com" rel="nofollow"></a>on June 3 2005, 18:26<a href="#comment-120">#</a>
+</p>
+</li>
+<li class="even" id="comment-122">
+<div class="comment-text">sure.<br />
+<br />
+here&#8217;s the article Aleksey was refering to:<br />
+<a href="http://www.martinfowler.com/articles/designDead.html">is design dead?</a><br />
+<br />
+I printed it out and will have a read.<br />
+<br />
+cheers.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 3 2005, 18:50<a href="#comment-122">#</a>
+</p>
+</li>
+<li class="odd" id="comment-123">
+<div class="comment-text">I didn&#8217;t see it here, so I figured I&#8217;d mention it &#8211; if you haven&#8217;t already heard of it, check out <a href="http://www.rubyonrails.com">Ruby on Rails</a> &#8211; it makes MVC and Object/Relational mapping really easy &#8211; its already there for you &#8211; even in the smallest of projects.<br />
+<br />
+Watch the 10 minute setup video to get the basic idea.</div>
+<p class="comment-info">by 
+<a href="http://www.electrointeractive.com" rel="nofollow"></a>on June 3 2005, 21:44<a href="#comment-123">#</a>
+</p>
+</li>
+<li class="even" id="comment-124">
+<div class="comment-text">Aleksey: I&#8217;ve been working with the chap who wrote <a href="http://www.simpletest.org">SimpleTest</a> recently and I&#8217;m really coming around to the idea of test driven design. I tried explaining it to Matthias and Pascal a couple of weeks ago but couldn&#8217;t think of a good way to really sell it to them. Your suggestion that it helps to modularise and isolate your components is far better than anything I managed to come up with at the time!</div>
+<p class="comment-info">by 
+<a href="http://donotremove.co.uk" rel="nofollow"></a>on June 4 2005, 16:49<a href="#comment-124">#</a>
+</p>
+</li>
+<li class="odd" id="comment-126">
+<div class="comment-text">Hmm, I like the idea of making up the tests before starting to develop, but what happens if you suddenly need to extend the functionallity &#8230; That&#8217;s why I am still drawn to neat concepts that somehow remain flexible than doing a module that just does EXACTLY what the test does, but may be hard to modify &#8230; is that a reasonable concern, Aleksey?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 4 2005, 17:23<a href="#comment-126">#</a>
+</p>
+</li>
+<li class="even" id="comment-128">
+<div class="comment-text">Mike, thanks, it&#8217;s a great pleasure to share and see that your shares make sense and help someone.<br />
+<br />
+Pascal, of course, the evolution should take place. In most cases, you will <strong>add</strong> something new, but sometimes you will <strong>update</strong> existing functionality and very rarely <strong>remove</strong>.<br />
+<br />
+When you <strong>add</strong> you create the tests suite beforehand again and try to pass it in minimum number of strokes.<br />
+<br />
+When you <strong>change</strong>, it&#8217;s always best if you have a set of short examples of what the functionality does now (your current set of tests as a basis). Basing on this, you update the tests to reflect your required changes. It helps you, right as in the first time, to create a meaningful arch. and experiment with interfaces with stuff beforehand. After that you simply change what you need and you are done.<br />
+<br />
+When you <strong>remove</strong> something you just don&#8217;t need the tests for that scenario any more. So, kill them.<br />
+<br />
+The tests help you and your team to feel confidence about the application. When you were working a week on one module and then gave it to the other developer on your team you can be absolutely sure that he hasn&#8217;t broken any bit of code with his changes because your tests, reflecting your requirements for module, still pass. Being confident is a great feeling: you finish your working day in a great mood and, what&#8217;s also important, you can give your application to the client in a middle of the night, knowing that every piece of it is tested and proved to work.<br />
+<br />
+From the first glance, it looks like you are wasting the valuable time for writing useless tests which aren&#8217;t bringing the value to your clients. It&#8217;s not true. (a) The bugs you find are absolutely different from the bugs your clients will find. At least, you will start to ask for excuses, feel sorry and etc. (b) The time you spend on writing tests is nothing against the time you spend on finding the ways to reproduce bugs, track them, fix them, propagate updates and etc. (c) your reputation goes lower and lower with growth of index in your bug tracker. Having less defects is much better than having an excellent skills in bug-fixing.<br />
+<br />
+So, it&#8217;s up to you to make test or no. Just remember two rules (my own experience):<br />
+<br />
+<strong>Do Not Test Everything</strong>&#8212;test only what can break or you will be really wasting time. Make the tests to be a part of your process and position it as sort of a game or invent something to make them look more natural.<br />
+<br />
+<strong>If Your Tests Never Fail, They Test Nothing</strong>&#8212;at least make some adjustments to code (if you are writing tests <strong>after</strong> implementation) to prove to yourself that the tests will fail if anything will go wrong. And&#8230; never worry about the failing tests. If test fails, it means that you have caught the bug, which was going to slip into production version if you had no that test. :)<br />
+<br />
+Sorry, if I sounded like having PhD in Testing. It was just my bit of experience in this are and should be treated this way only.</div>
+<p class="comment-info">by 
+<a href="http://www.noizeramp.com" rel="nofollow"></a>on June 6 2005, 09:31<a href="#comment-128">#</a>
+</p>
+</li>
+<li class="odd" id="comment-148">
+<div class="comment-text">I&#8217;ve been using this for sites and had great luck with it on Ruby on Rails.  I&#8217;ve found that sites that are not updated often, I turn on caching (1 hour or so) within the rails app (for production), thus it don&#8217;t have to build the page for each access (this assumes no personalization).<br />
+<br />
+Caching is super-easy in RoR and can be added to an entire controller with one line&#8230;  <br />
+<br />
+MVC is great!</div>
+<p class="comment-info">by 
+<a href="http://overstimulate.com" rel="nofollow"></a>on June 16 2005, 05:33<a href="#comment-148">#</a>
+</p>
+</li>
+<li class="even" id="comment-535">
+<div class="comment-text">Increasing the chorus MVC is great, and you should have put on of the 10,000 images that really shows it properly so Graphic Designers can understand really fast ;-p<br />
+<br />
+And, if in your project the graphic designer is thinking about SQL you have problems&#8230;. hehe<br />
+<br />
+by the way, Aleksey is pretty right about TEST as much as you need, but TEST hehe&#8230;<br />
+<br />
+And&#8230; some interesting thing to ask is, do you have a PHP class with the queries of your system? I hope not&#8230;  not exactly that! you can have many ideas on what to do with your queries and so on&#8230;.<br />
+<br />
+cheers</div>
+<p class="comment-info">by 
+on April 15 2006, 14:08<a href="#comment-535">#</a>
+</p>
+</li>
+<li class="odd" id="comment-538">
+<div class="comment-text">To be honest, Lucas,<br />
+I have never succeeded to explain anything server side to a graphic designer, then again, I realised fairly quick that there&#8217;s no need. But there is a hell lot of chaotic developers out there, and MVC seems to be an easy entry point into patterns. The advantages of the modular approach are just too obvious. <br />
+<br />
+I&#8217;m not sure I understand what you mean by your last paragraph. Do I have a class for sql, as in <strong>one</strong>, or as in one for every purpose?<br />
+<br />
+I use a couple of classes that form the abstract use of what I&#8217;m going to build, like a list class, which I then extend with the purpose class that I need to build. This class will contain SQL.<br />
+<br />
+Recently at the PHP conference UK Derek Rethans gave a nice introduction into EZ components, and I quite liked their <a href="http://ez.no/doc/components/view/latest/(file)/Database/ezcQuerySelect.html">DB class</a>, it abstracts SQL really nicely; I might give it a try soon.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on April 16 2006, 09:25<a href="#comment-538">#</a>
+</p>
+</li>
+<li class="even" id="comment-1022">
+<div class="comment-text">I must confess that the idea of having a class with all your SQL&#8217;s or whatever as a bad thing is based on my experience with Java, as PHP is a scripting language there is no real problem to have this kind of stuff because you don&#8217;t need to compile the code before sending it to the client just to fix a misspelling problem, so, don&#8217;t worry about that.<br />
+<br />
+I used to use something like DB Class and it is a very interesting component that override the idea of keeping your SQL in plain string, which can be very dangerous to enable SQL Injection attacks.<br />
+<br />
+I hope I made myself understood&#8230;</div>
+<p class="comment-info">by 
+on July 12 2006, 06:58<a href="#comment-1022">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1153">
+<div class="comment-text">Yes, I got you now.<br />
+I used to do some dynamic websites with Java, mainly JSP and Servlets working together, and the one thing I really needed there more than in PHP is a mirrored development server. That takes the grievance off uploading a compiled class to the live server which then has a typo.<br />
+Using a class that abstracts the whole sql business&#8230; I&#8217;m not sure about it. Sure, it keeps everything in one place, but at the same time you&#8217;ll have all the work to abstract the whole of the SQL language; and that has to look at feel intuitive, too.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 26 2006, 02:31<a href="#comment-1153">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

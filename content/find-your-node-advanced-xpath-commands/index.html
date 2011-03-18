@@ -239,6 +239,77 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
 </p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-1570">
+<div class="comment-text">A little while ago I was asked to look at some XSLT for someone who had done some changes to a template they didn&#8217;t originally create, but who now couldn&#8217;t figure out what the hell was going on. You know, the usual stuff.</div>
+<p class="comment-info">by 
+<a href="http://www.seostat.co.uk" rel="nofollow"></a>on September 22 2006, 04:15<a href="#comment-1570">#</a>
+</p>
+</li>
+<li class="even" id="comment-1954">
+<div class="comment-text">Hey there.<br />
+Try to use count() and value():
+<br />
+<br />
+<pre><code>
+//product/categories[count(cat[text() = \'2\']) &amp;gt; 0 and count(cat[text() = \'3\']) &gt; 0]/../@name
+</code></pre>
+<br/>
+<br/>
+You can create that in a loop as well :)</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on January 31 2007, 07:38<a href="#comment-1954">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1953">
+<div class="comment-text">I&#8217;m having an xpath issue trying to work out how to select nodes where two child nodes are present.<br />
+<br />
+My XML format is along these lines:<br />
+<br />
+&lt;categories&gt;<br />
+&nbsp;&nbsp; &lt;cat id=&#8221;1&#8221; name=&#8221;Type A&#8221; /&gt;<br />
+&nbsp;&nbsp; &lt;cat id=&#8221;2&#8221; name=&#8221;Type B&#8221; /&gt;<br />
+&nbsp;&nbsp; &lt;cat id=&#8221;3&#8221; name=&#8221;Type 1&#8221; /&gt;<br />
+&nbsp;&nbsp; &lt;cat id=&#8221;4&#8221; name=&#8221;Type 2&#8221; /&gt;<br />
+&nbsp;&nbsp; &lt;cat id=&#8221;5&#8221; name=&#8221;Type 3&#8221; /&gt;<br />
+&lt;/categories&gt;<br />
+<br />
+&lt;products&gt;<br />
+&nbsp;&nbsp; &lt;product id=&#8221;1&#8221; name=&#8221;Product 1&#8221;&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;categories&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;cat&gt;1&lt;/cat&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;cat&gt;3&lt;/cat&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;/categories&gt;<br />
+&nbsp;&nbsp;&lt;/product&gt;<br />
+&nbsp;&nbsp; &lt;product id=&#8221;2&#8221; name=&#8221;Product 2&#8221;&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;categories&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;cat&gt;2&lt;/cat&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;cat&gt;3&lt;/cat&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;cat&gt;4&lt;/cat&gt;<br />
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;/categories&gt;<br />
+&nbsp;&nbsp; &lt;/product&gt;<br />
+&lt;/products&gt;<br />
+<br />
+Because of the nature of the products they may belong to one or more category, and I need to be able to filter by one or more category, so I&#8217;m trying to do a query along the lines of:<br />
+<br />
+&#8220;product/categories[cat=3 and cat=2]/../@name&#8221;<br />
+<br />
+ constructing the cat=X part on the fly<br />
+<br />
+I did consider comma seperating my cat ids in the product and using contains(), but then I&#8217;d get all the 22 containing 2 type problems<br />
+<br />
+Any pointers very gratefully received</div>
+<p class="comment-info">by 
+<a href="http://www.picture-ltd.com" rel="nofollow"></a>on January 31 2007, 07:06<a href="#comment-1953">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">

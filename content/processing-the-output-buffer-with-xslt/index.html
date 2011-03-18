@@ -226,6 +226,93 @@ who use variables to pass html-content into XSL templates.
 </p>
 </div>
 
+
+<div class="comments" id="comments">
+    <h2>Comments</h2>
+    <ul class="comments-list">
+        <li class="odd" id="comment-195">
+<div class="comment-text">Wow, that was quick! I&#8217;ll be seriously considering using this next time I have to tangle with template engines. Any idea what the processing overhead is for this?</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 24 2005, 18:08<a href="#comment-195">#</a>
+</p>
+</li>
+<li class="even" id="comment-196">
+<div class="comment-text">There are some <a href="http://uk2.php.net/manual/de/function.ob-start.php#52652">rants that ob_start and ob_flush increase the performance</a>. Also since you just transform the output buffer, so that&#8217;s one single transformation, there is not much overhead added by the XSLT stuff.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 25 2005, 01:28<a href="#comment-196">#</a>
+</p>
+</li>
+<li class="odd" id="comment-198">
+<div class="comment-text">Oh, and if anyone wants to see a real-world use for this technique, go have a read through Mike Davidson&#8217;s great article on <a href="http://www.mikeindustries.com/blog/archive/2005/07/make-your-site-mobile-friendly">Making Your Site Mobile Friendly</a>.</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on July 25 2005, 17:02<a href="#comment-198">#</a>
+</p>
+</li>
+<li class="even" id="comment-238">
+<div class="comment-text">Setting &#8211; <br />
+<br />
+ob_implicit_flush(true);<br />
+<br />
+Will automatically flush any echo you do in that script.<br />
+<br />
+Be aware there are lots of well documented bugs with browsers and flush &#8211; You sometimes have to pad the first echo with some blank data so that it forces the browser to display.<br />
+<br />
+<a href="http://uk2.php.net/flush">http://uk2.php.net/flush</a></div>
+<p class="comment-info">by 
+<a href="http://www.sermad.com" rel="nofollow"></a>on September 16 2005, 05:29<a href="#comment-238">#</a>
+</p>
+</li>
+<li class="odd" id="comment-438">
+<div class="comment-text">I thanks sincerelly the author for this article. I was trying to find a way  to get an output while running a &#8220;cruise&#8221; function for this class : http://www.contentwithstyle.co.uk/<br />
+<br />
+The goal is to provide an HTML interface while using class to be able to talk to with the JABBER&#8217;s protocol&#8230;</div>
+<p class="comment-info">by 
+<a href="http://www.toucouleur.fr" rel="nofollow"></a>on February 12 2006, 14:25<a href="#comment-438">#</a>
+</p>
+</li>
+<li class="even" id="comment-887">
+<div class="comment-text">@ Ben: Great idea &#8230; like that you always present exactly what is needed on the client, right?<br />
+Thanks for the props btw, but right now my head is spinning with other things and I have no time at all to write anything. But I&#8217;ll be back on track soon if I can come up with anything smart enough :)</div>
+<p class="comment-info">by 
+<a href="http://www.contentwithstyle.co.uk" rel="nofollow"></a>on June 19 2006, 18:21<a href="#comment-887">#</a>
+</p>
+</li>
+<li class="odd" id="comment-885">
+<div class="comment-text">Just wanted to fill you in on how I&#8217;ve been using the output buffer. After building a massive MVC app in PHP5, this technique made me realise that the Controller part of MVC can rightfully be left to Apache. I have a simple abstract class that contains the XSL functionality you describe above, and, depending on the content of the Accept-Type header, selects an XSL to transform the content of the output buffer into a format acceptable to the user.<br />
+<br />
+That is, the method called by the output buffer is the View layer, Model is model (as normal), but the controller part is simply Apache doing what it normally does best. None of this silly single point of access nonsense!<br />
+<br />
+So, for example, a request to ben.com/res/products.php with an Accept-Type of &#8220;text/html&#8221; renders the output as HTML! I have even taken this a step further and used it to include images (using the Accept-Type to select the most appropriate output type), convert model data to XML, which is then XSL to SVG, which is then run through ImageMagick Convert.<br />
+<br />
+Apache should be the Controller.<br />
+<br />
+P.S. Love this article! More please!</div>
+<p class="comment-info">by 
+on June 19 2006, 11:46<a href="#comment-885">#</a>
+</p>
+</li>
+<li class="even" id="comment-892">
+<div class="comment-text">Exactly. The Action is Type Agnostic, and frees the details of the Action from the View, always ensuring that the client recieves the response in a manner that they can accept and view.<br />
+<br />
+Great for things like tables of data: request as HTML, get a HTML file with a table of data, or request a PNG and get a nice PNG graph of the same data. The exact same code is called to collect and process the data for both calls.<br />
+<br />
+Seriously, seperating the View layer using the output buffer is really really inspired! Dude, I&#8217;m suprised no one else has thought of this, it reall does give you a nice clean seperation.<br />
+<br />
+Looking forward to more :)</div>
+<p class="comment-info">by 
+on June 20 2006, 06:33<a href="#comment-892">#</a>
+</p>
+</li>
+<li class="odd" id="comment-1569">
+<div class="comment-text">That is, the method called by the output buffer is the View layer, Model is model (as normal), but the controller part is simply Apache doing what it normally does best. None of this silly single point of access nonsense!</div>
+<p class="comment-info">by 
+<a href="http://www.seostat.co.uk" rel="nofollow"></a>on September 22 2006, 04:12<a href="#comment-1569">#</a>
+</p>
+</li>
+
+    </ul>
+</div>
+
             </div>
             
             <div class="sidebar">
