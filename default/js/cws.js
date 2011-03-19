@@ -74,7 +74,7 @@ CWS.DeliciousFeed = new function() {
 
 CWS.Search = new function() {
     if(!window.Worker || !window.XMLHttpRequest || !window.openDatabase || !window.localStorage) {
-        console.log('not supported');
+        // console.log('not supported');
         return false;
     }
 
@@ -110,13 +110,13 @@ CWS.Search = new function() {
                         tx.executeSql(sql);
                     });
                 } else if(e.data.done) {
-                    console.log('done', e.data);
+                    // console.log('done', e.data);
                     enableSearchForm();
                 } else if(e.error) {
-                    console.log('error', e.data);
+                    // console.log('error', e.data);
                     Store.removeItem('Atom-Last-Modified'); 
                 } else {
-                    console.log('debug', e.data);
+                    // console.log('debug', e.data);
                 }
             };
         }
@@ -171,6 +171,5 @@ CWS.Search = new function() {
                 return false;
             });
         });
-        console.log('enable search');
     }
 };
