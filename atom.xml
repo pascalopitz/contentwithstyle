@@ -3,12 +3,12 @@
   <title>Content with Style</title>
   <link href="http://github.contentwithstyle.co.uk/atom.xml" rel="self"/>
   <link href="http://github.contentwithstyle.co.uk/"/>
-  <updated>2011-03-18T09:09:33+00:00</updated>
+  <updated>2011-03-19T21:11:07+00:00</updated>
   <id>http://github.contentwithstyle.co.uk/</id>
   
     <entry>
       <title>Genstatic, my first sip of coffee</title>
-      <link href="http://github.contentwithstyle.co.uk//content/genstatic-my-sip-try-of-coffee/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/genstatic-my-sip-try-of-coffee/index.html"/>
       <updated>2011-03-06T06:16:54+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/genstatic-my-sip-try-of-coffee/genstatic-my-sip-try-of-coffee</id>
       <content type="html">&lt;p&gt;
@@ -63,7 +63,7 @@ str = coffee.compile(mystr);
   
     <entry>
       <title>Express.js Route Middleware</title>
-      <link href="http://github.contentwithstyle.co.uk//content/expressjs-route-middleware/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/expressjs-route-middleware/index.html"/>
       <updated>2011-01-18T09:12:07+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/expressjs-route-middleware/expressjs-route-middleware</id>
       <content type="html">&lt;p&gt;I have just read the about the &lt;a href=&quot;http://expressjs.com/guide.html#Route-Middleware&quot;&gt;Route Middleware&lt;/a&gt; of &lt;a href=&quot;http://expressjs.com&quot;&gt;express.js&lt;/a&gt;, and it already helped me to get rid of about 100 lines of code.&lt;/p&gt;
@@ -75,7 +75,7 @@ str = coffee.compile(mystr);
   
     <entry>
       <title>buggy behaviour of parent:: in PHP 5.3.3</title>
-      <link href="http://github.contentwithstyle.co.uk//content/behaviour-of-parent-in-php-533/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/behaviour-of-parent-in-php-533/index.html"/>
       <updated>2010-12-18T18:26:09+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/behaviour-of-parent-in-php-533/behaviour-of-parent-in-php-533</id>
       <content type="html">&lt;p&gt;So, this app I hadn't been looking at in a few months did not work at all. I traced the bug down to a method that itself called a parent method. The parent only contains __call and __callStatic methods, and for some reason __callStatic was called, although the class it was called from was an object instance.&lt;/p&gt;
@@ -132,7 +132,7 @@ MethodTestExtended::runExtendedTest(&amp;#x27;in static context&amp;#x27;);
   
     <entry>
       <title>merry xmas everyone v0.2</title>
-      <link href="http://github.contentwithstyle.co.uk//content/merry-xmas-everyone-v02/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/merry-xmas-everyone-v02/index.html"/>
       <updated>2010-12-08T14:04:20+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/merry-xmas-everyone-v02/merry-xmas-everyone-v02</id>
       <content type="html">&lt;p&gt;
@@ -144,7 +144,7 @@ Before the year will come to an end and we're all off to stuff ourselves with ch
   
     <entry>
       <title>jQuery clickable percentage bars</title>
-      <link href="http://github.contentwithstyle.co.uk//content/jquery-clickable-percentage-bars/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/jquery-clickable-percentage-bars/index.html"/>
       <updated>2010-12-03T11:50:10+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/jquery-clickable-percentage-bars/jquery-clickable-percentage-bars</id>
       <content type="html">&lt;p&gt;Just a little script I have been coding up to deal with input fields that represent a percentage value. See &lt;a href=&quot;http://www.contentwithstyle.co.uk/resources/percentage/index.html&quot;&gt;the demo&lt;/a&gt; or get the &lt;a href=&quot;https://github.com/pascalopitz/jquery-percentage&quot;&gt;code on github&lt;/a&gt;. Enjoy.&lt;/p&gt;
@@ -298,7 +298,7 @@ Before the year will come to an end and we're all off to stuff ourselves with ch
   
     <entry>
       <title>Debug your node.js with node-inspector!</title>
-      <link href="http://github.contentwithstyle.co.uk//content/debug-your-node-js-with-node-inspector/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/debug-your-node-js-with-node-inspector/index.html"/>
       <updated>2010-11-29T12:36:40+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/debug-your-node-js-with-node-inspector/debug-your-node-js-with-node-inspector</id>
       <content type="html">&lt;p&gt;If you haven't tried it yet, drop everything and do it now. You're only one simple npm install away from step by step debugging and much more in any webkit browser.&lt;/p&gt;
@@ -314,7 +314,7 @@ Before the year will come to an end and we're all off to stuff ourselves with ch
   
     <entry>
       <title>Callback bonanza - linearising asynchronous calls</title>
-      <link href="http://github.contentwithstyle.co.uk//content/callback-bonanza---linearising-asynchronous-calls/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/callback-bonanza---linearising-asynchronous-calls/index.html"/>
       <updated>2010-11-15T07:40:01+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/callback-bonanza---linearising-asynchronous-calls/callback-bonanza---linearising-asynchronous-calls</id>
       <content type="html">&lt;p&gt;
@@ -334,7 +334,7 @@ Both provide similar interfaces to end the callback bonanza.&lt;/p&gt;
   
     <entry>
       <title>Reconnecting</title>
-      <link href="http://github.contentwithstyle.co.uk//content/reconnecting-with-twitter-delicious-and-github/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/reconnecting-with-twitter-delicious-and-github/index.html"/>
       <updated>2010-11-11T08:33:46+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/reconnecting-with-twitter-delicious-and-github/reconnecting-with-twitter-delicious-and-github</id>
       <content type="html">&lt;p&gt;Earlier this week I read this &lt;a href=&quot;http://techcrunch.com/2010/11/09/why-is-quora-mass-creating-twitter-accounts-on-mechanical-turk/&quot;&gt;gossip about Quora mass-installing twitter accounts&lt;/a&gt;, and they responded by saying that &quot;Quora is looking at using Twitter as an alternative for topic RSS feeds&quot;. Hmmmm, interesting. Can we try that, too?&lt;/p&gt;
@@ -362,7 +362,7 @@ Both provide similar interfaces to end the callback bonanza.&lt;/p&gt;
   
     <entry>
       <title>I took it, and they say that so should you</title>
-      <link href="http://github.contentwithstyle.co.uk//content/i-took-it-and-they-say-that-so-should-you/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/i-took-it-and-they-say-that-so-should-you/index.html"/>
       <updated>2010-10-20T16:07:02+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/i-took-it-and-they-say-that-so-should-you/i-took-it-and-they-say-that-so-should-you</id>
       <content type="html">&lt;p&gt;
@@ -382,7 +382,7 @@ So, I've got nothing else to say today but to tell you:
   
     <entry>
       <title>Whiteboard with node.js and Socket.IO </title>
-      <link href="http://github.contentwithstyle.co.uk//content/whiteboard-with-nodejs-and-socketio-/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/whiteboard-with-nodejs-and-socketio-/index.html"/>
       <updated>2010-10-13T14:49:44+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/whiteboard-with-nodejs-and-socketio-/whiteboard-with-nodejs-and-socketio-</id>
       <content type="html">&lt;p&gt;
@@ -394,7 +394,7 @@ Yes, I know I am late to the party, but I still wanted to try my hand at somethi
   
     <entry>
       <title>Promote JS</title>
-      <link href="http://github.contentwithstyle.co.uk//content/promote-js/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/promote-js/index.html"/>
       <updated>2010-10-08T10:51:49+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/promote-js/promote-js</id>
       <content type="html">&lt;p&gt;&lt;a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number' title='JavaScript Number .toFixed'&gt;&lt;img src='http://static.jsconf.us/promotejsv.gif' height='280' width='160' alt='JavaScript Number .toFixed'/&gt;&lt;/a&gt;&lt;/p&gt;
@@ -403,7 +403,7 @@ Yes, I know I am late to the party, but I still wanted to try my hand at somethi
   
     <entry>
       <title>abbr. Fri</title>
-      <link href="http://github.contentwithstyle.co.uk//content/abbr-fri/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/abbr-fri/index.html"/>
       <updated>2010-10-01T12:33:41+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/abbr-fri/abbr-fri</id>
       <content type="html">&lt;p&gt;This is not at all from us, but from my colleague Andrew, who showed them to me last Friday in Perl.&lt;/p&gt;
@@ -436,7 +436,7 @@ while($counter &amp;gt; 0) {
   
     <entry>
       <title>Setting up SSL for Nginx</title>
-      <link href="http://github.contentwithstyle.co.uk//content/setting-up-ssl-for-nginx/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/setting-up-ssl-for-nginx/index.html"/>
       <updated>2010-09-30T19:56:53+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/setting-up-ssl-for-nginx/setting-up-ssl-for-nginx</id>
       <content type="html">&lt;p&gt;Quite a kerfuffle trying to set up SSL encryption for &lt;a href=&quot;http://www.tagbento.com&quot;&gt;www.tagbento.com&lt;/a&gt;, which runs on Nginx. Here is how it was done.&lt;/p&gt;
@@ -507,7 +507,7 @@ server {
   
     <entry>
       <title>Zend_Client_Twitter with OAuth and a single access token</title>
-      <link href="http://github.contentwithstyle.co.uk//content/using-zendclienttwitter-with-oauth-and-a-single-access-token/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/using-zendclienttwitter-with-oauth-and-a-single-access-token/index.html"/>
       <updated>2010-09-26T16:26:11+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/using-zendclienttwitter-with-oauth-and-a-single-access-token/using-zendclienttwitter-with-oauth-and-a-single-access-token</id>
       <content type="html">&lt;p&gt;Just noticed that twitter switched their API to OAuth only, which broke our blog updates on twitter. Here's a hotfix to use the &lt;a href=&quot;http://dev.twitter.com/pages/oauth_single_token&quot;&gt;single access token provided by Twitter&lt;/a&gt;.&lt;/p&gt;
@@ -553,7 +553,7 @@ $twitter-&amp;gt;status-&amp;gt;update($message);
   
     <entry>
       <title>Buffalo NAS and iTunes - A weekend of nerding away</title>
-      <link href="http://github.contentwithstyle.co.uk//content/buffalo-nas-and-itunes---a-weekend-of-nerding-away/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/buffalo-nas-and-itunes---a-weekend-of-nerding-away/index.html"/>
       <updated>2010-09-26T15:26:49+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/buffalo-nas-and-itunes---a-weekend-of-nerding-away/buffalo-nas-and-itunes---a-weekend-of-nerding-away</id>
       <content type="html">&lt;p&gt;Thank you Apple, for &lt;a href=&quot;http://discussions.apple.com/thread.jspa?threadID=2564925&amp;amp;tstart=0&quot;&gt;messing up the compatibility between iTunes 10 and any NAS drive&lt;/a&gt; using &lt;a href=&quot;http://www.fireflymediaserver.org/&quot;&gt;firefly&lt;/a&gt;. You officially suck.&lt;/p&gt;
@@ -679,7 +679,7 @@ Calling the above scripts via cron job should keep everything up to date:
   
     <entry>
       <title>Preparing the button element for sliding doors</title>
-      <link href="http://github.contentwithstyle.co.uk//content/preparing-the-button-element-for-sliding-doors/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/preparing-the-button-element-for-sliding-doors/index.html"/>
       <updated>2010-09-15T14:20:13+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/preparing-the-button-element-for-sliding-doors/preparing-the-button-element-for-sliding-doors</id>
       <content type="html">&lt;p&gt;A helpful little trick to get the FF button elements into a state where we can apply sliding doors. Via johannes krtek of &lt;a href=&quot;http://flachware.com&quot;&gt;flachware.com&lt;/a&gt;&lt;/p&gt;
@@ -696,7 +696,7 @@ Calling the above scripts via cron job should keep everything up to date:
   
     <entry>
       <title>Zend Framework with nginx and php-fastcgi</title>
-      <link href="http://github.contentwithstyle.co.uk//content/zend-framework-with-nginx/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/zend-framework-with-nginx/index.html"/>
       <updated>2010-08-04T21:16:46+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/zend-framework-with-nginx/zend-framework-with-nginx</id>
       <content type="html">&lt;p&gt;
@@ -828,7 +828,7 @@ sudo /etc/init.d/nginx restart
   
     <entry>
       <title>Nodestalker - A beanstalkd client for node.js</title>
-      <link href="http://github.contentwithstyle.co.uk//content/nodestalker-a-beanstalkd-client-for-nodejs/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/nodestalker-a-beanstalkd-client-for-nodejs/index.html"/>
       <updated>2010-05-14T12:31:15+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/nodestalker-a-beanstalkd-client-for-nodejs/nodestalker-a-beanstalkd-client-for-nodejs</id>
       <content type="html">&lt;p&gt;Following my &lt;a href=&quot;http://www.contentwithstyle.co.uk/content/php-worker-processes-with-beanstalk-and-daemontools&quot;&gt;previous article&lt;/a&gt; about PHP and &lt;a href=&quot;http://kr.github.com/beanstalkd/&quot;&gt;beanstalkd&lt;/a&gt; I was keen to use beanstalk in combination with node.js, but wasn't entirely satisfied with the available &lt;a href=&quot;http://github.com/benlund/node-beanstalk-client&quot;&gt;implementation&lt;/a&gt;. So as a little brain exercise I wrote &lt;a href=&quot;http://github.com/pascalopitz/nodestalker&quot;&gt;nodestalker&lt;/a&gt; from scratch.&lt;/p&gt;
@@ -889,7 +889,7 @@ listing tube default
   
     <entry>
       <title>Google Web Optimiser being unbalanced</title>
-      <link href="http://github.contentwithstyle.co.uk//content/google-web-optimiser-being-unbalanced/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/google-web-optimiser-being-unbalanced/index.html"/>
       <updated>2010-05-11T11:05:38+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/google-web-optimiser-being-unbalanced/google-web-optimiser-being-unbalanced</id>
       <content type="html">&lt;p&gt;Whatever prompted &lt;a href=&quot;http://adwords.google.com/support/aw/bin/answer.py?hl=en-uk&amp;amp;answer=64418&quot;&gt;Google to use an &quot;unbalanced&quot; noscript tag in their Web Optimiser&lt;/a&gt;, it ain't pretty!&lt;/p&gt; 
@@ -942,7 +942,7 @@ CWS.GoogleAnalytics = new function() {
   
     <entry>
       <title>Node.js load balancer proof of concept</title>
-      <link href="http://github.contentwithstyle.co.uk//content/nodejs-load-balancer-proof-of-concept/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/nodejs-load-balancer-proof-of-concept/index.html"/>
       <updated>2010-05-10T10:32:49+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/nodejs-load-balancer-proof-of-concept/nodejs-load-balancer-proof-of-concept</id>
       <content type="html">&lt;p&gt;Down with a cold, the only bit I managed was a bit more experimenting with node.js this weekend. Here's a little example of node.js acting as a very basic load balancer with  fault tolerance.&lt;/p&gt;
@@ -1201,7 +1201,7 @@ curl http://127.0.0.1:8888
   
     <entry>
       <title>Long polling example with node.js</title>
-      <link href="http://github.contentwithstyle.co.uk//content/long-polling-example-with-nodejs/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/long-polling-example-with-nodejs/index.html"/>
       <updated>2010-05-07T17:15:12+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/long-polling-example-with-nodejs/long-polling-example-with-nodejs</id>
       <content type="html">&lt;p&gt;Here's a little long polling example that I have thrown together while playing around with &lt;a href=&quot;http://nodejs.org&quot;&gt;node.js&lt;/a&gt;. I must say it's a pretty slick tool. Anyone familiar with JavaScript suddenly can create powerful server side applications.&lt;/p&gt;
@@ -1376,7 +1376,7 @@ reset
   
     <entry>
       <title>Linkedin and Zend_Oauth</title>
-      <link href="http://github.contentwithstyle.co.uk//content/linkedin-and-zendoauth/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/linkedin-and-zendoauth/index.html"/>
       <updated>2010-05-05T17:43:49+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/linkedin-and-zendoauth/linkedin-and-zendoauth</id>
       <content type="html">&lt;p&gt;Matthias has made look into Linkedin and OAuth for a bit. &lt;a href=&quot;http://www.formatix.eu/en/update-linkedin-status-using-zend-oauth.html&quot;&gt;This example&lt;/a&gt; was a very interesting read, but I think it's overcomplicating things slightly. That's why I want to show a very simple example inspired by what we've done for the brand new CwS Author pages.&lt;/p&gt;
@@ -1451,7 +1451,7 @@ $content = $response-&amp;gt;getBody();
   
     <entry>
       <title>N900: AIM and ICQ account problems</title>
-      <link href="http://github.contentwithstyle.co.uk//content/n900-and-problems-with-aim-and-icq/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/n900-and-problems-with-aim-and-icq/index.html"/>
       <updated>2010-04-28T11:05:41+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/n900-and-problems-with-aim-and-icq/n900-and-problems-with-aim-and-icq</id>
       <content type="html">&lt;p&gt;I'm a happy n900 user since a while, and one of the best features of the whole device is it's contact list and IM conversations. In fact it's about the coolest way to have all your contacts in one place, and as a mobile device for IM it's the best I've ever seen.&lt;/p&gt;
@@ -1472,7 +1472,7 @@ apt-get install libpurple0=2.6.3-6nix0
   
     <entry>
       <title>PHP worker processes with Beanstalk and Daemontools</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-worker-processes-with-beanstalk-and-daemontools/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-worker-processes-with-beanstalk-and-daemontools/index.html"/>
       <updated>2010-03-31T22:26:47+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-worker-processes-with-beanstalk-and-daemontools/php-worker-processes-with-beanstalk-and-daemontools</id>
       <content type="html">&lt;p&gt;
@@ -1608,7 +1608,7 @@ The best option seemed to be &lt;a href=&quot;http://supervisord.org/&quot;&gt;s
   
     <entry>
       <title>Happy New Year 2010</title>
-      <link href="http://github.contentwithstyle.co.uk//content/happy-new-year-2010/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/happy-new-year-2010/index.html"/>
       <updated>2010-01-04T06:52:37+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/happy-new-year-2010/happy-new-year-2010</id>
       <content type="html">&lt;p&gt;It's four days into the new year, and I've had more sunshine in that short time than in the last 3 months together. I'm reasonably sure this applies to Pascal as well, given that at the moment he's making sure the southern hemisphere gets a little CwS love, too. Seems like a good opportunity to say thanks to you, for reading and contributing to our site over the last 12 months.&lt;/p&gt;
@@ -1648,7 +1648,7 @@ The best option seemed to be &lt;a href=&quot;http://supervisord.org/&quot;&gt;s
   
     <entry>
       <title>Viewing BLOB content in phpMyAdmin</title>
-      <link href="http://github.contentwithstyle.co.uk//content/viewing-blob-content-in-phpmyadmin/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/viewing-blob-content-in-phpmyadmin/index.html"/>
       <updated>2009-11-20T08:25:39+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/viewing-blob-content-in-phpmyadmin/viewing-blob-content-in-phpmyadmin</id>
       <content type="html">&lt;p&gt;In my phpMyAdmin installation, version 3.1.1, none of the old style config settings such as&lt;/p&gt;
@@ -1667,7 +1667,7 @@ The best option seemed to be &lt;a href=&quot;http://supervisord.org/&quot;&gt;s
   
     <entry>
       <title>Fulltext searches with Xapian and PHP</title>
-      <link href="http://github.contentwithstyle.co.uk//content/searching-with-xapian-and-php/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/searching-with-xapian-and-php/index.html"/>
       <updated>2009-11-03T16:35:15+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/searching-with-xapian-and-php/searching-with-xapian-and-php</id>
       <content type="html">&lt;p&gt;Sometimes MySQL just isn't quick enough. Especially when it comes to fulltext searches. Everything needs to be indexed correctly, and if we're using different fields with different weights for a relevance percentage, things get very complicated quickly. &lt;a href=&quot;http://xapian.org/&quot;&gt;Xapian&lt;/a&gt; to the rescue.&lt;/p&gt;
@@ -2097,7 +2097,7 @@ stdClass Object
   
     <entry>
       <title>Quick helper script for ZF view translations  </title>
-      <link href="http://github.contentwithstyle.co.uk//content/quick-helper-script-for-zf-view-translations--/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/quick-helper-script-for-zf-view-translations--/index.html"/>
       <updated>2009-10-29T10:34:01+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/quick-helper-script-for-zf-view-translations--/quick-helper-script-for-zf-view-translations--</id>
       <content type="html">&lt;p&gt;Manual copy and paste jobs are a pain. Faced with the prospect of internationalizing 30+ big view files, I thought there had to be a better way. When I started to use the reg exp search facility in Textmate, the penny dropped. A helper script is what was needed.&lt;/p&gt;
@@ -2223,7 +2223,7 @@ test_list__2=&quot;Test list  2&quot;
   
     <entry>
       <title>Quick lint check on changed php files with svn st and xargs</title>
-      <link href="http://github.contentwithstyle.co.uk//content/quick-lint-check-on-changed-php-files-with-svn-st-and-xargs/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/quick-lint-check-on-changed-php-files-with-svn-st-and-xargs/index.html"/>
       <updated>2009-10-20T10:12:05+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/quick-lint-check-on-changed-php-files-with-svn-st-and-xargs/quick-lint-check-on-changed-php-files-with-svn-st-and-xargs</id>
       <content type="html">&lt;p&gt;If you haven't done it in a &lt;a href=&quot;http://blueparabola.com/blog/subversion-commit-hooks-php&quot;&gt;hook&lt;/a&gt; already, here's the quick way to check all your changed files for syntax errors:&lt;/p&gt;
@@ -2239,7 +2239,7 @@ I use xargs quite a lot lately, but some good clues came from David Singletons p
   
     <entry>
       <title>Zend Framework DB and Mysql pre 5.17</title>
-      <link href="http://github.contentwithstyle.co.uk//content/zend-framework-db-and-mysql-pre-5.17/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/zend-framework-db-and-mysql-pre-5.17/index.html"/>
       <updated>2009-10-08T10:38:34+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/zend-framework-db-and-mysql-pre-5.17/zend-framework-db-and-mysql-pre-5.17</id>
       <content type="html">&lt;p&gt;I was getting weird errors when running multiple queries with Zend Framework, that I just couldn't replicate on my local environment.&lt;/p&gt;
@@ -2292,7 +2292,7 @@ Thanks to &lt;a href=&quot;http://mysqltalk.wordpress.com/&quot;&gt;Joe Devon fr
   
     <entry>
       <title>Looking after your health is important</title>
-      <link href="http://github.contentwithstyle.co.uk//content/looking-after-your-health-is-important/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/looking-after-your-health-is-important/index.html"/>
       <updated>2009-08-30T19:15:33+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/looking-after-your-health-is-important/looking-after-your-health-is-important</id>
       <content type="html">&lt;p&gt;About three months ago I suffered a contractors nightmare: An injury that meant I couldn't work for quite some time.&lt;/p&gt;
@@ -2324,7 +2324,7 @@ Thanks to &lt;a href=&quot;http://mysqltalk.wordpress.com/&quot;&gt;Joe Devon fr
   
     <entry>
       <title>Remove nodes in SimpleXMLElement</title>
-      <link href="http://github.contentwithstyle.co.uk//content/remove-node-in-simplexml/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/remove-node-in-simplexml/index.html"/>
       <updated>2009-07-15T18:56:07+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/remove-node-in-simplexml/remove-node-in-simplexml</id>
       <content type="html">&lt;blockquote&gt;&lt;p&gt;SimpleXML provides no way to remove [...] XML nodes.&lt;/p&gt;&lt;/blockquote&gt;
@@ -2359,7 +2359,7 @@ echo $doc-&amp;gt;asXml();
   
     <entry>
       <title>Custom Zend Form Image Upload Element</title>
-      <link href="http://github.contentwithstyle.co.uk//content/custom-zend-form-image-upload-element/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/custom-zend-form-image-upload-element/index.html"/>
       <updated>2009-06-29T23:59:44+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/custom-zend-form-image-upload-element/custom-zend-form-image-upload-element</id>
       <content type="html">&lt;p&gt;It really is time to post something, isn't it? Here is a quick way to have an image preview inside of a form based on Zend Form.&lt;/p&gt;
@@ -2447,7 +2447,7 @@ $fields[] = $preview;
   
     <entry>
       <title>Getting phpunit to work with MAMP</title>
-      <link href="http://github.contentwithstyle.co.uk//content/getting-phpunit-to-work-with-mamp/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/getting-phpunit-to-work-with-mamp/index.html"/>
       <updated>2009-05-13T12:41:46+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/getting-phpunit-to-work-with-mamp/getting-phpunit-to-work-with-mamp</id>
       <content type="html">&lt;p&gt;In order to run my unit tests, I needed to get phpunit running with MAMP. Thanks to the &lt;a href=&quot;http://mark-kirby.co.uk/2009/installing-phpunit-with-mamp/&quot;&gt;helpful post of Mark Kirby&lt;/a&gt; on this, I figured it out.&lt;/p&gt;
@@ -2468,7 +2468,7 @@ if (strpos('/usr/bin/php', '@php_bin') === 0) {
   
     <entry>
       <title>Deploying PHP applications with Vlad and SVN</title>
-      <link href="http://github.contentwithstyle.co.uk//content/deploying-php-applications-with-vlad/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/deploying-php-applications-with-vlad/index.html"/>
       <updated>2009-05-08T15:12:32+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/deploying-php-applications-with-vlad/deploying-php-applications-with-vlad</id>
       <content type="html">&lt;p&gt;In my current day job I have to deploy a number of web apps every few weeks. 
@@ -2671,7 +2671,7 @@ To release a new version:&lt;/p&gt;
   
     <entry>
       <title>DOMDocument loadXML throws errors: A bug?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/domdocument-loadxml-throws-errors-a-bug-not-a-feature/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/domdocument-loadxml-throws-errors-a-bug-not-a-feature/index.html"/>
       <updated>2009-04-22T17:37:46+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/domdocument-loadxml-throws-errors-a-bug-not-a-feature/domdocument-loadxml-throws-errors-a-bug-not-a-feature</id>
       <content type="html">&lt;p&gt;So I was wondering why loadXML gives me parsing errors, despite a big try and catch around it ... &lt;a href=&quot;http://php.filearena.net/manual/kr/function.dom-domdocument-loadxml.php#69295&quot;&gt;it's not a bug they say&lt;/a&gt;.&lt;/p&gt;
@@ -2707,7 +2707,7 @@ function XmlLoader($strXml)
   
     <entry>
       <title>Unit testing web service based models in Zend Framework</title>
-      <link href="http://github.contentwithstyle.co.uk//content/unit-testing-web-service-based-models-in-zend-framework/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/unit-testing-web-service-based-models-in-zend-framework/index.html"/>
       <updated>2009-04-20T09:37:30+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/unit-testing-web-service-based-models-in-zend-framework/unit-testing-web-service-based-models-in-zend-framework</id>
       <content type="html">&lt;p&gt;Web applications nowadays use an increasingly distributed set of resources. How do we test our MVC applications that use web services in their models?&lt;/p&gt;
@@ -2823,7 +2823,7 @@ Instead of changing the adapter to intercept the call, we could swap the endpoin
   
     <entry>
       <title>4 ssh config tips for faster remote working</title>
-      <link href="http://github.contentwithstyle.co.uk//content/4-ssh-config-tips-for-faster-remote-working/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/4-ssh-config-tips-for-faster-remote-working/index.html"/>
       <updated>2009-04-17T12:00:02+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/4-ssh-config-tips-for-faster-remote-working/4-ssh-config-tips-for-faster-remote-working</id>
       <content type="html">&lt;p&gt;With the vast majority of web developers deploying their own code, and ssh playing a central role in the toolbox, I felt that tweaking this part of my work saves me some time, and if not, definitely some frustration over mistyping passwords and host names.&lt;/p&gt;
@@ -2900,7 +2900,7 @@ matthias:~ matthias$ ssh myserver mycommand
   
     <entry>
       <title>A caching pattern for models</title>
-      <link href="http://github.contentwithstyle.co.uk//content/a-caching-pattern-for-models/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/a-caching-pattern-for-models/index.html"/>
       <updated>2009-04-06T11:50:07+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/a-caching-pattern-for-models/a-caching-pattern-for-models</id>
       <content type="html">&lt;p&gt;This is a caching pattern for models using Zend_Cache and the __call magic method.&lt;/p&gt;
@@ -3005,7 +3005,7 @@ abstract class BaseModel {
   
     <entry>
       <title>Unit testing controllers with Zend Framework</title>
-      <link href="http://github.contentwithstyle.co.uk//content/unit-testing-controllers-with-zend-framework/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/unit-testing-controllers-with-zend-framework/index.html"/>
       <updated>2009-04-02T14:47:48+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/unit-testing-controllers-with-zend-framework/unit-testing-controllers-with-zend-framework</id>
       <content type="html">&lt;p&gt;Unit testing your Zend Framework driven MVC applications is not hard at all. This post tries to give a brief overview on how to test your Controllers with Zend_Test.&lt;/p&gt;
@@ -3113,7 +3113,7 @@ public function testSave() {
   
     <entry>
       <title>Zend_Translate with dynamic parameters</title>
-      <link href="http://github.contentwithstyle.co.uk//content/zendtranslate-with-dynamic-parameters/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/zendtranslate-with-dynamic-parameters/index.html"/>
       <updated>2009-03-13T11:46:57+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/zendtranslate-with-dynamic-parameters/zendtranslate-with-dynamic-parameters</id>
       <content type="html">&lt;p&gt;Just a quick snippet to have dynamic parameters in the underscore function, without having to write sprintf every time.&lt;/p&gt;
@@ -3148,7 +3148,7 @@ echo $t-&gt;_('I have a %s and a %s', 'Cat', 'Horse');
   
     <entry>
       <title>My take on jQuery charts</title>
-      <link href="http://github.contentwithstyle.co.uk//content/my-take-on-jquery-charts/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/my-take-on-jquery-charts/index.html"/>
       <updated>2009-02-28T20:24:47+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/my-take-on-jquery-charts/my-take-on-jquery-charts</id>
       <content type="html">&lt;p&gt;A while back I did &lt;a href=&quot;http://www.contentwithstyle.co.uk/search/canvas&quot;&gt;a couple of posts&lt;/a&gt; touching the subject HTML 5 and the canvas tag. Of course I have been tinkering around with chart drawing APIs and so on, and couldn't help to write a little script myself.&lt;/p&gt;
@@ -3164,7 +3164,7 @@ echo $t-&gt;_('I have a %s and a %s', 'Cat', 'Horse');
   
     <entry>
       <title>Perl validation from PHP</title>
-      <link href="http://github.contentwithstyle.co.uk//content/perl-validation-from-php/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/perl-validation-from-php/index.html"/>
       <updated>2009-02-26T11:07:31+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/perl-validation-from-php/perl-validation-from-php</id>
       <content type="html">&lt;p&gt;A quick method to validate perl scripts from PHP. Took me a long time that perl-c does not use stdout but stderr as output stream ...&lt;/p&gt;
@@ -3193,7 +3193,7 @@ public function validationErrorPerl($content) {
   
     <entry>
       <title>PyObjC newbie frustration</title>
-      <link href="http://github.contentwithstyle.co.uk//content/pyobjc-newbie-frustration/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/pyobjc-newbie-frustration/index.html"/>
       <updated>2009-02-21T18:27:25+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/pyobjc-newbie-frustration/pyobjc-newbie-frustration</id>
       <content type="html">&lt;p&gt;So I was trying out to build a graphical interface for my VHOST shell script, this time in Python, but couldn't get one past hurdle: I need superuser rights to edit /etc/hosts and the httpd.conf.&lt;/p&gt;
@@ -3209,7 +3209,7 @@ public function validationErrorPerl($content) {
   
     <entry>
       <title>You and the stu nicholls guy</title>
-      <link href="http://github.contentwithstyle.co.uk//content/you-and-the-stu-nicholls-guy/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/you-and-the-stu-nicholls-guy/index.html"/>
       <updated>2009-02-09T10:25:26+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/you-and-the-stu-nicholls-guy/you-and-the-stu-nicholls-guy</id>
       <content type="html">&lt;p&gt;It amazes me time and time again how much emotion goes into our work life. Not that I can exclude myself, I don't even want to: I'm proud if I've achieved a great end result, be it in code or in planning an application, I'm happy when my machines and applications run as expected. Equally I feel the discomfort of a bug that's down to my sloppiness, or worse, a conceptual error that has me repeating or redoing my work, because I couldn't be bothered to fully understand a concept or the implications of a decision made early.&lt;/p&gt;
@@ -3226,7 +3226,7 @@ public function validationErrorPerl($content) {
   
     <entry>
       <title>Shell script for adding virtual hosts in Leopard</title>
-      <link href="http://github.contentwithstyle.co.uk//content/shell-script-for-adding-virtual-hosts-in-leopard/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/shell-script-for-adding-virtual-hosts-in-leopard/index.html"/>
       <updated>2009-02-08T08:22:59+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/shell-script-for-adding-virtual-hosts-in-leopard/shell-script-for-adding-virtual-hosts-in-leopard</id>
       <content type="html">&lt;p&gt;I was getting annoyed with constantly editing config files myself. That's why I hacked together a shell script to add the vhosts for me.&lt;/p&gt;
@@ -3339,7 +3339,7 @@ sudo apachectl restart
   
     <entry>
       <title>Installing APC on Leopard</title>
-      <link href="http://github.contentwithstyle.co.uk//content/installing-apc-on-leopard/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/installing-apc-on-leopard/index.html"/>
       <updated>2009-02-03T12:02:17+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/installing-apc-on-leopard/installing-apc-on-leopard</id>
       <content type="html">&lt;p&gt;There are a few steps needed to install &lt;a href=&quot;http://www.php.net/apc&quot;&gt;APC&lt;/a&gt; on OS X Leopard. Don't worry, it may look a bit daunting if you've never had to compile anything before but it's very straight forward.&lt;/p&gt;
@@ -3367,7 +3367,7 @@ sudo apachectl restart
   
     <entry>
       <title>Spotify now in the news</title>
-      <link href="http://github.contentwithstyle.co.uk//content/spotify-now-in-the-news/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/spotify-now-in-the-news/index.html"/>
       <updated>2009-01-29T14:20:10+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/spotify-now-in-the-news/spotify-now-in-the-news</id>
       <content type="html">&lt;p&gt;One of my favourite apps lately, &lt;a href=&quot;http://www.spotify.com/&quot;&gt;Spotify&lt;/a&gt; has now reached the &lt;a href=&quot;http://www.guardian.co.uk/technology/2009/jan/29/spotify&quot;&gt;technology news section of the Guardian&lt;/a&gt;&lt;/p&gt;
@@ -3384,7 +3384,7 @@ sudo apachectl restart
   
     <entry>
       <title>CwS blog posts now on twitter</title>
-      <link href="http://github.contentwithstyle.co.uk//content/cws-blog-posts-now-twitter/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/cws-blog-posts-now-twitter/index.html"/>
       <updated>2009-01-29T08:00:19+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/cws-blog-posts-now-twitter/cws-blog-posts-now-twitter</id>
       <content type="html">&lt;p&gt;Posts from our blog will now automatically pop up on &lt;a href=&quot;https://twitter.com/contentwstyle&quot;&gt;Twitter&lt;/a&gt;.&lt;/p&gt;
@@ -3411,7 +3411,7 @@ $twitter-&amp;gt;status-&amp;gt;update($message);
   
     <entry>
       <title>Remove .AppleDouble folders on *NIX boxes</title>
-      <link href="http://github.contentwithstyle.co.uk//content/remove-appledouble-folders-on-nix-boxes/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/remove-appledouble-folders-on-nix-boxes/index.html"/>
       <updated>2009-01-22T22:54:42+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/remove-appledouble-folders-on-nix-boxes/remove-appledouble-folders-on-nix-boxes</id>
       <content type="html">&lt;p&gt;Quick note to myself on how to get rid of those silly .AppleDouble folders&lt;/p&gt;
@@ -3434,7 +3434,7 @@ find . -name '.AppleDouble' -printf '&quot;%p&quot;\n' | xargs rm -Rf
   
     <entry>
       <title>Make sure firebug console debug doesn't break everything.</title>
-      <link href="http://github.contentwithstyle.co.uk//content/make-sure-that-firebug-console-debug-doesnt-break-everything/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/make-sure-that-firebug-console-debug-doesnt-break-everything/index.html"/>
       <updated>2009-01-16T14:49:49+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/make-sure-that-firebug-console-debug-doesnt-break-everything/make-sure-that-firebug-console-debug-doesnt-break-everything</id>
       <content type="html">&lt;p&gt;Maybe some of you have already had problems with leaving debug statements in JS code. A &lt;code&gt;console.log()&lt;/code&gt; left in the deployed code can break the whole application, and it might only come up when someone without firebug is testing it at a later stage.&lt;/p&gt;
@@ -3513,7 +3513,7 @@ var Logger = new function() {
   
     <entry>
       <title>Looking forward, looking back</title>
-      <link href="http://github.contentwithstyle.co.uk//content/looking-forward-looking-back/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/looking-forward-looking-back/index.html"/>
       <updated>2009-01-08T17:44:03+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/looking-forward-looking-back/looking-forward-looking-back</id>
       <content type="html">&lt;h2&gt;Looking back to 2008&lt;/h2&gt;
@@ -3559,7 +3559,7 @@ var Logger = new function() {
   
     <entry>
       <title>GET parameters and caching</title>
-      <link href="http://github.contentwithstyle.co.uk//content/get-parameters-and-caching/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/get-parameters-and-caching/index.html"/>
       <updated>2009-01-07T16:55:27+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/get-parameters-and-caching/get-parameters-and-caching</id>
       <content type="html">&lt;p&gt;
@@ -3583,7 +3583,7 @@ We note one exception to this rule: since some applications have traditionally u
   
     <entry>
       <title>XHTML Validation with the W3C validator and PHP</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xhtml-validation-with-the-w3c-validator-and-php/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xhtml-validation-with-the-w3c-validator-and-php/index.html"/>
       <updated>2009-01-04T12:25:44+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xhtml-validation-with-the-w3c-validator-and-php/xhtml-validation-with-the-w3c-validator-and-php</id>
       <content type="html">&lt;p&gt;
@@ -3685,7 +3685,7 @@ echo $recieved_headers;
   
     <entry>
       <title>Conditional get in PHP - with some problems on the way</title>
-      <link href="http://github.contentwithstyle.co.uk//content/conditional-get-in-php-with-some-problems-on-the-way/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/conditional-get-in-php-with-some-problems-on-the-way/index.html"/>
       <updated>2009-01-01T18:05:03+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/conditional-get-in-php-with-some-problems-on-the-way/conditional-get-in-php-with-some-problems-on-the-way</id>
       <content type="html">&lt;p&gt;Happy new year everyone. If you're anything like me, the credit crunch doomsday news and the gross overeating of the past festivities make you want to slim down and become more resourceful. Using Caching, &lt;a href=&quot;http://en.wikipedia.org/wiki/HTTP_ETag&quot;&gt;ETags&lt;/a&gt; and the &lt;a href=&quot;http://www.checkupdown.com/status/E304.html&quot;&gt;304 HTTP code&lt;/a&gt; can help to cut down on traffic. But working on a conditional get came with some problems ...&lt;/p&gt;
@@ -3736,7 +3736,7 @@ function checkBrowserCache($identifier, $last_modified) {
   
     <entry>
       <title>Merry Xmas everyone</title>
-      <link href="http://github.contentwithstyle.co.uk//content/merry-xmas-everyone/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/merry-xmas-everyone/index.html"/>
       <updated>2008-12-19T13:21:18+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/merry-xmas-everyone/merry-xmas-everyone</id>
       <content type="html">&lt;p&gt;
@@ -3746,7 +3746,7 @@ Now that the year has come to an end, I just wanted to wish everyone a &lt;a hre
   
     <entry>
       <title>A mass validation shellscript</title>
-      <link href="http://github.contentwithstyle.co.uk//content/a-mass-validation-shellscript/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/a-mass-validation-shellscript/index.html"/>
       <updated>2008-12-14T19:45:09+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/a-mass-validation-shellscript/a-mass-validation-shellscript</id>
       <content type="html">&lt;p&gt;I was looking for a CLI script that validates a whole site for me, but I couldn't find one that would work without installation issues. So I hacked together an example shell script that does the job for me by downloading the whole site and then running the files through a validation.&lt;/p&gt;
@@ -3964,7 +3964,7 @@ run_validation ./temp/ $1
   
     <entry>
       <title>A quick look at XInclude and XLink</title>
-      <link href="http://github.contentwithstyle.co.uk//content/a-quick-look-at-xinclude-and-xlink/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/a-quick-look-at-xinclude-and-xlink/index.html"/>
       <updated>2008-12-13T16:47:26+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/a-quick-look-at-xinclude-and-xlink/a-quick-look-at-xinclude-and-xlink</id>
       <content type="html">&lt;p&gt;Part of my current project is to transform thousands of static XML files, all interlinked and some of them referencing others as data subset that I need for the transformation. Time to have a quick look at XInclude and XLink.&lt;/p&gt;
@@ -4026,7 +4026,7 @@ $xml-&gt;xinclude();
   
     <entry>
       <title>XSLT and HTML 5 problems</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xslt-and-html-5-problems/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xslt-and-html-5-problems/index.html"/>
       <updated>2008-12-09T17:47:46+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xslt-and-html-5-problems/xslt-and-html-5-problems</id>
       <content type="html">&lt;p&gt;Sometimes I'm really getting annoyed about the lack of control that
@@ -4078,7 +4078,7 @@ This is not a problem though, as the old meta tag in its encoding state is a val
   
     <entry>
       <title>Random thoughts on: SVG, JS toolkits and more</title>
-      <link href="http://github.contentwithstyle.co.uk//content/random-thoughts-on-svg-js-toolkits-and-more/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/random-thoughts-on-svg-js-toolkits-and-more/index.html"/>
       <updated>2008-12-07T02:53:04+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/random-thoughts-on-svg-js-toolkits-and-more/random-thoughts-on-svg-js-toolkits-and-more</id>
       <content type="html">&lt;p&gt;For various reasons I seem to do much more reading on new techniques
@@ -4105,7 +4105,7 @@ contribution and publication, really.&lt;/p&gt;
   
     <entry>
       <title>Onenaught on jQuery, testability and events</title>
-      <link href="http://github.contentwithstyle.co.uk//content/onenaught-on-jquery-testability-and-events/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/onenaught-on-jquery-testability-and-events/index.html"/>
       <updated>2008-12-05T11:11:02+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/onenaught-on-jquery-testability-and-events/onenaught-on-jquery-testability-and-events</id>
       <content type="html">&lt;p&gt;Over at &lt;a href=&quot;http://www.onenaught.com&quot;&gt;OneNaught&lt;/a&gt; Anup Shah gives some &lt;a href=&quot;http://www.onenaught.com/posts/85/turn-your-jquery-code-into-a-richer-unit-testable-plugin&quot;&gt;hints about how to utilize Events to make your jQuery plugins ready for unit testing&lt;/a&gt;.&lt;/p&gt;
@@ -4115,7 +4115,7 @@ contribution and publication, really.&lt;/p&gt;
   
     <entry>
       <title>Looking at free charts and stats APIs</title>
-      <link href="http://github.contentwithstyle.co.uk//content/looking-at-free-chart-and-stat-apis/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/looking-at-free-chart-and-stat-apis/index.html"/>
       <updated>2008-12-04T14:28:06+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/looking-at-free-chart-and-stat-apis/looking-at-free-chart-and-stat-apis</id>
       <content type="html">&lt;p&gt;At the moment I am looking for a nice way to convert HTML tables into stats. I am thinking along the lines of &lt;a href=&quot;http://www.mikeindustries.com/blog/archive/2004/12/sifr-2.0-release-candidate-2&quot;&gt;SIFR&lt;/a&gt;, where flash replaces markup and displays dynamic data. But first I need something that displays dynamic stats ...&lt;/p&gt;
@@ -4202,7 +4202,7 @@ The longer I do search around the web, the more I discover:
   
     <entry>
       <title>MySQL client output logging with tee</title>
-      <link href="http://github.contentwithstyle.co.uk//content/mysql-client-output-logging-with-tee/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/mysql-client-output-logging-with-tee/index.html"/>
       <updated>2008-12-03T13:44:08+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/mysql-client-output-logging-with-tee/mysql-client-output-logging-with-tee</id>
       <content type="html">&lt;p&gt;James, the sys admin guy here at &lt;a href=&quot;http://www.sportingstatz.com/&quot;&gt;Opta&lt;/a&gt;, where I am working at the moment, brought this up, and it is one of those neat tricks that can make life very easy but I still didn't know about.&lt;/p&gt;&lt;p&gt;A look in the &lt;a href=&quot;http://www.aip.de/%7Eweber/doc/mysql/manual_Client-Side_Scripts.html&quot;&gt;manual&lt;/a&gt; reveals that in the command line 'tee /path/to/file.txt' sets the output file, and 'notee' unsets it and therefore stops the logging.&lt;/p&gt;&lt;p&gt;Alternatively \T and \t can be used.&lt;/p&gt;&lt;p&gt;Happy logging.&lt;/p&gt;</content>
@@ -4210,7 +4210,7 @@ The longer I do search around the web, the more I discover:
   
     <entry>
       <title>Hello there, and congratulations ...</title>
-      <link href="http://github.contentwithstyle.co.uk//content/hello-there-and-congratulations/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/hello-there-and-congratulations/index.html"/>
       <updated>2008-12-02T23:23:04+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/hello-there-and-congratulations/hello-there-and-congratulations</id>
       <content type="html">&lt;p&gt;The last week was full of events for two of us. &lt;a href=&quot;http://www.willerich.com/900days/2008/12/crossing-the-start-line/&quot;&gt;While Matthias has just started the most amazing start-up one can think of&lt;/a&gt;, I went past my use-by date to hit the magic number: 30.&lt;/p&gt;
@@ -4222,7 +4222,7 @@ The longer I do search around the web, the more I discover:
   
     <entry>
       <title>Charles proxy review by Snook.ca</title>
-      <link href="http://github.contentwithstyle.co.uk//content/charles-proxy-review-by-snookca/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/charles-proxy-review-by-snookca/index.html"/>
       <updated>2008-12-02T22:24:46+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/charles-proxy-review-by-snookca/charles-proxy-review-by-snookca</id>
       <content type="html">&lt;p&gt;I've been mentioning &lt;a href=&quot;http://www.charlesproxy.com/&quot;&gt;Charles&lt;/a&gt; in comments here and on other sites for a good 3 years now. It's been a great companion in debugging server communication with flash and ajax applications, especially before firebug had its network monitoring capabilities.&lt;/p&gt;&lt;p&gt;Jonathan Snook, who has been writing a consistently amazing blog for many years now, has written &lt;a href=&quot;http://snook.ca/archives/review/charles-http-monitoring/&quot;&gt;a post about how he monitors his HTTP traffic with Charles&lt;/a&gt;, and he seems to use a setup very similar to what I use; Charles as a weapon of choice, when you're not 100% on what the server/client sends, when you need to resend requests to the server, etc. and the Firefox extension &lt;a href=&quot;http://livehttpheaders.mozdev.org/&quot;&gt;Live HTTP Headers&lt;/a&gt; when you want to see what the result does in your browser.&lt;/p&gt;&lt;p&gt;He writes: &lt;/p&gt;&lt;p&gt;&quot;Charles ia a cross-platform desktop application that acts as a proxy
@@ -4238,7 +4238,7 @@ not and you get access to all of the request and response headers.&quot;&lt;/p&g
   
     <entry>
       <title>XSL: Recursive template for counting up</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xsl-recursive-template-for-counting-up/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xsl-recursive-template-for-counting-up/index.html"/>
       <updated>2008-11-20T11:20:29+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xsl-recursive-template-for-counting-up/xsl-recursive-template-for-counting-up</id>
       <content type="html">&lt;p&gt;Thought I'd share this with you, even though it's nothing special: A simple XSL template that recursively increments a counter, so you can do a set number of operations.&lt;/p&gt;
@@ -4265,7 +4265,7 @@ not and you get access to all of the request and response headers.&quot;&lt;/p&g
   
     <entry>
       <title>Zend Framework: XSL and self-serializing Views</title>
-      <link href="http://github.contentwithstyle.co.uk//content/zend-framework-xsl-and-self-serializing-views/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/zend-framework-xsl-and-self-serializing-views/index.html"/>
       <updated>2008-11-17T01:39:34+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/zend-framework-xsl-and-self-serializing-views/zend-framework-xsl-and-self-serializing-views</id>
       <content type="html">&lt;p&gt;A long time ago I argued that MVC style frameworks should use XSL instead of inline PHP code and so on. That's why I knocked together a little proof of concept for Zend Framework where the views files are XSLs and the View object serializes itself into XML for rendering.&lt;/p&gt;
@@ -4518,7 +4518,7 @@ class DemoObject {}&lt;/code&gt;&lt;/pre&gt;
   
     <entry>
       <title>Be Box CLI and security issues</title>
-      <link href="http://github.contentwithstyle.co.uk//content/be-box-cli-security-issues/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/be-box-cli-security-issues/index.html"/>
       <updated>2008-11-15T18:43:04+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/be-box-cli-security-issues/be-box-cli-security-issues</id>
       <content type="html">&lt;p&gt;An interesting insight into the Be Box, and how much functionality is lurking behind the simple face &lt;a href=&quot;http://rory.allford.net/2007/03/30/bebox-got-root/&quot;&gt;is what I found here&lt;/a&gt;,
@@ -4544,7 +4544,7 @@ BeTech     TechnicalSupport &lt;/code&gt;&lt;/pre&gt;
   
     <entry>
       <title>Reglib, an Event Delegation based Framework</title>
-      <link href="http://github.contentwithstyle.co.uk//content/reglib-an-event-delegation-based-framework/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/reglib-an-event-delegation-based-framework/index.html"/>
       <updated>2008-11-14T22:50:27+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/reglib-an-event-delegation-based-framework/reglib-an-event-delegation-based-framework</id>
       <content type="html">&lt;p&gt;Via the &lt;a href=&quot;http://ajaxian.com&quot;&gt;ajaxian&lt;/a&gt; I came across the javascript based framework &lt;a href=&quot;http://blogs.sun.com/greimer/entry/reglib_javascript_library_now_available&quot;&gt;reglib&lt;/a&gt;, written by Gregory Reimer. It is based on some very clever thoughts and makes heavy use of &lt;a href=&quot;http://icant.co.uk/sandbox/eventdelegation/&quot;&gt;Event Delegation&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Event Delegation is a technique I used quite a lot at Tesco. Back then &lt;a href=&quot;http://www.linkedin.com/in/matthewjdunn&quot;&gt;Matt Dunn&lt;/a&gt;, who was the lead UI developer there, introduced me to its benefits and how it &lt;a href=&quot;http://cherny.com/webdev/70/javascript-event-delegation-and-event-hanlders&quot;&gt;helps to keep the memory footprint down&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;reglib goes a step further. It utilizes the body element as single entry point for all events, and identifies the nodes that triggered the event so it can match them with&amp;nbsp; functions that were assigned through the library and execute them.&lt;/p&gt;&lt;p&gt;This cuts out the wait for until the DOM is&lt;span&gt; Loaded by the browser, something that is pretty much essential and implemented into most other frameworks like &lt;a href=&quot;http://docs.jquery.com/Events/ready&quot;&gt;JQuery&lt;/a&gt; or &lt;a href=&quot;http://mootools.net/docs/Utilities/DomReady&quot;&gt;MooTools&lt;/a&gt;&lt;/span&gt;. Gregory Reimer, who has written reglib based on his work for &lt;a href=&quot;http://www.sun.com&quot;&gt;sun.com&lt;/a&gt;, seems to dislike this and even &lt;a href=&quot;http://blogs.sun.com/greimer/entry/on_the_inelegance_of_modern&quot;&gt;describes this as anti-pattern&lt;/a&gt;.&lt;/p&gt;</content>
@@ -4552,7 +4552,7 @@ BeTech     TechnicalSupport &lt;/code&gt;&lt;/pre&gt;
   
     <entry>
       <title>Controller separation with ActionStack and Zend_Layout</title>
-      <link href="http://github.contentwithstyle.co.uk//content/controller-separation-with-actionstack-and-zend-layout/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/controller-separation-with-actionstack-and-zend-layout/index.html"/>
       <updated>2008-11-06T22:47:11+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/controller-separation-with-actionstack-and-zend-layout/controller-separation-with-actionstack-and-zend-layout</id>
       <content type="html">&lt;p&gt;Thinking about my past projects, I realized that previously my
@@ -4610,7 +4610,7 @@ class BarController extends BaseController
   
     <entry>
       <title>The credit crunch deja vu</title>
-      <link href="http://github.contentwithstyle.co.uk//content/the-credit-crunch-deja-vu/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/the-credit-crunch-deja-vu/index.html"/>
       <updated>2008-11-05T10:25:18+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/the-credit-crunch-deja-vu/the-credit-crunch-deja-vu</id>
       <content type="html">&lt;p&gt;Of course everyone follows the news about the financial sector
@@ -4636,7 +4636,7 @@ had to lay off people.&lt;/p&gt;
   
     <entry>
       <title>Be box and iplayer = crash?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/be-box-and-iplayer--crash/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/be-box-and-iplayer--crash/index.html"/>
       <updated>2008-11-03T22:28:47+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/be-box-and-iplayer--crash/be-box-and-iplayer--crash</id>
       <content type="html">&lt;p&gt;I thought I was going mad: Everytime I watched some iplayer content,
@@ -4648,7 +4648,7 @@ my wireless dropped out and it looked like the router reset itself.
   
     <entry>
       <title>JS custom events roundup</title>
-      <link href="http://github.contentwithstyle.co.uk//content/js-custom-events-roundup/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/js-custom-events-roundup/index.html"/>
       <updated>2008-11-02T20:06:22+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/js-custom-events-roundup/js-custom-events-roundup</id>
       <content type="html">&lt;p&gt;With independent UI components, that not always know about each other, custom events come in handy. They enable us to code components that will populate hooks for other objects that then can be used to trigger different behaviours. Even better, the various objects that do pick up on our custom events don't necessarily have to be anticipated, but can subscribe to the provided events at any point throughout the development process. &lt;a href=&quot;http://ajaxian.com/archives/enjoying-the-observer-pattern-with-custom-events&quot;&gt;The observer pattern&lt;/a&gt; is a good example for this.&lt;/p&gt; 
@@ -4690,7 +4690,7 @@ $('#foo').trigger('bar_event');&lt;/code&gt;&lt;/pre&gt;
   
     <entry>
       <title>DNS clustering in WHM/Cpanel accounts</title>
-      <link href="http://github.contentwithstyle.co.uk//content/dns-clustering-in-whmcpanel-accounts/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/dns-clustering-in-whmcpanel-accounts/index.html"/>
       <updated>2008-11-01T16:00:10+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/dns-clustering-in-whmcpanel-accounts/dns-clustering-in-whmcpanel-accounts</id>
       <content type="html">&lt;p&gt;Dealing with multiple CPANEL/WHM installs, DNS clustering is a way
@@ -4701,7 +4701,7 @@ CPANEL/WHM in sync.&lt;/p&gt;&lt;p&gt;In order to set it up, you need to go into
   
     <entry>
       <title>Random thoughts on: Cloud computing</title>
-      <link href="http://github.contentwithstyle.co.uk//content/reading-up-on-cloud-computing/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/reading-up-on-cloud-computing/index.html"/>
       <updated>2008-11-01T15:14:32+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/reading-up-on-cloud-computing/reading-up-on-cloud-computing</id>
       <content type="html">&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Cloud_computing&quot;&gt;Cloud computing&lt;/a&gt;, as in &lt;a href=&quot;http://en.wikipedia.org/wiki/Software_as_a_service&quot;&gt;Software as a Service&lt;/a&gt; and web based applications and APIs, is hailed as the &lt;a href=&quot;http://www.techcrunchit.com/2008/08/01/welcome-to-web-30-now-your-other-computer-is-a-data-center/&quot;&gt;Web 3.0&lt;/a&gt; and might also be the &lt;a href=&quot;http://www.readwriteweb.com/archives/google_apps_serious_threat_to_microsoft_office.php&quot;&gt;nail in the coffin for vendors that sell expensive office suites&lt;/a&gt;, at least it's trying to be.&lt;/p&gt;&lt;p&gt;And they are brilliant, those apps. The fact that pretty much everyone I ask uses Gmail, just to handle the spam volume, and finds that it works much better than Thunderbird or Outlook, speaks for itself. Providers of large scale services of course have more money than we ever imagine, more man power to refine their apps, more hardware, more redundancy, more you name it...&lt;/p&gt;&lt;p&gt;And who could overhear the amazing stories behind all the mashups, &lt;a href=&quot;http://googlemapsmania.blogspot.com/2006/12/50-things-to-do-with-google-maps.html&quot;&gt;that use google maps for example&lt;/a&gt;, or some other cool API, to do something amazing that otherwise would have been unachievable or at least very expensive and therefore not happening at all?
@@ -4716,7 +4716,7 @@ strategy&lt;/a&gt;? And how different is renting a mailserver from a company to 
   
     <entry>
       <title>Why the relaunch?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/why-the-relaunch/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/why-the-relaunch/index.html"/>
       <updated>2008-10-28T07:03:29+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/why-the-relaunch/why-the-relaunch</id>
       <content type="html">&lt;p&gt;Ok, as &lt;a href=&quot;http://www.contentwithstyle.co.uk/content/a-new-style-for-our-content#comment-4378&quot; title=&quot;Comment by Matthias&quot;&gt;Matthias already said&lt;/a&gt;, I'd like to give an insight into what has changed in this relaunch, but above all I want to share what we're trying to achieve.&lt;/p&gt;
@@ -4736,7 +4736,7 @@ strategy&lt;/a&gt;? And how different is renting a mailserver from a company to 
   
     <entry>
       <title>A new style for our content</title>
-      <link href="http://github.contentwithstyle.co.uk//content/a-new-style-for-our-content/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/a-new-style-for-our-content/index.html"/>
       <updated>2008-10-26T18:02:05+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/a-new-style-for-our-content/a-new-style-for-our-content</id>
       <content type="html">&lt;p&gt;We've announced it a couple of times, and here we are: A new face for Content with Style is live.&lt;/p&gt;
@@ -4745,7 +4745,7 @@ strategy&lt;/a&gt;? And how different is renting a mailserver from a company to 
   
     <entry>
       <title>You've got new mail. 3500 actually.</title>
-      <link href="http://github.contentwithstyle.co.uk//content/youve-got-new-mail-3500-actually/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/youve-got-new-mail-3500-actually/index.html"/>
       <updated>2008-10-21T13:48:53+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/youve-got-new-mail-3500-actually/youve-got-new-mail-3500-actually</id>
       <content type="html">	&lt;p&gt;Today my folder for mailing list digests hit the mark of 3500 unread mails. Time to cut them off, I think.&lt;/p&gt;
@@ -4775,7 +4775,7 @@ strategy&lt;/a&gt;? And how different is renting a mailserver from a company to 
   
     <entry>
       <title>Friday fun: Sokoban</title>
-      <link href="http://github.contentwithstyle.co.uk//content/friday-fun-sokoban/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/friday-fun-sokoban/index.html"/>
       <updated>2008-10-17T06:31:02+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/friday-fun-sokoban/friday-fun-sokoban</id>
       <content type="html">	&lt;p&gt;I had this great moment in my kitchen recently, when we had a new washing machine and fridge delivered.&lt;br /&gt;
@@ -4798,7 +4798,7 @@ This created a comedy scene I&amp;#8217;ll never forget: 4 people in the kitchen
   
     <entry>
       <title>Remove the mac sync icon in Leopard</title>
-      <link href="http://github.contentwithstyle.co.uk//content/remove-the-mac-sync-icon-in-leopard/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/remove-the-mac-sync-icon-in-leopard/index.html"/>
       <updated>2008-10-03T02:27:17+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/remove-the-mac-sync-icon-in-leopard/remove-the-mac-sync-icon-in-leopard</id>
       <content type="html">	&lt;p&gt;&lt;a href=&quot;http://www.kianhean.com/&quot;&gt;Lim Kien Hean&lt;/a&gt; describes the &lt;a href=&quot;http://www.kianhean.com/2007/10/30/remove-that-mac-sync-icon-in-leopard/&quot;&gt;removal of the .mac sync icon from the OSX top bar&lt;/a&gt; as a small but important trick.&lt;br /&gt;
@@ -4810,7 +4810,7 @@ I happen to agree! Thanks.&lt;/p&gt;
   
     <entry>
       <title>Over @Natbat.net: CSS systems for writing maintainable CSS</title>
-      <link href="http://github.contentwithstyle.co.uk//content/over-natbatnet-css-systems-for-writing-maintainable-css/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/over-natbatnet-css-systems-for-writing-maintainable-css/index.html"/>
       <updated>2008-10-01T11:44:18+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/over-natbatnet-css-systems-for-writing-maintainable-css/over-natbatnet-css-systems-for-writing-maintainable-css</id>
       <content type="html">	&lt;p&gt;Very very good slides for download at &lt;a href=&quot;http://natbat.net/2008/Sep/28/css-systems/&quot;&gt;natbat.net&lt;/a&gt; , and a nice discussion in the comments as well.&lt;/p&gt;
@@ -4827,7 +4827,7 @@ I happen to agree! Thanks.&lt;/p&gt;
   
     <entry>
       <title>Command line search and replace?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/command-line-search-and-replace/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/command-line-search-and-replace/index.html"/>
       <updated>2008-09-30T06:24:54+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/command-line-search-and-replace/command-line-search-and-replace</id>
       <content type="html">&lt;p&gt;
@@ -4883,7 +4883,7 @@ Happy search and replace!
   
     <entry>
       <title>More background image fun</title>
-      <link href="http://github.contentwithstyle.co.uk//content/more-background-image-fun/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/more-background-image-fun/index.html"/>
       <updated>2008-09-22T14:21:56+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/more-background-image-fun/more-background-image-fun</id>
       <content type="html">	&lt;p&gt;Tying in with Pascal&amp;#8217;s recent &lt;a href=&quot;http://www.contentwithstyle.co.uk/Blog/183/css-background-image-on-html-image-element/&quot;&gt;post about background images for images&lt;/a&gt;, here is more image-related css magic, this time combined with a little jQuery, to create beautifully animated rollover effects (or whatever trigger you can think of, progress bars etc). Yay, eyecandy!&lt;/p&gt;
@@ -4899,7 +4899,7 @@ Happy search and replace!
   
     <entry>
       <title>Textmate search &#38; reg exp</title>
-      <link href="http://github.contentwithstyle.co.uk//content/textmate-search-reg-exp/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/textmate-search-reg-exp/index.html"/>
       <updated>2008-09-17T11:53:02+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/textmate-search-reg-exp/textmate-search-reg-exp</id>
       <content type="html">	&lt;p&gt;One of the nicest things about &lt;a href=&quot;http://macromates.com/&quot;&gt;Textmate&lt;/a&gt; is the that you keep discovering things even after a year of using it. The project wide search and replace functionality already helped me, but I kept ignoring that little check box saying &amp;#8220;Regular expression&amp;#8221;.&lt;/p&gt;
@@ -4924,7 +4924,7 @@ One thing that I am still missing, though, is the muti-line search and replace f
   
     <entry>
       <title>CSS Background image on html image element?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/css-background-image-on-html-image-element/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/css-background-image-on-html-image-element/index.html"/>
       <updated>2008-09-15T07:01:26+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/css-background-image-on-html-image-element/css-background-image-on-html-image-element</id>
       <content type="html">	&lt;p&gt;My co-worker &lt;a href=&quot;http://fuzzyoutline.com/&quot;&gt;Paul&lt;/a&gt; showed how helpful it is to question the obvious: Can you apply a background image to an image?&lt;/p&gt;
@@ -4941,7 +4941,7 @@ One thing that I am still missing, though, is the muti-line search and replace f
   
     <entry>
       <title>Firefox 3 keeps logging me out. Not any more it's not.</title>
-      <link href="http://github.contentwithstyle.co.uk//content/firefox-3-keeps-logging-me-out-not-any-more-its-not/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/firefox-3-keeps-logging-me-out-not-any-more-its-not/index.html"/>
       <updated>2008-09-01T09:51:33+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/firefox-3-keeps-logging-me-out-not-any-more-its-not/firefox-3-keeps-logging-me-out-not-any-more-its-not</id>
       <content type="html">	&lt;p&gt;Like many others I&amp;#8217;ve been enjoying Firefox 2&amp;#8217;s ongoing session functionality that had me logged in on frequently used sites. This recently changed with the Firefox 3 upgrade. All of a sudden Basecamp and some other random sites kept asking for my login. &lt;/p&gt;
@@ -4962,7 +4962,7 @@ One thing that I am still missing, though, is the muti-line search and replace f
   
     <entry>
       <title>SSI trouble in parent directories</title>
-      <link href="http://github.contentwithstyle.co.uk//content/ssi-trouble-in-parent-directories/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/ssi-trouble-in-parent-directories/index.html"/>
       <updated>2008-08-28T10:32:15+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/ssi-trouble-in-parent-directories/ssi-trouble-in-parent-directories</id>
       <content type="html">	&lt;p&gt;Sometimes it helps to read the manual, especially when one makes a really silly mistake.&lt;/p&gt;
@@ -4979,7 +4979,7 @@ One thing that I am still missing, though, is the muti-line search and replace f
   
     <entry>
       <title>JS and objects</title>
-      <link href="http://github.contentwithstyle.co.uk//content/js-and-objects/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/js-and-objects/index.html"/>
       <updated>2008-08-28T10:22:43+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/js-and-objects/js-and-objects</id>
       <content type="html">&lt;p&gt;Just a quick moment trying to explain the different approaches to using objects in Javascript to a fellow co-worker:&lt;/p&gt;
@@ -5025,7 +5025,7 @@ var myObjLiteral = {
   
     <entry>
       <title>How to delete files when argument list is to long ...</title>
-      <link href="http://github.contentwithstyle.co.uk//content/how-to-delete-files-when-argument-list-is-to-long-/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/how-to-delete-files-when-argument-list-is-to-long-/index.html"/>
       <updated>2008-08-12T11:42:11+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/how-to-delete-files-when-argument-list-is-to-long-/how-to-delete-files-when-argument-list-is-to-long-</id>
       <content type="html">	&lt;p&gt;I had trouble with deleting files, because a simple&lt;/p&gt;
@@ -5047,7 +5047,7 @@ var myObjLiteral = {
   
     <entry>
       <title>PHP Deployment With Capistrano</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-deployment-with-capistrano/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-deployment-with-capistrano/index.html"/>
       <updated>2008-08-11T08:33:27+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-deployment-with-capistrano/php-deployment-with-capistrano</id>
       <content type="html">	&lt;p&gt;Today I&amp;#8217;d like to share 2 links with you that have helped me quite a bit recently.&lt;br /&gt;
@@ -5064,7 +5064,7 @@ With a little scripting magic wrapped into the configuration I can sync database
   
     <entry>
       <title>View variables in Zend Framework Partial Loop</title>
-      <link href="http://github.contentwithstyle.co.uk//content/view-variables-in-zend-framework-partial-loop/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/view-variables-in-zend-framework-partial-loop/index.html"/>
       <updated>2008-07-30T10:58:50+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/view-variables-in-zend-framework-partial-loop/view-variables-in-zend-framework-partial-loop</id>
       <content type="html">	&lt;p&gt;One of the fun things about Zend Framework is the possibility to extend the Framework classes with extras functionality.&lt;br /&gt;
@@ -5120,7 +5120,7 @@ class Extended_Helper_PartialLoop extends Zend_View_Helper_PartialLoop {
   
     <entry>
       <title>JS and CSS minification with YUI</title>
-      <link href="http://github.contentwithstyle.co.uk//content/js-and-css-minification-with-yui/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/js-and-css-minification-with-yui/index.html"/>
       <updated>2008-07-25T10:49:51+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/js-and-css-minification-with-yui/js-and-css-minification-with-yui</id>
       <content type="html">	&lt;p&gt;At the moment I am working on a large website project for &lt;a href=&quot;http://uktv.co.uk&quot;&gt;UKTV&lt;/a&gt;, where for maintainability reasons I keep files separated and pretty verbose.&lt;br /&gt;
@@ -5191,7 +5191,7 @@ rm ./templates/js/project_concated.js
   
     <entry>
       <title>Net neutrality rant</title>
-      <link href="http://github.contentwithstyle.co.uk//content/net-neutrality-rant/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/net-neutrality-rant/index.html"/>
       <updated>2008-06-19T12:07:24+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/net-neutrality-rant/net-neutrality-rant</id>
       <content type="html">	&lt;p&gt;So I&amp;#8217;m reading the guardian technology section today, and a rant about &lt;a href=&quot;http://www.guardian.co.uk/technology/2008/jun/19/digitalvideo.internet&quot;&gt;how net neutrality seemingly incapacitates the internet&lt;/a&gt; by making it possible for content providers like youtube to eat up the whole bandwidth.&lt;/p&gt;
@@ -5214,7 +5214,7 @@ And the next thing you know is that any private website will dribble with 5k per
   
     <entry>
       <title>XML Serialization and PHP Reflection</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xml-serialization-and-php-reflection/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xml-serialization-and-php-reflection/index.html"/>
       <updated>2008-06-18T09:56:05+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xml-serialization-and-php-reflection/xml-serialization-and-php-reflection</id>
       <content type="html">	&lt;p&gt;Browsing the web for a way to serialize PHP objects into XML I came across this &lt;a href=&quot;http://groups.google.com/group/Professional-PHP/browse_thread/thread/2b0623bfc46cc336&quot;&gt;interesting thread&lt;/a&gt;  &lt;/p&gt;
@@ -5228,7 +5228,7 @@ And the next thing you know is that any private website will dribble with 5k per
   
     <entry>
       <title>PHP Benchmark</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-benchmark/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-benchmark/index.html"/>
       <updated>2008-06-02T12:17:26+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-benchmark/php-benchmark</id>
       <content type="html">	&lt;p&gt;Via &lt;a href=&quot;http://magnetikonline.com/&quot;&gt;Peter Mescalchin&lt;/a&gt; I got hold of this &lt;a href=&quot;http://www.phpbench.com/&quot;&gt;PHP benchmark&lt;/a&gt;.&lt;/p&gt;
@@ -5242,7 +5242,7 @@ And the next thing you know is that any private website will dribble with 5k per
   
     <entry>
       <title>likes and don't likes</title>
-      <link href="http://github.contentwithstyle.co.uk//content/likes-and-dont-likes/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/likes-and-dont-likes/index.html"/>
       <updated>2008-05-14T06:30:46+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/likes-and-dont-likes/likes-and-dont-likes</id>
       <content type="html">	&lt;p&gt;Just because I&amp;#8217;m working with things &amp;#8230;&lt;/p&gt;
@@ -5273,7 +5273,7 @@ And the next thing you know is that any private website will dribble with 5k per
   
     <entry>
       <title>Javascript libraries</title>
-      <link href="http://github.contentwithstyle.co.uk//content/javascript-libraries/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/javascript-libraries/index.html"/>
       <updated>2008-04-25T03:06:58+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/javascript-libraries/javascript-libraries</id>
       <content type="html">	&lt;p&gt;If you came across some of my comments in other blogs about this subject, you probably know already that I&amp;#8217;m a moo-man.&lt;br /&gt;
@@ -5299,7 +5299,7 @@ All of us tend to pick and mix for our needs, extending where necessary, always 
   
     <entry>
       <title>MVC explanations - I love mailing lists</title>
-      <link href="http://github.contentwithstyle.co.uk//content/mvc-explanations---i-love-mailing-lists/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/mvc-explanations---i-love-mailing-lists/index.html"/>
       <updated>2007-12-21T06:07:22+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/mvc-explanations---i-love-mailing-lists/mvc-explanations---i-love-mailing-lists</id>
       <content type="html">	&lt;p&gt;I came across this &lt;a href=&quot;http://mail.python.org/pipermail/python-list/2006-January/360901.html&quot;&gt;very elaborate explanation of MVC&lt;/a&gt; in a python mailing list.&lt;br /&gt;
@@ -5312,7 +5312,7 @@ Just want to take this as an occasion to say thank you to all people that take t
   
     <entry>
       <title>Hi guys, what's happening with CwS?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/hi-guys-whats-happening-with-cws/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/hi-guys-whats-happening-with-cws/index.html"/>
       <updated>2007-11-20T09:03:26+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/hi-guys-whats-happening-with-cws/hi-guys-whats-happening-with-cws</id>
       <content type="html">	&lt;p&gt;Good question! We were about to ask ourselves the same question.&lt;br /&gt;
@@ -5333,7 +5333,7 @@ We&amp;#8217;re looking forward to hear from you.&lt;/p&gt;
   
     <entry>
       <title>Figure microformats</title>
-      <link href="http://github.contentwithstyle.co.uk//content/figure-microformats/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/figure-microformats/index.html"/>
       <updated>2007-11-20T08:28:44+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/figure-microformats/figure-microformats</id>
       <content type="html">	&lt;p&gt;Recently I&amp;#8217;ve built a &lt;a href=&quot;http://www.iwm.org.uk/myboyjack&quot;&gt;very small and compact project&lt;/a&gt;, an 8-page static website actually (first time I&amp;#8217;ve built anything static in about 7 years!), and I took the opportunity to get a bit deeper into the microformat madness that seems to be so en vogue since the last year or so.&lt;/p&gt;
@@ -5411,7 +5411,7 @@ We&amp;#8217;re looking forward to hear from you.&lt;/p&gt;
   
     <entry>
       <title>Meebo firefox extension</title>
-      <link href="http://github.contentwithstyle.co.uk//content/meebo-firefox-extension/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/meebo-firefox-extension/index.html"/>
       <updated>2007-10-24T05:27:10+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/meebo-firefox-extension/meebo-firefox-extension</id>
       <content type="html">	&lt;p&gt;Since I&amp;#8217;m a great fan of &lt;a href=&quot;http://www.meebo.com&quot;&gt;meebo&lt;/a&gt; and consider it one of the best examples for an AJAX application, I am pretty thrilled to see the &lt;a href=&quot;https://addons.mozilla.org/en-US/firefox/addon/5700&quot;&gt;meebo Firefox extension&lt;/a&gt; .&lt;/p&gt;
@@ -5424,7 +5424,7 @@ We&amp;#8217;re looking forward to hear from you.&lt;/p&gt;
   
     <entry>
       <title>Security: Even the simple stuff is hard it seems!</title>
-      <link href="http://github.contentwithstyle.co.uk//content/security-even-the-simple-stuff-is-hard-it-seems/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/security-even-the-simple-stuff-is-hard-it-seems/index.html"/>
       <updated>2007-08-14T08:23:59+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/security-even-the-simple-stuff-is-hard-it-seems/security-even-the-simple-stuff-is-hard-it-seems</id>
       <content type="html">	&lt;p&gt;So I am reading about &lt;a href=&quot;http://blog.washingtonpost.com/securityfix/2007/08/ftp_files_expose_web_site_cred.html&quot;&gt;the bug in IE that puts your FTP details into the comments plaintext&lt;/a&gt; ...&lt;/p&gt;
@@ -5445,7 +5445,7 @@ We&amp;#8217;re looking forward to hear from you.&lt;/p&gt;
   
     <entry>
       <title>Unitless line height in CSS</title>
-      <link href="http://github.contentwithstyle.co.uk//content/unitless-line-height-in-css/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/unitless-line-height-in-css/index.html"/>
       <updated>2007-07-09T05:11:16+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/unitless-line-height-in-css/unitless-line-height-in-css</id>
       <content type="html">	&lt;p&gt;For a couple of years now I keep stressing the fact that line-height works best when you don&amp;#8217;t provide a unit. And I am not saying this for no reason.&lt;/p&gt;
@@ -5458,7 +5458,7 @@ We&amp;#8217;re looking forward to hear from you.&lt;/p&gt;
   
     <entry>
       <title>PHP &#38; Mysql socket error</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-mysql-socket-error/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-mysql-socket-error/index.html"/>
       <updated>2007-07-07T19:58:36+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-mysql-socket-error/php-mysql-socket-error</id>
       <content type="html">	&lt;p&gt;I keep coming across this whenever I set up MySQL and PHP on a new mac: mysql_connect() fails throwing an error &amp;#8230;&lt;/p&gt;
@@ -5489,7 +5489,7 @@ mysql.default_socket = /tmp/mysql.sock
   
     <entry>
       <title>Sorting by date with XSL</title>
-      <link href="http://github.contentwithstyle.co.uk//content/sorting-by-date-with-xsl/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/sorting-by-date-with-xsl/index.html"/>
       <updated>2007-07-06T04:48:16+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/sorting-by-date-with-xsl/sorting-by-date-with-xsl</id>
       <content type="html">	&lt;p&gt;XSLT architect &lt;a href=&quot;http://migueldemelo.blogspot.com/&quot;&gt;Miguel de Melo&lt;/a&gt; gives an insight into the sorting capabilities of XSL in his article &lt;a href=&quot;http://migueldemelo.blogspot.com/2007/06/sort-by-date-greater-than-other-date.html&quot;&gt;Sort by date greater than other date&lt;/a&gt;&lt;/p&gt;
@@ -5503,7 +5503,7 @@ mysql.default_socket = /tmp/mysql.sock
   
     <entry>
       <title>Firebug can make life easier</title>
-      <link href="http://github.contentwithstyle.co.uk//content/firebug-can-make-life-easier/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/firebug-can-make-life-easier/index.html"/>
       <updated>2007-06-28T11:06:51+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/firebug-can-make-life-easier/firebug-can-make-life-easier</id>
       <content type="html">	&lt;p&gt;Today I was pointed to a couple of handy functionalities in the &lt;a href=&quot;http://www.getfirebug.com/&quot;&gt;Firebug plugin&lt;/a&gt; by &lt;a href=&quot;http://www.magnetikonline.com&quot;&gt;Peter Mescalchin&lt;/a&gt;, who&amp;#8217;s one of the  UI developers I am currently working with.&lt;/p&gt;
@@ -5530,7 +5530,7 @@ The output will be a nice little list of nodes that on rollover can be identifie
   
     <entry>
       <title>How long have I been waiting for this?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/how-long-have-i-been-waiting-for-this/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/how-long-have-i-been-waiting-for-this/index.html"/>
       <updated>2007-06-05T17:48:27+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/how-long-have-i-been-waiting-for-this/how-long-have-i-been-waiting-for-this</id>
       <content type="html">	&lt;p&gt;It must be since I heard the word entity first. Check otu this &lt;a href=&quot;http://leftlogic.com/lounge/articles/entity-lookup/&quot;&gt;brilliant entity reference&lt;/a&gt;. Via &lt;a href=&quot;http://www.ajaxian.com&quot;&gt;ajaxian&lt;/a&gt;. &lt;/p&gt;
@@ -5543,7 +5543,7 @@ The output will be a nice little list of nodes that on rollover can be identifie
   
     <entry>
       <title>DOs and DONTs in XSLT</title>
-      <link href="http://github.contentwithstyle.co.uk//content/dos-and-donts-in-xslt/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/dos-and-donts-in-xslt/index.html"/>
       <updated>2007-06-04T11:43:01+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/dos-and-donts-in-xslt/dos-and-donts-in-xslt</id>
       <content type="html">	&lt;p&gt;A nice little roundup of how to efficiently use XSLT can be found &lt;a href=&quot;http://www2.sims.berkeley.edu/academics/courses/is290-8/s04/lectures/5/dragons/allslides.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
@@ -5562,7 +5562,7 @@ Whether your favorite conceptual module is pipes and filters, tuple spaces, or j
   
     <entry>
       <title>Hip hip, hooray</title>
-      <link href="http://github.contentwithstyle.co.uk//content/hip-hip-hooray/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/hip-hip-hooray/index.html"/>
       <updated>2007-06-04T09:22:38+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/hip-hip-hooray/hip-hip-hooray</id>
       <content type="html">	&lt;p&gt;We did it. After more than one year we have a new article online.&lt;/p&gt;
@@ -5577,7 +5577,7 @@ Whether your favorite conceptual module is pipes and filters, tuple spaces, or j
   
     <entry>
       <title>Templates from Babel?</title>
-      <link href="http://github.contentwithstyle.co.uk//content/templates-from-babel/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/templates-from-babel/index.html"/>
       <updated>2007-06-04T09:16:11+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/templates-from-babel/templates-from-babel</id>
       <content type="html">&lt;h2&gt;MVC frameworks are in!&lt;/h2&gt;
@@ -5701,7 +5701,7 @@ Why forget the old merits? Sure, frameworks and libraries can help to cut down d
   
     <entry>
       <title>Unit Tests in JavaScript</title>
-      <link href="http://github.contentwithstyle.co.uk//content/unit-tests-in-javascript/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/unit-tests-in-javascript/index.html"/>
       <updated>2007-05-31T17:52:32+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/unit-tests-in-javascript/unit-tests-in-javascript</id>
       <content type="html">	&lt;p&gt;I don&amp;#8217;t know how many of you guys out there are seriously testing their javascript applications, and how you do approach tesing them.&lt;br /&gt;
@@ -5725,7 +5725,7 @@ Also, I&amp;#8217;d like to ask you, dear reader, to comment about your general 
   
     <entry>
       <title>301 redirect with mod_rewrite</title>
-      <link href="http://github.contentwithstyle.co.uk//content/301-redirect-with-modrewrite/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/301-redirect-with-modrewrite/index.html"/>
       <updated>2007-04-25T09:10:39+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/301-redirect-with-modrewrite/301-redirect-with-modrewrite</id>
       <content type="html">	&lt;p&gt;
@@ -5761,7 +5761,7 @@ RewriteRule ^(.*) http://www.example.com/$1 [R=301,L]
   
     <entry>
       <title>mod_deflate and IE6 bug</title>
-      <link href="http://github.contentwithstyle.co.uk//content/moddeflate-and-ie6-bug/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/moddeflate-and-ie6-bug/index.html"/>
       <updated>2007-04-20T12:46:50+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/moddeflate-and-ie6-bug/moddeflate-and-ie6-bug</id>
       <content type="html">&lt;p&gt;
@@ -5801,7 +5801,7 @@ For testing the HTTP headers that come through one can use the &lt;a href=&quot;
   
     <entry>
       <title>You might have noticed: There are some ads now.</title>
-      <link href="http://github.contentwithstyle.co.uk//content/you-might-have-noticed-there-are-some-ads-now/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/you-might-have-noticed-there-are-some-ads-now/index.html"/>
       <updated>2007-04-13T12:50:33+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/you-might-have-noticed-there-are-some-ads-now/you-might-have-noticed-there-are-some-ads-now</id>
       <content type="html">	&lt;p&gt;I kept trying to avoid them, but in the end of the day I cannot see why bandwidth gets burned up without any cost return. And everyone else does seem to do it.&lt;/p&gt;
@@ -5816,7 +5816,7 @@ For testing the HTTP headers that come through one can use the &lt;a href=&quot;
   
     <entry>
       <title>Swapping nodes in a DOM tree</title>
-      <link href="http://github.contentwithstyle.co.uk//content/swapping-nodes-in-a-dom-tree/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/swapping-nodes-in-a-dom-tree/index.html"/>
       <updated>2007-04-12T09:34:02+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/swapping-nodes-in-a-dom-tree/swapping-nodes-in-a-dom-tree</id>
       <content type="html">&lt;p&gt;
@@ -5835,7 +5835,7 @@ myNode.parentNode.insertBefore(myNode, myNode.nextSibling);
   
     <entry>
       <title>php: array_diff_assoc and the order of parameters</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-arraydiffassoc-and-the-order-of-parameters/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-arraydiffassoc-and-the-order-of-parameters/index.html"/>
       <updated>2007-04-12T03:55:51+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-arraydiffassoc-and-the-order-of-parameters/php-arraydiffassoc-and-the-order-of-parameters</id>
       <content type="html">&lt;p&gt;
@@ -5885,7 +5885,7 @@ Array
   
     <entry>
       <title>Blog section opened</title>
-      <link href="http://github.contentwithstyle.co.uk//content/blog-section-opened/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/blog-section-opened/index.html"/>
       <updated>2007-04-07T06:53:45+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/blog-section-opened/blog-section-opened</id>
       <content type="html">	&lt;p&gt;Welcome to The new blog section on the CwS website.&lt;br /&gt;
@@ -5898,7 +5898,7 @@ It will basically replace the events and offer us a bit more freedom than the li
   
     <entry>
       <title>generate PDF with XSL-FO and FOP</title>
-      <link href="http://github.contentwithstyle.co.uk//content/generate-pdf-with-xsl-fo-and-fop/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/generate-pdf-with-xsl-fo-and-fop/index.html"/>
       <updated>2007-04-03T08:57:25+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/generate-pdf-with-xsl-fo-and-fop/generate-pdf-with-xsl-fo-and-fop</id>
       <content type="html">	&lt;p&gt;A lot of 3-letter abbrevations here, I wanted to share some notes about this.&lt;br /&gt;
@@ -5929,7 +5929,7 @@ So, after downloading an &lt;a href=&quot;http://svn.apache.org/viewvc?view=rev&
   
     <entry>
       <title>Browser based vector rendering</title>
-      <link href="http://github.contentwithstyle.co.uk//content/browser-based-vector-rendering/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/browser-based-vector-rendering/index.html"/>
       <updated>2007-03-12T13:54:40+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/browser-based-vector-rendering/browser-based-vector-rendering</id>
       <content type="html">	&lt;p&gt;Today &lt;a href=&quot;http://www.redwiredesign.com/profile/justin_finkelstein.html&quot;&gt;Justin&lt;/a&gt; came across a demo for the &lt;a href=&quot;http://ajax3d.sourceforge.net/&quot;&gt;Ajax3d engine&lt;/a&gt;, an entirely JavaScript based 3d engine that utilizes the canvas tag for rendering vector based graphics.&lt;/p&gt;
@@ -5946,7 +5946,7 @@ With all of us in the office Browsing the web a bit more, &lt;a href=&quot;http:
   
     <entry>
       <title>Wine, Photoshop &#38; &quot;save for web&quot;</title>
-      <link href="http://github.contentwithstyle.co.uk//content/wine-photoshop-save-for-web/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/wine-photoshop-save-for-web/index.html"/>
       <updated>2007-02-05T08:25:25+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/wine-photoshop-save-for-web/wine-photoshop-save-for-web</id>
       <content type="html">	&lt;p&gt;&lt;a href=&quot;http://www.redwiredesign.com/profile/tom_westcott.html&quot;&gt;Tom&lt;/a&gt; did find out about this one for me:&lt;br /&gt;
@@ -5968,7 +5968,7 @@ wine &quot;c:/program files/adobe/Photoshop 7.0/Photoshop.exe&quot;
   
     <entry>
       <title>Ndiswrapper and Fedora Core 6</title>
-      <link href="http://github.contentwithstyle.co.uk//content/ndiswrapper-and-fedora-core-6/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/ndiswrapper-and-fedora-core-6/index.html"/>
       <updated>2007-01-18T10:30:02+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/ndiswrapper-and-fedora-core-6/ndiswrapper-and-fedora-core-6</id>
       <content type="html">	&lt;p&gt;For me, the key to get this working is to NOT attempt to create the ath0 Interface, but &lt;a href=&quot;http://ndiswrapper.sourceforge.net/mediawiki/index.php/Fedora#Configuration_using_script_system&quot;&gt;using ethX as interface&lt;/a&gt; instead.&lt;/p&gt;
@@ -6010,7 +6010,7 @@ alias eth1 ndiswrapper
   
     <entry>
       <title>Outlook 2007 and those bloody HTML emails</title>
-      <link href="http://github.contentwithstyle.co.uk//content/outlook-2007-and-those-bloody-html-emails/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/outlook-2007-and-those-bloody-html-emails/index.html"/>
       <updated>2007-01-18T08:07:20+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/outlook-2007-and-those-bloody-html-emails/outlook-2007-and-those-bloody-html-emails</id>
       <content type="html">	&lt;p&gt;Microsoft comes up with a great way of rendering emails in Outlook 2007 which might cause Matthias to refuse doing any HTML formatted emails in the future. &lt;/p&gt;
@@ -6030,7 +6030,7 @@ Outlook 2007 will mess everything up and cripple anything that uses floats and o
   
     <entry>
       <title>fulltext &#38; weighted relevance</title>
-      <link href="http://github.contentwithstyle.co.uk//content/fulltext-weighted-relevance/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/fulltext-weighted-relevance/index.html"/>
       <updated>2007-01-09T09:14:37+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/fulltext-weighted-relevance/fulltext-weighted-relevance</id>
       <content type="html">	&lt;p&gt;Via JV Multimedia:&lt;/p&gt;
@@ -6062,7 +6062,7 @@ LIMIT 0,10
   
     <entry>
       <title>CwS 2006 - a little summary</title>
-      <link href="http://github.contentwithstyle.co.uk//content/cws-2006---a-little-summary/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/cws-2006---a-little-summary/index.html"/>
       <updated>2006-11-30T07:46:03+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/cws-2006---a-little-summary/cws-2006---a-little-summary</id>
       <content type="html">	&lt;p&gt;With 2006 nearly over it&amp;#8217;s time for a little look back on what happened with CwS throughout the year.&lt;/p&gt;
@@ -6104,7 +6104,7 @@ We wish you a great rest of 2006 and a good start into 2007. Enjoy the holidays 
   
     <entry>
       <title>XML validation in PHP</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xml-validation-in-php/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xml-validation-in-php/index.html"/>
       <updated>2006-11-08T06:41:10+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xml-validation-in-php/xml-validation-in-php</id>
       <content type="html">	&lt;p&gt;Working with user input that needs to be valid XML, it turns out that PHP5 has a built-in &lt;a href=&quot;http://www.php.net/manual/en/function.dom-domdocument-schemavalidate.php&quot;&gt;validation&lt;/a&gt; function.&lt;/p&gt;
@@ -6151,7 +6151,7 @@ class XML
   
     <entry>
       <title>IE7 and how it changes the web</title>
-      <link href="http://github.contentwithstyle.co.uk//content/ie7-and-how-it-changes-the-web/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/ie7-and-how-it-changes-the-web/index.html"/>
       <updated>2006-10-29T12:32:05+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/ie7-and-how-it-changes-the-web/ie7-and-how-it-changes-the-web</id>
       <content type="html">	&lt;p&gt;Simon Griffin from &lt;a href=&quot;http://www.etre.com/&quot;&gt;etre&lt;/a&gt; sent us a rather interesting email about some research they&amp;#8217;ve done on IE7 &amp;#8230;&lt;/p&gt;
@@ -6184,7 +6184,7 @@ From a bit of a sarcastic point of view: It often seems to be a good excuse for 
   
     <entry>
       <title>XSL:TEXT, CDATA and PHP5</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xsltext-cdata-and-php5/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xsltext-cdata-and-php5/index.html"/>
       <updated>2006-10-20T07:53:06+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xsltext-cdata-and-php5/xsltext-cdata-and-php5</id>
       <content type="html">	&lt;p&gt;Right, so I am applying disable-output-escaping=&amp;quot;yes&amp;quot; on an xsl:text element containing some CDATA, but the output is still coming with escaped entities &amp;#8230;&lt;/p&gt;
@@ -6210,7 +6210,7 @@ $xsl_dom-&amp;gt;load($xsl_file_location, LIBXML_NOCDATA);
   
     <entry>
       <title>Find and Replace and some more VIM tuning</title>
-      <link href="http://github.contentwithstyle.co.uk//content/find-and-replace-and-some-more-vim-tuning/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/find-and-replace-and-some-more-vim-tuning/index.html"/>
       <updated>2006-10-17T08:40:44+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/find-and-replace-and-some-more-vim-tuning/find-and-replace-and-some-more-vim-tuning</id>
       <content type="html">	&lt;p&gt;Awkward at first glance &lt;a href=&quot;http://www.vim.org/&quot;&gt;VIM&lt;/a&gt; has become my editor of choice. A modified .vimrc file based on the one found at &lt;a href=&quot;http://schlitt.info/applications/blog/index.php?/archives/331-Comfortable-PHP-editing-with-VIM-3.html&quot;&gt;schlitt.info&lt;/a&gt;&lt;br /&gt;
@@ -6227,7 +6227,7 @@ enables quite a couple of extras that make work fast and efficient.&lt;/p&gt;
   
     <entry>
       <title>Checking for object literals</title>
-      <link href="http://github.contentwithstyle.co.uk//content/checking-for-object-literals/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/checking-for-object-literals/index.html"/>
       <updated>2006-10-03T07:46:03+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/checking-for-object-literals/checking-for-object-literals</id>
       <content type="html">	&lt;p&gt;Such a basic thing to do, but still, I didn&amp;#8217;t have to do it until now:&lt;br /&gt;
@@ -6253,7 +6253,7 @@ if (window.my_object_literal)
   
     <entry>
       <title>IE Conditional comments in XSL</title>
-      <link href="http://github.contentwithstyle.co.uk//content/ie-conditional-comments-in-xsl/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/ie-conditional-comments-in-xsl/index.html"/>
       <updated>2006-09-27T05:49:41+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/ie-conditional-comments-in-xsl/ie-conditional-comments-in-xsl</id>
       <content type="html">	&lt;p&gt;Just a small bit of  code, but not obious at first glance &amp;#8230;&lt;/p&gt;
@@ -6270,7 +6270,7 @@ if (window.my_object_literal)
   
     <entry>
       <title>PHP Script: Timeshift in Subtitle Files</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-script-timeshift-in-subtitle-files/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-script-timeshift-in-subtitle-files/index.html"/>
       <updated>2006-09-16T10:30:58+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-script-timeshift-in-subtitle-files/php-script-timeshift-in-subtitle-files</id>
       <content type="html">&lt;p&gt;
@@ -6323,7 +6323,7 @@ fclose($f);
   
     <entry>
       <title>PHP and MP3s</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-and-mp3s/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-and-mp3s/index.html"/>
       <updated>2006-09-11T08:12:57+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-and-mp3s/php-and-mp3s</id>
       <content type="html">	&lt;p&gt;While setting up a media server for the &lt;a href=&quot;http://www.netaudiolondon.cc&quot;&gt;Netaudio Festival&lt;/a&gt; next weekend I had not only to set up a dedicated machine with samba shares, Webserver and Web based interface, but also to play around with mp3s and ID3 tags.&lt;/p&gt;
@@ -6339,7 +6339,7 @@ Very cool, especially because the MySQL Demo already features a full data struct
   
     <entry>
       <title>Register PHP functions in XSL</title>
-      <link href="http://github.contentwithstyle.co.uk//content/register-php-functions-in-xsl/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/register-php-functions-in-xsl/index.html"/>
       <updated>2006-09-11T07:55:48+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/register-php-functions-in-xsl/register-php-functions-in-xsl</id>
       <content type="html">	&lt;p&gt;Working with PHP5 and the built-in XSLT processor I came accross the method &lt;a href=&quot;http://uk2.php.net/manual/en/function.xsl-xsltprocessor-register-php-functions.php&quot;&gt;registerPHPFunctions&lt;/a&gt; that lets you register PHP functions in XSL. Quite a neat feature. Wonder how much that slows the transformation down?&lt;/p&gt;
@@ -6350,7 +6350,7 @@ Very cool, especially because the MySQL Demo already features a full data struct
   
     <entry>
       <title>Hybrid Flash Developers: A unique species</title>
-      <link href="http://github.contentwithstyle.co.uk//content/hybrid-flash-developers-a-unique-species/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/hybrid-flash-developers-a-unique-species/index.html"/>
       <updated>2006-09-05T11:56:37+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/hybrid-flash-developers-a-unique-species/hybrid-flash-developers-a-unique-species</id>
       <content type="html">	&lt;p&gt;Check out this &lt;a href=&quot;http://www.thefwa.com/articles/flashdevs0906.html&quot;&gt;article&lt;/a&gt; by &lt;a href=&quot;http://www.velloff.com/&quot;&gt;Nick Velloff&lt;/a&gt;. (via &lt;a href=&quot;http://blog.lessrain.com/&quot;&gt;lessrain blog&lt;/a&gt;)&lt;/p&gt;
@@ -6376,7 +6376,7 @@ That doesn&amp;#8217;t make the hybrid developer better or worse than one specia
   
     <entry>
       <title>Spam and some other things ...</title>
-      <link href="http://github.contentwithstyle.co.uk//content/spam-and-some-other-things-/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/spam-and-some-other-things-/index.html"/>
       <updated>2006-08-25T07:10:03+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/spam-and-some-other-things-/spam-and-some-other-things-</id>
       <content type="html">	&lt;p&gt;Sadly we lately have to deal with unpleasant things. One is the comment spam, that actually is getting worse and worse. But since Mike did write his latest article with a bit of a tabloid title we have to deal with some other things as well &amp;#8230;&lt;/p&gt;
@@ -6399,7 +6399,7 @@ That doesn&amp;#8217;t make the hybrid developer better or worse than one specia
   
     <entry>
       <title>Netaudio'06: London Netlabel Festival</title>
-      <link href="http://github.contentwithstyle.co.uk//content/netaudio06-london-netlabel-festival/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/netaudio06-london-netlabel-festival/index.html"/>
       <updated>2006-08-25T07:09:42+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/netaudio06-london-netlabel-festival/netaudio06-london-netlabel-festival</id>
       <content type="html">	&lt;p&gt;CwS supports London&amp;#8217;s first netlabel festival with more than 30 artists from all over the world. Netaudio&amp;#8217;06 takesplace on the 15th and 16th of September 2006 at Candid Arts Gallery and Electrowerkz, next to Angel tube station, London.&lt;/p&gt;
@@ -6418,7 +6418,7 @@ are now available for &amp;pound;15 through &lt;a href=&quot;http://www.ticketwe
   
     <entry>
       <title>UTF-8 based transformation output in .Net</title>
-      <link href="http://github.contentwithstyle.co.uk//content/utf-8-based-transformation-output-in-net/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/utf-8-based-transformation-output-in-net/index.html"/>
       <updated>2006-08-17T11:38:46+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/utf-8-based-transformation-output-in-net/utf-8-based-transformation-output-in-net</id>
       <content type="html">&lt;p&gt;
@@ -6487,7 +6487,7 @@ namespace MyAwesomeNamespace
   
     <entry>
       <title>CrunchBoard</title>
-      <link href="http://github.contentwithstyle.co.uk//content/crunchboard/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/crunchboard/index.html"/>
       <updated>2006-08-04T08:24:39+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/crunchboard/crunchboard</id>
       <content type="html">	&lt;p&gt;My current favourite website and VC&amp;#8217;s darling, TechCrunch, has just launched a jobs board: &lt;a href=&quot;http://www.crunchboard.com/&quot;&gt;CrunchBoard&lt;/a&gt;. It&amp;#8217;s not cheap to post a job so the quality of the ones on offer seems pretty high. &lt;/p&gt;
@@ -6498,7 +6498,7 @@ namespace MyAwesomeNamespace
   
     <entry>
       <title>Safari, Ajax and the back button</title>
-      <link href="http://github.contentwithstyle.co.uk//content/safari-ajax-and-the-back-button/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/safari-ajax-and-the-back-button/index.html"/>
       <updated>2006-07-10T09:42:58+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/safari-ajax-and-the-back-button/safari-ajax-and-the-back-button</id>
       <content type="html">	&lt;p&gt;A while ago David Bloom posted a &lt;a href=&quot;http://bloomd.home.mchsi.com/histapi/test.html&quot;  title=&quot;and others&quot;&gt;back button, bookmarking and so on fix for Safari&lt;/a&gt;, which, aside from some funny character garbage at the end, works reliably enough to be used for all your Ajax and Flash needs.&lt;/p&gt;
@@ -6515,7 +6515,7 @@ namespace MyAwesomeNamespace
   
     <entry>
       <title>Ctrl+Shift+F at the developer toolbar party</title>
-      <link href="http://github.contentwithstyle.co.uk//content/ctrlshiftf-at-the-developer-toolbar-party/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/ctrlshiftf-at-the-developer-toolbar-party/index.html"/>
       <updated>2006-07-06T08:14:54+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/ctrlshiftf-at-the-developer-toolbar-party/ctrlshiftf-at-the-developer-toolbar-party</id>
       <content type="html">	&lt;p&gt;This is my find of the day:&lt;br /&gt;
@@ -6534,7 +6534,7 @@ Hit Ctrl + Shift + F when using &lt;a href=&quot;http://chrispederick.com/work/w
   
     <entry>
       <title>REST and some unknown verbs</title>
-      <link href="http://github.contentwithstyle.co.uk//content/rest-and-some-unknown-verbs/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/rest-and-some-unknown-verbs/index.html"/>
       <updated>2006-06-28T06:27:21+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/rest-and-some-unknown-verbs/rest-and-some-unknown-verbs</id>
       <content type="html">	&lt;p&gt;I started off with a little &lt;a href=&quot;http://www.google.co.uk/search?q=REST+urls&amp;#38;hl=en&amp;#38;hs=BW1&amp;#38;lr=&amp;#38;client=firefox-a&amp;#38;rls=org.mozilla:en-US:official&amp;#38;start=10&amp;#38;sa=N&quot;&gt;google search&lt;/a&gt; and had a read about &lt;a href=&quot;http://www.xfront.com/REST-Web-Services.html&quot;&gt;Building Web Services the REST Way&lt;/a&gt; which made clear to me that you could POST something to its already given URL as a natural way of updating ressources.&lt;/p&gt;
@@ -6558,7 +6558,7 @@ Also there is a &lt;a href=&quot;http://perso.ec-lyon.fr/lyonel.vincent/apache/m
   
     <entry>
       <title>UTF-8: Documents with a lot of character</title>
-      <link href="http://github.contentwithstyle.co.uk//content/utf-8-documents-with-a-lot-of-character/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/utf-8-documents-with-a-lot-of-character/index.html"/>
       <updated>2006-06-21T05:21:40+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/utf-8-documents-with-a-lot-of-character/utf-8-documents-with-a-lot-of-character</id>
       <content type="html">&lt;h2&gt;Sloppy?&lt;/h2&gt;
@@ -6650,7 +6650,7 @@ Also there is a &lt;a href=&quot;http://perso.ec-lyon.fr/lyonel.vincent/apache/m
   
     <entry>
       <title>CSS is Worthless</title>
-      <link href="http://github.contentwithstyle.co.uk//content/css-is-worthless/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/css-is-worthless/index.html"/>
       <updated>2006-06-06T08:22:51+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/css-is-worthless/css-is-worthless</id>
       <content type="html">&lt;p&gt;CSS does not make a site accessible. CSS does not make your site rank higher in search engines. 
@@ -6726,7 +6726,7 @@ you an elite web programmer. HTML is misunderstood.&lt;/p&gt;
   
     <entry>
       <title>Narrative JavaScript</title>
-      <link href="http://github.contentwithstyle.co.uk//content/narrative-javascript/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/narrative-javascript/index.html"/>
       <updated>2006-06-05T03:56:47+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/narrative-javascript/narrative-javascript</id>
       <content type="html">	&lt;p&gt;This is an extension to javascript that will be compiled into javascript afterwards, and helps you to write readable code by introducing the &amp;#8220;blocking&amp;#8221; operator (notated as &amp;#8217;-&gt;&amp;#8217;).&lt;/p&gt;
@@ -6741,7 +6741,7 @@ you an elite web programmer. HTML is misunderstood.&lt;/p&gt;
   
     <entry>
       <title>IE7 and its problems</title>
-      <link href="http://github.contentwithstyle.co.uk//content/ie7-and-its-problems/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/ie7-and-its-problems/index.html"/>
       <updated>2006-06-01T09:24:53+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/ie7-and-its-problems/ie7-and-its-problems</id>
       <content type="html">	&lt;p&gt;As Mike was busy doing this already on his blog &lt;a href=&quot;http://www.donotremove.co.uk/weblog/fixing-donotremove-for-ie7/&quot;&gt;donotremove.com&lt;/a&gt; I quickly debugged our site for the public IE7 beta 2 that came out today.&lt;/p&gt;
@@ -6776,7 +6776,7 @@ href=&quot;../css/ie_standard.css&quot; /&amp;gt;
   
     <entry>
       <title>Comments on Comments</title>
-      <link href="http://github.contentwithstyle.co.uk//content/comments-on-comments/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/comments-on-comments/index.html"/>
       <updated>2006-05-30T03:59:18+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/comments-on-comments/comments-on-comments</id>
       <content type="html">&lt;h2&gt;Introduction&lt;/h2&gt;
@@ -6886,7 +6886,7 @@ public void MyMethod(string myParameter)
   
     <entry>
       <title>Disabling text selection</title>
-      <link href="http://github.contentwithstyle.co.uk//content/disabling-text-selection/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/disabling-text-selection/index.html"/>
       <updated>2006-05-11T13:03:10+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/disabling-text-selection/disabling-text-selection</id>
       <content type="html">	&lt;p&gt;While trying to make a table behave in an Excel fashion I came across a little problem. I wanted the table to allow the user to select a range of rows with a Shift+Click&amp;#8230; The problem is that, by default, the browser will select the page&amp;#8217;s text content. This isn&amp;#8217;t something you&amp;#8217;ll want to do very often but it is possible to get around this:&lt;/p&gt;
@@ -6914,7 +6914,7 @@ the_table_node.onselectstart = function () {
   
     <entry>
       <title>quick MySQL nice-to-know</title>
-      <link href="http://github.contentwithstyle.co.uk//content/quick-mysql-nice-to-know/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/quick-mysql-nice-to-know/index.html"/>
       <updated>2006-05-11T07:41:03+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/quick-mysql-nice-to-know/quick-mysql-nice-to-know</id>
       <content type="html">	&lt;p&gt;While dealing with a project at work, I came across a couple of database issues that you all probably already know. A standard case of RTFM (by the way, nice &lt;a href=&quot;http://www.gotapi.com/&quot;&gt;reference lookup service here&lt;/a&gt; ). Nevertheless, as I never seemed to bother using them, I&amp;#8217;m sure there&amp;#8217;s some of you out there that&amp;#8217;ll find this helpful. And, er, others will probably see this as an embarrassment of mine.&lt;/p&gt;
@@ -6936,7 +6936,7 @@ Then I found &lt;a href=&quot;http://dev.mysql.com/doc/refman/4.1/en/insert-on-d
   
     <entry>
       <title>CSS Framework Design Competition</title>
-      <link href="http://github.contentwithstyle.co.uk//content/css-framework-design-competition/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/css-framework-design-competition/index.html"/>
       <updated>2006-05-02T08:29:07+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/css-framework-design-competition/css-framework-design-competition</id>
       <content type="html">	&lt;p&gt;I meant to post about this a couple of weeks ago but I completely forgot&amp;#8230; I hope I&amp;#8217;m not too late. There&amp;#8217;s a &lt;a href=&quot;http://raibledesigns.com/page/rd?entry=css_framework_design_contest_only&quot;&gt;design competition&lt;/a&gt; going on over at Raible Designs for AppFuse templates. Why do I care? They are using the CwS &lt;a href=&quot;http://www.contentwithstyle.co.uk/Articles/17/a-css-framework/&quot;&gt;CSS Framework&lt;/a&gt; as the base. I&amp;#8217;m chuffed that people are using it and excited to see what people can come up with!&lt;/p&gt;
@@ -6949,7 +6949,7 @@ Then I found &lt;a href=&quot;http://dev.mysql.com/doc/refman/4.1/en/insert-on-d
   
     <entry>
       <title>Offtime, moving and some changes</title>
-      <link href="http://github.contentwithstyle.co.uk//content/offtime-moving-and-some-changes/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/offtime-moving-and-some-changes/index.html"/>
       <updated>2006-04-25T11:41:37+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/offtime-moving-and-some-changes/offtime-moving-and-some-changes</id>
       <content type="html">	&lt;p&gt;Ok, some might have noticed that this site was offline for a couple of days. That is because our previous host, hostgator.com, didn&amp;#8217;t like the site on a reseller hosting as it was causing a bit of load. So they decided to move it to a slow dedicated server and give us a very short period of time to change to another hosting plan or be switched off, and on top of that they managed to fuck up the site and all of our email during this stunt. &lt;/p&gt;
@@ -6975,7 +6975,7 @@ Now we&amp;#8217;re with &lt;a href=&quot;http://www.servint.net&quot;&gt;ServIn
   
     <entry>
       <title>php: array_filter and callback function</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-arrayfilter-and-callback-function/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-arrayfilter-and-callback-function/index.html"/>
       <updated>2006-04-20T09:48:47+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-arrayfilter-and-callback-function/php-arrayfilter-and-callback-function</id>
       <content type="html">	&lt;p&gt;Sometimes array_pop is just not enough. You might have to strip out something from an array that is 2 dimensional or do some more complicated adjustments to the array values. In this case you can use array_filter and a callback function.&lt;/p&gt;
@@ -7013,7 +7013,7 @@ $test = new test();
   
     <entry>
       <title>AJAX Training from Clearleft</title>
-      <link href="http://github.contentwithstyle.co.uk//content/ajax-training-from-clearleft/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/ajax-training-from-clearleft/index.html"/>
       <updated>2006-04-17T10:16:33+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/ajax-training-from-clearleft/ajax-training-from-clearleft</id>
       <content type="html">	&lt;p&gt;Jeremy Keith is giving another of his &lt;a href=&quot;http://www.clearleft.com/services/training/ajax.php&quot;&gt;Ajax training workshops&lt;/a&gt;, this time up in Manchester. I was lucky enough to be in attendance for his London one and much fun was had by all. I really like Jeremy&amp;#8217;s approach to the subject &amp;#8211; it&amp;#8217;s very much bottom-up, giving you a solid base from which to build in your own time. &lt;/p&gt;
@@ -7026,7 +7026,7 @@ $test = new test();
   
     <entry>
       <title>XSL and DTD</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xsl-and-dtd/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xsl-and-dtd/index.html"/>
       <updated>2006-04-12T10:05:43+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xsl-and-dtd/xsl-and-dtd</id>
       <content type="html">	&lt;p&gt;A quick code snippet to include the right XHTML DTD in your XSL generated output. This took me a bit of reseach to find out:&lt;/p&gt;
@@ -7046,7 +7046,7 @@ http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&amp;gt;]]&amp;gt;
   
     <entry>
       <title>Mono sounds Sharp</title>
-      <link href="http://github.contentwithstyle.co.uk//content/mono-sounds-sharp/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/mono-sounds-sharp/index.html"/>
       <updated>2006-04-10T06:58:12+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/mono-sounds-sharp/mono-sounds-sharp</id>
       <content type="html">	&lt;p&gt;If platform specifications change sometimes one has to make the descision if the app needs to be ported or if there is another way. My research about porting .Net applications reveals a surprisingly great range of Open Source tools.&lt;/p&gt;
@@ -7066,7 +7066,7 @@ For all those people who want to improve the performance of PHP scripts and don&
   
     <entry>
       <title>Emergent design</title>
-      <link href="http://github.contentwithstyle.co.uk//content/emergent-design/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/emergent-design/index.html"/>
       <updated>2006-04-07T06:32:25+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/emergent-design/emergent-design</id>
       <content type="html">	&lt;p&gt;Pascal mentioned it in his &lt;a href=&quot;http://www.contentwithstyle.co.uk/Blog/89/php-unit-testing-tutorial/&quot;&gt;Unit testing tutorial post&lt;/a&gt; but emergent design has changed the way I see coding&amp;#8230; I work with Marcus (&lt;a href=&quot;http://www.lastcraft.com&quot;&gt;lastcraft&lt;/a&gt;) and he&amp;#8217;s had his work cut out for him converting me, but I&amp;#8217;m now a born again test driven designer. I&amp;#8217;ve also started to apply the same philosophy to loads of other things. I&amp;#8217;m slowly moving over the the &lt;a href=&quot;http://www.43folders.com/2004/09/08/getting-started-with-getting-things-done/&quot;&gt;Getting things Done&lt;/a&gt; way of thinking and I let my designs evolve the same way. I&amp;#8217;ve even started using a bulldog clip and index cards as a note pad&amp;#8230;&lt;/p&gt;
@@ -7077,7 +7077,7 @@ For all those people who want to improve the performance of PHP scripts and don&
   
     <entry>
       <title>Relaunch: DoNotRemove</title>
-      <link href="http://github.contentwithstyle.co.uk//content/relaunch-donotremove/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/relaunch-donotremove/index.html"/>
       <updated>2006-04-03T11:19:52+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/relaunch-donotremove/relaunch-donotremove</id>
       <content type="html">	&lt;p&gt;The homepage of Content with Style author Mike Stenhouse, to be found at &lt;a href=&quot;http://www.donotremove.co.uk&quot;&gt;www.donotremove.co.uk&lt;/a&gt;, just got a huge makeover. We must say it looks stunning. Congratulations Mike!&lt;/p&gt;
@@ -7091,7 +7091,7 @@ Pay him a visit on his website to find out more.&lt;/p&gt;
   
     <entry>
       <title>PHP Unit testing tutorial</title>
-      <link href="http://github.contentwithstyle.co.uk//content/php-unit-testing-tutorial/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/php-unit-testing-tutorial/index.html"/>
       <updated>2006-04-03T05:45:48+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/php-unit-testing-tutorial/php-unit-testing-tutorial</id>
       <content type="html">	&lt;p&gt;During the research for my upcoming article about comments and code I came accross this &lt;a href=&quot;http://www.lastcraft.com/first_test_tutorial.php&quot;&gt;interesting tutorial on unit testing&lt;/a&gt;.&lt;br /&gt;
@@ -7105,7 +7105,7 @@ It gives you a quick insight into how test driven design works with &lt;a href=&
   
     <entry>
       <title>Faster website moving with lftp</title>
-      <link href="http://github.contentwithstyle.co.uk//content/faster-website-moving-with-lftp/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/faster-website-moving-with-lftp/index.html"/>
       <updated>2006-04-01T09:00:36+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/faster-website-moving-with-lftp/faster-website-moving-with-lftp</id>
       <content type="html">	&lt;p&gt;Consider &lt;a href=&quot;http://lftp.yar.ru/get.html&quot;&gt;lftp&lt;/a&gt; to be the better alternative to ftp when it comes to moving your website. Unlike the standard ftp command line client it had the function &amp;#8220;mirror&amp;#8221;. &lt;br /&gt;
@@ -7121,7 +7121,7 @@ And that is a dead handy one when you don&amp;#8217;t want to ftp your whole web
   
     <entry>
       <title>EXSLT</title>
-      <link href="http://github.contentwithstyle.co.uk//content/exslt/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/exslt/index.html"/>
       <updated>2006-03-30T11:01:55+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/exslt/exslt</id>
       <content type="html">	&lt;p&gt;EXSLT is an extension kit for XSL. A collection of templates that can be used within an XSL transformation to perform mathematic operation, string manipulations or working with reg-exp.&lt;/p&gt;
@@ -7141,7 +7141,7 @@ The templates just get included into the XSL, their namespaces get declared and 
   
     <entry>
       <title>Clean URLs for a better search engine ranking</title>
-      <link href="http://github.contentwithstyle.co.uk//content/clean-urls-for-a-better-search-engine-ranking/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/clean-urls-for-a-better-search-engine-ranking/index.html"/>
       <updated>2006-02-28T04:22:26+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/clean-urls-for-a-better-search-engine-ranking/clean-urls-for-a-better-search-engine-ranking</id>
       <content type="html">&lt;p&gt;
@@ -7365,7 +7365,7 @@ if($match[1])
   
     <entry>
       <title>Playing Nice with the Other CSS Kids</title>
-      <link href="http://github.contentwithstyle.co.uk//content/playing-nice-with-the-other-css-kids/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/playing-nice-with-the-other-css-kids/index.html"/>
       <updated>2005-10-31T12:51:14+00:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/playing-nice-with-the-other-css-kids/playing-nice-with-the-other-css-kids</id>
       <content type="html">&lt;p&gt;&lt;a href=&quot;http://simon.incutio.com/&quot;&gt;Simon Willison&lt;/a&gt; recently posted to &lt;a href=&quot;http://css-discuss.incutio.com/?page=MaintainableCss&quot;&gt;css-d&lt;/a&gt; asking for peoples' thoughts on writing maintanable CSS and that got me thinking... Over the years I've had the privilege of working on some very large web standards projects in small teams of other CSS/XHTML developers, but I've also spent a lot of time building little sites on my own for smaller clients. Maintenance on a small project involves being able to understand your own code when you come back to it months later. On larger projects it means your team mates being able to understand and edit your code as quickly and efficiently as possible at any point in the future. It's a far more complicated objective.&lt;/p&gt;
@@ -7460,7 +7460,7 @@ if($match[1])
   
     <entry>
       <title>DOM scripting or how to keep the code clean</title>
-      <link href="http://github.contentwithstyle.co.uk//content/dom-scripting-or-how-to-keep-the-code-clean/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/dom-scripting-or-how-to-keep-the-code-clean/index.html"/>
       <updated>2005-10-27T04:24:11+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/dom-scripting-or-how-to-keep-the-code-clean/dom-scripting-or-how-to-keep-the-code-clean</id>
       <content type="html">&lt;h2&gt;Required knowledge&lt;/h2&gt;
@@ -7688,7 +7688,7 @@ window.onload = applyPopups;
   
     <entry>
       <title>A to Z(ee) with P3P</title>
-      <link href="http://github.contentwithstyle.co.uk//content/a-to-zee-with-p3p/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/a-to-zee-with-p3p/index.html"/>
       <updated>2005-09-22T07:08:50+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/a-to-zee-with-p3p/a-to-zee-with-p3p</id>
       <content type="html">&lt;h2&gt;The Situation&lt;/h2&gt;
@@ -7889,7 +7889,7 @@ If developers use &lt;a href=&quot;http://support.microsoft.com/default.aspx?sci
   
     <entry>
       <title>Processing the output buffer with XSLT</title>
-      <link href="http://github.contentwithstyle.co.uk//content/processing-the-output-buffer-with-xslt/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/processing-the-output-buffer-with-xslt/index.html"/>
       <updated>2005-07-24T18:07:12+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/processing-the-output-buffer-with-xslt/processing-the-output-buffer-with-xslt</id>
       <content type="html">&lt;h2&gt;The output buffer&lt;/h2&gt;
@@ -8061,7 +8061,7 @@ who use variables to pass html-content into XSL templates.
   
     <entry>
       <title>Fixing the Back Button and Enabling Bookmarking for AJAX Apps</title>
-      <link href="http://github.contentwithstyle.co.uk//content/fixing-the-back-button-and-enabling-bookmarking-for-ajax-apps/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/fixing-the-back-button-and-enabling-bookmarking-for-ajax-apps/index.html"/>
       <updated>2005-06-15T09:01:57+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/fixing-the-back-button-and-enabling-bookmarking-for-ajax-apps/fixing-the-back-button-and-enabling-bookmarking-for-ajax-apps</id>
       <content type="html">&lt;h2&gt;The problem&lt;/h2&gt;
@@ -8331,7 +8331,7 @@ function FixBackAndBookmarking() {
   
     <entry>
       <title>Database-driven tree structures with XML and XSLT</title>
-      <link href="http://github.contentwithstyle.co.uk//content/database-driven-tree-structures-with-xml-and-xslt/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/database-driven-tree-structures-with-xml-and-xslt/index.html"/>
       <updated>2005-06-13T20:56:43+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/database-driven-tree-structures-with-xml-and-xslt/database-driven-tree-structures-with-xml-and-xslt</id>
       <content type="html">&lt;p&gt;This article deals with the display of tree-structures that are driven by a database.
@@ -8539,7 +8539,7 @@ In my example, you can see that the &amp;#8220;page&amp;#8221; template is calli
   
     <entry>
       <title>MVC in smaller web applications</title>
-      <link href="http://github.contentwithstyle.co.uk//content/mvc-in-smaller-web-applications/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/mvc-in-smaller-web-applications/index.html"/>
       <updated>2005-06-07T15:57:04+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/mvc-in-smaller-web-applications/mvc-in-smaller-web-applications</id>
       <content type="html">&lt;h2&gt;The real world&lt;/h2&gt;
@@ -8594,7 +8594,7 @@ As with most things in modern digital life, sites are ever-changing, but the cod
   
     <entry>
       <title>Dynamic tables with XSLT</title>
-      <link href="http://github.contentwithstyle.co.uk//content/dynamic-tables-with-xslt/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/dynamic-tables-with-xslt/index.html"/>
       <updated>2005-06-01T09:08:30+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/dynamic-tables-with-xslt/dynamic-tables-with-xslt</id>
       <content type="html">&lt;h2&gt;Required knowledge&lt;/h2&gt;
@@ -8888,7 +8888,7 @@ As with most things in modern digital life, sites are ever-changing, but the cod
   
     <entry>
       <title>XML as intermediate application layer</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xml-as-intermediate-application-layer/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xml-as-intermediate-application-layer/index.html"/>
       <updated>2005-05-31T08:37:12+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xml-as-intermediate-application-layer/xml-as-intermediate-application-layer</id>
       <content type="html">&lt;h2&gt;Why bothering?&lt;/h2&gt;
@@ -9017,7 +9017,7 @@ since it would be quite a lot of code and still be platform specific.
   
     <entry>
       <title>A CSS Framework</title>
-      <link href="http://github.contentwithstyle.co.uk//content/a-css-framework/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/a-css-framework/index.html"/>
       <updated>2005-05-22T16:20:22+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/a-css-framework/a-css-framework</id>
       <content type="html">&lt;p&gt;In my &lt;a href=&quot;/Articles/12/modular-css/&quot;&gt;Modular CSS&lt;/a&gt; article I documented the possibility of breaking down stylesheets into components that could be reused across projects. All well and good. The next logical step is to extend this to become a CSS framework, allowing rapid development of sites with pre-written and tested components. All that's really required to produce this is a set of naming conventions and a flexible base template... &lt;/p&gt;
@@ -9162,7 +9162,7 @@ since it would be quite a lot of code and still be platform specific.
   
     <entry>
       <title>Find your node: Advanced XPATH commands</title>
-      <link href="http://github.contentwithstyle.co.uk//content/find-your-node-advanced-xpath-commands/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/find-your-node-advanced-xpath-commands/index.html"/>
       <updated>2005-05-21T11:49:00+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/find-your-node-advanced-xpath-commands/find-your-node-advanced-xpath-commands</id>
       <content type="html">&lt;h2&gt;XSLT and XPATH?&lt;/h2&gt;
@@ -9347,7 +9347,7 @@ xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&amp;gt;
   
     <entry>
       <title>XSL: the other way of styling up content</title>
-      <link href="http://github.contentwithstyle.co.uk//content/xsl-the-other-way-of-styling-up-content/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/xsl-the-other-way-of-styling-up-content/index.html"/>
       <updated>2005-05-21T11:24:14+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/xsl-the-other-way-of-styling-up-content/xsl-the-other-way-of-styling-up-content</id>
       <content type="html">&lt;h2&gt;Buzz-words&lt;/h2&gt;
@@ -9704,7 +9704,7 @@ xslt_free($my_xslt);
   
     <entry>
       <title>Modular CSS</title>
-      <link href="http://github.contentwithstyle.co.uk//content/modular-css/index.html"/>
+      <link href="http://github.contentwithstyle.co.uk/content/modular-css/index.html"/>
       <updated>2005-05-18T08:47:35+01:00</updated>
       <id>http://github.contentwithstyle.co.uk/content/modular-css/modular-css</id>
       <content type="html">&lt;p&gt;This isn't a new idea but looking at people's code it doesn't seem to be

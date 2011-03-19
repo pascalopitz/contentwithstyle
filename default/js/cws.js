@@ -71,3 +71,106 @@ CWS.DeliciousFeed = new function() {
 	    }
 	});                  
 };
+
+CWS.Search = new function() {
+    if(!window.Worker || !window.XMLHttpRequest || !window.openDatabase || !window.localStorage) {
+        console.log('not supported');
+        return false;
+    }
+
+    var Store = window.localStorage;
+    var db = openDatabase('atom_search', '1.0', 'indexed atom search', 2 * 1024 * 1024);
+
+    var client = new XMLHttpRequest();
+    client.open('HEAD', '/atom.xml', true);
+    client.setRequestHeader("Content-Type","text/xml; charset=utf-8");
+    client.send();
+    client.onreadystatechange = function() {
+        if(this.readyState == 2) {
+            var lastModified = this.getResponseHeader('Last-Modified');
+            var storeModified = Store.getItem('Atom-Last-Modified');
+            
+            if(storeModified && storeModified == lastModified) {
+                enableSearchForm();
+                return false;
+            }
+            
+            Store.setItem('Atom-Last-Modified', lastModified); 
+            db.transaction(function (tx) {
+                tx.executeSql('CREATE TABLE IF NOT EXISTS atom (link, title, content, updated)');
+                tx.executeSql('DELETE FROM atom');
+            });
+
+            var indexer = new Worker('/default/js/search_indexer.js');
+            indexer.onmessage = function(e) {
+                if(e.data.result) {
+                    var obj = e.data.result;
+                    db.transaction(function (tx) {
+                        var sql = 'INSERT INTO atom (link, title, content, updated) VALUES ("'+obj.link+'", "'+obj.title+'", "'+obj.content+'", "'+obj.updated+'")';
+                        tx.executeSql(sql);
+                    });
+                } else if(e.data.done) {
+                    console.log('done', e.data);
+                    enableSearchForm();
+                } else if(e.error) {
+                    console.log('error', e.data);
+                    Store.removeItem('Atom-Last-Modified'); 
+                } else {
+                    console.log('debug', e.data);
+                }
+            };
+        }
+    };
+    
+    function renderResults(results) {
+        $('.main-col').css('opacity', .2);
+        
+        var str = '';
+
+        if(results.length == 0) {
+            str = '<div class="article"><h2>No results</h2></div>';
+        } else {
+            if(results.length == 1) {
+                str += '<p>1 Result</p>';
+            } else {
+                str += '<p>'+results.length+' Results</p>';
+            }
+            
+            for(i=0; i<results.length; i++) {
+                str += '<div class="article">';
+                str += '<h2><a href="'+results[i].link+'">' + results[i].title + '</a></h2>';
+                str += '<p class="links clearfix">';
+                str +='<a href="'+results[i].link+'" class="article-link">Read Article</a>';
+                str += '</p>';
+                str += '</div>';
+            }
+        }
+        
+        $('.main-col').html(str).css('opacity', 1);
+    };
+    
+    function enableSearchForm() {
+        $.get('/search.html', function(data) {
+            var form = $(data);
+            $('.header').append(form);
+            $(form).bind('submit', function() {
+                var val = $(form).find('input[type=text]').val();
+                if(val) {
+                    var results = [];
+                    
+                    db.transaction(function (tx) {
+                        val = val.replace(';', '');
+                        tx.executeSql("SELECT link, title, content FROM atom WHERE title LIKE '%"+val+"%' OR content LIKE '%"+val+"%'", [], function(tx, rs) {
+                            for(i=0; i<rs.rows.length; i++) {
+                                results.push(rs.rows.item(i));
+                            }
+                            renderResults(results);
+                        });
+                    });
+                }
+                return false;
+            });
+        });
+        console.log('enable search');
+    }
+};
