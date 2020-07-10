@@ -93,36 +93,36 @@ yes, the whole blog is running on Zend Framework.
 </p>
 
 <code>
-require_once(\'Zend/Loader.php\');
-Zend_Loader::loadClass(\'Zend_Cache\');
-Zend_Loader::loadClass(\'Zend_Config_Ini\');
-Zend_Loader::loadClass(\'Zend_Controller_Front\');
-Zend_Loader::loadClass(\'Zend_Controller_Router_Rewrite\');
-Zend_Loader::loadClass(\'Zend_Session_Namespace\');
-Zend_Loader::loadClass(\'Zend_Http_Cookie\');
-Zend_Loader::loadClass(\'Zend_Db\');
-Zend_Loader::loadClass(\'Zend_Feed_Rss\');
-Zend_Loader::loadClass(\'Zend_Layout\');
-Zend_Loader::loadClass(\'Zend_Registry\');
-Zend_Loader::loadClass(\'Zend_Mail\');
-Zend_Loader::loadClass(\'Zend_Mail_Transport_Smtp\');
-Zend_Loader::loadClass(\'Zend_Log\');
-Zend_Loader::loadClass(\'Zend_Log_Exception\');
-Zend_Loader::loadClass(\'Zend_Log_Writer_Stream\');
-Zend_Loader::loadClass(\'Zend_Json\');
-Zend_Loader::loadClass(\'Zend_Http_Client\');
-Zend_Loader::loadClass(\'Zend_Service_Twitter\');
-Zend_Loader::loadClass(\'Zend_XmlRpc_Client\');
+require_once('Zend/Loader.php');
+Zend_Loader::loadClass('Zend_Cache');
+Zend_Loader::loadClass('Zend_Config_Ini');
+Zend_Loader::loadClass('Zend_Controller_Front');
+Zend_Loader::loadClass('Zend_Controller_Router_Rewrite');
+Zend_Loader::loadClass('Zend_Session_Namespace');
+Zend_Loader::loadClass('Zend_Http_Cookie');
+Zend_Loader::loadClass('Zend_Db');
+Zend_Loader::loadClass('Zend_Feed_Rss');
+Zend_Loader::loadClass('Zend_Layout');
+Zend_Loader::loadClass('Zend_Registry');
+Zend_Loader::loadClass('Zend_Mail');
+Zend_Loader::loadClass('Zend_Mail_Transport_Smtp');
+Zend_Loader::loadClass('Zend_Log');
+Zend_Loader::loadClass('Zend_Log_Exception');
+Zend_Loader::loadClass('Zend_Log_Writer_Stream');
+Zend_Loader::loadClass('Zend_Json');
+Zend_Loader::loadClass('Zend_Http_Client');
+Zend_Loader::loadClass('Zend_Service_Twitter');
+Zend_Loader::loadClass('Zend_XmlRpc_Client');
 </code>
 
 <p>
 This is part of our bootstrap file.
-We\'re making heavy use of the MVC implementation.
+We're making heavy use of the MVC implementation.
 Behind the scenes, elsewhere is coming from delicious, but also the admin tool is talking to various services to ping sitemaps, technorati, performing XHTML validations and so on.
 </p>
 
 <p>
-Cache wise I wanted to got for Zend_Cache_Frontend_Page, but couldn\'t get it to work at all. Instead I wrote two plugins, a cache reader and a cache writer, that implement caching through Zend_Cache_Core. Close control enables me to serve 304s but not cache AJAX pages.
+Cache wise I wanted to got for Zend_Cache_Frontend_Page, but couldn't get it to work at all. Instead I wrote two plugins, a cache reader and a cache writer, that implement caching through Zend_Cache_Core. Close control enables me to serve 304s but not cache AJAX pages.
 </p>
 
 <p>

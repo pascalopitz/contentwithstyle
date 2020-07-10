@@ -186,17 +186,17 @@ I have this:
 
 <pre><code>
 $mockReturn = array();
-$mockReturn[\'request\'] = \'/account/verify_credentials.xml\';
-$mockReturn[\'error\'] = \'Could not authenticate you.\';
+$mockReturn['request'] = '/account/verify_credentials.xml';
+$mockReturn['error'] = 'Could not authenticate you.';
 
-$stub = $this-&gt;getMock(\'Zend_Service_Twitter\', array(\'verifyCredentials\'),array(),\'\',FALSE);
+$stub = $this-&gt;getMock('Zend_Service_Twitter', array('verifyCredentials'),array(),'',FALSE);
 
  $stub-&gt;expects($this-&gt;once())
-              -&gt;method(\'verifyCredentials\')
+              -&gt;method('verifyCredentials')
               -&gt;will($this-&gt;returnValue($mockReturn));
 
-$model = new Twitter_Model_Twitter(array(\'username\'=&gt;\'test\',\'password\'=&gt;\'passwd\'));
-$model-&gt;setOptions(array(\'twitter\'=&gt;$stub));
+$model = new Twitter_Model_Twitter(array('username'=&gt;'test','password'=&gt;'passwd'));
+$model-&gt;setOptions(array('twitter'=&gt;$stub));
 
 $posts = $model-&gt;verifyCredentials();
 $this-&gt;assertEquals($posts, $mockReturn);
@@ -261,13 +261,13 @@ When my Twitter_Model_Twitter looks like this:
 </p>
 </li>
 <li class="even" id="comment-6603">
-<div class="comment-text"><p>Wenbert, it looks to me like the twitter object doesn\'t swap properly in your model. If I was you I\'d var_dump the model after I injected the mock object, to verify what\'s going on, and take it from there.</p>
+<div class="comment-text"><p>Wenbert, it looks to me like the twitter object doesn't swap properly in your model. If I was you I'd var_dump the model after I injected the mock object, to verify what's going on, and take it from there.</p>
 
-<p>Also I\'d have a close look at what exactly you are doing in $model->setOptions. Refer to the code above, there it\'s called $model->setProperty. Does this successfully alter the property? Again a var_dump before and after the replacement will probably show this.</p>
+<p>Also I'd have a close look at what exactly you are doing in $model->setOptions. Refer to the code above, there it's called $model->setProperty. Does this successfully alter the property? Again a var_dump before and after the replacement will probably show this.</p>
 
-<p>If this part works, you\'ll probably have to check whether you overwrite the \'twitter\' property later on.</p>
+<p>If this part works, you'll probably have to check whether you overwrite the 'twitter' property later on.</p>
 
-<p>Finally I\'d recommend you an HTTP tracker like HTTPScoop to see what requests your machine does to the outside. It helps to have a close eye on the HTTP traffic when working with web services.</p>
+<p>Finally I'd recommend you an HTTP tracker like HTTPScoop to see what requests your machine does to the outside. It helps to have a close eye on the HTTP traffic when working with web services.</p>
 
 <p>Good luck!</p></div>
 <p class="comment-info">by

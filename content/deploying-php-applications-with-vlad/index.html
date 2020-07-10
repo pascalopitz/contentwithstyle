@@ -262,8 +262,8 @@ To release a new version:</p>
     <h2>Comments</h2>
     <ul class="comments-list">
         <li class="odd" id="comment-6039">
-<div class="comment-text"><p>Jason, there\'s definitely a bunch of extra coding and debugging in this approach, but it\'s a matter of write once and use in all eternity.</p>
-<p>If your sites are updated rarely, or with big anticipation, a deployment tool is a bit of an anti-climax: 5 seconds to open a shell and cd\'ing your way to the project, then run the deployment one-liner. On the other hand I deploy something every week, and I want this to take as little time as possible.<p>
+<div class="comment-text"><p>Jason, there's definitely a bunch of extra coding and debugging in this approach, but it's a matter of write once and use in all eternity.</p>
+<p>If your sites are updated rarely, or with big anticipation, a deployment tool is a bit of an anti-climax: 5 seconds to open a shell and cd'ing your way to the project, then run the deployment one-liner. On the other hand I deploy something every week, and I want this to take as little time as possible.<p>
 <p>There are other benefits, as Pascal said, some projects need more tasks for deployment than others.</p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on May 11 2009, 11:54 <a href="#comment-6039">#</a>
@@ -280,9 +280,9 @@ To release a new version:</p>
 <li>Deploy to multiple server instances</li>
 </ul>
 
-<p>Also keep in mind that in an agile environment one might have to deploy ten times a day onto a test platform, in order to give the testers access to the latest changes. Even if it\'s just the same zipping up, ssh-ing into the server, unzipping, changing two variables ... it\'s going to get annoying pretty fast.</p>
+<p>Also keep in mind that in an agile environment one might have to deploy ten times a day onto a test platform, in order to give the testers access to the latest changes. Even if it's just the same zipping up, ssh-ing into the server, unzipping, changing two variables ... it's going to get annoying pretty fast.</p>
 
-<p>Last but not least it\'s worth mentioning that VLAD is just one flavour of tool, and there are other choices like <a href=\"http://ant.apache.org/\">ANT</a>, <a href=\"http://phing.info/trac/\">PHING</a> or even a straight forward good old shell script</p>
+<p>Last but not least it's worth mentioning that VLAD is just one flavour of tool, and there are other choices like <a href="http://ant.apache.org/">ANT</a>, <a href="http://phing.info/trac/">PHING</a> or even a straight forward good old shell script</p>
 
 
 </div>
@@ -300,49 +300,49 @@ Nuno Gomes on May 12 2009, 11:05 <a href="#comment-6049">#</a>
 </p>
 </li>
 <li class="even" id="comment-6050">
-<div class="comment-text"><p>Do you know this other deployment tool for web applications, <a href=\"http://code.google.com/p/fredistrano/\">Fredistrano</a>?</p></div>
+<div class="comment-text"><p>Do you know this other deployment tool for web applications, <a href="http://code.google.com/p/fredistrano/">Fredistrano</a>?</p></div>
 <p class="comment-info">by
 <a href="http://www.fbollon.net" rel="nofollow">Fred</a> on May 12 2009, 12:17 <a href="#comment-6050">#</a>
 </p>
 </li>
 <li class="odd" id="comment-6051">
-<div class="comment-text">Ha, Fredistrano is definitely a good name. I\'ll have to check it out at some point.
+<div class="comment-text">Ha, Fredistrano is definitely a good name. I'll have to check it out at some point.
 <br /><br />
 @Nuno Gomes: This post was about the basics, wait for the next one for some more customization including the possibility to tag your release. I took a lot of stuff out of this example, because getting to this point thoroughly.
 <br />
-I don\'t need any data integrity checks for my purposes, so I guess I\'ll have to invest some time in a good example. Let\'s see.</div>
+I don't need any data integrity checks for my purposes, so I guess I'll have to invest some time in a good example. Let's see.</div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on May 12 2009, 14:55 <a href="#comment-6051">#</a>
 </p>
 </li>
 <li class="even" id="comment-6034">
-<div class="comment-text"><p>I\'m very new to developing PHP applications, so I don\'t quite follow the benefit of deployment tools as you\'ve discussed. I figured it was just as simple as what you had stated at the very beginning of your article. I mean, zip up the directory structures, unzip them onto the server and change 2 config variables to make it function. That\'s pretty simple in itself... so learning and writing all the code you\'ve provided seems like a bunch of extra coding/debugging. I\'ve picked up writing code on my own as a hobby, so I am very interested in common/standard practices done by professional programmers and developers. I\'m very interested in anything you may have to share in response. Thanks.</p></div>
+<div class="comment-text"><p>I'm very new to developing PHP applications, so I don't quite follow the benefit of deployment tools as you've discussed. I figured it was just as simple as what you had stated at the very beginning of your article. I mean, zip up the directory structures, unzip them onto the server and change 2 config variables to make it function. That's pretty simple in itself... so learning and writing all the code you've provided seems like a bunch of extra coding/debugging. I've picked up writing code on my own as a hobby, so I am very interested in common/standard practices done by professional programmers and developers. I'm very interested in anything you may have to share in response. Thanks.</p></div>
 <p class="comment-info">by
 Jason on May 10 2009, 01:54 <a href="#comment-6034">#</a>
 </p>
 </li>
 <li class="odd" id="comment-6885">
-<div class="comment-text"><p>I experienced the same problem with \'clear_tasks\' not being defined.  To get around this, I put this code in my Rakefile:</p>
+<div class="comment-text"><p>I experienced the same problem with 'clear_tasks' not being defined.  To get around this, I put this code in my Rakefile:</p>
 
 
 <pre><code>
 module Rake
   def self.remove_task(task_name)
-    Rake.application.instance_variable_get(\'@tasks\').delete(task_name.to_s)
+    Rake.application.instance_variable_get('@tasks').delete(task_name.to_s)
   end
 end
 
-Rake.remove_task(\'vlad:update_symlinks\')
+Rake.remove_task('vlad:update_symlinks')
 </code></pre></div>
 <p class="comment-info">by
 Thomas Albright on September 5 2009, 00:52 <a href="#comment-6885">#</a>
 </p>
 </li>
 <li class="even" id="comment-6632">
-<div class="comment-text">Aaaand if you\'ve arrived in the comment section because above throws this error:<br />
-undefined method `clear_tasks\' for Rake:Module<br />
-then time has thrown a spanner in the works: I\'ve only been able to resolve this so far by explicitely installing vlad 1.3.2 (as opposed to the now current 1.4.0).<br /><br />
-I get the feeling this isn\'t the end of it, as the message clearly blames rake not vlad, but I\'m investigating. If you\'ve got any pointers, leave them here in a comment.</div>
+<div class="comment-text">Aaaand if you've arrived in the comment section because above throws this error:<br />
+undefined method `clear_tasks' for Rake:Module<br />
+then time has thrown a spanner in the works: I've only been able to resolve this so far by explicitely installing vlad 1.3.2 (as opposed to the now current 1.4.0).<br /><br />
+I get the feeling this isn't the end of it, as the message clearly blames rake not vlad, but I'm investigating. If you've got any pointers, leave them here in a comment.</div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on August 14 2009, 12:14 <a href="#comment-6632">#</a>
 </p>
@@ -350,22 +350,22 @@ I get the feeling this isn\'t the end of it, as the message clearly blames rake 
 <li class="odd" id="comment-9007">
 <div class="comment-text">Oh how annoying:<br />
 I get pinged on so many posts with spam, but the 2 interesting ones I seem to have not seen or not received.
-Dan, Thomas, thanks for this, I\'ll have a look at it.</div>
+Dan, Thomas, thanks for this, I'll have a look at it.</div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on November 11 2010, 08:29 <a href="#comment-9007">#</a>
 </p>
 </li>
 <li class="even" id="comment-8988">
-<div class="comment-text"><p>Regarding the \'clear_tasks\' issue, this is from the Vlad FAQ:</p>
+<div class="comment-text"><p>Regarding the 'clear_tasks' issue, this is from the Vlad FAQ:</p>
 
-<p>\"NOTE: Rake.clear_tasks was moved to Hoe so it could be used more generally.\"</p>
+<p>"NOTE: Rake.clear_tasks was moved to Hoe so it could be used more generally."</p>
 <code>
-  require \'hoe/rake\'<br/>
+  require 'hoe/rake'<br/>
   <br/>
   namespace :vlad do<br/>
     # Clear existing update task so that we can redefine instead of<br/>
     # adding to it.<br/>
-    Rake.clear_tasks(\'vlad:update\') <br/>
+    Rake.clear_tasks('vlad:update') <br/>
   <br/>
     remote_task :update, :roles => :app do<br/>
       #custom update stuff<br/>
@@ -378,9 +378,9 @@ Dan Blaker on November 8 2010, 14:51 <a href="#comment-8988">#</a>
 </li>
 <li class="odd" id="comment-9089">
 <div class="comment-text"><p>Hurrah, <br />
-Dan\'s approach works just fine. my setup was all mangled up so I did this: <br />
+Dan's approach works just fine. my setup was all mangled up so I did this: <br />
 - sudo port selfupdate <br />
-- sudo port upgrade ruby19 (it was already installed, otherwise it\'d be sudo port install ruby19). This already contains a fairly new version of gem <br />
+- sudo port upgrade ruby19 (it was already installed, otherwise it'd be sudo port install ruby19). This already contains a fairly new version of gem <br />
 - sudo port install rb19-hoe <br />
 - sudo gem update --system <br />
 - sudo gem install vlad <br /> <br />

@@ -80,7 +80,7 @@ if(empty($argv[1])) {
 
 function get_key($str, $prefix) {
   $key = str_replace(' ', '_', strtolower($str));
-  $key = preg_replace('/[\\:\\.\\,\\!\\?]{0,}/', '', $key);
+  $key = preg_replace('/[\:\.\,\!\?]{0,}/', '', $key);
   $prefix = $GLOBALS['prefix'];
   return $prefix.$key;
 }
@@ -106,7 +106,7 @@ $contents = file_get_contents($file);
 copy($file, $file.'.bak');
 
 // reg exp to find all text in between tags
-$pattern = '/&lt;([\\w \\=\\%\\"\\(\\)\\\'\\:]+)&gt;([\\w\\s\\:\\.\\,\\!\\?_-]+)&lt;\\/([\\w]+)&gt;/';
+$pattern = '/&lt;([\w \=\%\"\(\)\'\:]+)&gt;([\w\s\:\.\,\!\?_-]+)&lt;\/([\w]+)&gt;/';
 
 // replace with translation calls
 $translated = preg_replace_callback($pattern, 'key_replace', $contents);

@@ -110,7 +110,7 @@ function checkBrowserCache($identifier, $last_modified) {
     <h2>Comments</h2>
     <ul class="comments-list">
         <li class="odd" id="comment-5207">
-<div class="comment-text"><p>This <a href=\"http://code.google.com/p/minify/source/browse/trunk/min/lib/HTTP/ConditionalGet.php\">class</a> in use in Minify may be handy. It does not use <code>apache_request_headers()</code> so it may not work w/o a little modification, but it\'s pretty well tested.</p></div>
+<div class="comment-text"><p>This <a href="http://code.google.com/p/minify/source/browse/trunk/min/lib/HTTP/ConditionalGet.php">class</a> in use in Minify may be handy. It does not use <code>apache_request_headers()</code> so it may not work w/o a little modification, but it's pretty well tested.</p></div>
 <p class="comment-info">by
 <a href="http://mrclay.org/" rel="nofollow">Steve Clay</a> on January 1 2009, 22:30 <a href="#comment-5207">#</a>
 </p>
@@ -119,7 +119,7 @@ function checkBrowserCache($identifier, $last_modified) {
 <div class="comment-text"><p>Thanks Steve. </p>
 
 <p>
-I am still trying to find out why the $_SERVER array doesn\'t return the values that everyone else seems to be using. Is there a setting that needs to be compiled into apache or PHP?
+I am still trying to find out why the $_SERVER array doesn't return the values that everyone else seems to be using. Is there a setting that needs to be compiled into apache or PHP?
 <br />
 Any ideas anyone? I am using MAMP as ell as CPANEL based hosting on CentOS. Apache 2 and PHP 5.
 </p></div>
@@ -128,13 +128,13 @@ Any ideas anyone? I am using MAMP as ell as CPANEL based hosting on CentOS. Apac
 </p>
 </li>
 <li class="odd" id="comment-5215">
-<div class="comment-text"><p>maybe $_SERVER only returns this value when register_globals is on? This is suggested in <a href=\"http://www.phpbuilder.com/board/archive/index.php/t-10345474.html\">this phpbuilder forum thread</a>. I know, it doesn\'t sound right.</p>
+<div class="comment-text"><p>maybe $_SERVER only returns this value when register_globals is on? This is suggested in <a href="http://www.phpbuilder.com/board/archive/index.php/t-10345474.html">this phpbuilder forum thread</a>. I know, it doesn't sound right.</p>
 
-<p>They also suggest to use getenv(\"HTTP_IF_MODIFIED_SINCE\").</p>
+<p>They also suggest to use getenv("HTTP_IF_MODIFIED_SINCE").</p>
 
-<p>Otherwise I can\'t see anything wrong with this, other than the fact that your sources are 3 and 5 years old. Maybe some apache and/or php  setting has changed since.</p>
+<p>Otherwise I can't see anything wrong with this, other than the fact that your sources are 3 and 5 years old. Maybe some apache and/or php  setting has changed since.</p>
 
-<p>Regarding your double-request in firefox: did you try turning off firebug? I\'ve had double requests (in cached/uncached pairs) because of it in the past. </p></div>
+<p>Regarding your double-request in firefox: did you try turning off firebug? I've had double requests (in cached/uncached pairs) because of it in the past. </p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on January 4 2009, 00:07 <a href="#comment-5215">#</a>
 </p>

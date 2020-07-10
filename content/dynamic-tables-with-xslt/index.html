@@ -360,8 +360,8 @@ Depending on which PHP version and platform you&#8217;re using it might be necce
 <br />
 <pre><code>
 //filepath on windows
-$xml = 'file://' . str_replace("\\", "/", getcwd()) . "/data.xml";
-$xsl = 'file://' . str_replace("\\", "/", getcwd()) . "/example.xsl";
+$xml = 'file://' . str_replace("\", "/", getcwd()) . "/data.xml";
+$xsl = 'file://' . str_replace("\", "/", getcwd()) . "/example.xsl";
 
 //process the file and echo the result
 echo xslt_process($my_xslt,$xml,$xsl,NULL,array(),$arguments);
@@ -471,7 +471,7 @@ casey on September 10 2008, 23:31 <a href="#comment-3838">#</a>
 </p>
 </li>
 <li class="even" id="comment-8926">
-<div class="comment-text">When I click the \"You can view the output here\" link, or the link \"You can view the transformed output here\", it gives the error:
+<div class="comment-text">When I click the "You can view the output here" link, or the link "You can view the transformed output here", it gives the error:
 
 Fatal error: Call to undefined function xslt_create() in /home/cws/public_html/resources/xsl_tables/simple_table/transform.php on line 3</div>
 <p class="comment-info">by

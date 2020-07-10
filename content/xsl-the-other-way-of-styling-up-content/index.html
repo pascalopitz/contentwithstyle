@@ -445,10 +445,10 @@ Just to remind everyone that this article was written when PHP4 was still on. Wi
 
 <pre><code>
 $xmlDoc = new DOMDocument();
-$xmlDoc->load(\'file.xml\');
+$xmlDoc->load('file.xml');
 
 $xslDoc = new DOMDocument();
-$xslDoc->load(\'stylesheet.xsl\');
+$xslDoc->load('stylesheet.xsl');
 
 $proc = new XSLTProcessor();
 $proc->importStylesheet($xslDoc);

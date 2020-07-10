@@ -173,18 +173,18 @@ Daniel Alvarez on May 27 2009, 22:54 <a href="#comment-6143">#</a>
 </p>
 </li>
 <li class="even" id="comment-5970">
-<div class="comment-text"><p>What I did to fix my issues with the second test\'s errors:</p>
+<div class="comment-text"><p>What I did to fix my issues with the second test's errors:</p>
 
 <pre><code>
 public function setUp()
 {
-    $this-&gt;bootstrap = array($this, \'appBootstrap\');
+    $this-&gt;bootstrap = array($this, 'appBootstrap');
     parent::setUp();
 }
 
 public function appBootstrap()
 {
-    require dirname(__FILE__) . \'/../test-bootstrap.php\';
+    require dirname(__FILE__) . '/../test-bootstrap.php';
 }
 
 public function tearDown()
@@ -195,7 +195,7 @@ public function tearDown()
 }
 </code></pre>
 
-<p>The reason the problem was occuring was that test-bootstrap.php defined the default module in FrontController setControllerDir or something like that. I used to have require_once, but then for subsequent requests the bootstrap wasn\'t being reevaluated... which led to no default module being defined. In my tearDown I resetRequest and resetResponse for good measure.</p></div>
+<p>The reason the problem was occuring was that test-bootstrap.php defined the default module in FrontController setControllerDir or something like that. I used to have require_once, but then for subsequent requests the bootstrap wasn't being reevaluated... which led to no default module being defined. In my tearDown I resetRequest and resetResponse for good measure.</p></div>
 <p class="comment-info">by
 Brian Hazzard on April 28 2009, 17:38 <a href="#comment-5970">#</a>
 </p>
@@ -203,15 +203,15 @@ Brian Hazzard on April 28 2009, 17:38 <a href="#comment-5970">#</a>
 <li class="odd" id="comment-5947">
 <div class="comment-text"><p>I have the same issue as Arne:</p>
 
-<p>the first test will pass or fail as expected, but if I add a second test I get the error \"no default module defined for this application\".</p>
+<p>the first test will pass or fail as expected, but if I add a second test I get the error "no default module defined for this application".</p>
 <p>
-On another note... I had a separate issue using Zend_Test to test controllers where any of the Zend assertions would throw the error <code>\"undefined method: incrementAssertionCounter()\"</code> or something to that effect. In case someone else that stumbles across here is having the same issue... I was able to track it down to an issue with PHPUnit 3.3.3 and after rolling back to 3.3.16 everything works fine. There is a ticket for this issue on the ZF Issue Tracker at <a href=\"http://framework.zend.com/issues/browse/ZF-4839\">http://framework.zend.com/issues/browse/ZF-4839</a></p></div>
+On another note... I had a separate issue using Zend_Test to test controllers where any of the Zend assertions would throw the error <code>"undefined method: incrementAssertionCounter()"</code> or something to that effect. In case someone else that stumbles across here is having the same issue... I was able to track it down to an issue with PHPUnit 3.3.3 and after rolling back to 3.3.16 everything works fine. There is a ticket for this issue on the ZF Issue Tracker at <a href="http://framework.zend.com/issues/browse/ZF-4839">http://framework.zend.com/issues/browse/ZF-4839</a></p></div>
 <p class="comment-info">by
 Brian Hazzard on April 24 2009, 14:38 <a href="#comment-5947">#</a>
 </p>
 </li>
 <li class="even" id="comment-5949">
-<div class="comment-text"><p>I encountered issues for testing a controller that displays form with captchas - <a href=\"http://ossigeno.sourceforge.net/blog/content/article/zend-test-and-captchas\">so I wrote an article to help</a>.</p>
+<div class="comment-text"><p>I encountered issues for testing a controller that displays form with captchas - <a href="http://ossigeno.sourceforge.net/blog/content/article/zend-test-and-captchas">so I wrote an article to help</a>.</p>
 <p>
 Regards...</p></div>
 <p class="comment-info">by
@@ -221,7 +221,7 @@ Regards...</p></div>
 <li class="odd" id="comment-5956">
 <div class="comment-text"><p>Hi Folks,</p>
 
-<p>i\'ve found the error, or better the mistake.</p>
+<p>i've found the error, or better the mistake.</p>
 <p>
 There were some missing Action_Plugins / View_Helper and other stuff. The Zend_Controller_Testcase is not throwing exceptions or such stuff.</p>
 <p>
@@ -240,7 +240,7 @@ error_log(var_export($x));
 <li class="even" id="comment-5893">
 <div class="comment-text">Hi,
 
-it works fine, till iam trying to setup a second testCase, than i recieve the error \" no default module .. \" any suggestions ?</div>
+it works fine, till iam trying to setup a second testCase, than i recieve the error " no default module .. " any suggestions ?</div>
 <p class="comment-info">by
 <a href="http://www.limespace.de" rel="nofollow">Arne</a> on April 19 2009, 13:07 <a href="#comment-5893">#</a>
 </p>
@@ -253,9 +253,9 @@ Maybe set the controller directory in the appBootstrap function:
 
 <pre><code>
 public function appBootstrap() {
-  require_once(\'/my/bootstrap.php\');
-  $this-&gt;frontController-&gt;setControllerDirectory(\'/my/path/\', \'default\');
-  $this-&gt;frontController-&gt;addModuleDirectory(\'/path/modules\');
+  require_once('/my/bootstrap.php');
+  $this-&gt;frontController-&gt;setControllerDirectory('/my/path/', 'default');
+  $this-&gt;frontController-&gt;addModuleDirectory('/path/modules');
 }
 </code></pre>
 </div>
@@ -264,7 +264,7 @@ public function appBootstrap() {
 </p>
 </li>
 <li class="even" id="comment-6388">
-<div class="comment-text">Bootstrapping changed in ZF 1.8, and they also took down the deprecated quickstart guide. <a href=\"http://framework.zend.com/manual/en/zend.application.quick-start.html#zend.application.quick-start.manual\">Here is the new one</a>, but it\'s slightly different.</div>
+<div class="comment-text">Bootstrapping changed in ZF 1.8, and they also took down the deprecated quickstart guide. <a href="http://framework.zend.com/manual/en/zend.application.quick-start.html#zend.application.quick-start.manual">Here is the new one</a>, but it's slightly different.</div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on July 16 2009, 14:17 <a href="#comment-6388">#</a>
 </p>
@@ -272,10 +272,10 @@ public function appBootstrap() {
 <li class="odd" id="comment-6384">
 <div class="comment-text">Hi,
 
-The link <a href=\"http://framework.zend.com/docs/quickstart/create-a-bootstrap-file\">move things into an include file</a> is dead (which is a shame, since I can\'t get my controller\'s unit tests to work since the beginning of my project, 2 months ago...).
-I looked for \"create a bootstrap file\" in the site\'s search engine (in the to-right corner) but didn\'t find anything at the 5th page, so I gave up.
+The link <a href="http://framework.zend.com/docs/quickstart/create-a-bootstrap-file">move things into an include file</a> is dead (which is a shame, since I can't get my controller's unit tests to work since the beginning of my project, 2 months ago...).
+I looked for "create a bootstrap file" in the site's search engine (in the to-right corner) but didn't find anything at the 5th page, so I gave up.
 
-I\'ll try to make your exemlpe work on my architecture, though :)</div>
+I'll try to make your exemlpe work on my architecture, though :)</div>
 <p class="comment-info">by
 andy_b_84 on July 15 2009, 13:50 <a href="#comment-6384">#</a>
 </p>
@@ -287,9 +287,9 @@ andy_b_84 on July 15 2009, 13:50 <a href="#comment-6384">#</a>
 </p>
 </li>
 <li class="odd" id="comment-8779">
-<div class="comment-text"><p>I\'ve set up my testsuite just fine and everything seems to be working properly. Any one test I use evaluates perfectly fine.</p>
+<div class="comment-text"><p>I've set up my testsuite just fine and everything seems to be working properly. Any one test I use evaluates perfectly fine.</p>
 
-<p>But once I add a second test to any test-class (e.g. IndexControllerTest) I\'m getting an \"Undefined Index: demo\" error regardless of the second tests content. (even if it\'s an empty method/function)</p>
+<p>But once I add a second test to any test-class (e.g. IndexControllerTest) I'm getting an "Undefined Index: demo" error regardless of the second tests content. (even if it's an empty method/function)</p>
 
 <p>The same is true for any subsequent test I add to the test class.</p>
 

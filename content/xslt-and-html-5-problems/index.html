@@ -113,7 +113,7 @@ This is not a problem though, as the old meta tag in its encoding state is a val
         <li class="odd" id="comment-4882">
 <div class="comment-text">You just bumped into the idiotic decision of making HTML5 *not* XML. If it were XML, no doctype would be needed, as the XML namespace would take care of identifying the actual standard the markup is on.
 
-My own home-baked solution to the problem is to post-process the XSLT result and insert the doctype \"manually\". It\'s not pretty.</div>
+My own home-baked solution to the problem is to post-process the XSLT result and insert the doctype "manually". It's not pretty.</div>
 <p class="comment-info">by
 Sérgio Carvalho on December 9 2008, 20:59 <a href="#comment-4882">#</a>
 </p>
@@ -146,15 +146,15 @@ Now I gotta say, none of these options makes me happy, but I guess inline js is 
 </p>
 
 <p>
-It\'s a bit weird though, that XSLT parsers don\'t give you that control over the meta tag that defines the output encoding.
+It's a bit weird though, that XSLT parsers don't give you that control over the meta tag that defines the output encoding.
 </p>
 
 <p>
-I can \'hack\' the doctype thing by using CDATA and xsl:text, and the doctype only comes up when it is defined in the output element. But forcefully insert the meta tag, even though the output node hasn\'t got encoding specified? That\'s just plain weird, and leaves wishes for some flag to be available in the processor, to turn that off.
+I can 'hack' the doctype thing by using CDATA and xsl:text, and the doctype only comes up when it is defined in the output element. But forcefully insert the meta tag, even though the output node hasn't got encoding specified? That's just plain weird, and leaves wishes for some flag to be available in the processor, to turn that off.
 </p>
 
 <p>
-I had a look at the libXSL mailing lists though, and couldn\'t find anything that would let me do that. XSL pros: Is there a way to fine tune libXSLT?</p><p>Finally, to whether or not it was stupid to make HTML 5 not an XML derivative: <a href=\"http://www.w3.org/QA/2008/01/html5-is-html-and-xml.html\">There is a serialization of HTML 5 that is XML, but is has to be served with the content type application/xhtml+xml</a>. As with XHTML 1, <a href=\"http://hixie.ch/advocacy/xhtml\">some people consider it harmful, if it\'s served with content type text/html</a>.
+I had a look at the libXSL mailing lists though, and couldn't find anything that would let me do that. XSL pros: Is there a way to fine tune libXSLT?</p><p>Finally, to whether or not it was stupid to make HTML 5 not an XML derivative: <a href="http://www.w3.org/QA/2008/01/html5-is-html-and-xml.html">There is a serialization of HTML 5 that is XML, but is has to be served with the content type application/xhtml+xml</a>. As with XHTML 1, <a href="http://hixie.ch/advocacy/xhtml">some people consider it harmful, if it's served with content type text/html</a>.
 </p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 9 2008, 21:17 <a href="#comment-4883">#</a>
@@ -163,33 +163,33 @@ I had a look at the libXSL mailing lists though, and couldn\'t find anything tha
 <li class="odd" id="comment-4885">
 <div class="comment-text">Pascal,
 
-I *think* the auto-meta thing is just a PHP XSLT thing? I don\'t recall seeing it in other XSLT processors I have tried (but it has also been a while since I used output=html which I assume you are doing?).
+I *think* the auto-meta thing is just a PHP XSLT thing? I don't recall seeing it in other XSLT processors I have tried (but it has also been a while since I used output=html which I assume you are doing?).
 
 Can the doctype be output using just the public doctype part of the xsl output element?
 
-XSLT 2 specs came out a while ago so aren\'t aware of html5, else xsl:output method=\"html5\" would solve everything. XSLT 2.1 anyone?</div>
+XSLT 2 specs came out a while ago so aren't aware of html5, else xsl:output method="html5" would solve everything. XSLT 2.1 anyone?</div>
 <p class="comment-info">by
 <a href="http://www.onenaught.com" rel="nofollow">Anup</a> on December 10 2008, 11:09 <a href="#comment-4885">#</a>
 </p>
 </li>
 <li class="even" id="comment-4886">
 <div class="comment-text"><p>
-Anup, the forceful generation of the meta tag, that\'s something libXSL does. PHP merely acts as a proxy.
+Anup, the forceful generation of the meta tag, that's something libXSL does. PHP merely acts as a proxy.
 </p>
 
 <pre><code>
 bash$ xsltproc xslt/client/main.xsl my_data.xml | grep UTF
-&lt;meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"&gt;</code></pre>
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;</code></pre>
 
 <p>Here is the output tag I used in XSL:</p>
 
-<pre><code>&lt;xsl:output omit-xml-declaration=\"yes\" method=\"html\" /&gt;</code></pre></div>
+<pre><code>&lt;xsl:output omit-xml-declaration="yes" method="html" /&gt;</code></pre></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 10 2008, 12:55 <a href="#comment-4886">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4890">
-<div class="comment-text">Ah, yes, that\'s right. Thanks for the clarification.
+<div class="comment-text">Ah, yes, that's right. Thanks for the clarification.
 
 Maybe open a ticket with the maintainers of libxsl...?</div>
 <p class="comment-info">by
@@ -198,11 +198,11 @@ Maybe open a ticket with the maintainers of libxsl...?</div>
 </li>
 <li class="even" id="comment-4916">
 <div class="comment-text"><p>
-Here\'s something that should help:<br />
-First of all, I couldn\'t believe that the doctype actively breaks XML and SGML without an alternative, and, tadaaa, there is a way for exactly this issue:<br />
-<a href=\"http://dev.w3.org/html5/spec/Overview.html#doctype-legacy-string\">The doctype legacy string</a>, only to be used in conjunction with xslt.<br /><br />
-With that one down, I tried the slightly amended <a href=\"http://uk2.php.net/manual/en/xsl.examples.php\">xslt demo from php.net</a> (I used &lt;xsl:output doctype-public=\"XSLT-compat\" method=\"html\" /&gt; as output tag), saved the output to a file and validated it, and, apparently, everyone\'s happy! 2 warnings (html 5 validation being experimental and the legal legacy doctype being automatically replaced), but definitely no deal-breaker.<br /><br />
-I can\'t quite see where you had an issue with the content-type. I\'ve seen some blurb about only accepting the first content-type that comes up (which might be your servers http header, which of course I didn\'t have); but I don\'t know if the w3c validator has any beef with that.
+Here's something that should help:<br />
+First of all, I couldn't believe that the doctype actively breaks XML and SGML without an alternative, and, tadaaa, there is a way for exactly this issue:<br />
+<a href="http://dev.w3.org/html5/spec/Overview.html#doctype-legacy-string">The doctype legacy string</a>, only to be used in conjunction with xslt.<br /><br />
+With that one down, I tried the slightly amended <a href="http://uk2.php.net/manual/en/xsl.examples.php">xslt demo from php.net</a> (I used &lt;xsl:output doctype-public="XSLT-compat" method="html" /&gt; as output tag), saved the output to a file and validated it, and, apparently, everyone's happy! 2 warnings (html 5 validation being experimental and the legal legacy doctype being automatically replaced), but definitely no deal-breaker.<br /><br />
+I can't quite see where you had an issue with the content-type. I've seen some blurb about only accepting the first content-type that comes up (which might be your servers http header, which of course I didn't have); but I don't know if the w3c validator has any beef with that.
 </p>
 </div>
 <p class="comment-info">by
@@ -217,11 +217,11 @@ I can\'t quite see where you had an issue with the content-type. I\'ve seen some
 </li>
 <li class="even" id="comment-4922">
 <div class="comment-text">A little bit more on this: It seems almost as if this is down to a misinterpretation on xsltproc side. <br />
-I\'m quoting mainly from this <a href=\"http://www.mail-archive.com/xslt@gnome.org/msg00788.html\">mailing list thread</a>(ideally read the whole thing) from January 2007, where someone had exactly the same problem as you.<br /><br />
-The <a href=\"http://www.w3.org/TR/xslt#section-HTML-Output-Method\" title=\"xsl transformations w3c recommendation\">w3c recommendation</a> says:<br />
-\"If there is a HEAD element, then the html output method should add a META element immediately after the start-tag of the HEAD element specifying the character encoding actually used.\"
+I'm quoting mainly from this <a href="http://www.mail-archive.com/xslt@gnome.org/msg00788.html">mailing list thread</a>(ideally read the whole thing) from January 2007, where someone had exactly the same problem as you.<br /><br />
+The <a href="http://www.w3.org/TR/xslt#section-HTML-Output-Method" title="xsl transformations w3c recommendation">w3c recommendation</a> says:<br />
+"If there is a HEAD element, then the html output method should add a META element immediately after the start-tag of the HEAD element specifying the character encoding actually used."
 <br /><br />
-the Xsltproc you\'re using interprets the \"should\" as \"must\". I can\'t find any information that would hint that this has been changed since; only several discussions about it and <a href=\"http://mail.gnome.org/archives/xml/2005-August/thread.html#00127\">one suggested fix I don\'t quite understand</a>. I guess all that\'s left is to <a href=\"http://xmlsoft.org/XSLT/bugs.html\">bring this up with the makers of this library</a>, or patch your library yourself (er, maybe not). </div>
+the Xsltproc you're using interprets the "should" as "must". I can't find any information that would hint that this has been changed since; only several discussions about it and <a href="http://mail.gnome.org/archives/xml/2005-August/thread.html#00127">one suggested fix I don't quite understand</a>. I guess all that's left is to <a href="http://xmlsoft.org/XSLT/bugs.html">bring this up with the makers of this library</a>, or patch your library yourself (er, maybe not). </div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on December 12 2008, 16:18 <a href="#comment-4922">#</a>
 </p>
@@ -231,7 +231,7 @@ the Xsltproc you\'re using interprets the \"should\" as \"must\". I can\'t find 
 Interesting. I hardly ever validate by URL or file upload, but usually use the copy paste thing of the W3C validator, and rely on it sniffing the doctype.
 </p>
 
-<code class=\"html\">
+<code class="html">
 &lt;!DOCTYPE html PUBLIC &quot;XSLT-compat&quot;&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -246,14 +246,14 @@ Interesting. I hardly ever validate by URL or file upload, but usually use the c
 </code>
 
 <p>
-Above input by source copy paste is failing,  when i don\'t select the HTML 5 doctype from the dropdown in advanced options. DOH!
+Above input by source copy paste is failing,  when i don't select the HTML 5 doctype from the dropdown in advanced options. DOH!
 </p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 12 2008, 17:44 <a href="#comment-4924">#</a>
 </p>
 </li>
 <li class="even" id="comment-4927">
-<div class="comment-text">Pascal: The \"XSLT-compat\" string was added for just this purpose. :-) The name might change in the future (maybe to just \"legacy-compat\" or something).
+<div class="comment-text">Pascal: The "XSLT-compat" string was added for just this purpose. :-) The name might change in the future (maybe to just "legacy-compat" or something).
 
 Sérgio: HTML5 does support XML. You can use HTML5 either in text/html form or in full-on XML form.</div>
 <p class="comment-info">by
@@ -263,15 +263,15 @@ Sérgio: HTML5 does support XML. You can use HTML5 either in text/html form or i
 <li class="odd" id="comment-4928">
 <div class="comment-text"><blockquote><p>You just bumped into the idiotic decision of making HTML5 *not* XML.</p></blockquote>
 
-In this area I don\'t believe a final decision has been made... there\'s an open issue on this exact problem in the HTML WG:
+In this area I don't believe a final decision has been made... there's an open issue on this exact problem in the HTML WG:
 
-<a href=\"http://www.w3.org/html/wg/tracker/issues/54\">http://www.w3.org/html/wg/tracker/issues/54</a>
+<a href="http://www.w3.org/html/wg/tracker/issues/54">http://www.w3.org/html/wg/tracker/issues/54</a>
 
-If you\'d like to discuss your issue and how it interacts with the HTML 5 specification your best bet to send an email to one of these two lists:
+If you'd like to discuss your issue and how it interacts with the HTML 5 specification your best bet to send an email to one of these two lists:
 
 <ul>
-<li><a href=\"http://lists.w3.org/Archives/Public/public-html/\">http://lists.w3.org/Archives/Public/public-html/ (working group discussion list)</a></li>
-<li><a href=\"http://lists.w3.org/Archives/Public/public-html-comments/\">http://lists.w3.org/Archives/Public/public-html-comments/ (designed really to take comments from the public at large about the official documents we\'ve published)</a></li>
+<li><a href="http://lists.w3.org/Archives/Public/public-html/">http://lists.w3.org/Archives/Public/public-html/ (working group discussion list)</a></li>
+<li><a href="http://lists.w3.org/Archives/Public/public-html-comments/">http://lists.w3.org/Archives/Public/public-html-comments/ (designed really to take comments from the public at large about the official documents we've published)</a></li>
 </ul></div>
 <p class="comment-info">by
 <a href="http://shawn.medero.net/about" rel="nofollow">Shawn Medero</a> on December 12 2008, 21:20 <a href="#comment-4928">#</a>
@@ -288,10 +288,10 @@ If you\'d like to discuss your issue and how it interacts with the HTML 5 specif
 </p>
 </li>
 <li class="odd" id="comment-4931">
-<div class="comment-text"><p>I guess the <a href=\"http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-meta-http-equiv-content-type\">current draft</a> answers my question:</p>
+<div class="comment-text"><p>I guess the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-meta-http-equiv-content-type">current draft</a> answers my question:</p>
 
 <blockquote><p>
-The Encoding declaration state\'s user agent requirements are all handled by the parsing section of the specification. The state is just <strong>an alternative</strong> form of setting the charset attribute: it is a character encoding declaration.
+The Encoding declaration state's user agent requirements are all handled by the parsing section of the specification. The state is just <strong>an alternative</strong> form of setting the charset attribute: it is a character encoding declaration.
 </p></blockquote>
 </div>
 <p class="comment-info">by
@@ -301,9 +301,9 @@ The Encoding declaration state\'s user agent requirements are all handled by the
 <li class="even" id="comment-5023">
 <div class="comment-text">May I suggest that you template for HTML, not XHTML (as in XML) for your webpages?
 
-Browsers just don\'t get XML in webpages when you send it as \'text/html\', see Hixie\'s argument.
+Browsers just don't get XML in webpages when you send it as 'text/html', see Hixie's argument.
 
-As XSL template writer that means you must at all times be aware that you *won\'t* generate empty tags for elements such as a DIV, e.g. , since that will break your webpage layout. Which means you\'ll write less legible templates just for the sake of having XML; And, invariably, you or a colleague will forget to add bogus xsl:text or xsl:comment tags at some place.
+As XSL template writer that means you must at all times be aware that you *won't* generate empty tags for elements such as a DIV, e.g. , since that will break your webpage layout. Which means you'll write less legible templates just for the sake of having XML; And, invariably, you or a colleague will forget to add bogus xsl:text or xsl:comment tags at some place.
 
 HTML 5 should solve some of the HTML vs XHTML problems by specifying on the DOM level, instead of the wire format.
 </div>
@@ -318,33 +318,33 @@ We were merely discussing the issues that one faces when trying to generate HTML
 </p>
 
 <p>
-I think by now most people are aware of the <a href=\"http://hixie.ch/advocacy/xhtml\">&quot;XHTML as text/html is harmful&quot; opinion</a>, and I am sure most people will have their own point of view about this. I definitely have read it with care, and decided on the roadmap for this blog and other sites.
+I think by now most people are aware of the <a href="http://hixie.ch/advocacy/xhtml">&quot;XHTML as text/html is harmful&quot; opinion</a>, and I am sure most people will have their own point of view about this. I definitely have read it with care, and decided on the roadmap for this blog and other sites.
 </p>
 
 <p>
 What kind of issues I have to be aware off when generating markup from XSLT when I want to generate XHTML is a different story.
 <br />
-I personally find the <code>&lt;xsl:preserve-space /&gt;</code> element is a great help to achieve what you want. Also there\'s the xml:space attribute, which can be set to preserve.
+I personally find the <code>&lt;xsl:preserve-space /&gt;</code> element is a great help to achieve what you want. Also there's the xml:space attribute, which can be set to preserve.
 </p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 18 2008, 14:59 <a href="#comment-5024">#</a>
 </p>
 </li>
 <li class="even" id="comment-9656">
-<div class="comment-text"><p>I know I\'m a little late with this comment, but I\'m using the following:</p>
+<div class="comment-text"><p>I know I'm a little late with this comment, but I'm using the following:</p>
 
 <pre><code>&lt;xsl:output
-  method=\"html\"
-  encoding=\"UTF-8\"
-  omit-xml-declaration=\"yes\"
-  indent=\"yes\"
-  media-type=\"text/html\"
-  doctype-public=\"\"
-  doctype-system=\"\"
+  method="html"
+  encoding="UTF-8"
+  omit-xml-declaration="yes"
+  indent="yes"
+  media-type="text/html"
+  doctype-public=""
+  doctype-system=""
   /&gt;</code></pre>
 
 
-<p>Which for me produces the html5 <code>&lt;!DOCTYPE html&gt;</code>. I\'m processing this through libxslt (via both Python and PHP).</p></div>
+<p>Which for me produces the html5 <code>&lt;!DOCTYPE html&gt;</code>. I'm processing this through libxslt (via both Python and PHP).</p></div>
 <p class="comment-info">by
 Phillip Oldham on January 6 2011, 08:25 <a href="#comment-9656">#</a>
 </p>

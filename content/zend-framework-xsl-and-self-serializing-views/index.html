@@ -312,13 +312,13 @@ class DemoObject {}</code></pre>
     <h2>Comments</h2>
     <ul class="comments-list">
         <li class="odd" id="comment-5454">
-<div class="comment-text">Thanks a lot! I will try that soon since I\'m heading to try this Zend framework and I\'m kind of XSL lover... :)</div>
+<div class="comment-text">Thanks a lot! I will try that soon since I'm heading to try this Zend framework and I'm kind of XSL lover... :)</div>
 <p class="comment-info">by
 Oscar Hiboux on February 10 2009, 04:33 <a href="#comment-5454">#</a>
 </p>
 </li>
 <li class="even" id="comment-5455">
-<div class="comment-text">Oscar, it\'s up to you whether or not you want to head into that direction. Of course there are downsides as well, which shouldn\'t go unmentioned: You\'re going to loose access to Form decorators and various other helpers. Plus, it\'s not the most ZEND way of doing things, so you might loose maintainability if someone else used to ZF will have to work on it.
+<div class="comment-text">Oscar, it's up to you whether or not you want to head into that direction. Of course there are downsides as well, which shouldn't go unmentioned: You're going to loose access to Form decorators and various other helpers. Plus, it's not the most ZEND way of doing things, so you might loose maintainability if someone else used to ZF will have to work on it.
 
 </div>
 <p class="comment-info">by
@@ -327,7 +327,7 @@ Oscar Hiboux on February 10 2009, 04:33 <a href="#comment-5454">#</a>
 </li>
 <li class="odd" id="comment-5749">
 <div class="comment-text">What about xsl tranformed by the client ?
-I can\'t find a way to do that since the client has to get the xsl file after it gets the xml.
+I can't find a way to do that since the client has to get the xsl file after it gets the xml.
 
 </div>
 <p class="comment-info">by
@@ -336,14 +336,14 @@ NicKy on March 22 2009, 00:48 <a href="#comment-5749">#</a>
 </li>
 <li class="even" id="comment-5975">
 <div class="comment-text"><p>Hi Pascal,</p>
-<p>I\'ve just started to investigate the possibilities for the framework to implement xsl at rendering. I\'ve worked with java and the spring framework and a kind of cascading xsl transformation. The controller fills a collection object with the various objects and reference data (as i18n language labels), which will be transformed to a kind of standard xml layout. Finally, this result is transformed to the final xhtml using common html transformation. I\'ve tried CodeIgnitor, but I didn\'t manage to use the pear library, which has the XML/Serializer.php class. (also the XML/Unserializer.php class exists). I will try your demo, but also will try to extend the concept and maybe use caching for speed up.
+<p>I've just started to investigate the possibilities for the framework to implement xsl at rendering. I've worked with java and the spring framework and a kind of cascading xsl transformation. The controller fills a collection object with the various objects and reference data (as i18n language labels), which will be transformed to a kind of standard xml layout. Finally, this result is transformed to the final xhtml using common html transformation. I've tried CodeIgnitor, but I didn't manage to use the pear library, which has the XML/Serializer.php class. (also the XML/Unserializer.php class exists). I will try your demo, but also will try to extend the concept and maybe use caching for speed up.
 <br />
 If you have worked out some more examples, I will be interrested.</p>
 
 <p>Just for NicKy, you can just add a reference to the xsl file like:</p>
 
 <pre><code>
-&lt;?xml-stylesheet type=\"text/xsl\" href=\"D:\\www\\xslt\\person.xsl\"?&gt;
+&lt;?xml-stylesheet type="text/xsl" href="D:\www\xslt\person.xsl"?&gt;
 </code></pre></div>
 <p class="comment-info">by
 Broer on April 29 2009, 18:33 <a href="#comment-5975">#</a>
@@ -351,10 +351,10 @@ Broer on April 29 2009, 18:33 <a href="#comment-5975">#</a>
 </li>
 <li class="odd" id="comment-5978">
 <div class="comment-text"><p>
-Hello, I haven\'t go any experiences with the PEAR library for object serialization. Let me just say this: The above demo is more meant to be a proof of concept, rather than a proper library suggestion. As far as I can tell, using XSLT will make a lot of things really hard in Zend, as you\'ll loose the ability to utilize built in things like View helpers and so on.</p>
+Hello, I haven't go any experiences with the PEAR library for object serialization. Let me just say this: The above demo is more meant to be a proof of concept, rather than a proper library suggestion. As far as I can tell, using XSLT will make a lot of things really hard in Zend, as you'll loose the ability to utilize built in things like View helpers and so on.</p>
 
 <p>
-I can see why, coming from something like a Spring Framework or C# background, you\'d feel familiar with XSLT, but I also believe it\'s a \"non-Zendy\" way of doing things, if that makes sense.
+I can see why, coming from something like a Spring Framework or C# background, you'd feel familiar with XSLT, but I also believe it's a "non-Zendy" way of doing things, if that makes sense.
 </p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 30 2009, 09:21 <a href="#comment-5978">#</a>

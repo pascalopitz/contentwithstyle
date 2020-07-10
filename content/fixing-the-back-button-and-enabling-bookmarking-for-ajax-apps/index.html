@@ -1902,16 +1902,16 @@ Beren on August 27 2008, 06:13 <a href="#comment-3753">#</a>
 <li class="even" id="comment-4771">
 <div class="comment-text">Excelent article, quite usefull.
 
-Isn\'t it easier though to simple have the loaded iframe execute a script to update it\'s parent hash? Then you only have to poll the hash, which you\'re doing in <strong>normal</strong> (non-microsoft) browsers anyway.
+Isn't it easier though to simple have the loaded iframe execute a script to update it's parent hash? Then you only have to poll the hash, which you're doing in <strong>normal</strong> (non-microsoft) browsers anyway.
 
-You still have to make sure you don\'t do the same in IE and other browsers but it saves some code.
+You still have to make sure you don't do the same in IE and other browsers but it saves some code.
 
 So your iframe calls this script from the body (or head for that matter). Assuming you use #var=val#var2=val2 syntax for the hash.
 <code>
 if (parent)
 {
   var query			 = window.location.search;
-  var hash			 = query.replace(/[?&amp;;]/gi, \"#\");
+  var hash			 = query.replace(/[?&amp;;]/gi, "#");
   parent.location.hash		 = hash;
 }
 </code>
@@ -1923,7 +1923,7 @@ Maarten on November 29 2008, 20:47 <a href="#comment-4771">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4403">
-<div class="comment-text"><p>Hello there. Going through things after the relaunch, and seen that the demo was broken, due to a bug in JPSPAN. I fixed this and uploaded a new version. Please refer to the bug description on the JPSPAN sourceforge page.  Also, if you folks out there are utilizing the YUI framework (which I\'m a big fan of), then it\'s worth looking into the <a href=\"http://developer.yahoo.com/yui/history/\">Browser History Manager</a>, which should do the same thing for you ...</p></div>
+<div class="comment-text"><p>Hello there. Going through things after the relaunch, and seen that the demo was broken, due to a bug in JPSPAN. I fixed this and uploaded a new version. Please refer to the bug description on the JPSPAN sourceforge page.  Also, if you folks out there are utilizing the YUI framework (which I'm a big fan of), then it's worth looking into the <a href="http://developer.yahoo.com/yui/history/">Browser History Manager</a>, which should do the same thing for you ...</p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on October 29 2008, 07:38 <a href="#comment-4403">#</a>
 </p>

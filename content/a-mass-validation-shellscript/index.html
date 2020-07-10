@@ -283,7 +283,7 @@ run_validation ./temp/ $1
 
 <p>A full query string can also be used with added parameters:</p>
 
-<pre><code>/Applications/Validator-SAC.app/Contents/Resources/weblet \'uri=http://apple.com/&amp;output=soap12\'</code></pre>
+<pre><code>/Applications/Validator-SAC.app/Contents/Resources/weblet 'uri=http://apple.com/&amp;output=soap12'</code></pre>
 
 <p>
 The weblet script outputs a CGI response, so the first first few lines are CGI headers:</p>
@@ -294,7 +294,7 @@ X-W3C-Validator-Recursion: 1
 X-W3C-Validator-Status: Valid
 X-W3C-Validator-Errors: 0
 
-&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 ... rest of SOAP response ...
 </code></pre>
 
@@ -316,7 +316,7 @@ Also thanks for creating the Validator-SAC, in the first place. A great tool to 
 <div class="comment-text"><p>
 By the way, I had various people on MSN that were saying I should have tried to avoid downloading the whole site with wget, but use the sitemap instead to pass the URL directly. Good idea, and maybe worth implementing in the future, maybe with a sitemap as optional parameter?
 <br />
-Also, my experiences with WGET are limited, but there is a spider mode. Maybe it\'s worth just taking the URLS that the spider gets instead of downloading to a temp folder?
+Also, my experiences with WGET are limited, but there is a spider mode. Maybe it's worth just taking the URLS that the spider gets instead of downloading to a temp folder?
 <br />
 Comments welcome!
 </p></div>
@@ -325,7 +325,7 @@ Comments welcome!
 </p>
 </li>
 <li class="even" id="comment-5036">
-<div class="comment-text">Another method would be to use a link-checking program (like <a href=\"http://www.linklint.org/\">Linklint</a>) to crawl the site and produce a list of URLs to validate.
+<div class="comment-text">Another method would be to use a link-checking program (like <a href="http://www.linklint.org/">Linklint</a>) to crawl the site and produce a list of URLs to validate.
 Using a link-checker would have the added benefit of checking for broken internal and off-site links.</div>
 <p class="comment-info">by
 <a href="http://habilis.net/chuck/" rel="nofollow">Chuck Houpt</a> on December 20 2008, 14:32 <a href="#comment-5036">#</a>
@@ -339,7 +339,7 @@ I usually use -A.html in wget sentence to retrieve just the html files.</div>
 </p>
 </li>
 <li class="even" id="comment-7453">
-<div class="comment-text">I\'ve written a Python script for the same purpose:
+<div class="comment-text">I've written a Python script for the same purpose:
 
 http://maestric.com/doc/python/recursive_w3c_html_validator
 </div>
@@ -350,7 +350,7 @@ http://maestric.com/doc/python/recursive_w3c_html_validator
 <li class="odd" id="comment-6882">
 <div class="comment-text">Thanks Pascal for this awesome mass validation script.
 
-I seem to be having problems running this for files with extension \".htm\" would you have any ideas as to why?
+I seem to be having problems running this for files with extension ".htm" would you have any ideas as to why?
 
 Any feedback would be much appreciated.
 

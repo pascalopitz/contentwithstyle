@@ -101,9 +101,9 @@ echo $doc-&gt;asXml();
 <p>Might I add, I used your example in an XML loaded from a file and with a node which I found using XPATH</p>
 
 <pre><code>
-$file = \'test.xml\';
+$file = 'test.xml';
 $xml=simplexml_load_file($file);
-$nodes = $xml-&gt;xpath(\"node()[@id=\\\"{$_GET[\'id\']}\\\"]\");
+$nodes = $xml-&gt;xpath("node()[@id=\"{$_GET['id']}\"]");
 $dom=dom_import_simplexml($nodes[0]);
 $dom-&gt;parentNode-&gt;removeChild($dom);
 </code></pre>

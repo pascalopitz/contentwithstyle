@@ -143,14 +143,14 @@ cheers </div>
 </p>
 </li>
 <li class="even" id="comment-5952">
-<div class="comment-text">The most simple way to copy your public key is <a href=\"http://pwet.fr/man/linux/commandes/ssh_copy_id\">ssh_copy_id</a></div>
+<div class="comment-text">The most simple way to copy your public key is <a href="http://pwet.fr/man/linux/commandes/ssh_copy_id">ssh_copy_id</a></div>
 <p class="comment-info">by
 <a href="http://arnaud.didry.info" rel="nofollow">Arnaud</a> on April 25 2009, 18:36 <a href="#comment-5952">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5953">
 <div class="comment-text"><p>@Arnaud: I had to look up this one first; it is indeed a great way of adding your public key to a server. This is part of OpenSSH, but sadly not of the default OS X installation (I guess linux folks are fine).</p>
-<p>To get a more elegant solution for #2 on a Mac, download the latest <a href=\"ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/\">portable OpenSSH</a> and find the ssh-copy-id script in /contrib folder. Copy it, err, somewhere where your system finds it, and you\'re good to go. Thanks for the tip!</p></div>
+<p>To get a more elegant solution for #2 on a Mac, download the latest <a href="ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/">portable OpenSSH</a> and find the ssh-copy-id script in /contrib folder. Copy it, err, somewhere where your system finds it, and you're good to go. Thanks for the tip!</p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on April 26 2009, 01:32 <a href="#comment-5953">#</a>
 </p>
@@ -162,9 +162,9 @@ cheers </div>
 </p>
 </li>
 <li class="odd" id="comment-5980">
-<div class="comment-text"><p>This is an interesting post. I wasn\'t aware of the ControlMaster. I\'m going to look into that more. </p>
+<div class="comment-text"><p>This is an interesting post. I wasn't aware of the ControlMaster. I'm going to look into that more. </p>
 
-<p>re: #2 (Add your public key to your remote server), @Matthias as you said, ssh_copy_id isn\'t available for the OS X people in the crowd. For the subset of that crowd that isn\'t offended by Ruby, I wrote a tool called Rye for doing all kinds of remote SSH stuff (including executing commands on multiple machines in parallel). It comes with a command-line utility that can copy keys too:</p>
+<p>re: #2 (Add your public key to your remote server), @Matthias as you said, ssh_copy_id isn't available for the OS X people in the crowd. For the subset of that crowd that isn't offended by Ruby, I wrote a tool called Rye for doing all kinds of remote SSH stuff (including executing commands on multiple machines in parallel). It comes with a command-line utility that can copy keys too:</p>
 <pre><code>
 $ rye authorize HOST1 [HOST 2 ... HOST N]</code></pre>
 
@@ -177,7 +177,7 @@ $ sudo gem install rye</code></pre>
 </p>
 </li>
 <li class="even" id="comment-5881">
-<div class="comment-text">Ahh... very nice.  The bit about the config file is perfect.  I\'m going to use it for the IdentityFile variable, myself.
+<div class="comment-text">Ahh... very nice.  The bit about the config file is perfect.  I'm going to use it for the IdentityFile variable, myself.
 
 +karma for you :)</div>
 <p class="comment-info">by
@@ -187,7 +187,7 @@ $ sudo gem install rye</code></pre>
 <li class="odd" id="comment-5885">
 <div class="comment-text"><p>@MacDork: IdentityFile is a good way of handling multiple, well, identities; perfect for someone who likes to keep business and private (or in case of many freelancers/contractors business, business, business and private) separate. Use one identity for work, and another for personal projects, etc.</p>
 
-<p>Thanks for the reminder. There\'s of course much more configuration options, here\'s a link to the <a href=\"http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh_config+5\">man pages</a></p></div>
+<p>Thanks for the reminder. There's of course much more configuration options, here's a link to the <a href="http://unixhelp.ed.ac.uk/CGI/man-cgi?ssh_config+5">man pages</a></p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on April 18 2009, 08:48 <a href="#comment-5885">#</a>
 </p>

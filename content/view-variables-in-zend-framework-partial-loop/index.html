@@ -150,7 +150,7 @@ under on October 3 2009, 10:29 <a href="#comment-7022">#</a>
 </p>
 </li>
 <li class="odd" id="comment-8246">
-<div class="comment-text"><p>Found this thread while I was examining why PartialLoop couldn\'t access the view. I liked the solution but I did it a bit differently. I Made a new class named differently since if I wanted to use the functionality of the original partial loop I should be able to. Also I made it possible to send an array of objects instead of array. Only downside is the object key is defined as \'object\' in the constructor and must therefore be that in the partials too.</p>
+<div class="comment-text"><p>Found this thread while I was examining why PartialLoop couldn't access the view. I liked the solution but I did it a bit differently. I Made a new class named differently since if I wanted to use the functionality of the original partial loop I should be able to. Also I made it possible to send an array of objects instead of array. Only downside is the object key is defined as 'object' in the constructor and must therefore be that in the partials too.</p>
 
 <pre><code>
 class My_View_Helper_ExtendedPartialLoop extends Zend_View_Helper_PartialLoop
@@ -159,8 +159,8 @@ class My_View_Helper_ExtendedPartialLoop extends Zend_View_Helper_PartialLoop
 
 	public function __construct()
 	{
-                // Parent doesn\'t have a constructor so we don\'t call it.
-		$this-&gt;setObjectKey(\'object\');
+                // Parent doesn't have a constructor so we don't call it.
+		$this-&gt;setObjectKey('object');
 	}
 
 	public function setView(Zend_View_Interface $view)
@@ -176,13 +176,13 @@ class My_View_Helper_ExtendedPartialLoop extends Zend_View_Helper_PartialLoop
 	public function partial($name, $module, $item)
 	{
 		$objectKey = $this-&gt;getObjectKey();
-		if(is_object($item) &amp;&amp; isset($objectKey) &amp;&amp; $objectKey != \'view\')
+		if(is_object($item) &amp;&amp; isset($objectKey) &amp;&amp; $objectKey != 'view')
 		{
-			$item = array($objectKey =&gt; $item, \'view\' =&gt; $this-&gt;view);
+			$item = array($objectKey =&gt; $item, 'view' =&gt; $this-&gt;view);
 		}
-		elseif(is_array($item) &amp;&amp; !isset($item[\'view\']))
+		elseif(is_array($item) &amp;&amp; !isset($item['view']))
 		{
-			$item[\'view\'] = $this-&gt;view;
+			$item['view'] = $this-&gt;view;
 		}
 		else
 		{

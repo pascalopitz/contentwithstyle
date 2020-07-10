@@ -122,7 +122,7 @@ var TestApp = function() {
   };
 
   var _requestHandler = function(request, response) {
-    sys.puts('request: \'' + request.url + '\'');
+    sys.puts('request: '' + request.url + ''');
 
     if(routes[request.url] === undefined) {
       response.writeHead(404, {'Content-Type': 'text/plain'});
@@ -246,7 +246,7 @@ If you mean the client side _poll() function, keep in mind that the next functio
 </p>
 </li>
 <li class="even" id="comment-9870">
-<div class="comment-text">I\'m not too familiar with recursion in JavaScript, but won\'t the code in the client example eventually throw a stack overflow exception?</div>
+<div class="comment-text">I'm not too familiar with recursion in JavaScript, but won't the code in the client example eventually throw a stack overflow exception?</div>
 <p class="comment-info">by
 <a href="http://casedogdesigns.com" rel="nofollow">Casey Watson</a> on January 24 2011, 02:36 <a href="#comment-9870">#</a>
 </p>

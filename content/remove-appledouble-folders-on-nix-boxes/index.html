@@ -82,16 +82,16 @@ find . -name '.AppleDouble' -printf '"%p"\n' | xargs rm -Rf
     <h2>Comments</h2>
     <ul class="comments-list">
         <li class="odd" id="comment-5357">
-<div class="comment-text">Of course that would work for .svn folders as well, but y\'all knew that, didn\'t ya?</div>
+<div class="comment-text">Of course that would work for .svn folders as well, but y'all knew that, didn't ya?</div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 23 2009, 09:20 <a href="#comment-5357">#</a>
 </p>
 </li>
 <li class="even" id="comment-8057">
-<div class="comment-text">Isn\'t it more easy to do this:
+<div class="comment-text">Isn't it more easy to do this:
 
 <code>
-find . -name \'.AppleDouble\' -type d -exec rm -rf \'{}\' \\;
+find . -name '.AppleDouble' -type d -exec rm -rf '{}' \;
 </code>
 
 ???
@@ -103,7 +103,7 @@ find . -name \'.AppleDouble\' -type d -exec rm -rf \'{}\' \\;
 <li class="odd" id="comment-9699">
 <div class="comment-text">solution:
 
-find . -name \'.AppleDouble\' -print0 | xargs -0 rm -Rf</div>
+find . -name '.AppleDouble' -print0 | xargs -0 rm -Rf</div>
 <p class="comment-info">by
 Richard Whitehouse on January 11 2011, 17:01 <a href="#comment-9699">#</a>
 </p>

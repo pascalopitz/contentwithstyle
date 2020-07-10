@@ -93,7 +93,7 @@ $xsl_dom-&gt;load($xsl_file_location, LIBXML_NOCDATA);
 <li class="even" id="comment-1652">
 <div class="comment-text">Hi Solid. As you can see in my example I CAN do it differently. You CAN even just do something like writing the tags in between XSL commands as well, which probably the most common way to create tags in XSL.
 
-Personally I don\'t believe in MUST when it comes to websites, apart from making the website work as such.
+Personally I don't believe in MUST when it comes to websites, apart from making the website work as such.
 The behaviour of PHP5 is a quirk that is in contrast to other rendering behaviours (e.g. Sablotron) and what one uses it for is down to ones needs, no?
 In my particular case I have a 2 level rendering behaviour in which a transformation creates an XSL document. I want the markup created by the first transformation not being changed by the second one, hence it gets wrapped into xsl:text and CDATA, with disable-output-escaping turned on. This is in order to prevent the second transformation from doing things like changing &lt;div&gt;&lt;/div&gt; into &lt;div /&gt; ...
 

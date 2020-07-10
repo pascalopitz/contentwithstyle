@@ -85,9 +85,9 @@ client.use('default').onSuccess(function(data) {
 
 <p>Another issue I had was <a href="http://github.com/visionmedia/js-yaml">the yaml library for node</a>, which just didn't like the yaml formatted beanstalk output, which doesn't contain the expected indentations. Not sure why, maybe a yaml version conflict or something, but I hacked the yaml parsing with some regular expressions.</p>
 
-<pre><code>var corrected = str.replace(/\n-\ ([\w\d_-]+)/mig, '\n  - \'$1\'') //indent list
+<pre><code>var corrected = str.replace(/\n-\ ([\w\d_-]+)/mig, '\n  - '$1'') //indent list
           .replace(/(\w)\-(\w)/mgi, '$1_$2') // replace minuses in hash names
-          .replace(/\n([\w\d_-]+)\:\ ([\.\,\w\d_-]+)/mig, '\n  $1: \'$2\''); // format hashes
+          .replace(/\n([\w\d_-]+)\:\ ([\.\,\w\d_-]+)/mig, '\n  $1: '$2''); // format hashes
 try {
   return kiwi.require('yaml').eval(corrected);
 } catch(e) {
@@ -120,7 +120,7 @@ listing tube default
     <h2>Comments</h2>
     <ul class="comments-list">
         <li class="odd" id="comment-10745">
-<div class="comment-text"><p>I rolled out a bunch of updates a couple of days ago and moved nodestalker into npm. Beanspector now is it\'s own repo on github.</p></div>
+<div class="comment-text"><p>I rolled out a bunch of updates a couple of days ago and moved nodestalker into npm. Beanspector now is it's own repo on github.</p></div>
 <p class="comment-info">by
 <a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on March 6 2011, 06:49 <a href="#comment-10745">#</a>
 </p>
