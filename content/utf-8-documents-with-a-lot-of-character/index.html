@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -80,7 +80,7 @@
 <p>
 	Yeah, and what about asian languages? Or russian? Or chinese? I heard they had <a href="http://www.logoi.com/notes/how_to_study_chinese_characters.html">more than 3000 signs</a>, how does that fit into those 256 possibilities?
 	<br />
-	Here we go, good question! An you're not the first one to ask it. That's why, from the information-technology point some people moved on and created the 
+	Here we go, good question! An you're not the first one to ask it. That's why, from the information-technology point some people moved on and created the
 	<a href="http://www.unicode.org/">Unicode</a> character set. And again there is many types of Unicode, but there is two really relevant ones: UTF-16 and UTF-8.
 	Both offer 16bit encoded characters, means 65536 possible characters. Obviously this needs more memory to store it, because suddenly a page with the same amount of characters takes up twice the memory.
 	That's why <a href="http://www.unicode.org/versions/Unicode4.0.0/ch02.pdf#G11165">UTF-8 goes a more intelligent way</a> and saves ASCII as single bytes and everything beyond as double-byte. This saves memory.
@@ -126,7 +126,7 @@
 </p>
 
 <pre>
- &lt;xsl:output method="html" indent="no" encoding="utf-8"/&gt; 
+ &lt;xsl:output method="html" indent="no" encoding="utf-8"/&gt;
 </pre>
 
 <p>
@@ -141,7 +141,7 @@
 	It starts getting really interesting when a database comes on top of that. It makes perfectly sense to have a utf-8 or utf-16 compliant database, so the stored content can contain any kind of language.
 	<a href="http://dev.mysql.com/tech-resources/articles/4.1/unicode.html">MySQL supports utf-8 since the version 4.1</a>, The SQL-Server from Microsoft has a built-in UTF-16 support (nvarchar, ntext).
 	<br />
-	The sad bit is that in PHP dealing with different encodings is not really big fun, but the <a href="http://uk2.php.net/iconv">iconv extension</a> makes it possible to convert encodings. 
+	The sad bit is that in PHP dealing with different encodings is not really big fun, but the <a href="http://uk2.php.net/iconv">iconv extension</a> makes it possible to convert encodings.
 	In ASP the support for codepages is much stronger integrated and it is just one line of code to set the <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/iissdk/iis/ref_vbom_sesopcp.asp">codepage that ASP works with internally</a> or <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/iissdk/iis/ref_vbom_resopch.asp">the charset it outputs the data with</a>.
 </p>
 </div>
@@ -152,21 +152,21 @@
     <ul class="comments-list">
         <li class="odd" id="comment-19">
 <div class="comment-text">nice one. wanna see all the funny unicode characters used on this planet? http://decodeunicode.org/ wiki is the right one for you!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://e27.com" rel="nofollow">tim</a> on May 20 2005, 15:00 <a href="#comment-19">#</a>
 </p>
 </li>
 <li class="even" id="comment-20">
 <div class="comment-text">sweet!<br />
 I like the smooth fluffy navigation through the different character sets, although, I admit, I don&#8217;t really get the idea behind all this, besides entertainment. What kind of information would you add to the wiki (besides more sets)?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on May 20 2005, 15:14 <a href="#comment-20">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on May 20 2005, 15:14 <a href="#comment-20">#</a>
 </p>
 </li>
 <li class="odd" id="comment-139">
 <div class="comment-text">I just found <a href="http://dev.splitbrain.org/reference/dokuwiki/nav.html?inc/utf8.php.html">this site</a>, or rather documentation, by accident. Useful for all kinds of utf8 conversion and replacement crapola.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on June 14 2005, 14:11 <a href="#comment-139">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on June 14 2005, 14:11 <a href="#comment-139">#</a>
 </p>
 </li>
 <li class="even" id="comment-153">
@@ -177,7 +177,7 @@ I used Homesite from 3.0 to 5.5 for years, but finally ditched it because of lac
 I switched to JEdit (http://www.jedit.org) as it is also cross platform, and highly customizeable.<br />
 <br />
 One issue with the BOM problem I have found is that if you are using server side processing, e.g. ASP and XML/XSL without output set to UTF-8, it tends not to be a problem.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Anup Shah on June 16 2005, 14:26 <a href="#comment-153">#</a>
 </p>
 </li>
@@ -185,8 +185,8 @@ Anup Shah on June 16 2005, 14:26 <a href="#comment-153">#</a>
 <div class="comment-text">Anup, Homesite plus has UTF-8 support, but you have to activate it in the settings.<br />
 Apart from that I didn&#8217;t really find a nice editor that supports UTF-8. Notepad does! Editpad is nice as well, I use the <a href="http://www.editpadlite.com/">Edit pad lite</a> as notepad replacement. And oviously Ultraedit supports UTF-8 and UTF-16.<br />
 A nice tool for XSLT work is <a href="http://www.xmlcooktop.com/">Cooktop</a>.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on June 16 2005, 17:48 <a href="#comment-157">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on June 16 2005, 17:48 <a href="#comment-157">#</a>
 </p>
 </li>
 <li class="even" id="comment-230">
@@ -227,7 +227,7 @@ Hope you can point me in the right direction.<br />
 <br />
 Regards,<br />
 Nicholas</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.polemark.com" rel="nofollow">Nicholas Saxlund</a> on September 2 2005, 10:13 <a href="#comment-230">#</a>
 </p>
 </li>
@@ -248,16 +248,16 @@ But as you can see in the page I posted the w3c reommends UTF-8 since it is so m
 <br />
 <br />
 If you have any questions let me know.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on September 5 2005, 09:55 <a href="#comment-231">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on September 5 2005, 09:55 <a href="#comment-231">#</a>
 </p>
 </li>
 <li class="even" id="comment-233">
 <div class="comment-text">Just playing devil&#8217;s advocate here but what about installing the right fonts on the server and generating the gifs on-the-fly server-side? As long as the docs are saved as UTF-8 the alt text will be correct for systems with the right font sets but the screen display will be correct for everyone. Or sIFR with the entire font outline stored?<br />
 <br />
 I&#8217;ve never had to deal with this so I don&#8217;t know what&#8217;s best&#8230;</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Mike Stenhouse</a> on September 6 2005, 07:23 <a href="#comment-233">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Mike Stenhouse</a> on September 6 2005, 07:23 <a href="#comment-233">#</a>
 </p>
 </li>
 <li class="odd" id="comment-234">
@@ -266,7 +266,7 @@ I&#8217;ve never had to deal with this so I don&#8217;t know what&#8217;s best&#
 With regards to using UTF-8, I believe that not all the languages that I have specified are covered. Further the problem is that the majority of users will be using public web access (mainly libraries), which won&#8217;t allow the download of  new character sets&#8230;<br />
 <br />
 The idea Mike suggested doesn&#8217;t sound too bad. Any idea where to find more info and if this is feasible?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.polemark.com" rel="nofollow">Nicholas Saxlund</a> on September 6 2005, 14:12 <a href="#comment-234">#</a>
 </p>
 </li>
@@ -275,8 +275,8 @@ The idea Mike suggested doesn&#8217;t sound too bad. Any idea where to find more
 <a href="http://www.mikeindustries.com/sifr/">www.mikeindustries.com/sifr/</a><br />
 <br />
 The catch is that you&#8217;d have to find a font that supports all the characters you&#8217;re going to need to use. There are probably only one or two out there&#8230; If you can find one though, the rest is easy&#8230;</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Mike Stenhouse</a> on September 8 2005, 07:22 <a href="#comment-235">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Mike Stenhouse</a> on September 8 2005, 07:22 <a href="#comment-235">#</a>
 </p>
 </li>
 <li class="odd" id="comment-236">
@@ -288,16 +288,16 @@ Just as a thought, and based on spectulation only:<br />
 If I am somali, I go to a UTF-8 page and my font is not specified, just serif, sans-serif or something like that, wouldn&#8217;t somlai copy automatically be rendered in the right font? Maybe the chinese wouldn&#8217;t be rendered at all, but would that matter to me as somali user?<br />
 <br />
 I definetly know that Arial Unicode can handle chinese and japanese and cyrillic, so you might have a try with this one as well.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on September 12 2005, 06:27 <a href="#comment-236">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on September 12 2005, 06:27 <a href="#comment-236">#</a>
 </p>
 </li>
 <li class="even" id="comment-237">
 <div class="comment-text">Ohh, found that one for IE only:<br />
 <br />
 <a href="http://www.users.globalnet.co.uk/~arcus/html/testembedded.html">Embedded fonts testpage</a></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on September 12 2005, 07:11 <a href="#comment-237">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on September 12 2005, 07:11 <a href="#comment-237">#</a>
 </p>
 </li>
 <li class="odd" id="comment-247">
@@ -307,47 +307,47 @@ I definetly know that Arial Unicode can handle chinese and japanese and cyrillic
 <br />
 There are a couple of nice editor suggestions in there.<br />
 Have a read!</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on September 26 2005, 09:13 <a href="#comment-247">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on September 26 2005, 09:13 <a href="#comment-247">#</a>
 </p>
 </li>
 <li class="even" id="comment-380">
 <div class="comment-text">Homesite supports UTF-8????<br />
 Where do i enable it? i cant find it in settings. there is the editor charset but no utf-8 option.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.ufku.com" rel="nofollow">ufku</a> on January 23 2006, 13:00 <a href="#comment-380">#</a>
 </p>
 </li>
 <li class="odd" id="comment-406">
 <div class="comment-text">In the preferences &#8230; <a href="http://lists.evolt.org/archive/Week-of-Mon-20020603/114496.html">see this</a></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on January 30 2006, 09:40 <a href="#comment-406">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 30 2006, 09:40 <a href="#comment-406">#</a>
 </p>
 </li>
 <li class="even" id="comment-900">
 <div class="comment-text">I have read some of artikle in this blog and I found them very interesting. English is not my first language. Very sorry for my horrible spell. Now come to the point and question. I have problem with some letters in Pashto language. Some of characters are not showen as expected. For example,  U+067C (&#38;#1660).  When I start Character Map in windows, I can see those letters are there and the character code assigned to it corespond to them is also fine. Then what is wrong?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Besmellah on June 21 2006, 03:34 <a href="#comment-900">#</a>
 </p>
 </li>
 <li class="odd" id="comment-901">
 <div class="comment-text">Besmellah, what kind of typeface are you using? Not every typeface has all characters available. Try Arial Unicode or some other unicode font and see what happens then?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on June 21 2006, 05:15 <a href="#comment-901">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on June 21 2006, 05:15 <a href="#comment-901">#</a>
 </p>
 </li>
 <li class="even" id="comment-1058">
 <div class="comment-text">&#8220;Anyway, BBedit or Homesite should do the job. And wordpad as well.&#8221;<br />
 <br />
 You meant notepad, right? Unfortunately Wordpad should be better than Notepad, but in this case it&#8217;s a lot worse :/</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.homepage7.com" rel="nofollow">Nuno Oliveira</a> on July 15 2006, 11:27 <a href="#comment-1058">#</a>
 </p>
 </li>
 <li class="odd" id="comment-1064">
 <div class="comment-text">Yeah, I did</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on July 17 2006, 05:59 <a href="#comment-1064">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on July 17 2006, 05:59 <a href="#comment-1064">#</a>
 </p>
 </li>
 <li class="even" id="comment-1832">
@@ -360,7 +360,7 @@ http://www.ecommerce-xperts.com/demo<br />
 http://www.ecommerce-xperts.com/demo/index2.php<br />
 <br />
 I really need good suggestions plz. I have been given 1 months time to provide multilanguage support in this system</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.ecommerce-xperts.com" rel="nofollow">Designer Pro</a> on December 1 2006, 01:48 <a href="#comment-1832">#</a>
 </p>
 </li>
@@ -373,8 +373,8 @@ This can be achieved most of the times by changing the charset meta tag or apach
 However, this doesn&#8217;t mean that the application itself will be multilanguage, plus, unless you change the database collation, you will loose some sorting possibility as well.<br />
 <br />
 To incorporate true language support for every button and label you will have to work with configurations in some way, I am afraid, either in a config file or a database.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 1 2006, 05:41 <a href="#comment-1835">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 1 2006, 05:41 <a href="#comment-1835">#</a>
 </p>
 </li>
 
@@ -382,11 +382,11 @@ To incorporate true language support for every button and label you will have to
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -411,13 +411,13 @@ To incorporate true language support for every button and label you will have to
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -102,9 +102,9 @@ class BarController extends BaseController
 <p>Then in the layout:</p>
 <pre><code>
 &lt;?php
- echo $this-&gt;layout()-&gt;bar; 
- echo $this-&gt;layout()-&gt;foo; 
- echo $this-&gt;layout()-&gt;list; 
+ echo $this-&gt;layout()-&gt;bar;
+ echo $this-&gt;layout()-&gt;foo;
+ echo $this-&gt;layout()-&gt;list;
 ?&gt; </code></pre><h2>Further Reading</h2><ul>
 
 <li><a href="http://framework.zend.com/manual/en/zend.controller.actionhelpers.html#zend.controller.actionhelpers.actionstack">Zend Action Stack Helper</a></li>
@@ -122,7 +122,7 @@ class BarController extends BaseController
 
 function indexAction() {
 
-&nbsp; //do index stuff 
+&nbsp; //do index stuff
 &nbsp; $bar_data=$this-&gt;requestAction(\'/controller/method/\');
 &nbsp; $this-&gt;set(\'data\', $bar_data);
 
@@ -131,14 +131,14 @@ function indexAction() {
 
 That seems to give you the same tools, although more opportunity for further using this data in the controller. Downside is, from what I can see, it\'s another invitation to not writing clean code by pulling information from everywhere and putting it into one large array for the view here, and different ones there.
 With your way you seem to be limited to working of different data sources in the view.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias Willerich</a> on November 10 2008, 22:36 <a href="#comment-4561">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on November 10 2008, 22:36 <a href="#comment-4561">#</a>
 </p>
 </li>
 <li class="even" id="comment-4564">
 <div class="comment-text"><p>One question that I would ask myself: Should I be working with, what\'s essentialy meant to be output, further down the line in the controller? Personally I could imagine that it can be confusing if the view script spits out something, and then it gets processed massively.</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 11 2008, 08:39 <a href="#comment-4564">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 11 2008, 08:39 <a href="#comment-4564">#</a>
 </p>
 </li>
 
@@ -146,11 +146,11 @@ With your way you seem to be limited to working of different data sources in the
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -175,13 +175,13 @@ With your way you seem to be limited to working of different data sources in the
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

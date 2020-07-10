@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -76,7 +76,7 @@ balancer.js		testserver.js
 <h2>Load Balancer</h2>
 
 <pre><code>
-var sys = require('sys'), 
+var sys = require('sys'),
   http = require('http'),
   fs = require('fs');
 
@@ -105,17 +105,17 @@ var LoadBalancer = new function() {
       callback();
     });
   };
-  
+
   var _checkCluster = function() {
     for(var i=0; i&lt;_cluster.length; i++) {
       _clusterNodeCheck(_cluster[i]);
     }
   };
-  
+
   var _clusterNodeCheck = function(node) {
     var client = http.createClient(parseInt(node.port, 10), node.host);
     var request = client.request('GET', '/is_up', {"host" : node.host});
-    
+
     request.addListener('response', function (response) {
       if(response.statusCode == 200) {
         response.addListener('data', function(data) {
@@ -129,7 +129,7 @@ var LoadBalancer = new function() {
         node.active = false;
       }
     });
-    
+
     request.addListener('error', function (err) {
       node.active = false;
     });
@@ -162,11 +162,11 @@ var LoadBalancer = new function() {
 
       proxy_request.addListener("response", function (proxy_response) {
         response.writeHeader(proxy_response.statusCode, proxy_response.headers);
-    
+
         proxy_response.addListener("data", function (chunk) {
           response.write(chunk);
         });
-    
+
         proxy_response.addListener("end", function () {
           response.end();
         });
@@ -188,12 +188,12 @@ var LoadBalancer = new function() {
           _requestHandler(request, response);
         }, 200);
       });
-  
-      proxy_request.end();    
+
+      proxy_request.end();
     }
   };
-  
-  
+
+
   var _run = function() {
     _loadCluster(_checkCluster);
 
@@ -225,7 +225,7 @@ var LoadBalancer = new function() {
 <h2>Test Server</h2>
 
 <pre><code>
-var sys = require('sys'), 
+var sys = require('sys'),
   http = require('http');
 var _port;
 
@@ -241,7 +241,7 @@ function checkUsage() {
     sys.puts('usage: node testserver.js &lt;port&gt;');
     process.exit(1);
   }
-  
+
   _port = port;
 };
 
@@ -274,7 +274,7 @@ var TestServer = function() {
       _routes[request.url].call(this, request, response);
     }
   };
-  
+
   var _run = function() {
     _server = http.createServer().
             addListener('request', _requestHandler)
@@ -298,11 +298,11 @@ Start testservers in seperate shells:
 
 node testserver.js 8200
 node testserver.js 8300
-                
+
 
 Start load balancer:
 
-node balancer.js     
+node balancer.js
 
 
 Request to balancer:
@@ -325,7 +325,7 @@ curl http://127.0.0.1:8888
 <p>We\'ve seen these issues at Nodejitsu and have an HTTP reverse proxy library that has been battle hardened through use in our production environment. Check it out, commits are welcome :)</p>
 
 <p><a href=\"http://github.com/nodejitsu/node-http-proxy\">http://github.com/nodejitsu/node-http-proxy</a></p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://blog.nodejitsu.com" rel="nofollow">Charlie Robbins</a> on November 9 2010, 01:33 <a href="#comment-8991">#</a>
 </p>
 </li>
@@ -334,19 +334,19 @@ curl http://127.0.0.1:8888
 Charlie, that\'s great work! The above example was just a little proof of concept, not meant to be production ready.
 It would be interesting to find out more. Could you tell us more about the edge cases?
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 9 2010, 05:32 <a href="#comment-8995">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 9 2010, 05:32 <a href="#comment-8995">#</a>
 </p>
 </li>
 <li class="odd" id="comment-8891">
 <div class="comment-text">Thanks for this post. Lukas</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Lukas Vlcek on October 5 2010, 06:58 <a href="#comment-8891">#</a>
 </p>
 </li>
 <li class="even" id="comment-9962">
 <div class="comment-text">Another trick I picked up is doing something like this but with iptables in the kernel. It\'s a little less overhead than using node.js to route to another node.js</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Zac on January 28 2011, 04:55 <a href="#comment-9962">#</a>
 </p>
 </li>
@@ -355,11 +355,11 @@ Zac on January 28 2011, 04:55 <a href="#comment-9962">#</a>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -384,13 +384,13 @@ Zac on January 28 2011, 04:55 <a href="#comment-9962">#</a>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

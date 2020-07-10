@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -61,12 +61,12 @@
 <div class="article">
     <p>
     Search engines are often key to the successful promotion and running of your website, with high traffic making or breaking your online
-    business. To maximise the visibility of your site in the organic listings of the biggest search engines it is important to strategically work 
+    business. To maximise the visibility of your site in the organic listings of the biggest search engines it is important to strategically work
     out how <a href="http://www.wordtracker.com/academy-articles-ultimate-primer.html">keywords</a> are used.
-	
+
 	<br />
 	<br />
-	
+
 	While link building (placing links to the site or from the site) and, most importantly, writing useful content form the foundation of search engine rankings,
 	some careful attention to how your site treats <a href="http://en.wikipedia.org/wiki/URL">URLs</a> will influence its ranking massively.
 </p>
@@ -93,8 +93,8 @@
 </ul>
 
 <p>
-	The last one mentioned is by far the most common. 
-	It's also the only way that variables passed to an application can be bookmarked and sent by email to other people, 
+	The last one mentioned is by far the most common.
+	It's also the only way that variables passed to an application can be bookmarked and sent by email to other people,
 	since cookies and sessions are bound to the specific computer and browser.
 	But let's have a look how a URL works:
 </p>
@@ -106,8 +106,8 @@
 <p>
     Historically, search engines were not able to spider links with querystring parameters because of page rendering speeds and so-called
     spider traps. Today, most of the big search engine spiders will follow these untidy links, doing their best to strip out the portions that
-    can cause them trouble. Forcing them to do this, however, makes one of the most common and easy techniques, the GET method and the use 
-    of the GET array in various scripting languages, the worst coding technique when it comes to search page rankings. 
+    can cause them trouble. Forcing them to do this, however, makes one of the most common and easy techniques, the GET method and the use
+    of the GET array in various scripting languages, the worst coding technique when it comes to search page rankings.
 	<br />
 	A URL like this is not ideal for most search engines:
 </p>
@@ -136,7 +136,7 @@
 <h3>The meaningful ones</h3>
 
 <p>
-	But this still is not the ideal URL. Not for people who have to type it in, nor for search engine rankings, since it doesn't contain 
+	But this still is not the ideal URL. Not for people who have to type it in, nor for search engine rankings, since it doesn't contain
 	any meaningful keywords. An ideal example would look more like this:
 </p>
 
@@ -145,10 +145,10 @@
 </pre>
 
 <p>
-	As you can see, this is more legible than any kind of cryptic ID. It is far more easy to remember for human visitors and 
+	As you can see, this is more legible than any kind of cryptic ID. It is far more easy to remember for human visitors and
     it is keyword rich for search engines as well.
 	Google pays especially close attention to the keywords within the URL, and they can, if they match what can be found in the content,
-	drastically improve the ranking. I suggest you try to think of a system that logically makes sense and that represents the path to your page, 
+	drastically improve the ranking. I suggest you try to think of a system that logically makes sense and that represents the path to your page,
 	similar to a <a href="http://www.webdesignpractices.com/navigation/breadcrumb.html">breacrumb navigation</a> maybe.
 	<br />
 	A nice article about dirty and clean URLs can be found on the website of <a href="http://www.port80software.com/support/articles/nextgenerationurls">Port80 Software</a>.
@@ -163,12 +163,12 @@
 
 <p>
 	Now that we have worked out how a good URL should look we can actually rethink the way our web-application renders pages.
-	It's obvious that we need to point the URLs that contain the information to the same file that contained the script 
-    dealing with the query string. 
-	
+	It's obvious that we need to point the URLs that contain the information to the same file that contained the script
+    dealing with the query string.
+
 	<br />
-	There are a couple of ways to do this: Apache's <a href="http://www.evolt.org/article/Making_clean_URLs_with_Apache_and_PHP/18/22880/">Force Type</a> for example, 
-	with others for <a href="http://www.aspnetworld.com/articles/2004011901.aspx">ASP and .Net</a>, but with PHP and Apache the most comnmon technique to rewrite URLs is the 
+	There are a couple of ways to do this: Apache's <a href="http://www.evolt.org/article/Making_clean_URLs_with_Apache_and_PHP/18/22880/">Force Type</a> for example,
+	with others for <a href="http://www.aspnetworld.com/articles/2004011901.aspx">ASP and .Net</a>, but with PHP and Apache the most comnmon technique to rewrite URLs is the
 	Apache module <a href="http://httpd.apache.org/docs/1.3/mod/mod_rewrite.html">mod_rewrite</a>.
 </p>
 
@@ -176,18 +176,18 @@
 
 <p>
 	Basically, mod_rewrite is a module for Apache that provides an engine that is able to rewrite URLs to other locations using regular expressions.
-	It is not activated in Apache by default though, and if you run your website on a shared hosting server you might have to ask your hosting 
+	It is not activated in Apache by default though, and if you run your website on a shared hosting server you might have to ask your hosting
 	provider to get it up and running for you.
 	<br />
-	To get yourself right into the sytax for URL rewriting I recommend reading <a href="http://www.sitepoint.com/article/guide-url-rewriting">A Beginner's Guide to URL Rewriting</a> 
-	on <a href="http://www.sitepoint.com">sitepoint.com</a> and the <a href="http://httpd.apache.org/docs/2.0/misc/rewriteguide.html">URL Rewriting Guide</a> written by <a href="http://engelschall.com/">Ralf S. Engelschall</a>, 
+	To get yourself right into the sytax for URL rewriting I recommend reading <a href="http://www.sitepoint.com/article/guide-url-rewriting">A Beginner's Guide to URL Rewriting</a>
+	on <a href="http://www.sitepoint.com">sitepoint.com</a> and the <a href="http://httpd.apache.org/docs/2.0/misc/rewriteguide.html">URL Rewriting Guide</a> written by <a href="http://engelschall.com/">Ralf S. Engelschall</a>,
 	the guy who wrote the module.
 </p>
 
 <h3>Rewrite rules and htaccess files</h3>
 
 <p>
-	Usually you would define a rewrite rule in an htaccess file put into the roots folder of your site. 
+	Usually you would define a rewrite rule in an htaccess file put into the roots folder of your site.
     I'm just giving a little example here rather than going into too much detail.
 	Please check the comments to see what each line does.
 </p>
@@ -204,10 +204,10 @@ RewriteRule ^(.*) myscript.php            # else rewrite is to myscript.php
 </pre>
 
 <p>
-	A more detailed introduction to Rewrite rules can be found on the 
+	A more detailed introduction to Rewrite rules can be found on the
 	<a href="http://httpd.apache.org/docs/1.3/misc/rewriteguide.html">manual pages of mod_rewrite</a>.
 	Even a quick look will show you that mod_rewrite offers a sophisticated toolkit for rewriting URLs including
-	the search for files in multiple locations and even time-dependent rewriting. Clean URLs 
+	the search for files in multiple locations and even time-dependent rewriting. Clean URLs
 	are only one of many reasons to get amiliar with mod_rewrite.
 </p>
 
@@ -216,7 +216,7 @@ RewriteRule ^(.*) myscript.php            # else rewrite is to myscript.php
 
 <p>
 	Enough of the theory. Now that we've found out how to rewrite URLs to a specific files I want to give a quick and very simple example
-	of how I tweaked old code quickly and efficiently using mod_rewrite and a bit of code. Afterwards my PHP application 
+	of how I tweaked old code quickly and efficiently using mod_rewrite and a bit of code. Afterwards my PHP application
 	was capable of handling clean URLs instead of GET parameters... and the whole thing took me just half an hour.
 </p>
 
@@ -233,7 +233,7 @@ http://server/index.php?page_id=100
 <h3>The new URL</h3>
 
 <p>
-	The pattern for a quick tweak I worked out uses the set prefix "page", then the page_id (that before was found in the get parameter) 
+	The pattern for a quick tweak I worked out uses the set prefix "page", then the page_id (that before was found in the get parameter)
 	and finally a modified title slug to improve the indexing.
 </p>
 
@@ -260,8 +260,8 @@ if($match[1])
 <h3>Security</h3>
 
 <p>
-	Always bear in mind that you never should trust the URL. 
-	As with all form inputs and GET parameters you need to escape variables taken out of the REQUEST_URI before you use them in your script, 
+	Always bear in mind that you never should trust the URL.
+	As with all form inputs and GET parameters you need to escape variables taken out of the REQUEST_URI before you use them in your script,
 	otherwise you're inviting script kiddies to hack your application. This is particularly important for scripts that use eval() or write values into databases,
 	store files or do anything else that could cause crucial damage.
 </p>
@@ -269,11 +269,11 @@ if($match[1])
 <h2>Conclusion</h2>
 
 <p>
-	Using clean URLs improves your site and the search engine rankings. 
+	Using clean URLs improves your site and the search engine rankings.
 	It's more likely that people will be able to remember certain locations within the site.
-	Your page-rank in Google is likely to go up and you stand a better chance of turning up in search engines. 
+	Your page-rank in Google is likely to go up and you stand a better chance of turning up in search engines.
 	<br />
-	With mod_rewrite and a couple of small tweaks existing applications 
+	With mod_rewrite and a couple of small tweaks existing applications
 	can usually be coaxed into using clean URLs.
 </p>
 </div>
@@ -286,7 +286,7 @@ if($match[1])
 <div class="comment-text">Nice article! The effect of nice URL&#8217;s in search engines is indeed absolutely amazing. It&#8217;s one of the best instant-result SEO actions one can possibly perform on a site. <br />
 <br />
 I actually demonstrated mod_rewrite during one of the Linux courses I&#8217;m delivering and the students were amazed with how easy it is to use mod_rewrite.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.i-marco.nl/weblog/" rel="nofollow">Marco</a> on October 6 2005, 10:15 <a href="#comment-252">#</a>
 </p>
 </li>
@@ -294,7 +294,7 @@ I actually demonstrated mod_rewrite during one of the Linux courses I&#8217;m de
 <div class="comment-text">Hi<br />
 <br />
 Do you have that code for ASP.Net too?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.haf.se" rel="nofollow">Henrik</a> on October 6 2005, 10:31 <a href="#comment-253">#</a>
 </p>
 </li>
@@ -304,29 +304,29 @@ Do you have that code for ASP.Net too?</div>
 I&#8217;ve personally had quite a bit of luck using a different, PHP based, method too. Another Sitepoint plug infact &#8211; using the Pathvars class from The PHP Anthology book.<br />
 <br />
 I had a rambling stab (<a href="http://www.morethanseven.net/weblog/40">www.morethanseven.net/weblog/40</a>) at writing some of it down but mine was lets say less clear, consise and more err, error prone that this article.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://morethanseven.net" rel="nofollow">Gareth</a> on October 6 2005, 12:59 <a href="#comment-254">#</a>
 </p>
 </li>
 <li class="even" id="comment-255">
 <div class="comment-text">Henrik: Sadly I have no real knowledge of .Net, but from a quick read <a href="http://www.codeproject.com/aspnet/URLRewriter.asp">this article</a> sounds like an easy possibility. The configuration of the rewrite engine is XML, very neat me thinks!</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on October 6 2005, 17:04 <a href="#comment-255">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on October 6 2005, 17:04 <a href="#comment-255">#</a>
 </p>
 </li>
 <li class="odd" id="comment-256">
 <div class="comment-text">I remember trying to figure out the .htaccess files after enabling clean URLs in a Wordpress install and begin absolutely baffled. Nicely explained Pascal!<br />
 <br />
 Keywords in URLs are given a LOT of weight by the current Google algorithm so this is a great technique for improving organic search engine listings&#8230; You just need to look at the URLs of the top 10 sites next time you try to buy some consumer electronics online to see proof of this.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Mike Stenhouse</a> on October 7 2005, 06:01 <a href="#comment-256">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Mike Stenhouse</a> on October 7 2005, 06:01 <a href="#comment-256">#</a>
 </p>
 </li>
 <li class="even" id="comment-261">
 <div class="comment-text">Nice article. Always nice to find a new way to construct your URLs.<br />
 <br />
 A while back I wrote <a href="http://agachi.name/weblog/archives/2005/01/30/rewriting-dynamic-urls-into-friendly-urls.htm">something on the same subject</a>, but with a different approach.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://agachi.name/" rel="nofollow">Valentin Agachi</a> on October 10 2005, 13:39 <a href="#comment-261">#</a>
 </p>
 </li>
@@ -340,8 +340,8 @@ Just to give you a quick example: Imagine a CMS that, in order to save server lo
 All requests that don&#8217;t point to an existing file get rewritten to the CMS instead of throwing a 404.<br />
 <br />
 This obviously goes far beyond the possibilites of Force-Type and opens completely new approaches on how to structure an application.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on October 11 2005, 04:31 <a href="#comment-263">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on October 11 2005, 04:31 <a href="#comment-263">#</a>
 </p>
 </li>
 <li class="even" id="comment-265">
@@ -349,12 +349,12 @@ This obviously goes far beyond the possibilites of Force-Type and opens complete
 <br />
 Just one point: does the `id` in the URL add some value? I think not, so if the slug is a field in the database, why use it to select the row (article)?.<br />
 <br />
-By the way, this very page is accesible through 
-<pre>http://www.contentwithstyle.co.uk/Articles/64/~
+By the way, this very page is accesible through
+<pre>http://contentwithstyle.pascalopitz.com/Articles/64/~
  clean-urls-for-a-better-search-engine-ranking/</pre>
 or
-<pre>http://www.contentwithstyle.co.uk/Articles/64/</pre> or <pre>http://www.contentwithstyle.co.uk/Articles/64/any-random-string/</pre></div>
-<p class="comment-info">by 
+<pre>http://contentwithstyle.pascalopitz.com/Articles/64/</pre> or <pre>http://contentwithstyle.pascalopitz.com/Articles/64/any-random-string/</pre></div>
+<p class="comment-info">by
 <a href="http://dizque.lacalabaza.net" rel="nofollow">choan</a> on October 11 2005, 11:07 <a href="#comment-265">#</a>
 </p>
 </li>
@@ -364,26 +364,26 @@ The keywords out in are actually only SEO, nothing else. For the application log
 Actually the article will be reachable with GET parameter as well, in order to keep the old links to the site working. So try <br />
 <br />
 <pre>
-http://www.contentwithstyle.co.uk/?id=64
+http://contentwithstyle.pascalopitz.com/?id=64
 </pre>
 <br />
 And you&#8217;ll get here as well. which isn&#8217;t a bad thing, is it?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on October 11 2005, 16:05 <a href="#comment-266">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on October 11 2005, 16:05 <a href="#comment-266">#</a>
 </p>
 </li>
 <li class="even" id="comment-269">
 <div class="comment-text">Does this play nice with search engine duplicate content penalties? Surely having the same page available via 4 different URLs counts as duplicates?<br />
 <br />
 All it takes is someone to link to you with the &#8220;wrong&#8221; URL&#8230; unless I&#8217;m missing something? Using robots.txt to exclude old URL patterns perhaps?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Mark on October 14 2005, 03:28 <a href="#comment-269">#</a>
 </p>
 </li>
 <li class="odd" id="comment-270">
 <div class="comment-text">Mark, this is a good point. And a good idea to deal with this. However, I can only repeat that the script example is meant as an example, not as the ultimate solution. Same goes for this site. I think you should keep in mind that CwS works with a heavily tweaked textpattern beta version. The site is, unlike a well planned project, &#8220;grown organically&#8221; and there&#8217;s hell of a lot to be improved.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on October 14 2005, 08:03 <a href="#comment-270">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on October 14 2005, 08:03 <a href="#comment-270">#</a>
 </p>
 </li>
 <li class="even" id="comment-271">
@@ -393,8 +393,8 @@ I&#8217;m not sure that they are black-and-white strict in that sense, and in th
 in this extensive <a href="http://www.seomoz.org/articles/search-ranking-factors.php">search engine ranking doc</a> duplication is mentioned a couple of times, our case with moderate importance, but, think about what else dilutes your &#8220;unique&#8221; page: leaving out the &#8220;www.&#8221; is a whole duplicate set of your website (Pascal just fixed that in the RSS), session keys offer  millions of duplicates.<br />
 This very obvious problem makes me think that a penalty is only given when it&#8217;s a more severe problem.<br />
 I believe that when it comes to a decision like this, the user should come before the search engine. Let them have 2 urls, or how many they&#8217;d like to have. What&#8217;s to do on our side is to redirect them to the desired url.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on October 17 2005, 09:03 <a href="#comment-271">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on October 17 2005, 09:03 <a href="#comment-271">#</a>
 </p>
 </li>
 <li class="odd" id="comment-273">
@@ -403,19 +403,19 @@ I believe that when it comes to a decision like this, the user should come befor
 The www.domain.com vs domain.com issue is also a good point, but a) it&#8217;s easy to redirect one to the other and b) search engines would have an easier time catering for this example of duplication than, say a URL like /events/id/32 vs /events.asp?id=32 vs /events/my_event_title.html.<br />
 <br />
 I guess the upshot is, tough unless you&#8217;re going to robots.txt the URL formats you don&#8217;t want spiders to pick up on &#8211; which as I understand it means listing every URL (including parameters) in robots.txt.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Mark on October 17 2005, 11:23 <a href="#comment-273">#</a>
 </p>
 </li>
 <li class="even" id="comment-274">
 <div class="comment-text">Watch this space, I&#8217;m going to investigate and gather a couple of thoughts on how to rewrite unwanted URLs into wanted URLs &#8230; promised!</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on October 18 2005, 09:57 <a href="#comment-274">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on October 18 2005, 09:57 <a href="#comment-274">#</a>
 </p>
 </li>
 <li class="odd" id="comment-295">
 <div class="comment-text">Even though it might be good for some search engines at the present. Personally, I don&#8217;t think this is a good solution for the long term because it&#8217;s non-standard and when you move server, have to set it up all the customizations again. Search engines should be able to (or they would be) parse pages from the page regardless of URL format.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://blog.trungson.com/" rel="nofollow">Son Nguyen</a> on October 31 2005, 22:30 <a href="#comment-295">#</a>
 </p>
 </li>
@@ -424,32 +424,32 @@ Mark on October 17 2005, 11:23 <a href="#comment-273">#</a>
 A module that is as common as mod_rewrite should be available at most hosting companies and if you move to servers where you can do the configuration yourself it&#8217;s even more easy to set up. <br />
 The effort to support accessible and legible URL schemes rather than cryptical querystrings is a minor price to pay, I reckon.<br />
 Another thing to say is that &#8220;should be able&#8221; implies that they aren&#8217;t. Same like &#8220;all browsers should be standard compliant&#8221; it has nothing to do with the solution of a problem.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 1 2005, 05:06 <a href="#comment-300">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 1 2005, 05:06 <a href="#comment-300">#</a>
 </p>
 </li>
 <li class="odd" id="comment-330">
 <div class="comment-text">Keywords in URLs do actually give you  a LOT of weight by the current Google algorithm so this is a great technique for improving organic search engine listings&#8230;</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.checkrankings.com" rel="nofollow">Keyword Rankings</a> on November 14 2005, 15:08 <a href="#comment-330">#</a>
 </p>
 </li>
 <li class="even" id="comment-342">
 <div class="comment-text">ok</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.gutsyouth.com" rel="nofollow">kkaa</a> on November 28 2005, 14:28 <a href="#comment-342">#</a>
 </p>
 </li>
 <li class="odd" id="comment-360">
 <div class="comment-text">Nice tutorial on mod rewrite, it&#8217;s easier than I thought.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.firefoxwallpapers.com/" rel="nofollow">Marko</a> on December 27 2005, 18:59 <a href="#comment-360">#</a>
 </p>
 </li>
 <li class="even" id="comment-363">
 <div class="comment-text">Marko, don&#8217;t forget that mod_rewrite is more complex than just what I was showing up till this point. In fact it can manage fairly complex rewrite rules using regular expressions. Maybe that&#8217;s worth another article though, I&#8217;ll look into it in january.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 29 2005, 18:49 <a href="#comment-363">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 29 2005, 18:49 <a href="#comment-363">#</a>
 </p>
 </li>
 <li class="odd" id="comment-372">
@@ -458,13 +458,13 @@ Another thing to say is that &#8220;should be able&#8221; implies that they aren
 In fact, look at this page that shows blogs and their number of google pages indexed.  http://blognetworklist.com/bgooglepages.php<br />
 <br />
 Why so many zeros?  Did blog network blogs just get penalized?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://internetzillionaire.com/" rel="nofollow">Dave</a> on January 16 2006, 01:11 <a href="#comment-372">#</a>
 </p>
 </li>
 <li class="even" id="comment-1790">
 <div class="comment-text">Awesome article thanks</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.haikona.com" rel="nofollow">Doug</a> on November 28 2006, 07:45 <a href="#comment-1790">#</a>
 </p>
 </li>
@@ -492,19 +492,19 @@ JTMcNaught<br />
 http://www.IsPopularOnline<br />
 Where Little-Guys get Noticed Online<br />
 and 1000&#8217;s promote your URLs</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.IsPopularOnline.com/tag/rewrite" rel="nofollow">JTMcNaught</a> on May 17 2007, 11:28 <a href="#comment-2063">#</a>
 </p>
 </li>
 <li class="even" id="comment-2476">
 <div class="comment-text">Probably not, but then again the example was meant to be a quick fix for querystring driven blogs, not a proper rewrite strategy. I recommend setting up <a href="http://www.webconfs.com/how-to-redirect-a-webpage.php">301 redirects</a> ... in an .htaccess file for example.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on January 16 2008, 12:40 <a href="#comment-2476">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 16 2008, 12:40 <a href="#comment-2476">#</a>
 </p>
 </li>
 <li class="odd" id="comment-2474">
 <div class="comment-text">Does this play nice with search engine duplicate content penalties. Surely having the same page available via 4 different URLs counts as duplicates..</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.tercume-burosu.org" rel="nofollow">Tercüme bürosu</a> on January 16 2008, 04:11 <a href="#comment-2474">#</a>
 </p>
 </li>
@@ -513,11 +513,11 @@ and 1000&#8217;s promote your URLs</div>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -542,13 +542,13 @@ and 1000&#8217;s promote your URLs</div>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

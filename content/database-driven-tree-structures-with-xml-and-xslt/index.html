@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -60,7 +60,7 @@
 
 <div class="article">
     <p>This article deals with the display of tree-structures that are driven by a database.
-	There are actually a few approaches to transform a 2-dimensional structure into 
+	There are actually a few approaches to transform a 2-dimensional structure into
 	a tree, and it seems odd that most are unknown to many developers.</p>
 
 <p>The most obvious approach is using the parent-ID as a back-reference for recursion <a href="http://www.devx.com/tips/Tip/22127">like in this example</a>. But then what happens if the tree-structure
@@ -69,11 +69,11 @@
 
 <h2>Database structure</h2>
 
-<p>To do this we have to get familiar with a thing called 
-	<strong>preordered tree traversal</strong>. If you've not come across it before, take a moment to read <a href="http://www.sitepoint.com/article/hierarchical-data-database/2">Storing Hierarchical Data in a Database</a>. 
+<p>To do this we have to get familiar with a thing called
+	<strong>preordered tree traversal</strong>. If you've not come across it before, take a moment to read <a href="http://www.sitepoint.com/article/hierarchical-data-database/2">Storing Hierarchical Data in a Database</a>.
 	Essentially, the idea is to store left and right values for each node and then to figure out whether there is an increase or decrease in the depth of the tree from the difference in the left value between consecutive elements.
     </p>
-    
+
 <pre>
 
 +--------------------+-----+-----+
@@ -89,18 +89,18 @@
 </pre>
 
 <p>This is far more efficient than recursively requesting on the ID of the parent element because now we just need two SELECTS: </p>
-<ul>	
+<ul>
 <li>The first to get the left and right values of the node that is the root node of the tree to describe.</li>
 <li>The second one to get all dependencies.</li>
 </ul>
-	
+
 <p>Keep in mind that LEFT and RIGHT are SQL keywords, so label your database fields accordingly. I use 'lft' and 'rgt'.</p>
 
 <h2>XML tree structure</h2>
 
 <p>Now we are about to transform the 2-dimensional structured data in the database into an XML format.
-	The beauty of XML for the purpose of displaying trees is the ability to have nested structures. 
-	Also read my previous article about <a href="http://www.contentwithstyle.co.uk/Articles/29/xml-as-intermediate-application-layer">XML as intermediate application layer</a> to find out what else XML has to offer.</p>
+	The beauty of XML for the purpose of displaying trees is the ability to have nested structures.
+	Also read my previous article about <a href="http://contentwithstyle.pascalopitz.com/Articles/29/xml-as-intermediate-application-layer">XML as intermediate application layer</a> to find out what else XML has to offer.</p>
 
 <p>Our structure is going to look something like this:</p>
 
@@ -140,42 +140,42 @@
 
 <p>In order to create the XML structure we will walk through the result set and trigger the opening and closing tags by comparing the left and right values.</p>
 
-<p>Bear in mind that this function is supposed to be a method of a class that already has the basic toolkits for 
-	database handling available. Again, read <a href="http://www.contentwithstyle.co.uk/Articles/29/xml-as-intermediate-application-layer">my previous article</a> to find out more.</p>
-		
+<p>Bear in mind that this function is supposed to be a method of a class that already has the basic toolkits for
+	database handling available. Again, read <a href="http://contentwithstyle.pascalopitz.com/Articles/29/xml-as-intermediate-application-layer">my previous article</a> to find out more.</p>
+
 <pre>
 
 function getPageTreeXML($ID = false)
 {
   // get left and right values of root-node
-  $q = ($ID) ? 'SELECT lft, rgt FROM pages WHERE ID = ' 
+  $q = ($ID) ? 'SELECT lft, rgt FROM pages WHERE ID = '
       . $ID : 'SELECT * FROM pages ORDER BY lft ASC LIMIT 1';
-	  
+
   $res = $this-&gt;DB-&gt;query($q);
-  
+
   $depth = 0;
   $ol = mysql_result($res, 0, 'lft');
   $or = mysql_result($res, 0, 'rgt');
 
   // get tree branch
   $q = '
-    SELECT * FROM pages WHERE 
-      lft &gt;= ' . $ol . ' 
-    AND 
-      rgt &lt;= ' . $or . ' 
+    SELECT * FROM pages WHERE
+      lft &gt;= ' . $ol . '
+    AND
+      rgt &lt;= ' . $or . '
     ORDER BY lft ASC';
 
   $res = $this-&gt;DB-&gt;query($q);
-  
+
   // open the pagetree tag
   $xmlStr = '';
   $xmlStr .= '&lt;pagetree&gt;';
-  
+
   while($arr = mysql_fetch_array($res))
   {
     // store old depth
     $old_depth = $depth;
-    
+
     // trigger new depth values
     if($ol == ($arr['lft'] - 1))
       $depth++;
@@ -190,7 +190,7 @@ function getPageTreeXML($ID = false)
     $xmlStr .= '&lt;page id="' . $arr['ID'] . '" depth="' .
             $depth . '"&gt;' . '&lt;name&gt;&lt;![CDATA[' .
             $this-&gt;mysqlDecodeText($arr['name']) . ']]&gt;&lt;/name&gt;';
-    
+
     // store the left and right values for next iteration
     $ol = $arr["lft"];
     $or = $arr["rgt"];
@@ -213,14 +213,14 @@ function getPageTreeXML($ID = false)
 	out of it by using XSLT. The following example is a quickly mocked up
 	nested structure to create an indented display of the page-names.</p>
 
-<p>You can create nested XHTML elements easily by using a recursive structure in XSLT.  
+<p>You can create nested XHTML elements easily by using a recursive structure in XSLT.
 In my example, you can see that the &#8220;page&#8221; template is calling itself in the for-each loop.</p>
 
 
 <pre>
 
 &lt;?xml version="1.0"?&gt;
-&lt;xsl:stylesheet version="1.0" 
+&lt;xsl:stylesheet version="1.0"
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
 
   &lt;xsl:template match="/pagetree"&gt;
@@ -238,10 +238,10 @@ In my example, you can see that the &#8220;page&#8221; template is calling itsel
       &lt;/body&gt;
     &lt;/html&gt;
   &lt;/xsl:template&gt;
-  
+
   &lt;xsl:template match="page" name="page"&gt;
     &lt;div&gt;
-      &lt;xsl:value-of select="name" /&gt; 
+      &lt;xsl:value-of select="name" /&gt;
       &lt;xsl:for-each select="page"&gt;
         &lt;xsl:call-template name="page" /&gt;
       &lt;/xsl:for-each&gt;
@@ -258,7 +258,7 @@ In my example, you can see that the &#8220;page&#8221; template is calling itsel
 	I find this method a handy way to generate menus for the front-end and the back-end of an application using the same XML-rendering
 	for both sides. Also, by using XSLT, we have plenty of styling possibilities.</p>
 
-<p>But the best advantage for me in this 3-step process is the first one - the pre-ordered tree traversal. 
+<p>But the best advantage for me in this 3-step process is the first one - the pre-ordered tree traversal.
 	It speeds up your application dramatically and makes it possible to render even large trees with maximum pace.</p>
 </div>
 
@@ -270,16 +270,16 @@ In my example, you can see that the &#8220;page&#8221; template is calling itsel
 <div class="comment-text">Great article, Pascal. I have read somewhere that you might run into trouble if you modify the tree very often, as you have to lock the whole tree when updating it.<br />
 In the parent-child approach you only add, and you only read out the parent-id.<br />
 But you could on the other hand prevent this by forming some sort of message queue in a background process, or simply repeat the command until it&#8217;s successful. One might be quite some work, the other one seems a bit of a dirty solution (although, how do YOU make sure your data is actually written?), but all I want to say is that there&#8217;s always a way to use the desired approach, as much as there&#8217;s always a way to misuse it.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on June 13 2005, 21:08 <a href="#comment-136">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on June 13 2005, 21:08 <a href="#comment-136">#</a>
 </p>
 </li>
 <li class="even" id="comment-138">
 <div class="comment-text">If thing get really bad my fix would probably be to store the parentID as well but still do the tree-thing by left and right &#8230;<br />
 <br />
 If things are corrupted you could rebuild the left and right values by using parentID, in a cron script for example &#8230;</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on June 14 2005, 10:56 <a href="#comment-138">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on June 14 2005, 10:56 <a href="#comment-138">#</a>
 </p>
 </li>
 <li class="odd" id="comment-217">
@@ -287,8 +287,8 @@ If things are corrupted you could rebuild the left and right values by using par
 <br />
 Let&#8217;s say I use this for a navigation, how do I get ONLY the direct children for my page, like a 1st level subnav?<br />
 Right now I&#8217;m thinking I should combine the parent_id approach with the preordered tree traversal, but I didn&#8217;t see this question as a drawback anywhere, so I wonder if I missed that somehow&#8230;</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on August 8 2005, 13:43 <a href="#comment-217">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on August 8 2005, 13:43 <a href="#comment-217">#</a>
 </p>
 </li>
 <li class="even" id="comment-218">
@@ -296,16 +296,16 @@ Right now I&#8217;m thinking I should combine the parent_id approach with the pr
 <br />
 Like that you can, with the XML beeing a whole tree, reuse it for all kind of navigations, you need on your page.<br />
 <br />
-Take a close look in <a href="http://www.contentwithstyle.co.uk/Articles/8/find-your-node-advanced-xpath-commands">Find your node: Advanced XPATH commands</a> again and you&#8217;ll see what I mean.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on August 9 2005, 10:56 <a href="#comment-218">#</a>
+Take a close look in <a href="http://contentwithstyle.pascalopitz.com/Articles/8/find-your-node-advanced-xpath-commands">Find your node: Advanced XPATH commands</a> again and you&#8217;ll see what I mean.</div>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on August 9 2005, 10:56 <a href="#comment-218">#</a>
 </p>
 </li>
 <li class="odd" id="comment-344">
 <div class="comment-text">The primary argument against using a parent-id relationship to define the hierarchy seems to be the number of database requests required. However, it is possible to write SQL, with either recursion or loops, to return the structure in one command. You could also pass in a starting node id to only return child nodes. <br />
 <br />
 I&#8217;m not saying preorder algorithms are bad but they&#8217;re not amazingly better as this article suggests.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Ben on November 29 2005, 11:05 <a href="#comment-344">#</a>
 </p>
 </li>
@@ -313,8 +313,8 @@ Ben on November 29 2005, 11:05 <a href="#comment-344">#</a>
 <div class="comment-text">Ben,<br />
 While this is definetely true for big RDBMS, and possibly even for MySQL 4.1 upwards, they are sadly not always available. Without Subselects, I wonder if you could give an example sql for the problem stated above.<br />
 Actually, I&#8217;d be happy to see any recursive SQL in here, I don&#8217;t think that everybody reading this article is aware of this possibility.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on January 12 2006, 04:05 <a href="#comment-369">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on January 12 2006, 04:05 <a href="#comment-369">#</a>
 </p>
 </li>
 <li class="odd" id="comment-371">
@@ -322,7 +322,7 @@ Actually, I&#8217;d be happy to see any recursive SQL in here, I don&#8217;t thi
 <br />
 SortLevel = depth of node, basically<br />
 ChildCount = self-explanatory</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 cody caughlan on January 13 2006, 12:13 <a href="#comment-371">#</a>
 </p>
 </li>
@@ -333,8 +333,8 @@ This is a very good idea indeed. Even though when you do the traversal at least 
 @Ben:<br />
 I&#8217;d be curious to see an example of this as well. In fact I wonder how the performance of a recursive statement would be like. Subselects for example will make the query execution slower, and I guess the same goes for any recursive statement.<br />
 Has anyone got any benchmark or something on hand?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on January 18 2006, 05:40 <a href="#comment-374">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 18 2006, 05:40 <a href="#comment-374">#</a>
 </p>
 </li>
 <li class="odd" id="comment-478">
@@ -346,8 +346,8 @@ The update is by no means a recursion, instead it is just a couple of simple SQL
 <code> UPDATE table SET lft = (lft + offset), rgt = (rgt + offset) WHERE lft &gt; startpoint AND rgt &lt; endpoint; </code><br />
 <br />
 Hope that makes sense to you?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on March 8 2006, 08:43 <a href="#comment-478">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on March 8 2006, 08:43 <a href="#comment-478">#</a>
 </p>
 </li>
 <li class="even" id="comment-477">
@@ -358,14 +358,14 @@ How do you order the results alphabetically if you used order by lft?<br />
 How do you move nodes with children to an other node without recreating all the left and right numbers which could be exhausting with 100 000 entries or more? (recursive function)<br />
 <br />
 Geza</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Geza on March 8 2006, 08:29 <a href="#comment-477">#</a>
 </p>
 </li>
 <li class="odd" id="comment-1021">
 <div class="comment-text">HI Pascal,<br />
       I tried getting my 2000 member list to show up in the above example.  I was looking in your previous article that uses adodb but can&#8217;t find anything to get your function getPageTreeXML to work.  Or did I miss out anything.  Appreciate if you could tell me which module to use for the above function.  Thanks.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Sebbie on July 12 2006, 06:39 <a href="#comment-1021">#</a>
 </p>
 </li>
@@ -420,15 +420,15 @@ class DB {
 }
 ?&gt;
 </code></pre></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on July 12 2006, 18:04 <a href="#comment-1030">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on July 12 2006, 18:04 <a href="#comment-1030">#</a>
 </p>
 </li>
 <li class="odd" id="comment-1395">
 <div class="comment-text">Hi Pascal, what does mysqlDecodeText do ?  Could you email me what it is ? Even better, if you have a complete working example in a zip file that would be nice.  Thanks.<br />
 <br />
 Sebbie</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Sebbie on August 14 2006, 05:42 <a href="#comment-1395">#</a>
 </p>
 </li>
@@ -436,25 +436,25 @@ Sebbie on August 14 2006, 05:42 <a href="#comment-1395">#</a>
 <div class="comment-text">It&#8217;s just a wrapper for undoing whatever you do before you put it in the database &#8230; like add slashes and so on.<br />
 <br />
 It&#8217;s not critical for the app though.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on August 15 2006, 10:47 <a href="#comment-1412">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on August 15 2006, 10:47 <a href="#comment-1412">#</a>
 </p>
 </li>
 <li class="odd" id="comment-1919">
 <div class="comment-text">You should also check up my blog entry about &#8220;<a href="http://www.frostinnovation.com/Blog.aspx?blogId=1b82e4b8-47fe-453a-a9c3-f11efe8083d8 ">Genetic Trees</a>&#8221; which has another approach called Genetic Trees or &#8220;Materialized Path&#8221; that makes subselection of childne and grandchildrens etc an O(1) operation!!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://ajaxwidgets.com" rel="nofollow">Thomas Hansen</a> on January 18 2007, 12:42 <a href="#comment-1919">#</a>
 </p>
 </li>
 <li class="even" id="comment-1947">
 <div class="comment-text">(Reply for item #17): Yes, that&#8217;s a solution. However, when I make changes in a node (including a new child, for example), I&#8217;ll have to search for all trees that has the modified node, and update them. It seems to be expensive, but we must think of what is more likely: MODIFY a node or SELECT a node. If SELECT&#8217;s are more frequent, then I think your suggestion will be the best solution.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://devinstance.wordpress.com" rel="nofollow">Ernani Cecon Jr.</a> on January 25 2007, 11:21 <a href="#comment-1947">#</a>
 </p>
 </li>
 <li class="odd" id="comment-1942">
 <div class="comment-text">Hi Pascal, congratulations for the article. And what if I increase the complexity a little bit? Let&#8217;s assume that, in your example, we would like to store different menu trees in the table, one for administrators and another for ordinary users. Both trees should share some nodes (both should see page 1.2.1, for example), and wouldn&#8217;t like to have repeated records for those nodes in the table. How could we do this using the preordered tree traversal method?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://devinstance.wordpress.com" rel="nofollow">Ernani Cecon Jr.</a> on January 24 2007, 11:13 <a href="#comment-1942">#</a>
 </p>
 </li>
@@ -472,8 +472,8 @@ This would give you the opportunity to store trees for each user and join them a
 Does that make sense?
 
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on January 24 2007, 11:46 <a href="#comment-1943">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 24 2007, 11:46 <a href="#comment-1943">#</a>
 </p>
 </li>
 
@@ -481,11 +481,11 @@ Does that make sense?
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -510,13 +510,13 @@ Does that make sense?
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

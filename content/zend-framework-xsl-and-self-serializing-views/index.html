@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -108,7 +108,7 @@ Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
 $frontController-&gt;dispatch();</code></pre>
 
 <p>Note that I have provided a new viewRenderer and view object, which is called View_Xslt.php and is located in the library/demo folder.
-Also I set the view suffix to xsl.</p><p><a href="http://www.contentwithstyle.co.uk/resources/xslt_views_demo.zip">A ZIP file containing the whole demo (excluding the Zend Framework files) can be downloaded here</a>. </p>
+Also I set the view suffix to xsl.</p><p><a href="http://contentwithstyle.pascalopitz.com/resources/xslt_views_demo.zip">A ZIP file containing the whole demo (excluding the Zend Framework files) can be downloaded here</a>. </p>
 
 <h2>The View Object</h2>
 
@@ -121,7 +121,7 @@ class View_Xslt extends Zend_View_Abstract
 {
  private $serializer;
  private $rootName;
- 
+
  public function __construct($data = array()) {
  $this-&gt;serializer = new Serializer();
  parent::__construct($data);
@@ -130,9 +130,9 @@ class View_Xslt extends Zend_View_Abstract
  public function setRootName($name) {
  $this-&gt;rootName = $name;
  }
- 
+
  protected function _run() {
- $template = func_get_arg(0); 
+ $template = func_get_arg(0);
  $xslDoc = new DOMDocument();
  $xslDoc-&gt;load($template);
  $xmlDoc = $this-&gt;toXml();
@@ -140,7 +140,7 @@ class View_Xslt extends Zend_View_Abstract
  $proc-&gt;importStylesheet($xslDoc);
  echo $proc-&gt;transformToXML($xmlDoc);
  }
- 
+
  private function toXml() {
  $xml_str = $this-&gt;serializer-&gt;Serialize($this, $this-&gt;rootName);
  return $xml_str;
@@ -149,15 +149,15 @@ class View_Xslt extends Zend_View_Abstract
 
 <h2>The Serializer</h2>
 
-<p>So what does this Serializer do? It utilizes the <a href="http://uk2.php.net/manual/en/language.oop5.reflection.php">Reflection</a> functionality to serialize the object into an XML string. This enables us to normally assign variables to the view from within our controller actions, just by saying <code>$this-&gt;foo = 'bar'</code>.</p><p><a href="http://www.contentwithstyle.co.uk/content/xml-serialization-and-php-reflection">I did a quick post on XML Serialization before</a>, and the Serializer I have provided is inspired by what I have found there. DISCLAIMER: Keep in mind that this is just a proof of concept, and to get this working perfectly it probably needs a bit more work.</p>
+<p>So what does this Serializer do? It utilizes the <a href="http://uk2.php.net/manual/en/language.oop5.reflection.php">Reflection</a> functionality to serialize the object into an XML string. This enables us to normally assign variables to the view from within our controller actions, just by saying <code>$this-&gt;foo = 'bar'</code>.</p><p><a href="http://contentwithstyle.pascalopitz.com/content/xml-serialization-and-php-reflection">I did a quick post on XML Serialization before</a>, and the Serializer I have provided is inspired by what I have found there. DISCLAIMER: Keep in mind that this is just a proof of concept, and to get this working perfectly it probably needs a bit more work.</p>
 <pre><code class="php">class Serializer
 {
  private $xmlDoc;
- 
+
  public function __construct() {
  $this-&gt;xmlDoc = new DOMDocument();
  }
- 
+
  public function Serialize($inst, $nodeName=null) {
  if(is_object($inst))
  {
@@ -174,34 +174,34 @@ class View_Xslt extends Zend_View_Abstract
 
  return $this-&gt;xmlDoc;
  }
- 
+
  private function SerializeObject($inst, $nodeName, $parent) {
  $obj = new ReflectionObject($inst);
  $properties = $obj-&gt;getProperties();
- 
+
  foreach($properties as $prop) {
   if(!$prop-&gt;isPrivate()) {
   $elem = $this-&gt;SerializeData($prop-&gt;getName(), $prop-&gt;getValue($inst), $parent);
   }
  }
  }
- 
+
  private function SerializeArray($array, $nodeName, $parent) {
  foreach($array as $key =&gt; $val) {
   $keyStr = (is_numeric($key)) ? 'ArrayValue' : $key;
   $elem = $this-&gt;SerializeData($keyStr, $val, $parent);
-  
+
   if(is_numeric($key)) {
   $elem-&gt;setAttribute('index', $key);
   }
  }
  }
- 
+
  private function SerializeData($key, $val, $parent) {
  if(is_object($val)) {
   $propNodeName = get_class($val);
   $elem = $this-&gt;xmlDoc-&gt;createElement($propNodeName);
-  $parent-&gt;appendChild($elem);   
+  $parent-&gt;appendChild($elem);
   $this-&gt;SerializeObject($val, $propNodeName, $parent);
   $elem-&gt;setAttribute('type', 'object');
  } else if(is_array($val)) {
@@ -214,14 +214,14 @@ class View_Xslt extends Zend_View_Abstract
   $parent-&gt;appendChild($elem);
   $elem-&gt;setAttribute('type', 'property');
  }
- 
+
  return $elem;
  }
 }</code></pre>
 
 
 
-<h2>Controller and View files</h2><p>Nearly there. We'll just need some XSL file and a controller with an action to get the demo running. First the controller and action. I included a little Demo class, so we can see the Serializer in action:</p> 
+<h2>Controller and View files</h2><p>Nearly there. We'll just need some XSL file and a controller with an action to get the demo running. First the controller and action. I included a little Demo class, so we can see the Serializer in action:</p>
 
 <pre><code class="php">class IndexController extends Zend_Controller_Action {
 	public function indexAction() {
@@ -247,13 +247,13 @@ class DemoObject {}</code></pre>
  &lt;xsl:template match="DataObject"&gt;
  &lt;xsl:apply-templates select="*" /&gt;
  &lt;/xsl:template&gt;
- 
+
  &lt;xsl:template match="*"&gt;
  &lt;div&gt;
   &lt;h2&gt;&lt;xsl:value-of select="name()" /&gt;&lt;/h2&gt;
   &lt;xsl:apply-templates select="text()" /&gt;
   &lt;xsl:apply-templates select="*" /&gt;
- &lt;/div&gt; 
+ &lt;/div&gt;
  &lt;/xsl:template&gt;
 &lt;/xsl:stylesheet&gt;</code></pre>
 
@@ -265,7 +265,7 @@ class DemoObject {}</code></pre>
   &lt;head&gt;
   &lt;title&gt;Test&lt;/title&gt;
   &lt;/head&gt;
-  
+
   &lt;body&gt;
   &lt;xsl:apply-templates select="/*" /&gt;
   &lt;/body&gt;
@@ -313,7 +313,7 @@ class DemoObject {}</code></pre>
     <ul class="comments-list">
         <li class="odd" id="comment-5454">
 <div class="comment-text">Thanks a lot! I will try that soon since I\'m heading to try this Zend framework and I\'m kind of XSL lover... :)</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Oscar Hiboux on February 10 2009, 04:33 <a href="#comment-5454">#</a>
 </p>
 </li>
@@ -321,8 +321,8 @@ Oscar Hiboux on February 10 2009, 04:33 <a href="#comment-5454">#</a>
 <div class="comment-text">Oscar, it\'s up to you whether or not you want to head into that direction. Of course there are downsides as well, which shouldn\'t go unmentioned: You\'re going to loose access to Form decorators and various other helpers. Plus, it\'s not the most ZEND way of doing things, so you might loose maintainability if someone else used to ZF will have to work on it.
 
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on February 10 2009, 07:15 <a href="#comment-5455">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on February 10 2009, 07:15 <a href="#comment-5455">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5749">
@@ -330,7 +330,7 @@ Oscar Hiboux on February 10 2009, 04:33 <a href="#comment-5454">#</a>
 I can\'t find a way to do that since the client has to get the xsl file after it gets the xml.
 
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 NicKy on March 22 2009, 00:48 <a href="#comment-5749">#</a>
 </p>
 </li>
@@ -345,7 +345,7 @@ If you have worked out some more examples, I will be interrested.</p>
 <pre><code>
 &lt;?xml-stylesheet type=\"text/xsl\" href=\"D:\\www\\xslt\\person.xsl\"?&gt;
 </code></pre></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Broer on April 29 2009, 18:33 <a href="#comment-5975">#</a>
 </p>
 </li>
@@ -356,8 +356,8 @@ Hello, I haven\'t go any experiences with the PEAR library for object serializat
 <p>
 I can see why, coming from something like a Spring Framework or C# background, you\'d feel familiar with XSLT, but I also believe it\'s a \"non-Zendy\" way of doing things, if that makes sense.
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on April 30 2009, 09:21 <a href="#comment-5978">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 30 2009, 09:21 <a href="#comment-5978">#</a>
 </p>
 </li>
 
@@ -365,11 +365,11 @@ I can see why, coming from something like a Spring Framework or C# background, y
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -394,13 +394,13 @@ I can see why, coming from something like a Spring Framework or C# background, y
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

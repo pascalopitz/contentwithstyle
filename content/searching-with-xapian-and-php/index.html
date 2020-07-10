@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -69,7 +69,7 @@
 
 <p>
 Rather than explaining why and how, I decided to create some demo scripts instead.
-The XapianWrapper PHP class I've created is quite large, so feel free to <a href="http://www.contentwithstyle.co.uk/resources/xapian-example.zip">download the example zip file</a> as well.
+The XapianWrapper PHP class I've created is quite large, so feel free to <a href="http://contentwithstyle.pascalopitz.com/resources/xapian-example.zip">download the example zip file</a> as well.
 </p>
 
 <h3>db.sql</h3>
@@ -85,10 +85,10 @@ CREATE TABLE `demo`.`demo` (
 `date` DATETIME NULL DEFAULT NULL ,
 UNIQUE (`unique_key`));
 
-INSERT INTO `demo`.`demo` 
+INSERT INTO `demo`.`demo`
 (`id`, `unique_key`, `name`, `summary`, `date`)
-VALUES (NULL, 'foo', 'foo', 'foo bar test', '2008-11-05 00:00:00'), 
-(NULL , 'bar', 'bar', 'test foo bar', '2009-11-05 00:00:00');        
+VALUES (NULL, 'foo', 'foo', 'foo bar test', '2008-11-05 00:00:00'),
+(NULL , 'bar', 'bar', 'test foo bar', '2009-11-05 00:00:00');
 </code></pre>
 
 <h3>XapianWrapper.php</h3>
@@ -106,7 +106,7 @@ class XapianWrapper {
   const XAPIAN_FIELD_UID = 3;
   const XAPIAN_FIELD_SUMMARY = 4;
   const XAPIAN_PREFIX_UID = "UID:";
-  
+
   const SETTINGS_XAPIAN_DB = './xapian_db';
 
   const SETTINGS_MYSQL_HOST = 'localhost';
@@ -119,7 +119,7 @@ class XapianWrapper {
 
   private $mysql_link;
   private $category_cache;
-  
+
   private $xapian_read_db;
   private $xapian_write_db;
   private $xapian_stemmer;
@@ -133,20 +133,20 @@ class XapianWrapper {
       $this-&gt;xapian_enquire = new XapianEnquire($this-&gt;xapian_read_db);
     } catch(Exception $e) {
       throw new Exception('Could initialize Xapian: ' . $e->getMessage());
-    } 
+    }
   }
-  
+
   private function xapian_init_writable() {
     try{
-      $this-&gt;xapian_write_db = new XapianWritableDatabase(self::SETTINGS_XAPIAN_DB, Xapian::DB_CREATE_OR_OPEN);  
+      $this-&gt;xapian_write_db = new XapianWritableDatabase(self::SETTINGS_XAPIAN_DB, Xapian::DB_CREATE_OR_OPEN);
       $this-&gt;xapian_indexer = new XapianTermGenerator();
       $this-&gt;xapian_stemmer = new XapianStem("english");
       $this-&gt;xapian_indexer-&gt;set_stemmer($this-&gt;xapian_stemmer);
     } catch(Exception $e) {
       throw new Exception('Could initialize Xapian: ' . $e->getMessage());
-    } 
+    }
   }
-  
+
   private function mysql_init() {
     $this-&gt;mysql_link = mysql_connect(self::SETTINGS_MYSQL_HOST, self::SETTINGS_MYSQL_USER, self::SETTINGS_MYSQL_PASS);
     if (!$this-&gt;mysql_link) {
@@ -158,7 +158,7 @@ class XapianWrapper {
       throw new Exception('Can\'t use db : ' . mysql_error());
     }
   }
-  
+
   /**
    * Index method
    *
@@ -166,7 +166,7 @@ class XapianWrapper {
   public function index($params) {
     $this-&gt;xapian_init_writable();
     $this-&gt;mysql_init();
-    
+
     $start = microtime(true);
 
     $response = new stdClass();
@@ -181,11 +181,11 @@ class XapianWrapper {
     if (!$result) {
       throw new Exception('Invalid query: ' . mysql_error());
     }
-    
+
     $this-&gt;xapian_write_db-&gt;begin_transaction();
 
     while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-       $response-&gt;indexed[] = $this-&gt;index_row($row);      
+       $response-&gt;indexed[] = $this-&gt;index_row($row);
     }
 
     $this-&gt;xapian_write_db-&gt;commit_transaction();
@@ -194,7 +194,7 @@ class XapianWrapper {
 
     return $response;
   }
-    
+
 
   private function index_row($row) {
     $doc = new XapianDocument();
@@ -211,16 +211,16 @@ class XapianWrapper {
     $doc-&gt;add_value(self::XAPIAN_FIELD_UID, $row['unique_key']);
     $doc-&gt;add_value(self::XAPIAN_FIELD_NAME, $row['name']);
     $doc-&gt;add_value(self::XAPIAN_FIELD_SUMMARY, $row['summary']);
-    
+
     $this-&gt;xapian_write_db-&gt;replace_document(strval($GUID), $doc);
 
     $row_response = array();
     $row_response['name'] = $row['name'];
     $row_response['guid'] = $row['unique_key'];
     $row_response['url'] = $row['url'];
-    return $row_response; 
+    return $row_response;
   }
-  
+
   /**
    * Delete method
    *
@@ -232,12 +232,12 @@ class XapianWrapper {
 
     $response = array();
 
-    foreach($params['items'] as $param_guid) {      
+    foreach($params['items'] as $param_guid) {
       $GUID = self::XAPIAN_PREFIX_UID . $param_guid;
       $this-&gt;xapian_write_db-&gt;delete_document(strval($GUID));
       $response[] = $param_guid;
     }
-    
+
     $this-&gt;xapian_write_db-&gt;commit_transaction();
     return $response;
   }
@@ -284,9 +284,9 @@ class XapianWrapper {
 
     foreach($arr_queries as $sq) {
       $query = new XapianQuery(XapianQuery::OP_AND, $query, $sq);
-    }    
+    }
     $this-&gt;xapian_enquire-&gt;set_query($query);
-  
+
     // set the count to the specified params
     $offset = (isset($params['offset'])) ? intval($params['offset']) : 0;
     $count = (isset($params['count'])) ? intval($params['count']) : self::DEFAULT_COUNT;
@@ -317,7 +317,7 @@ class XapianWrapper {
 
     $response-&gt;results = $results;
     $end = microtime(true);
-    
+
     // runtime info
     $response-&gt;execute = new stdClass();
     $response-&gt;execute-&gt;call = 'search';
@@ -344,7 +344,7 @@ require_once 'XapianWrapper.php';
 
 $x = new XapianWrapper();
 $res = $x-&gt;index(array());
-print_r($res);               
+print_r($res);
 </code></pre>
 
 <h3>search.php</h3>
@@ -357,7 +357,7 @@ require_once 'XapianWrapper.php';
 $x = new XapianWrapper();
 $params = array('search' =&gt; 'foo');
 $res = $x-&gt;search($params);
-print_r($res);           
+print_r($res);
 </code></pre>
 
 <h3>delete.php</h3>
@@ -376,10 +376,10 @@ print_r($res);
 
 <h3>Using the example</h3>
 
-<p>Once you've unzipped the <a href="http://www.contentwithstyle.co.uk/resources/xapian-example.zip">expamples</a>, you should now be able to create the DB from the db.sql file, and run the php examples via command line.</p>
+<p>Once you've unzipped the <a href="http://contentwithstyle.pascalopitz.com/resources/xapian-example.zip">expamples</a>, you should now be able to create the DB from the db.sql file, and run the php examples via command line.</p>
 
 <pre><code>
-bash$ php index.php 
+bash$ php index.php
 stdClass Object
 (
     [indexed] =&gt; Array
@@ -388,20 +388,20 @@ stdClass Object
                 (
                     [name] =&gt; foo
                     [guid] =&gt; foo
-                    [url] =&gt; 
+                    [url] =&gt;
                 )
 
             [1] =&gt; Array
                 (
                     [name] =&gt; bar
                     [guid] =&gt; bar
-                    [url] =&gt; 
+                    [url] =&gt;
                 )
 
         )
 
 )
-bash$ php search.php 
+bash$ php search.php
 stdClass Object
 (
     [result_count] =&gt; 2
@@ -410,7 +410,7 @@ stdClass Object
             [0] =&gt; Array
                 (
                     [position] =&gt; 1
-                    [url] =&gt; 
+                    [url] =&gt;
                     [name] =&gt; foo
                     [summary] =&gt; foo bar test
                     [date] =&gt; 20081105
@@ -421,7 +421,7 @@ stdClass Object
             [1] =&gt; Array
                 (
                     [position] =&gt; 2
-                    [url] =&gt; 
+                    [url] =&gt;
                     [name] =&gt; bar
                     [summary] =&gt; test foo bar
                     [date] =&gt; 20091105
@@ -443,12 +443,12 @@ stdClass Object
         )
 
 )
-bash$ php delete.php 
+bash$ php delete.php
 Array
 (
     [0] =&gt; foo
 )
-bash$ php search.php 
+bash$ php search.php
 stdClass Object
 (
     [result_count] =&gt; 1
@@ -457,7 +457,7 @@ stdClass Object
             [0] =&gt; Array
                 (
                     [position] =&gt; 1
-                    [url] =&gt; 
+                    [url] =&gt;
                     [name] =&gt; bar
                     [summary] =&gt; test foo bar
                     [date] =&gt; 20091105
@@ -492,24 +492,24 @@ stdClass Object
 <div class="comment-text">Hi I have installed xapian and it is working fine. But I wanted know whether is there anything like displaying the related results using this full text search.
 
 Help is appreciated.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Venkat on March 8 2010, 13:24 <a href="#comment-8062">#</a>
 </p>
 </li>
 <li class="even" id="comment-7542">
 <div class="comment-text">I have problem with xapian with php 5.3.
 
-I have an error: 
+I have an error:
 Fatal error: Call to undefined function new_WritableDatabase() in C:\\serwer\\www\\xapian1\\xapian.php on line 1134
 
 Any ideas??</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://mediovski.pl" rel="nofollow">Tomek</a> on December 4 2009, 11:37 <a href="#comment-7542">#</a>
 </p>
 </li>
 <li class="odd" id="comment-7472">
 <div class="comment-text">Did anyone benchmark any speed results comparing spinx for example?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://trsplet.com/blog/" rel="nofollow">Roky</a> on November 4 2009, 21:03 <a href="#comment-7472">#</a>
 </p>
 </li>
@@ -525,8 +525,8 @@ I didn\'t find any good benchmarks either while doing my quick bit of research, 
 <a href=\"http://www.elctech.com/articles/xapian-vs-sphinx-in-rails\">Rails based benchmark</a>.</p>
 
 <p>Hope this helps.</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 4 2009, 21:34 <a href="#comment-7473">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 4 2009, 21:34 <a href="#comment-7473">#</a>
 </p>
 </li>
 <li class="odd" id="comment-7471">
@@ -537,7 +537,7 @@ I didn\'t find any good benchmarks either while doing my quick bit of research, 
 <p>Cheers</p>
 <p>Charlie</p>
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.flax.co.uk" rel="nofollow">Charlie Hull</a> on November 4 2009, 15:37 <a href="#comment-7471">#</a>
 </p>
 </li>
@@ -551,13 +551,13 @@ sudo aptitude install xapian-core xapian-bindings
 <p>On Ubuntu this is all you need to do, and the bindings will go into /usr/share/php5 I believe.</p>
 
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 30 2009, 06:11 <a href="#comment-7530">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 30 2009, 06:11 <a href="#comment-7530">#</a>
 </p>
 </li>
 <li class="odd" id="comment-7528">
 <div class="comment-text">just curious, where or what is in xapian.php which is \"require_once\"d by XapianWrapper.php class?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 p0ts on November 29 2009, 16:06 <a href="#comment-7528">#</a>
 </p>
 </li>
@@ -569,8 +569,8 @@ throw(\'message\' . var_dump($e));
 </code>
 
 <p>Not a good idea, unless you want to write straight to the php output! Fixed in the copy and zipped example code.</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 26 2009, 10:10 <a href="#comment-7524">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 26 2009, 10:10 <a href="#comment-7524">#</a>
 </p>
 </li>
 
@@ -578,11 +578,11 @@ throw(\'message\' . var_dump($e));
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -607,13 +607,13 @@ throw(\'message\' . var_dump($e));
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

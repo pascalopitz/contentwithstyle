@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -71,7 +71,7 @@
 
 <h2>The script</h2>
 
-<p>Also a word of warning: The script creates a temp directory and a log.txt file, which it deletes before creating them. I am in no way responsible for any of your stuff getting deleted by running this.</p> 
+<p>Also a word of warning: The script creates a temp directory and a log.txt file, which it deletes before creating them. I am in no way responsible for any of your stuff getting deleted by running this.</p>
 
 <p>But hey: Feel free to alter this to fit your needs (and maybe post improvements in the comments, for example for my sloppy way of detecting whether it is an HTML file).</p>
 
@@ -81,11 +81,11 @@
 # Script to validate files in directory
 #
 is_html() {
-  file=$1 
+  file=$1
   htmlstart=`grep '&lt;html' $1`
 
-  if [ "$htmlstart" != "" ]; 
-  then 
+  if [ "$htmlstart" != "" ];
+  then
     echo "1";
   fi
 }
@@ -111,14 +111,14 @@ setup() {
 
 run_validation() {
   for file in `find $1`;
-    do 
+    do
       htmltrue=`is_html $file`
-    
+
       if [ "$htmltrue" = "1" ];
       then
         echo "request validation: $file"
         rpc=`validate_file $file`
-      
+
         echo "checking response: $file"
         noerror=`echo $rpc | grep '&lt;m:errorcount&gt;0&lt;/m:errorcount&gt;'`
 
@@ -133,9 +133,9 @@ run_validation() {
         fi
       fi
     done;
-  
+
   has_errors=`cat ./log.txt | grep Error`
-      
+
   if [ "$has_errors" = "" ];
   then
     echo "no errors found\n" &gt;&gt; log.txt
@@ -157,11 +157,11 @@ run_validation ./temp/
 # Script to validate files in directory
 #
 is_html() {
-  file=$1 
+  file=$1
   htmlstart=`grep '&lt;html' $1`
 
-  if [ "$htmlstart" != "" ]; 
-  then 
+  if [ "$htmlstart" != "" ];
+  then
     echo "1";
   fi
 }
@@ -187,14 +187,14 @@ setup() {
 
 run_validation() {
   for file in `find $1`;
-    do 
+    do
       htmltrue=`is_html $file`
-    
+
       if [ "$htmltrue" = "1" ];
       then
         echo "request validation: $file"
         rpc=`validate_file $file`
-      
+
         echo "checking response: $file"
         noerror=`echo $rpc | grep '&lt;m:errorcount&gt;0&lt;/m:errorcount&gt;'`
 
@@ -209,9 +209,9 @@ run_validation() {
         fi
       fi
     done;
-  
+
   has_errors=`cat ./log.txt | grep Error`
-      
+
   if [ "$has_errors" = "" ];
   then
     echo "no errors found\n" &gt;&gt; log.txt
@@ -232,11 +232,11 @@ run_validation ./temp/ $1
  xmlns:m="http://www.w3.org/2005/10/markup-validator"
  xmlns:env="http://www.w3.org/2003/05/soap-envelope"
 &gt;
-  &lt;xsl:output 
+  &lt;xsl:output
     method="text"
-    omit-xml-declaration="yes"    
+    omit-xml-declaration="yes"
   /&gt;
-  
+
   &lt;xsl:param name="location" /&gt;
 
   &lt;xsl:template match="/"&gt;
@@ -259,7 +259,7 @@ run_validation ./temp/ $1
   	&lt;xsl:value-of select="m:message" /&gt;
   	&lt;xsl:call-template name="lb" /&gt;
   &lt;/xsl:template&gt;
-  
+
   &lt;xsl:template name="lb"&gt;&lt;xsl:text&gt;
 &lt;/xsl:text&gt;&lt;/xsl:template&gt;
 
@@ -299,7 +299,7 @@ X-W3C-Validator-Errors: 0
 </code></pre>
 
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://habilis.net/chuck/" rel="nofollow">Chuck Houpt</a> on December 15 2008, 01:35 <a href="#comment-4951">#</a>
 </p>
 </li>
@@ -308,8 +308,8 @@ X-W3C-Validator-Errors: 0
 Thanks Chuck, very helpful insight.
 Also thanks for creating the Validator-SAC, in the first place. A great tool to have for us Mac dummies.
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 15 2008, 10:51 <a href="#comment-4961">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 15 2008, 10:51 <a href="#comment-4961">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4962">
@@ -320,21 +320,21 @@ Also, my experiences with WGET are limited, but there is a spider mode. Maybe it
 <br />
 Comments welcome!
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 15 2008, 11:01 <a href="#comment-4962">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 15 2008, 11:01 <a href="#comment-4962">#</a>
 </p>
 </li>
 <li class="even" id="comment-5036">
 <div class="comment-text">Another method would be to use a link-checking program (like <a href=\"http://www.linklint.org/\">Linklint</a>) to crawl the site and produce a list of URLs to validate.
 Using a link-checker would have the added benefit of checking for broken internal and off-site links.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://habilis.net/chuck/" rel="nofollow">Chuck Houpt</a> on December 20 2008, 14:32 <a href="#comment-5036">#</a>
 </p>
 </li>
 <li class="odd" id="comment-6604">
 <div class="comment-text">Useful script, Pascal. :)
 I usually use -A.html in wget sentence to retrieve just the html files.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://grosshat.com" rel="nofollow">iñigo medina</a> on August 10 2009, 09:47 <a href="#comment-6604">#</a>
 </p>
 </li>
@@ -343,7 +343,7 @@ I usually use -A.html in wget sentence to retrieve just the html files.</div>
 
 http://maestric.com/doc/python/recursive_w3c_html_validator
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://maestric.com" rel="nofollow">Jérôme Jaglale</a> on October 28 2009, 21:06 <a href="#comment-7453">#</a>
 </p>
 </li>
@@ -355,7 +355,7 @@ I seem to be having problems running this for files with extension \".htm\" woul
 Any feedback would be much appreciated.
 
 Thanks!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.humanrights.gov.au" rel="nofollow">Connie Chung</a> on September 4 2009, 02:46 <a href="#comment-6882">#</a>
 </p>
 </li>
@@ -364,11 +364,11 @@ Thanks!</div>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -393,13 +393,13 @@ Thanks!</div>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

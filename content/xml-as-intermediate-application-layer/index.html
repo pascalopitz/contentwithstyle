@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -61,21 +61,21 @@
 <div class="article">
     <h2>Why bothering?</h2>
 
-<p>Dealing with any server-side scripting language the things that I find most annyoing are the ones where I have to change 
+<p>Dealing with any server-side scripting language the things that I find most annyoing are the ones where I have to change
 
 	<br />
 
 	<code class="inline"> echo '&lt;a href="' . $url . '"&gt;' . $text . '&lt;/a&gt;&lt;br /&gt;';</code>
 
 	<br />
-	to something like 
+	to something like
 	<br />
 
 	<code class="inline"> echo '&lt;li&gt;&lt;a href="' . $url . '"&gt;' . $text . '&lt;/a&gt;&lt;/li&gt;';</code>
 	</p>
 
 <p>It's always a waste of time, and often, due to some typo, errors sneak in and suddenly you're debugging again.</p>
-	
+
 
 <p>In this article I want to share my thoughts on techniques for keeping our code XML-based - so there's no need to get your hands dirty in your application code to change the markup that is rendered afterwards. Most things will be PHP related though.
 </p>
@@ -87,10 +87,10 @@
 
 <p>By providing dummy XML to the guy doing the XHTML and CSS he can flesh everything out and then put it into an XSLT. Even before the application is built he can have finished everything... Then to get up and running, just the XSLT files, images and CSS need to be dropped in. Good to go.</p>
 
-<p>By keeping the dataflow of the application logic stricly XML compliant we also have no problems using the same code 
+<p>By keeping the dataflow of the application logic stricly XML compliant we also have no problems using the same code
 	for outputting a different version, to mobile devices, for example, OR to swap the data-source with an external web-service. </p>
 
-<p>And did I mention that suddenly you can work with UTF-8 throughout the whole application and the XSLT automatically 
+<p>And did I mention that suddenly you can work with UTF-8 throughout the whole application and the XSLT automatically
 transforms it into the needed output format? You just need the right parser.</p>
 
 <p>On top of all that, we are using a w3c technique and have the ability to render tree structures and stuff...</p>
@@ -100,26 +100,26 @@ transforms it into the needed output format? You just need the right parser.</p>
 
 <p>
 	The <a href="http://www.graphicpush.com/archives/000070.shtml">3 layer paradigm</a> has been around for a while and most of you probably are familliar with it.</p>
-	
+
 <p>I mostly agree but for our needs, just half of the job is covered. That's why I want to extend it into a 5 layer approach.
 </p>
-	
-<p><img src="http://www.contentwithstyle.co.uk/resources/old_images/15.gif" alt="5 layer approach" longdesc="This graphic shows 5 layers of a web-application as follows: XML: Application data output, XSL: Transformation for target platform, (X)HTML: Markup - Client side, CSS: Presentation - Client side, Javascript: Behaviour" />
+
+<p><img src="http://contentwithstyle.pascalopitz.com/resources/old_images/15.gif" alt="5 layer approach" longdesc="This graphic shows 5 layers of a web-application as follows: XML: Application data output, XSL: Transformation for target platform, (X)HTML: Markup - Client side, CSS: Presentation - Client side, Javascript: Behaviour" />
 </p>
 
 
 <h2>Planning your application</h2>
 
 <p>First of all you obviously need to flesh out what the application does etc. and which part does what.</p>
-	
+
 <p>We should also take care of the platform that we'll be developing for, to avoid facing the worst of all situations: having to throw the whole goddam thing in the bin and start from scratch.</p>
-	
+
 <p>Then, like I already mentioned, we can work out the output XML structure and pass it on to the front end developer. As soon as that's done we can move on to plan the code for our application.
 </p>
 
 
 <h2>Structuring the application code</h2>
-		
+
 <p>Now that we know what needs to be done we can assemble a robust set of classes, either the <a href="http://pear.php.net/">PEAR</a> ones or custom ones (I tend to use custom ones) that perform several actions for us:
 </p>
 
@@ -127,22 +127,22 @@ transforms it into the needed output format? You just need the right parser.</p>
 	<dt>General DB class</dt>
 	<dd>
 		A class that gives us easy access to our database and returns resultsets or arrays, manages updates and inserts and explains
-		tables and all that ... 
+		tables and all that ...
 		<br />
-		If you're working with several database-types I'd recommend to <a href="http://www.jakober.ch/asp/asp_ado.php">make use of 
+		If you're working with several database-types I'd recommend to <a href="http://www.jakober.ch/asp/asp_ado.php">make use of
 		ADO in ASP</a>, and there is an <a href="http://adodb.sourceforge.net/">ADODB toolkit for PHP</a> as well.
 	</dd>
-	
+
 	<dt>Database output to XML</dt>
 	<dd>
-		It's a very simple thing, but it makes life very comfortable. I use my own one in PHP, but 
-		<a href="http://pear.php.net/package/XML_sql2xml" title="PEAR::XML_sql2xml">there is a PEAR class for this</a> 
+		It's a very simple thing, but it makes life very comfortable. I use my own one in PHP, but
+		<a href="http://pear.php.net/package/XML_sql2xml" title="PEAR::XML_sql2xml">there is a PEAR class for this</a>
 		as well.
 	</dd>
-	
+
 	<dt>XSLT transformation class</dt>
 	<dd>
-		This class should manage to process XML input by using XSL files. And again, 
+		This class should manage to process XML input by using XSL files. And again,
 		<a href="http://pear.php.net/package/XML_XSLT_Wrapper#results" title="PEAR::XML_XSLT_Wrapper">there is a PEAR class for doing
 		this</a>.
 	</dd>
@@ -154,9 +154,9 @@ we can think about ways to transform things easily.</p>
 
 <h2>Class based application</h2>
 
-<p>I highly recommend taking a big big step back from procedural scripting. Instead you can work out a class structure and 
+<p>I highly recommend taking a big big step back from procedural scripting. Instead you can work out a class structure and
 	write rendering methods for either the page or parts of the page. Again, classes are robust and reusable. If you are unfamiliar with
-	<a href="http://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-oriented Programming">OOP</a> in PHP, 
+	<a href="http://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-oriented Programming">OOP</a> in PHP,
 	<a href="http://www.informit.com/articles/article.asp?p=24607&amp;rl=1" title="A Quick and Dirty Introduction to OOP with PHP">make
 	 yourself familiar with it</a> ASAP.
 </p>
@@ -165,9 +165,9 @@ we can think about ways to transform things easily.</p>
 <h2>PHP - output buffering</h2>
 
 <p>And here comes one of the nicest ideas ever.</p>
-	
+
 <p>I think that <a href="http://www.zend.com/zend/art/buffering.php">output buffering</a> is a handy thing anyway. And there are <a href="http://www.jinxidoru.com/_php/buffering.html">many ways to benefit from it</a>. But the coolest feature though is the callback function.</p>
-	
+
 <p>Instead of having a method called by something to finally get the XHTML out of our application, we just process the whole output
 generated in PHP with this single callback funtion. Some flags can trigger which XSLT to use. </p>
 
@@ -179,7 +179,7 @@ generated in PHP with this single callback funtion. Some flags can trigger which
 <p>I hope everyone sees the point of my approach and how you can work out a robust application. I also hope everyone understands why I didn't provide much code this time,
 since it would be quite a lot of code and still be platform specific.
 </p>
-	
+
 <p>Using output buffering may seem a bit like a loss of control, since you cannot pass parameters to the callback function, but it makes sense to just call one XSL and, similar to use @import in CSS, include XSL files for patricular elements. How to do that will be the next topic, so stay tuned.</p>
 </div>
 
@@ -191,7 +191,7 @@ since it would be quite a lot of code and still be platform specific.
 <div class="comment-text">Interesting concept. <br />
 <br />
 Perhaps I&#8217;m being obtuse, but what would be the advantage of this approach over a template system like Smarty for example?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.adamthody.com" rel="nofollow">Adam Thody</a> on May 23 2005, 19:35 <a href="#comment-44">#</a>
 </p>
 </li>
@@ -202,7 +202,7 @@ When appropriate, I even move XML and XSLT to the client. It trims down on serve
 Adam: I don&#8217;t know Smarty, but XSLT is a W3C standard.. That count for something.<br />
 <br />
 NB: Your comment form is stressing me out&#8230; I thought my caps-lock was broken or something.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.formassembly.com" rel="nofollow">Cedric</a> on May 23 2005, 20:49 <a href="#comment-46">#</a>
 </p>
 </li>
@@ -217,13 +217,13 @@ Thanks, yeah, I see your point and I wish I could go for that, but since especia
 <br />
 forms:<br />
 think that&#8217;s better now</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on May 23 2005, 23:28 <a href="#comment-48">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on May 23 2005, 23:28 <a href="#comment-48">#</a>
 </p>
 </li>
 <li class="even" id="comment-67">
 <div class="comment-text">From what little I&#8217;ve seen of Smarty, there&#8217;s an awful lot in there that you&#8217;re never going to use. I was looking to use it quite recently but decided that the added overhead (mental, as much as processor) was just too great and sacked it off in favour of a custom, lightweight approach. That said, I know people who swear by it so I guess it&#8217;s whatever suits you and your project best&#8230;</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://donotremove.co.uk" rel="nofollow">Mike Stenhouse</a> on May 25 2005, 01:27 <a href="#comment-67">#</a>
 </p>
 </li>
@@ -233,7 +233,7 @@ think that&#8217;s better now</div>
 In addition, XML and XSLT can be used to provide accessibility for other devices with little to no code changes, so it extremely flexible, unlike Smarty.<br />
 <br />
 Plus, as someone mentioned above Smarty is terribily bloated and you probably won&#8217;t even use half of its &#8220;features&#8221;.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.iangordon.us" rel="nofollow">Ian Gordon</a> on May 27 2005, 00:11 <a href="#comment-93">#</a>
 </p>
 </li>
@@ -249,7 +249,7 @@ Also adding smarty/xslt/xml to the mix adds further complexly and the requiremen
 My final issue is 5 layers adds to the number of files to think about when trying to nail down an problem. I already find this an anoyance with the MVC system I have in place and 5 layers sound like they will increase the problem.<br />
 <br />
 Phew thats a large post but I am interested to see what you think of my view and to learn of any possible improvements I can make to my MVC code</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Ben on June 3 2005, 04:49 <a href="#comment-114">#</a>
 </p>
 </li>
@@ -260,13 +260,13 @@ If it became a serious issue for the server to handle it i&#8217;d say just cach
 Also let me point out that with XML as application layer you can use one XML output and transform it for each targeted platform.<br />
 <br />
 It would be interesting to get a Benchmark on how much the processign load and execution time are increased by stuff like that. Anyone got some links?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on June 3 2005, 18:42 <a href="#comment-121">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on June 3 2005, 18:42 <a href="#comment-121">#</a>
 </p>
 </li>
 <li class="even" id="comment-127">
 <div class="comment-text">Hi, I totaly agree with you, and if my host supported XSLT conversions(server-side) I would be far on my way. Though, this also have it&#8217;s problem, as you would have to come up with a standardized way of making your XML, as making new XSLT for every project you do might be a little tedious and I&#8217;ve never had a project where I had time to do this.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.taare.org" rel="nofollow">taare</a> on June 5 2005, 02:04 <a href="#comment-127">#</a>
 </p>
 </li>
@@ -276,7 +276,7 @@ It would be interesting to get a Benchmark on how much the processign load and e
 In ASP you use the XSLTProcessor and you can put the compiled version into an Application variable, for example. With .NET&#8217;s version you have much more power e.g. putting it into the Cache object and setting a dependency on itself so if you update the XSL you don&#8217;t have to reset the web server or invalidate the cache manually through admin scripts like you would with ASP.<br />
 <br />
 This helps with performance. (The idea is similar to using Stored Procedures or parameterized SQL queries, so the compiled statements can be cached internally, etc.)</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Anup Shah on June 16 2005, 14:32 <a href="#comment-154">#</a>
 </p>
 </li>
@@ -288,8 +288,8 @@ I already made my point on that earlier, but one thing I forgot to mention: Smar
 <br />
 Means that, if you&#8217;re forced to port your project, you can still keep the XSLs &#8230;<br />
 Also your skills (I guess it&#8217;s more than a five minute job to &#8220;learn&#8221; Smarty) are presistant troughout all platforms and languages. That&#8217;s where I see a major benefit in using w3c techniques.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on June 16 2005, 17:40 <a href="#comment-156">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on June 16 2005, 17:40 <a href="#comment-156">#</a>
 </p>
 </li>
 <li class="odd" id="comment-1167">
@@ -300,7 +300,7 @@ I forgot I posted to this some time ago, and never saw your reply, but your poin
 In fact, my personal site for 8 years has been ASP (glueing a 99% XML/XSL driven content). I have finally decided to port to PHP, and you are right (and that is what I hoped too!) that it is not as much work as needed.<br />
 <br />
 Not finished porting yet, but my XSLs hardly changed at all (the main problem being with ASP (and ASP.NET) you can pass XML Nodes as XSLT parameters, but with PHP 5 it seems you cannot. But that was not a major issue for me anyway, as I simply inserted the nodes into the XML anyway.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Anup Shah on July 28 2006, 08:51 <a href="#comment-1167">#</a>
 </p>
 </li>
@@ -310,7 +310,7 @@ Anup Shah on July 28 2006, 08:51 <a href="#comment-1167">#</a>
 If there&#8217;s an editor that would do that, I&#8217;d like to know what it is.<br />
 <br />
 P.S. It would be good to see in which year posts were made.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Victor on March 10 2008, 19:58 <a href="#comment-2551">#</a>
 </p>
 </li>
@@ -320,14 +320,14 @@ I just read this again, after a long long time. It\'s coming to my 6th year in L
 </p>
 
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 13 2008, 17:44 <a href="#comment-4944">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 13 2008, 17:44 <a href="#comment-4944">#</a>
 </p>
 </li>
 <li class="even" id="comment-5740">
-<div class="comment-text">This helps with performance. (The idea is similar to using Stored Procedures or parameterized SQL queries, so the compiled statements can be cached internally, etc.) 
+<div class="comment-text">This helps with performance. (The idea is similar to using Stored Procedures or parameterized SQL queries, so the compiled statements can be cached internally, etc.)
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.ambertreasure.co.uk/" rel="nofollow">amber jewellery</a> on March 20 2009, 10:31 <a href="#comment-5740">#</a>
 </p>
 </li>
@@ -336,11 +336,11 @@ I just read this again, after a long long time. It\'s coming to my 6th year in L
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -365,13 +365,13 @@ I just read this again, after a long long time. It\'s coming to my 6th year in L
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

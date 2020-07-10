@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -62,9 +62,9 @@
     <h2>Buzz-words</h2>
 
 <p>
-	Two of the best known acronyms around right now are XML and XSL, often being mentioned as &#8220;the way to go&#8221; or 
+	Two of the best known acronyms around right now are XML and XSL, often being mentioned as &#8220;the way to go&#8221; or
 	some abstract technique that stands for a new direction within the whole web.
-	Rather than dealing with the languages itself in detail I'll try to give a pragmatic approach and to show basic examples 
+	Rather than dealing with the languages itself in detail I'll try to give a pragmatic approach and to show basic examples
 	how to transform data into browser-ready HTML.
 </p>
 
@@ -83,7 +83,7 @@
 	This article will deal with a piece of well formed XML code, that stands for data coming straight out of a database.
 	<a href="/resources/xsl_basic/example_loadxsl.zip">Download the example files</a>
 </p>
-	
+
 
 
 
@@ -99,7 +99,7 @@
 	First possibility would be to just have a reference to the XSL within the XML.
 	The code for that would look like that:
 </p>
-	
+
 <pre>
 &lt;?xml-stylesheet type="text/xsl" href="example.xsl"?&gt;
 </pre>
@@ -111,22 +111,22 @@
 
 <pre>
 &lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
-&lt;xsl:stylesheet version="1.0" 
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt; 
-&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt; 
+&lt;xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt;
 
 &lt;xsl:template match="/"&gt;
   &lt;test&gt;Hello world&lt;/test&gt;
-&lt;/xsl:template&gt; 
+&lt;/xsl:template&gt;
 
-&lt;/xsl:stylesheet&gt; 
+&lt;/xsl:stylesheet&gt;
 </pre>
 
 
 <h3>Scripting way</h3>
 
 <p>
-	Using IE and <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=3144b72b-b4f2-46da-b4b6-c5d7485f2b42&amp;displaylang=en">MSXML</a> 
+	Using IE and <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=3144b72b-b4f2-46da-b4b6-c5d7485f2b42&amp;displaylang=en">MSXML</a>
 	we could use Active Scripting to load the XML and the XSL. For example you could, in any XHMTL-File, embed a javascript contaiming code for that would look simmilar to this:
 </p>
 
@@ -174,7 +174,7 @@ function transform() {
 
 var processor = new XSLTProcessor();
 
-var xslDoc = 
+var xslDoc =
 document.implementation.createDocument("", "xslDoc", null);
 // onload handler
 xslDoc.addEventListener("load", onload, false);
@@ -210,7 +210,7 @@ xslt_free($my_xslt);
 </pre>
 
 <p>
-	Note that on win32-systems you need to put in a path like this: 
+	Note that on win32-systems you need to put in a path like this:
 </p>
 
 <pre>$xml = "file://".getcwd()."data.xml";</pre>
@@ -248,9 +248,9 @@ xslt_free($my_xslt);
 
 <pre>
 &lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
-&lt;xsl:stylesheet version="1.0" 
-   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt; 
-&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt; 
+&lt;xsl:stylesheet version="1.0"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt;
 
 &lt;xsl:template match="/site"&gt;
 
@@ -263,9 +263,9 @@ xslt_free($my_xslt);
   &lt;/body&gt;
 &lt;/html&gt;
 
-&lt;/xsl:template&gt; 
+&lt;/xsl:template&gt;
 
-&lt;/xsl:stylesheet&gt; 
+&lt;/xsl:stylesheet&gt;
 </pre>
 
 <p>
@@ -287,13 +287,13 @@ xslt_free($my_xslt);
 
 <pre>
 &lt;?xml version="1.0" encoding="iso-8859-1"?&gt;
-&lt;xsl:stylesheet version="1.0" 
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt; 
-&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt; 
+&lt;xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+&lt;xsl:output method="html" indent="yes" encoding="iso-8859-1"/&gt;
 
 
 &lt;xsl:template match="/site"&gt;
-  
+
   &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
   &lt;head&gt;
     &lt;title&gt;&lt;xsl:value-of select="current()/title" /&gt;&lt;/title&gt;
@@ -304,20 +304,20 @@ xslt_free($my_xslt);
       &lt;h1&gt;&lt;xsl:value-of select="current()/page/@label" /&gt;&lt;/h1&gt;
       &lt;xsl:for-each select="current()/page/contentblock"&gt;
         &lt;xsl:call-template name="contentblock"/&gt;
-      &lt;/xsl:for-each&gt; 
+      &lt;/xsl:for-each&gt;
     &lt;/div&gt;
-  
+
     &lt;div class="right"&gt;
       &lt;xsl:for-each select="current()/page/box"&gt;
         &lt;xsl:call-template name="box"/&gt;
-      &lt;/xsl:for-each&gt; 
+      &lt;/xsl:for-each&gt;
     &lt;/div&gt;
 
     &lt;div class="clear"&gt;&lt;/div&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 
-&lt;/xsl:template&gt; 
+&lt;/xsl:template&gt;
 
 
 &lt;xsl:template name="contentblock"&gt;
@@ -329,20 +329,20 @@ xslt_free($my_xslt);
   &lt;div class="contentblock"&gt;
     &lt;p&gt;&lt;xsl:value-of select="current()/text" /&gt;&lt;/p&gt;
     &lt;div class="img"&gt;
-      &lt;img src="{$url}" width="{$width}" height="{$height}" /&gt; 
+      &lt;img src="{$url}" width="{$width}" height="{$height}" /&gt;
       &lt;p&gt;&lt;xsl:value-of select="current()/image/subtitle" /&gt;&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/xsl:template&gt; 
+&lt;/xsl:template&gt;
 
 &lt;xsl:template name="box"&gt;
   &lt;div class="box"&gt;
     &lt;h2&gt;&lt;xsl:value-of select="current()/headline" /&gt;&lt;/h2&gt;
     &lt;p&gt;&lt;xsl:value-of select="current()/boxtext" /&gt;&lt;/p&gt;
   &lt;/div&gt;
-&lt;/xsl:template&gt; 
+&lt;/xsl:template&gt;
 
-&lt;/xsl:stylesheet&gt; 
+&lt;/xsl:stylesheet&gt;
 
 </pre>
 
@@ -367,16 +367,16 @@ xslt_free($my_xslt);
 <p>
 	Annother interesting thing that you will have noticed is the possibility to insert values inline using <code class="inline">{@attribute}</code>.
 
-	Like this its becomes easily possible to insert values into attributes of tags, 
+	Like this its becomes easily possible to insert values into attributes of tags,
 	<br />
-	which would be not possible with 
+	which would be not possible with
 	<code class="inline">&lt;xsl:value-of /&gt;</code>
 	<br /><br />
 	The other way to do that would be <code class="inline">&lt;xsl:attribute /&gt;</code>, wich I hardly ever use, but feel free to search google for it.
 	<br /><br />
 	You also may have noticed that I introduced the use of variables by using
 </p>
-	
+
 <pre>&lt;xsl:param name="width" select="current()/image/param/@width" /&gt;</pre>
 
 <p>
@@ -399,7 +399,7 @@ xslt_free($my_xslt);
 
 <p>
 	Even without looking into the really dynamic bits of XSL we can see that XSL is esspecially usefull when it comes to repeating data-patterns which have to be displayed as table-row or something simmilar.
-	This keeps your data lean and the look seperated from the content. It gets even more interesting when we start using dynamic scripting to call the transformation and variables within the XSL. 
+	This keeps your data lean and the look seperated from the content. It gets even more interesting when we start using dynamic scripting to call the transformation and variables within the XSL.
 	In addition it becomes possible to test the output without being sure about how the data will be transformed, either on the server or on the client side.
 </p>
 
@@ -417,26 +417,26 @@ xslt_free($my_xslt);
     <ul class="comments-list">
         <li class="odd" id="comment-78">
 <div class="comment-text">Really useful tutorial. Cheers :)</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://danbailey.co.uk" rel="nofollow">Dan Bailey</a> on May 25 2005, 20:28 <a href="#comment-78">#</a>
 </p>
 </li>
 <li class="even" id="comment-82">
 <div class="comment-text">Very welcome.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on May 26 2005, 03:08 <a href="#comment-82">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on May 26 2005, 03:08 <a href="#comment-82">#</a>
 </p>
 </li>
 <li class="odd" id="comment-381">
 <div class="comment-text">Very concise and informative.  Discusses the XML/XSL transformation in a nutshell.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://tuldoklambat.blogspot.com" rel="nofollow">Joseph De Guzman</a> on January 23 2006, 21:58 <a href="#comment-381">#</a>
 </p>
 </li>
 <li class="even" id="comment-407">
 <div class="comment-text">Thanks :)</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on January 30 2006, 09:41 <a href="#comment-407">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 30 2006, 09:41 <a href="#comment-407">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5598">
@@ -454,8 +454,8 @@ $proc = new XSLTProcessor();
 $proc->importStylesheet($xslDoc);
 echo $proc->transformToXML($xmlDoc);
 </code></pre></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on February 28 2009, 21:36 <a href="#comment-5598">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on February 28 2009, 21:36 <a href="#comment-5598">#</a>
 </p>
 </li>
 
@@ -463,11 +463,11 @@ echo $proc->transformToXML($xmlDoc);
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -492,13 +492,13 @@ echo $proc->transformToXML($xmlDoc);
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

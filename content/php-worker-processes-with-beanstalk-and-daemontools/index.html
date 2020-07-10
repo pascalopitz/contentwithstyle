@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -110,7 +110,7 @@ for($i=0; $i&lt;1000; $i++) {
 
 <pre><code>&lt;?php
 class Worker {
-  
+
   private $path;
 
   public function __construct($path) {
@@ -119,11 +119,11 @@ class Worker {
     require_once('pheanstalk/pheanstalk_init.php');
     $this-&gt;pheanstalk = new Pheanstalk('127.0.0.1:11300');
   }
-   
+
   public function __destruct() {
     $this-&gt;log('ending');
   }
-  
+
   private function setBasePath($path) {
     $this-&gt;path = $path;
   }
@@ -153,7 +153,7 @@ class Worker {
       usleep(10);
     }
   }
-  
+
   private function log($txt) {
     file_put_contents($this-&gt;path . '/log/worker.txt', $txt . "\n", FILE_APPEND);
   }
@@ -187,7 +187,7 @@ The best option seemed to be <a href="http://supervisord.org/">supervisord</a>, 
 <p>There are also options to use init.d scripts, but my knowledge of that is lacking. If you cannot be bothered to daemonize, you could also just kick off a cron job.
 </p>
 
-<p>I hope this is a helpful little writeup. Feel free to <a href="http://www.contentwithstyle.co.uk/resources/queue_test.zip">download the nicely zipped up demo code</a>, and do drop a comment if you have anything to add.</p>
+<p>I hope this is a helpful little writeup. Feel free to <a href="http://contentwithstyle.pascalopitz.com/resources/queue_test.zip">download the nicely zipped up demo code</a>, and do drop a comment if you have anything to add.</p>
 </div>
 
 
@@ -198,7 +198,7 @@ The best option seemed to be <a href="http://supervisord.org/">supervisord</a>, 
 <div class="comment-text"><p>Hi</p>
 
 <p>I just came across your post while was looking for ways to save queue data in case of system crash. your post suggest to create a separate txt file to dump data for future restore. I am yet not clear about it. i started beanstalk with -b switch and specified directory. I pushed the data and i did not find any data in folder</p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://adnansiddiqi.com" rel="nofollow">Adnan</a> on November 8 2010, 05:56 <a href="#comment-8985">#</a>
 </p>
 </li>
@@ -212,8 +212,8 @@ How about killing the process and restarting it to see if the jobs are still in 
 <p>
 If you want to inspect queues etc via command line, you can use <a href=\"https://github.com/pascalopitz/nodestalker\">beanspector that comes with my nodestalker library</a>.
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 8 2010, 06:38 <a href="#comment-8986">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 8 2010, 06:38 <a href="#comment-8986">#</a>
 </p>
 </li>
 
@@ -221,11 +221,11 @@ If you want to inspect queues etc via command line, you can use <a href=\"https:
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -250,13 +250,13 @@ If you want to inspect queues etc via command line, you can use <a href=\"https:
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

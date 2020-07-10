@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -60,7 +60,7 @@
 
 <div class="article">
     <h2>The real world</h2>
-<p>Web development is, in many cases, a process where time is a crucial factor. As coding is usually the last step in the process, all things come together and prior mistakes are revealed. 
+<p>Web development is, in many cases, a process where time is a crucial factor. As coding is usually the last step in the process, all things come together and prior mistakes are revealed.
 <br /><br />
 "Build this so it looks the same in all browsers, works better than the IA was ever planned and can fly." Or so we hear.
 <br /><br />
@@ -88,12 +88,12 @@ This attitude is something I've encountered many times, and it usually results i
 
 <h2>Practice</h2>
 <p>I <a href="http://www.sitepoint.com/article/struts-first-steps">discovered</a> that <a href="http://struts.apache.org/">Jakarta Struts</a> is a really good Java-based solution and, more recently, <a href="http://www.phparch.com/">PHP Architect magazine</a> offered a free download of their may 2003 issue, containing a nice introductory article with a solution based on Smarty templates. A very extensive solution incorporating the three-tier architecture (no, <a href="http://www.tonymarston.net/php-mysql/infrastructure-faq.html#faq26">they're not the same</a>) also PHP-based, can be found on <a href="http://www.tonymarston.net/php-mysql/model-view-controller.html">Tony Marston's website</a> along with tons of information on different design patterns.<br />
-I could stop here and leave you with one of the examples, but let me say this: I believe that the size of the project and the probability of exchanging or updating certain components should play as important a role as the reusability of the code. 
+I could stop here and leave you with one of the examples, but let me say this: I believe that the size of the project and the probability of exchanging or updating certain components should play as important a role as the reusability of the code.
 </p>
 <p>
 Over time, Pascal and I have come up with a loose framework of PHP classes, which have saved enormous amounts of time when building medium-scale projects, thanks to their reusable subcomponents.
 <br />
-The Views are set up with CSS and (X)HTML, which is generated with XSL stylesheets (see Pascal's article with his <a href="http://www.contentwithstyle.co.uk/Articles/29/">five-layer structure</a> for more detail). 
+The Views are set up with CSS and (X)HTML, which is generated with XSL stylesheets (see Pascal's article with his <a href="http://contentwithstyle.pascalopitz.com/Articles/29/">five-layer structure</a> for more detail).
 <br />
 In the backend PHP, classes are structured by their functionality. A db-class manages all lower-level database work: replace it or change the configuration for a database change. This class represents the Model. Your server was hacked and you need to refer to a backup db-server? It's done in 10 seconds.
 <br /><br />
@@ -101,9 +101,9 @@ A base class, meanwhile, carries all of the helper functions that are used acros
 <br /><br />
 But this does not strictly fit into the MVC pattern: In a clean approach, no SQL would be found in the page class. A common technique here is to set up a class for each table that contains all queries. This way, you know where to find your SQL and what classes to touch should your db-server change. Alternatively, you can extend the db-class and top it up with higher level of functions that build the SQL for you. On the upside, you only have one file to change (as opposed to one per table); on the downside, solutions tend to be developed in a complicated way, thereby making it difficult for the next developer to get their head around it. Furthermore, it may be too specific to one site and, therefore, not very portable.
 <br /><br />
-With these classes set up as a starter package, you'll have incredibly quick results - and working as a frontend/backend team is a joy. Simply set up an abstract XML file with all the data you need, and each of you can work towards it from both sides: one on the xsl/html/css side, the other in the php/db department. 
+With these classes set up as a starter package, you'll have incredibly quick results - and working as a frontend/backend team is a joy. Simply set up an abstract XML file with all the data you need, and each of you can work towards it from both sides: one on the xsl/html/css side, the other in the php/db department.
 <br /><br />
-On several occasions, I left out the table classes as a set-up for medium-sized projects. 
+On several occasions, I left out the table classes as a set-up for medium-sized projects.
 As an alternative, I either stuck to relational databases (usually sufficient) and coded in <a href="http://www.opengroup.org/public/tech/datam/sql.htm">pure SQL-92</a> - although this tends to be awkward and I'm not sure if all common databases follow this standard entirely - or I made sure the db-application stayed the same throughout the lifetime of the site.
 <br /><br />
 As with most things in modern digital life, sites are ever-changing, but the code hardly ever survives three years. Your budget, timeframe and the purpose of the site will determine to what extent you want to follow MVC. But it's always worth considering.</p>
@@ -123,8 +123,8 @@ This actually doesn&#8217;t sound like a very good idea to me, since I work with
 But then subselects are server-specific &#8230; Ohh dear &#8230;<br />
 <br />
 I gotta think about this more thoroughly!</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on June 2 2005, 18:42 <a href="#comment-113">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on June 2 2005, 18:42 <a href="#comment-113">#</a>
 </p>
 </li>
 <li class="even" id="comment-115">
@@ -135,7 +135,7 @@ I would disagree with you, telling that the main benefit of separation of SQL fr
 When you have a team you can define the classes, their roles and goals. After that spend a while to create stubs and spread the job across the team. Everybody will be building its own part: SQL expert &#8211; SQL, designers &#8211; presentation, the rest &#8211; logic programming. When finished, tested and re-joined together the parts form the application. Because of clear separation no one waits for others and knows clearly from A to Z what his own part should do. It&#8217;s just one of possible use-cases.<br />
 <br />
 I have more to say, but I would better stop here as it&#8217;s going to be overloaded. :) Nice article! Keep up doing great job!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.noizeramp.com" rel="nofollow">Aleksey Gureev</a> on June 3 2005, 08:01 <a href="#comment-115">#</a>
 </p>
 </li>
@@ -143,14 +143,14 @@ I have more to say, but I would better stop here as it&#8217;s going to be overl
 <div class="comment-text">Aleksey,<br />
 I do agree with you. Thanks for pointing out a nice example for isolation. I know it&#8217;s not only about sql, and I think you summed it up very good.<br />
 <br />
-I guess it slipped my mind, as I wanted to write this up for  smaller projects, which hardly ever have more than 2 people developing it. But you&#8217;re right nevertheless. Feel free to add more, or <a href="http://www.contentwithstyle.co.uk/Contact">drop me a line</a></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on June 3 2005, 11:43 <a href="#comment-116">#</a>
+I guess it slipped my mind, as I wanted to write this up for  smaller projects, which hardly ever have more than 2 people developing it. But you&#8217;re right nevertheless. Feel free to add more, or <a href="http://contentwithstyle.pascalopitz.com/Contact">drop me a line</a></div>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on June 3 2005, 11:43 <a href="#comment-116">#</a>
 </p>
 </li>
 <li class="even" id="comment-117">
 <div class="comment-text">This pattern is very cool but if its obviously that you never use  benfits like changing the view you. Its not so important.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 berlinandree on June 3 2005, 13:28 <a href="#comment-117">#</a>
 </p>
 </li>
@@ -164,7 +164,7 @@ As for me, I always try to work &#8220;from the tests&#8221; because if not, the
 Save your time, do it right. :) Some good reading on the subject could be anything about TDD, general articles by Martin Fowler (&#8220;Is Design Dead?&#8221;, for example) and of course the design patterns material. They aren&#8217;t the goal and you shouldn&#8217;t aim on using them all the time; they just help you to concentrate on real tasks instead of re-inventing the wheel.<br />
 <br />
 Hope that it&#8217;s interesting and even inspiring to someone. :)</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.noizeramp.com" rel="nofollow">Aleksey Gureev</a> on June 3 2005, 14:50 <a href="#comment-118">#</a>
 </p>
 </li>
@@ -175,15 +175,15 @@ I looked into unit-testing before, but in small/medium-ish companies, with small
 <br />
 Cheers,<br />
 Matthias</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on June 3 2005, 18:16 <a href="#comment-119">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on June 3 2005, 18:16 <a href="#comment-119">#</a>
 </p>
 </li>
 <li class="odd" id="comment-120">
 <div class="comment-text">Matthias, you can use some of the techniques to increase the precision of your estimates for the project. Having the clear architecture and stubs early, you can significantly more precisely tell when you will be done with the given part of work as you will already know what it going to happen (technically) instead of making weird guesses.<br />
 <br />
 Anyway, I&#8217;m happy that it was useful writing!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.noizeramp.com" rel="nofollow">Aleksey Gureev</a> on June 3 2005, 18:26 <a href="#comment-120">#</a>
 </p>
 </li>
@@ -196,28 +196,28 @@ here&#8217;s the article Aleksey was refering to:<br />
 I printed it out and will have a read.<br />
 <br />
 cheers.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on June 3 2005, 18:50 <a href="#comment-122">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on June 3 2005, 18:50 <a href="#comment-122">#</a>
 </p>
 </li>
 <li class="odd" id="comment-123">
 <div class="comment-text">I didn&#8217;t see it here, so I figured I&#8217;d mention it &#8211; if you haven&#8217;t already heard of it, check out <a href="http://www.rubyonrails.com">Ruby on Rails</a> &#8211; it makes MVC and Object/Relational mapping really easy &#8211; its already there for you &#8211; even in the smallest of projects.<br />
 <br />
 Watch the 10 minute setup video to get the basic idea.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.electrointeractive.com" rel="nofollow">Scott Becker</a> on June 3 2005, 21:44 <a href="#comment-123">#</a>
 </p>
 </li>
 <li class="even" id="comment-124">
 <div class="comment-text">Aleksey: I&#8217;ve been working with the chap who wrote <a href="http://www.simpletest.org">SimpleTest</a> recently and I&#8217;m really coming around to the idea of test driven design. I tried explaining it to Matthias and Pascal a couple of weeks ago but couldn&#8217;t think of a good way to really sell it to them. Your suggestion that it helps to modularise and isolate your components is far better than anything I managed to come up with at the time!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://donotremove.co.uk" rel="nofollow">Mike Stenhouse</a> on June 4 2005, 16:49 <a href="#comment-124">#</a>
 </p>
 </li>
 <li class="odd" id="comment-126">
 <div class="comment-text">Hmm, I like the idea of making up the tests before starting to develop, but what happens if you suddenly need to extend the functionallity &#8230; That&#8217;s why I am still drawn to neat concepts that somehow remain flexible than doing a module that just does EXACTLY what the test does, but may be hard to modify &#8230; is that a reasonable concern, Aleksey?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on June 4 2005, 17:23 <a href="#comment-126">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on June 4 2005, 17:23 <a href="#comment-126">#</a>
 </p>
 </li>
 <li class="even" id="comment-128">
@@ -242,7 +242,7 @@ So, it&#8217;s up to you to make test or no. Just remember two rules (my own exp
 <strong>If Your Tests Never Fail, They Test Nothing</strong>&#8212;at least make some adjustments to code (if you are writing tests <strong>after</strong> implementation) to prove to yourself that the tests will fail if anything will go wrong. And&#8230; never worry about the failing tests. If test fails, it means that you have caught the bug, which was going to slip into production version if you had no that test. :)<br />
 <br />
 Sorry, if I sounded like having PhD in Testing. It was just my bit of experience in this are and should be treated this way only.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.noizeramp.com" rel="nofollow">Aleksey Gureev</a> on June 6 2005, 09:31 <a href="#comment-128">#</a>
 </p>
 </li>
@@ -252,7 +252,7 @@ Sorry, if I sounded like having PhD in Testing. It was just my bit of experience
 Caching is super-easy in RoR and can be added to an entire controller with one line&#8230;  <br />
 <br />
 MVC is great!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://overstimulate.com" rel="nofollow">Jesse Andrews</a> on June 16 2005, 05:33 <a href="#comment-148">#</a>
 </p>
 </li>
@@ -266,7 +266,7 @@ by the way, Aleksey is pretty right about TEST as much as you need, but TEST heh
 And&#8230; some interesting thing to ask is, do you have a PHP class with the queries of your system? I hope not&#8230;  not exactly that! you can have many ideas on what to do with your queries and so on&#8230;.<br />
 <br />
 cheers</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Lucas Zingano on April 15 2006, 14:08 <a href="#comment-535">#</a>
 </p>
 </li>
@@ -279,8 +279,8 @@ I&#8217;m not sure I understand what you mean by your last paragraph. Do I have 
 I use a couple of classes that form the abstract use of what I&#8217;m going to build, like a list class, which I then extend with the purpose class that I need to build. This class will contain SQL.<br />
 <br />
 Recently at the PHP conference UK Derek Rethans gave a nice introduction into EZ components, and I quite liked their <a href="http://ez.no/doc/components/view/latest/(file)/Database/ezcQuerySelect.html">DB class</a>, it abstracts SQL really nicely; I might give it a try soon.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on April 16 2006, 09:25 <a href="#comment-538">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on April 16 2006, 09:25 <a href="#comment-538">#</a>
 </p>
 </li>
 <li class="even" id="comment-1022">
@@ -289,7 +289,7 @@ Recently at the PHP conference UK Derek Rethans gave a nice introduction into EZ
 I used to use something like DB Class and it is a very interesting component that override the idea of keeping your SQL in plain string, which can be very dangerous to enable SQL Injection attacks.<br />
 <br />
 I hope I made myself understood&#8230;</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Lucas Zingano on July 12 2006, 06:58 <a href="#comment-1022">#</a>
 </p>
 </li>
@@ -297,8 +297,8 @@ Lucas Zingano on July 12 2006, 06:58 <a href="#comment-1022">#</a>
 <div class="comment-text">Yes, I got you now.<br />
 I used to do some dynamic websites with Java, mainly JSP and Servlets working together, and the one thing I really needed there more than in PHP is a mirrored development server. That takes the grievance off uploading a compiled class to the live server which then has a typo.<br />
 Using a class that abstracts the whole sql business&#8230; I&#8217;m not sure about it. Sure, it keeps everything in one place, but at the same time you&#8217;ll have all the work to abstract the whole of the SQL language; and that has to look at feel intuitive, too.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on July 26 2006, 02:31 <a href="#comment-1153">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on July 26 2006, 02:31 <a href="#comment-1153">#</a>
 </p>
 </li>
 
@@ -306,11 +306,11 @@ Using a class that abstracts the whole sql business&#8230; I&#8217;m not sure ab
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -335,13 +335,13 @@ Using a class that abstracts the whole sql business&#8230; I&#8217;m not sure ab
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

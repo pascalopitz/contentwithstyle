@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -64,7 +64,7 @@ Amongst other changes, I am working on getting this blog over to use application
 </p>
 
 <p>
-People that remember my <a href="http://www.contentwithstyle.co.uk/content/a-mass-validation-shellscript">validation shell script</a> from last year (cough) already know that <a href="http://validator.w3.org/feed/docs/soap.html">there is a SOAP-like response format available from the w3c validator</a>. Like other people I am <a href="http://yoast.com/w3c-validator-api/">unhappy that the whole thing is not really a proper SOAP endpoint</a>, but merely the same script that returns a SOAP envelope when the post parameter 'output' is set to 'soap12'.
+People that remember my <a href="http://contentwithstyle.pascalopitz.com/content/a-mass-validation-shellscript">validation shell script</a> from last year (cough) already know that <a href="http://validator.w3.org/feed/docs/soap.html">there is a SOAP-like response format available from the w3c validator</a>. Like other people I am <a href="http://yoast.com/w3c-validator-api/">unhappy that the whole thing is not really a proper SOAP endpoint</a>, but merely the same script that returns a SOAP envelope when the post parameter 'output' is set to 'soap12'.
 <br />
 This is very unfortunate. I wasn't able to use <a href="http://framework.zend.com/manual/en/zend.soap.client.html">Zend_Soap_Client</a> to construct the request, since the passed parameters are wrapped into a SOAP envelope as well, which the validator doesn't interpret.
 </p>
@@ -82,24 +82,24 @@ class Admin_ValidationController extends Zend_Controller_Action
     $client = new Zend_Http_Client($url);
     $response = $client-&gt;request();
     $fragment = $response-&gt;getBody();
-    
+
     $params = array(
       'fragment' =&gt; $fragment,
       'output' =&gt; 'soap12',
     );
-    
+
     $client = new Zend_Http_Client('http://validator.w3.org/check');
     $client-&gt;setParameterPost('fragment', $fragment);
     $client-&gt;setParameterPost('output', 'soap12');
     $validator_response = $client-&gt;request('POST');
     $soap_response = $validator_response-&gt;getBody();
-    
+
     $xml = new DomDocument();
     @$xml-&gt;loadXML($soap_response);
     $xpath = new DOMXpath($xml);
     $xpath-&gt;registerNamespace("m", "http://www.w3.org/2005/10/markup-validator");
     $elements = $xpath-&gt;query("//m:errorcount");
-  
+
     $error_str = '';
 
     if($elements-&gt;item(0) &amp;&amp; $elements-&gt;item(0)-&gt;nodeValue &gt; 0) {
@@ -111,7 +111,7 @@ class Admin_ValidationController extends Zend_Controller_Action
 
     if(!empty($error_str)) {
       $this-&gt;view-&gt;message = $error_str;
-    } else {      
+    } else {
       $this-&gt;view-&gt;message = 'Validation of ' . $url . ' passed without errors.';
     }
 }
@@ -132,23 +132,23 @@ $params = array(
 $url = 'http://validator.w3.org/check';
 
 $recieved_headers = "";
-$ch = curl_init(); 
+$ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$url);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $params); // multipart encoding
-curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); 
-curl_setopt($ch, CURLOPT_REFERER,''); 
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch, CURLOPT_REFERER,'');
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);
 curl_setopt($ch, CURLOPT_TIMEOUT,30);
 
-$recieved_headers = curl_exec($ch);         
+$recieved_headers = curl_exec($ch);
 if (curl_errno($ch)) {
    print curl_error($ch);
 } else {
    curl_close($ch);
 }
 
-echo $recieved_headers;   
+echo $recieved_headers;
 </code></pre>
 
 <p>In this example I didn't include the handling of the SOAP response, but you can easily grab that from the previous example.</p>
@@ -162,14 +162,14 @@ echo $recieved_headers;
     <ul class="comments-list">
         <li class="odd" id="comment-6251">
 <div class="comment-text">Is there a method to validate multiple websites and show a list so you wan monitor all the websites that you have built? Eg to keep track incase a customer enters invalid code?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.gabbodesign.com" rel="nofollow">Gavin McNamee</a> on June 16 2009, 21:21 <a href="#comment-6251">#</a>
 </p>
 </li>
 <li class="even" id="comment-5224">
 <div class="comment-text"><p>And before you guys are asking: yes, I am still serving as text/html as for now, but did change the DOCTYPE to XHTML 1.0 Strict. In the future I am planning to use <a href=\"http://juicystudio.com/article/content-negotiation.php#php\">content negotiation to serve up the right content type.</a></p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on January 4 2009, 12:53 <a href="#comment-5224">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 4 2009, 12:53 <a href="#comment-5224">#</a>
 </p>
 </li>
 <li class="odd" id="comment-7499">
@@ -178,7 +178,7 @@ echo $recieved_headers;
 <p>How do I make my w3c validator to validate the Public website cause \"Private IPs = yes\" allow me to only validate local site.
 Any help will be appreciated</p>
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 spoko on November 11 2009, 14:17 <a href="#comment-7499">#</a>
 </p>
 </li>
@@ -187,11 +187,11 @@ spoko on November 11 2009, 14:17 <a href="#comment-7499">#</a>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -216,13 +216,13 @@ spoko on November 11 2009, 14:17 <a href="#comment-7499">#</a>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

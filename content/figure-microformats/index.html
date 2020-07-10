@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -129,7 +129,7 @@
 	</ul>
 
 
- 
+
 </div>
 
 
@@ -140,7 +140,7 @@
 <div class="comment-text">Interesting approach. And thanks for the write up. Images and figures have been one issue I&#8217;ve been having trouble with as well.<br />
 <br />
 A related issue is what you do when you develop a website for a client. There&#8217;s no WYSIWYG editor in the universe which spits out this kind of microformatisch markup :) So the only alternative is developing something like this and making them use that markup. Ussually I end up having a simple div box for the image and the caption.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 matthijs on November 22 2007, 10:12 <a href="#comment-2382">#</a>
 </p>
 </li>
@@ -165,21 +165,21 @@ figure.legend<br />
 That seems somewhat restrictive and not altogether based on existing behavior (remember, that&#8217;s a core aspect of the microformats process). I admit that I haven&#8217;t followed process perfectly myself, and intend to do better&#8212;and your example actually serves quite well to illustrative and example in the wild, however, going beyond images, I think &#8220;illustrative&#8221; figures in general needs to be considered&#8230; how does your approach apply to tables, video, or audio? I&#8217;d like to see examples marked up if you&#8217;d be willing&#8230;<br />
 <br />
 Oh, and I do worry about the &lt;p class=image&gt; thing&#8230;. why not just make the .figure img have the style of display:block?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://factoryjoe.com" rel="nofollow">Chris Messina</a> on November 25 2007, 17:30 <a href="#comment-2391">#</a>
 </p>
 </li>
 <li class="odd" id="comment-2384">
 <div class="comment-text">well, I can&#8217;t think of one right now either, but you could build little wordpress plugins that give you some sort of dialog to add addresses hCard style into a post (similar to these flash video plugins).<br />
 Because figure markup does (so far) not have that many options, it would be even easier, but using uploaded images within a plugin context is a bit tricky.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on November 22 2007, 19:30 <a href="#comment-2384">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on November 22 2007, 19:30 <a href="#comment-2384">#</a>
 </p>
 </li>
 <li class="even" id="comment-2396">
 <div class="comment-text">I&#8217;ve tried to find a <a href="http://www.usability.com.au/resources/tables.cfm#complex">nice accessible table</a> example, and of course, table comes with a caption element; mmm, now how would that work?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias</a> on November 27 2007, 05:03 <a href="#comment-2396">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias</a> on November 27 2007, 05:03 <a href="#comment-2396">#</a>
 </p>
 </li>
 <li class="odd" id="comment-2394">
@@ -196,14 +196,14 @@ What&#8217;s a good general word for the to-be-described content?<br />
 <br />
 This is getting the longest comment ever&#8230; finally about why I didn&#8217;t quote your article (I just re-read it): There&#8217;s a strong case for not muddling up presentation and code structure. I want to get to the <em>right</em> way (if only right in the things that I personally do) of marking up figures first, and then I&#8217;ll worry about where it&#8217;s sitting. As you wrote, I wouldn&#8217;t add alignleft, alignright and center in general use; as I&#8217;d prefer neutral classnames (although, in the real world, case-to-case, there&#8217;s good reason for doing exactly that; and that&#8217;s what I read out of your comments as well).<br />
 But what I don&#8217;t understand is why the presentation of a figure block (or an image or whatever) even needs unifying? Isn&#8217;t the idea of microformats that you create machine-readable tags that, once parsed, could be displayed in any way? And, again, <a href="http://factoryjoe.com/blog/2007/02/26/a-design-pattern-for-image-and-figure-alignment/#comment-56385">reading from your comments</a>, if the positioning of an image is important for the context, then why not use natural language &#8220;left&#8221;, &#8220;right&#8221; or &#8220;center&#8221;?</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias Willerich</a> on November 26 2007, 07:26 <a href="#comment-2394">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on November 26 2007, 07:26 <a href="#comment-2394">#</a>
 </p>
 </li>
 <li class="even" id="comment-2397">
 <div class="comment-text">I think the class that indicates the microformat should be seperate from any layout classes, i.e. class=&#8221;figure layout-a&#8221; ... on a personal note I couldn&#8217;t be bothered to be fuzzed about block and inline elements mixed &#8230; if the DTD allows it and you save an element, then it&#8217;s legitimate. But that&#8217;s just my 5 p.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on November 27 2007, 06:07 <a href="#comment-2397">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on November 27 2007, 06:07 <a href="#comment-2397">#</a>
 </p>
 </li>
 <li class="odd" id="comment-2409">
@@ -211,21 +211,21 @@ But what I don&#8217;t understand is why the presentation of a figure block (or 
 <br />
 [1] http://www.ietf.org/rfc/rfc4946.txt<br />
 [2] http://diveintomark.org/archives/2003/01/19/influences</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://511.dabomb.com.ar" rel="nofollow">Federico M. Panico</a> on December 11 2007, 23:20 <a href="#comment-2409">#</a>
 </p>
 </li>
 <li class="even" id="comment-5505">
-<div class="comment-text">I\'ve just had a look at what has been happening on the Microformats-Wiki, and it seems that Toby Inkster has taken on the subject and done some nice consolidation work over the last year, pretty much incorporating my suggestions. Leaves him and me and <a href=\"http://microformats.org/discuss/mail/microformats-new/2008-September/001810.html\">the rest of the world</a> with making it more generic, incorporating other forms of content such as (but not limited to) tables or code listings, to make it more conform with the HTML 5 figure element scope. 
+<div class="comment-text">I\'ve just had a look at what has been happening on the Microformats-Wiki, and it seems that Toby Inkster has taken on the subject and done some nice consolidation work over the last year, pretty much incorporating my suggestions. Leaves him and me and <a href=\"http://microformats.org/discuss/mail/microformats-new/2008-September/001810.html\">the rest of the world</a> with making it more generic, incorporating other forms of content such as (but not limited to) tables or code listings, to make it more conform with the HTML 5 figure element scope.
 
 Watch out for a new post about this soon, feel free to suggest improvements or examples in the meantime.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias Willerich</a> on February 15 2009, 21:23 <a href="#comment-5505">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on February 15 2009, 21:23 <a href="#comment-5505">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5759">
 <div class="comment-text">I think the class that indicates the microformat should be seperate from any layout classes, i.e. class=”figure layout-a” ... on a personal note I couldn’t be bothered to be fuzzed about block and inline elements mixed …</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.ambertreasure.co.uk/" rel="nofollow">amber jewellery</a> on March 24 2009, 15:44 <a href="#comment-5759">#</a>
 </p>
 </li>
@@ -234,11 +234,11 @@ Watch out for a new post about this soon, feel free to suggest improvements or e
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -263,13 +263,13 @@ Watch out for a new post about this soon, feel free to suggest improvements or e
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

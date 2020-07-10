@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -86,15 +86,15 @@ The first issue we were discussing was the DTD. HTML 5 in its current draft cate
 </code></pre>
 
 <p>
-The other issue was the meta tag with the charset attribute, that HTML 5 introduces in order to target the character set: 
+The other issue was the meta tag with the charset attribute, that HTML 5 introduces in order to target the character set:
 </p>
 
 <pre><code class="html">
-&lt;meta charset="..." /&gt; 
+&lt;meta charset="..." /&gt;
 </code></pre>
 
 <p>
-It is just not possible to generate exactly that with libXSL, because libXSL forcefully replaces it with an HTML 4 style meta tag. 
+It is just not possible to generate exactly that with libXSL, because libXSL forcefully replaces it with an HTML 4 style meta tag.
 </p>
 
 <pre><code class="html">
@@ -114,7 +114,7 @@ This is not a problem though, as the old meta tag in its encoding state is a val
 <div class="comment-text">You just bumped into the idiotic decision of making HTML5 *not* XML. If it were XML, no doctype would be needed, as the XML namespace would take care of identifying the actual standard the markup is on.
 
 My own home-baked solution to the problem is to post-process the XSLT result and insert the doctype \"manually\". It\'s not pretty.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Sérgio Carvalho on December 9 2008, 20:59 <a href="#comment-4882">#</a>
 </p>
 </li>
@@ -145,19 +145,19 @@ yep. pretty upsetting. This was one of the options I had in mind, that could sol
 Now I gotta say, none of these options makes me happy, but I guess inline js is the most reasonable, and probably the most transparent and least hacky thing to do.
 </p>
 
-<p> 
+<p>
 It\'s a bit weird though, that XSLT parsers don\'t give you that control over the meta tag that defines the output encoding.
 </p>
 
-<p> 
+<p>
 I can \'hack\' the doctype thing by using CDATA and xsl:text, and the doctype only comes up when it is defined in the output element. But forcefully insert the meta tag, even though the output node hasn\'t got encoding specified? That\'s just plain weird, and leaves wishes for some flag to be available in the processor, to turn that off.
 </p>
 
-<p> 
+<p>
 I had a look at the libXSL mailing lists though, and couldn\'t find anything that would let me do that. XSL pros: Is there a way to fine tune libXSLT?</p><p>Finally, to whether or not it was stupid to make HTML 5 not an XML derivative: <a href=\"http://www.w3.org/QA/2008/01/html5-is-html-and-xml.html\">There is a serialization of HTML 5 that is XML, but is has to be served with the content type application/xhtml+xml</a>. As with XHTML 1, <a href=\"http://hixie.ch/advocacy/xhtml\">some people consider it harmful, if it\'s served with content type text/html</a>.
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 9 2008, 21:17 <a href="#comment-4883">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 9 2008, 21:17 <a href="#comment-4883">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4885">
@@ -168,13 +168,13 @@ I *think* the auto-meta thing is just a PHP XSLT thing? I don\'t recall seeing i
 Can the doctype be output using just the public doctype part of the xsl output element?
 
 XSLT 2 specs came out a while ago so aren\'t aware of html5, else xsl:output method=\"html5\" would solve everything. XSLT 2.1 anyone?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.onenaught.com" rel="nofollow">Anup</a> on December 10 2008, 11:09 <a href="#comment-4885">#</a>
 </p>
 </li>
 <li class="even" id="comment-4886">
 <div class="comment-text"><p>
-Anup, the forceful generation of the meta tag, that\'s something libXSL does. PHP merely acts as a proxy. 
+Anup, the forceful generation of the meta tag, that\'s something libXSL does. PHP merely acts as a proxy.
 </p>
 
 <pre><code>
@@ -184,15 +184,15 @@ bash$ xsltproc xslt/client/main.xsl my_data.xml | grep UTF
 <p>Here is the output tag I used in XSL:</p>
 
 <pre><code>&lt;xsl:output omit-xml-declaration=\"yes\" method=\"html\" /&gt;</code></pre></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 10 2008, 12:55 <a href="#comment-4886">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 10 2008, 12:55 <a href="#comment-4886">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4890">
 <div class="comment-text">Ah, yes, that\'s right. Thanks for the clarification.
 
 Maybe open a ticket with the maintainers of libxsl...?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.onenaught.com" rel="nofollow">Anup</a> on December 10 2008, 17:12 <a href="#comment-4890">#</a>
 </p>
 </li>
@@ -205,14 +205,14 @@ With that one down, I tried the slightly amended <a href=\"http://uk2.php.net/ma
 I can\'t quite see where you had an issue with the content-type. I\'ve seen some blurb about only accepting the first content-type that comes up (which might be your servers http header, which of course I didn\'t have); but I don\'t know if the w3c validator has any beef with that.
 </p>
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias Willerich</a> on December 12 2008, 11:08 <a href="#comment-4916">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on December 12 2008, 11:08 <a href="#comment-4916">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4918">
 <div class="comment-text">Good research, Matthias. Might use that, but I can help that I still feel annoyed with the lack of control over that bloody meta tag.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 12 2008, 11:14 <a href="#comment-4918">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 12 2008, 11:14 <a href="#comment-4918">#</a>
 </p>
 </li>
 <li class="even" id="comment-4922">
@@ -222,8 +222,8 @@ The <a href=\"http://www.w3.org/TR/xslt#section-HTML-Output-Method\" title=\"xsl
 \"If there is a HEAD element, then the html output method should add a META element immediately after the start-tag of the HEAD element specifying the character encoding actually used.\"
 <br /><br />
 the Xsltproc you\'re using interprets the \"should\" as \"must\". I can\'t find any information that would hint that this has been changed since; only several discussions about it and <a href=\"http://mail.gnome.org/archives/xml/2005-August/thread.html#00127\">one suggested fix I don\'t quite understand</a>. I guess all that\'s left is to <a href=\"http://xmlsoft.org/XSLT/bugs.html\">bring this up with the makers of this library</a>, or patch your library yourself (er, maybe not). </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias Willerich</a> on December 12 2008, 16:18 <a href="#comment-4922">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on December 12 2008, 16:18 <a href="#comment-4922">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4924">
@@ -248,15 +248,15 @@ Interesting. I hardly ever validate by URL or file upload, but usually use the c
 <p>
 Above input by source copy paste is failing,  when i don\'t select the HTML 5 doctype from the dropdown in advanced options. DOH!
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 12 2008, 17:44 <a href="#comment-4924">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 12 2008, 17:44 <a href="#comment-4924">#</a>
 </p>
 </li>
 <li class="even" id="comment-4927">
 <div class="comment-text">Pascal: The \"XSLT-compat\" string was added for just this purpose. :-) The name might change in the future (maybe to just \"legacy-compat\" or something).
 
 Sérgio: HTML5 does support XML. You can use HTML5 either in text/html form or in full-on XML form.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://ln.hixie.ch/" rel="nofollow">Ian Hickson</a> on December 12 2008, 21:06 <a href="#comment-4927">#</a>
 </p>
 </li>
@@ -273,7 +273,7 @@ If you\'d like to discuss your issue and how it interacts with the HTML 5 specif
 <li><a href=\"http://lists.w3.org/Archives/Public/public-html/\">http://lists.w3.org/Archives/Public/public-html/ (working group discussion list)</a></li>
 <li><a href=\"http://lists.w3.org/Archives/Public/public-html-comments/\">http://lists.w3.org/Archives/Public/public-html-comments/ (designed really to take comments from the public at large about the official documents we\'ve published)</a></li>
 </ul></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://shawn.medero.net/about" rel="nofollow">Shawn Medero</a> on December 12 2008, 21:20 <a href="#comment-4928">#</a>
 </p>
 </li>
@@ -283,8 +283,8 @@ If you\'d like to discuss your issue and how it interacts with the HTML 5 specif
 <p>Btw: I am still wodering if according to correct HTML 5 interpretation the charset attribute is the only correct way to signify the charset in the markup, or whether the old HTML 4 style declaration will be a valid fallback?</p>
 
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 12 2008, 23:28 <a href="#comment-4930">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 12 2008, 23:28 <a href="#comment-4930">#</a>
 </p>
 </li>
 <li class="odd" id="comment-4931">
@@ -294,20 +294,20 @@ If you\'d like to discuss your issue and how it interacts with the HTML 5 specif
 The Encoding declaration state\'s user agent requirements are all handled by the parsing section of the specification. The state is just <strong>an alternative</strong> form of setting the charset attribute: it is a character encoding declaration.
 </p></blockquote>
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 12 2008, 23:39 <a href="#comment-4931">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 12 2008, 23:39 <a href="#comment-4931">#</a>
 </p>
 </li>
 <li class="even" id="comment-5023">
 <div class="comment-text">May I suggest that you template for HTML, not XHTML (as in XML) for your webpages?
 
-Browsers just don\'t get XML in webpages when you send it as \'text/html\', see Hixie\'s argument. 
+Browsers just don\'t get XML in webpages when you send it as \'text/html\', see Hixie\'s argument.
 
-As XSL template writer that means you must at all times be aware that you *won\'t* generate empty tags for elements such as a DIV, e.g. , since that will break your webpage layout. Which means you\'ll write less legible templates just for the sake of having XML; And, invariably, you or a colleague will forget to add bogus xsl:text or xsl:comment tags at some place. 
+As XSL template writer that means you must at all times be aware that you *won\'t* generate empty tags for elements such as a DIV, e.g. , since that will break your webpage layout. Which means you\'ll write less legible templates just for the sake of having XML; And, invariably, you or a colleague will forget to add bogus xsl:text or xsl:comment tags at some place.
 
-HTML 5 should solve some of the HTML vs XHTML problems by specifying on the DOM level, instead of the wire format. 
+HTML 5 should solve some of the HTML vs XHTML problems by specifying on the DOM level, instead of the wire format.
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Jeroen Pulles on December 18 2008, 12:01 <a href="#comment-5023">#</a>
 </p>
 </li>
@@ -326,8 +326,8 @@ What kind of issues I have to be aware off when generating markup from XSLT when
 <br />
 I personally find the <code>&lt;xsl:preserve-space /&gt;</code> element is a great help to achieve what you want. Also there\'s the xml:space attribute, which can be set to preserve.
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on December 18 2008, 14:59 <a href="#comment-5024">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on December 18 2008, 14:59 <a href="#comment-5024">#</a>
 </p>
 </li>
 <li class="even" id="comment-9656">
@@ -345,7 +345,7 @@ I personally find the <code>&lt;xsl:preserve-space /&gt;</code> element is a gre
 
 
 <p>Which for me produces the html5 <code>&lt;!DOCTYPE html&gt;</code>. I\'m processing this through libxslt (via both Python and PHP).</p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Phillip Oldham on January 6 2011, 08:25 <a href="#comment-9656">#</a>
 </p>
 </li>
@@ -354,11 +354,11 @@ Phillip Oldham on January 6 2011, 08:25 <a href="#comment-9656">#</a>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -383,13 +383,13 @@ Phillip Oldham on January 6 2011, 08:25 <a href="#comment-9656">#</a>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

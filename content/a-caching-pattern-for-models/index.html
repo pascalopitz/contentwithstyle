@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -106,7 +106,7 @@ A great idea. As you can see this proposed way saves a bit of code, it's intuiti
 class BaseModelCache {
   private $object;
   private $cache;
-  
+
   public function __construct($object) {
     $backendName = 'File';
     $frontendName = 'Class';
@@ -124,12 +124,12 @@ class BaseModelCache {
 
     try {
       Zend_Loader::loadClass('Zend_Cache');
-      $this-&gt;cache = Zend_Cache::factory($frontendName, $backendName, $frontendOptions, $backendOptions);     
+      $this-&gt;cache = Zend_Cache::factory($frontendName, $backendName, $frontendOptions, $backendOptions);
     } catch(Exception $e) {
       throw($e);
     }
   }
-  
+
   public function __call($method, $args) {
     $class = get_class($this-&gt;object);
     $class_methods = get_class_methods($class);
@@ -167,8 +167,8 @@ abstract class BaseModel {
 <div class="comment-text"><p>Hi Ludwig. When we developed this our models where based on web services. Also, I never really used Zend_Db_Table_Row, but instead create an instance of Zend_DB in my model and use it from within the methods. Always disliked the active record approach to be honest.</p>
 
 <p>Is the ID problem similar to what Sascha-Oliver described? Maybe when I have spare time, I will have a ponder and see what I can come up with ...</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on May 17 2009, 08:43 <a href="#comment-6088">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on May 17 2009, 08:43 <a href="#comment-6088">#</a>
 </p>
 </li>
 <li class="even" id="comment-6084">
@@ -188,12 +188,12 @@ For replication here are the classes I used:</p>
 
 <pre><code>
 class Cwd_Db_Cache {
- // see comment by Robert Kummer 
- // http://www.contentwithstyle.co.uk/content/a-caching-pattern-for-models#comment-5876
+ // see comment by Robert Kummer
+ // http://contentwithstyle.pascalopitz.com/content/a-caching-pattern-for-models#comment-5876
 }
 </code></pre>
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.cwd.at" rel="nofollow">LudwigR</a> on May 17 2009, 00:36 <a href="#comment-6084">#</a>
 </p>
 </li>
@@ -209,20 +209,20 @@ class MyModel extend aBaseModelObject
   {
     return \'resultFromComplexDatabaseQuery\';
   }
-	
+
   public function cache()
   {
     return new BaseModelCache($this);
   }
 }</code></pre></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://svest.org" rel="nofollow">Stoyan</a> on May 12 2009, 09:25 <a href="#comment-6047">#</a>
 </p>
 </li>
 <li class="even" id="comment-5936">
 <div class="comment-text"><p>Great. I wonder whether the cache suffix could be dynamically created from the passed params. I\'ll have a look into it.</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on April 23 2009, 11:30 <a href="#comment-5936">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 23 2009, 11:30 <a href="#comment-5936">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5938">
@@ -235,7 +235,7 @@ you can create the suffix dynamically, but i would prefer not to do so. The Prob
 <pre><code>$a = new Test(\'foo\');
 $a-&gt;cache-&gt;setCacheSuffix(\'foo\');
 $a-&gt;cache-&gt;foo(\'teststring\');</code></pre></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Sascha-Oliver Prolic on April 23 2009, 12:22 <a href="#comment-5938">#</a>
 </p>
 </li>
@@ -243,8 +243,8 @@ Sascha-Oliver Prolic on April 23 2009, 12:22 <a href="#comment-5938">#</a>
 <div class="comment-text"><p>
 What about serialize, then md5 it?
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on April 23 2009, 12:25 <a href="#comment-5939">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 23 2009, 12:25 <a href="#comment-5939">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5940">
@@ -275,7 +275,7 @@ abstract class BaseModel
     }
 
 }</code></pre></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Sascha-Oliver Prolic on April 23 2009, 12:32 <a href="#comment-5940">#</a>
 </p>
 </li>
@@ -292,19 +292,19 @@ $m_act = new ActModel();
 $events = $m_event-&gt;cache-&gt;fetchAll(array(\"status=\'1\'\",\"deleted=\'0\'\"),\'createdate desc\',10,0);
 echo \"&lt;ul&gt;\";
 foreach($events as $event){
-	echo \"&lt;li&gt;\".$event-&gt;event_id.\"&lt;/li&gt;\";	    			
+	echo \"&lt;li&gt;\".$event-&gt;event_id.\"&lt;/li&gt;\";
 	$event-&gt;setTable($m_event);
 	$event-&gt;cache-&gt;setCacheSuffix(\'eventid_\'.$event-&gt;event_id);
-	
+
 	$acts = $event-&gt;cache-&gt;findDependentRowset(\'ActModel\');
 	echo \"&lt;ul&gt;\";
-	foreach($acts as $act){	    			
+	foreach($acts as $act){
 		$act-&gt;setTable($m_act);
 		$act-&gt;cache-&gt;setCacheSuffix(\'actid_\'.$act-&gt;act_id);
 		$foo = $act-&gt;cache-&gt;findParentRow(\'EventModel\');
 		echo \"&lt;li&gt;\".$act-&gt;act_id.\" (\".$foo-&gt;event_id.\")&lt;/li&gt;\";
-	}	    		
-	echo \"&lt;/ul&gt;\"; 	    		
+	}
+	echo \"&lt;/ul&gt;\";
 }
 echo \"&lt;/ul&gt;\";
 </code></pre>
@@ -312,7 +312,7 @@ echo \"&lt;/ul&gt;\";
 <p>You can find the classes at http://svn.cwd.at/cwd/trunk/Cwd/</p>
 
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.cwd.at" rel="nofollow">LudwigR</a> on May 17 2009, 09:41 <a href="#comment-6089">#</a>
 </p>
 </li>
@@ -327,25 +327,25 @@ $m_event = new EventModel();
 $events = $m_event-&gt;cache-&gt;fetchAll(array(\"status=\'1\'\",\"deleted=\'0\'\"),\'createdate desc\',10,0);
 echo \"&lt;ul&gt;\";
 foreach($events as $event){
-	echo \"&lt;li&gt;\".$event-&gt;event_id.\"&lt;/li&gt;\";	    			
-	$event-&gt;setTable($m_event);    			
+	echo \"&lt;li&gt;\".$event-&gt;event_id.\"&lt;/li&gt;\";
+	$event-&gt;setTable($m_event);
 	$acts = $event-&gt;cache-&gt;findDependentRowset(\'ActModel\');
 	echo \"&lt;ul&gt;\";
 	foreach($acts as $act){
 		echo \"&lt;li&gt;\".$act-&gt;act_id.\"&lt;/li&gt;\";
-	}	    		
-	echo \"&lt;/ul&gt;\";	    		
+	}
+	echo \"&lt;/ul&gt;\";
 }
-echo \"&lt;/ul&gt;\";     
+echo \"&lt;/ul&gt;\";
 </code></pre></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.cwd.at" rel="nofollow">LudwigR</a> on May 17 2009, 00:43 <a href="#comment-6085">#</a>
 </p>
 </li>
 <li class="even" id="comment-5935">
 <div class="comment-text"><p>Hi Pascal,</p>
 
-<p>here is my proposal, 
+<p>here is my proposal,
 I got already some properties from my config object.
 this will work, but i didn\'t wrote any unit tests, yet.
 please feel free to contact me:</p>
@@ -581,14 +581,14 @@ $b = new aTest(\'wiki\');
 $b-&gt;setCacheSuffix(\'wiki\');
 echo \'non-cached: \'.$b-&gt;foo(\'hh\'). \'\';
 echo \'cached: \'.$b-&gt;cache-&gt;foo(\'hh\'). \'\';</code></pre></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Sascha-Oliver Prolic on April 23 2009, 11:20 <a href="#comment-5935">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5934">
 <div class="comment-text"><p>I didn\'t try objects with different constructor parameters, but i *assumed* that passing the object itself as cached entity would take care of this. Will need to have a think, and read the code for Zend_Cache_Frontend_Class.</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on April 23 2009, 10:19 <a href="#comment-5934">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 23 2009, 10:19 <a href="#comment-5934">#</a>
 </p>
 </li>
 <li class="even" id="comment-5933">
@@ -630,7 +630,7 @@ test2_teststring
 <p>
 I can work around, when setting cachedEntityLabel by myself, but this property of the Zend_Cache_Frontend_Class is set to private.
 So how would you cache objects with different constructor params?</p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Sascha-Oliver Prolic on April 23 2009, 10:07 <a href="#comment-5933">#</a>
 </p>
 </li>
@@ -666,7 +666,7 @@ class BaseModelCache {
 
     try {
       Zend_Loader::loadClass(\'Zend_Cache\');
-      $this-&gt;cache = Zend_Cache::factory($frontendName, $backendName, $frontendOptions, $backendOptions);     
+      $this-&gt;cache = Zend_Cache::factory($frontendName, $backendName, $frontendOptions, $backendOptions);
     } catch(Exception $e) {
       throw($e);
     }
@@ -703,23 +703,23 @@ So you do not have to call the same methods again and again, because the informa
 </p>
 <p>
 A really nice solution, but not applicable in my projects.</p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://robert-kummer.de" rel="nofollow">Robert Kummer</a> on April 17 2009, 06:08 <a href="#comment-5876">#</a>
 </p>
 </li>
 <li class="even" id="comment-5878">
 <div class="comment-text">A very good idea, thanks for that Robert.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on April 17 2009, 07:53 <a href="#comment-5878">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 17 2009, 07:53 <a href="#comment-5878">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5879">
-<div class="comment-text">Really nice and elegant solution. 
+<div class="comment-text">Really nice and elegant solution.
 
 Just an idea (haven\'t thought this through): if you use lazy initialization for the BaseModelCache instance instead of creating it immediately on __construct(), you could theoretically build this in standard in any project without (much) overhead in you choose not to use it.
 
 That way this solution would always be available to deal with the kind of real world scenarios Matthias described, even when you prefer to implement a \"better\" way of caching inside the model for that particular project.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://blog.meritos.nl" rel="nofollow">Rick</a> on April 17 2009, 10:05 <a href="#comment-5879">#</a>
 </p>
 </li>
@@ -729,8 +729,8 @@ That way this solution would always be available to deal with the kind of real w
 
 <p>
 If you\'re looking to create a more granular caching/uncaching, that gives you control over what you delete record by record, you might want to have a look into the use of tags. Zend_Cache_Class has a function called setTagsArray(), and the clear() also takes tags as an optional parameter.</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on April 19 2009, 06:49 <a href="#comment-5892">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 19 2009, 06:49 <a href="#comment-5892">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5889">
@@ -739,7 +739,7 @@ If you\'re looking to create a more granular caching/uncaching, that gives you c
 If my database row is modified, then I\'d like to refresh the data.
 
 The ZF cache components look great but in practice I\'ve only really managed to implement simple data caching so far - and it looks like the real advantages come from function/class/page level caching.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 David on April 18 2009, 21:47 <a href="#comment-5889">#</a>
 </p>
 </li>
@@ -750,13 +750,13 @@ David on April 18 2009, 21:47 <a href="#comment-5889">#</a>
 <li>I wanted to see in the controller if I was caching or not, and have an easy way of of toggling between the two in debugging.</li></ul>
 
 <p>If you were to build an application from scratch, and you knew exactly which data sources to cache, you might want to integrate the caching into your model, but in my case I\'m iterating over the code base over and over again, refactoring and improving in small steps on a constant basis, and this is where I feel the approach was perfect.</p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias Willerich</a> on April 8 2009, 10:27 <a href="#comment-5845">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on April 8 2009, 10:27 <a href="#comment-5845">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5838">
 <div class="comment-text">That\'s a great idea. Have to try that myself.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://alexander-thomas.net" rel="nofollow">Alex</a> on April 6 2009, 16:18 <a href="#comment-5838">#</a>
 </p>
 </li>
@@ -765,11 +765,11 @@ David on April 18 2009, 21:47 <a href="#comment-5889">#</a>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -794,13 +794,13 @@ David on April 18 2009, 21:47 <a href="#comment-5889">#</a>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -73,7 +73,7 @@
 
 <p>
 With the help of Zend_Test we're now able to create tests that dispatch our controllers. We're then able to do assertions against the response, using the provided methods of the <a href="http://framework.zend.com/apidoc/core/Zend_Test/PHPUnit/Zend_Test_PHPUnit_ControllerTestCase.html">ControllerTestCase</a>.
-</p> 
+</p>
 
 <pre><code>
 class IndexTest extends Zend_Test_PHPUnit_ControllerTestCase
@@ -134,7 +134,7 @@ public function testSave() {
   $my_id = $model->create();
 
   $request = $this->getRequest();
-  
+
   $request->setMethod('POST');
   $request->setPost(array(
     'name' => 'unittest modified',
@@ -146,8 +146,8 @@ public function testSave() {
 
   $data = $model->get($my_id);
   $this->assertEquals($data['name'], 'unittest modified');
-  
-  $my_id = $model->delete($my_id);  
+
+  $my_id = $model->delete($my_id);
 }
 </code></pre>
 
@@ -168,7 +168,7 @@ public function testSave() {
     <ul class="comments-list">
         <li class="odd" id="comment-6143">
 <div class="comment-text">thanks brian I had the same issue your solution worked fine!!!!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Daniel Alvarez on May 27 2009, 22:54 <a href="#comment-6143">#</a>
 </p>
 </li>
@@ -196,7 +196,7 @@ public function tearDown()
 </code></pre>
 
 <p>The reason the problem was occuring was that test-bootstrap.php defined the default module in FrontController setControllerDir or something like that. I used to have require_once, but then for subsequent requests the bootstrap wasn\'t being reevaluated... which led to no default module being defined. In my tearDown I resetRequest and resetResponse for good measure.</p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Brian Hazzard on April 28 2009, 17:38 <a href="#comment-5970">#</a>
 </p>
 </li>
@@ -206,7 +206,7 @@ Brian Hazzard on April 28 2009, 17:38 <a href="#comment-5970">#</a>
 <p>the first test will pass or fail as expected, but if I add a second test I get the error \"no default module defined for this application\".</p>
 <p>
 On another note... I had a separate issue using Zend_Test to test controllers where any of the Zend assertions would throw the error <code>\"undefined method: incrementAssertionCounter()\"</code> or something to that effect. In case someone else that stumbles across here is having the same issue... I was able to track it down to an issue with PHPUnit 3.3.3 and after rolling back to 3.3.16 everything works fine. There is a ticket for this issue on the ZF Issue Tracker at <a href=\"http://framework.zend.com/issues/browse/ZF-4839\">http://framework.zend.com/issues/browse/ZF-4839</a></p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Brian Hazzard on April 24 2009, 14:38 <a href="#comment-5947">#</a>
 </p>
 </li>
@@ -214,14 +214,14 @@ Brian Hazzard on April 24 2009, 14:38 <a href="#comment-5947">#</a>
 <div class="comment-text"><p>I encountered issues for testing a controller that displays form with captchas - <a href=\"http://ossigeno.sourceforge.net/blog/content/article/zend-test-and-captchas\">so I wrote an article to help</a>.</p>
 <p>
 Regards...</p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://ossigeno.sourceforge.net" rel="nofollow">Giorgio Sironi</a> on April 25 2009, 09:46 <a href="#comment-5949">#</a>
 </p>
 </li>
 <li class="odd" id="comment-5956">
 <div class="comment-text"><p>Hi Folks,</p>
 
-<p>i\'ve found the error, or better the mistake.</p> 
+<p>i\'ve found the error, or better the mistake.</p>
 <p>
 There were some missing Action_Plugins / View_Helper and other stuff. The Zend_Controller_Testcase is not throwing exceptions or such stuff.</p>
 <p>
@@ -233,7 +233,7 @@ You can see the errors if you use something like this in your controller testeca
 error_log(var_export($x));
 </code></pre>
 </div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.limespace.de" rel="nofollow">Arne</a> on April 27 2009, 08:03 <a href="#comment-5956">#</a>
 </p>
 </li>
@@ -241,7 +241,7 @@ error_log(var_export($x));
 <div class="comment-text">Hi,
 
 it works fine, till iam trying to setup a second testCase, than i recieve the error \" no default module .. \" any suggestions ?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.limespace.de" rel="nofollow">Arne</a> on April 19 2009, 13:07 <a href="#comment-5893">#</a>
 </p>
 </li>
@@ -254,19 +254,19 @@ Maybe set the controller directory in the appBootstrap function:
 <pre><code>
 public function appBootstrap() {
   require_once(\'/my/bootstrap.php\');
-  $this-&gt;frontController-&gt;setControllerDirectory(\'/my/path/\', \'default\'); 
-  $this-&gt;frontController-&gt;addModuleDirectory(\'/path/modules\'); 
+  $this-&gt;frontController-&gt;setControllerDirectory(\'/my/path/\', \'default\');
+  $this-&gt;frontController-&gt;addModuleDirectory(\'/path/modules\');
 }
 </code></pre>
 </div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on April 19 2009, 13:29 <a href="#comment-5894">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on April 19 2009, 13:29 <a href="#comment-5894">#</a>
 </p>
 </li>
 <li class="even" id="comment-6388">
 <div class="comment-text">Bootstrapping changed in ZF 1.8, and they also took down the deprecated quickstart guide. <a href=\"http://framework.zend.com/manual/en/zend.application.quick-start.html#zend.application.quick-start.manual\">Here is the new one</a>, but it\'s slightly different.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Matthias Willerich</a> on July 16 2009, 14:17 <a href="#comment-6388">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Matthias Willerich</a> on July 16 2009, 14:17 <a href="#comment-6388">#</a>
 </p>
 </li>
 <li class="odd" id="comment-6384">
@@ -276,13 +276,13 @@ The link <a href=\"http://framework.zend.com/docs/quickstart/create-a-bootstrap-
 I looked for \"create a bootstrap file\" in the site\'s search engine (in the to-right corner) but didn\'t find anything at the 5th page, so I gave up.
 
 I\'ll try to make your exemlpe work on my architecture, though :)</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 andy_b_84 on July 15 2009, 13:50 <a href="#comment-6384">#</a>
 </p>
 </li>
 <li class="even" id="comment-8406">
 <div class="comment-text">very useful article especially for who just started learning zend :-) thx!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://chupakabr.ru" rel="nofollow">myltik</a> on June 4 2010, 09:08 <a href="#comment-8406">#</a>
 </p>
 </li>
@@ -294,7 +294,7 @@ andy_b_84 on July 15 2009, 13:50 <a href="#comment-6384">#</a>
 <p>The same is true for any subsequent test I add to the test class.</p>
 
 <p>Anyone any idea as to what might cause this behaviour or what I might do in order to fix it?</p></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Uwe on August 30 2010, 04:39 <a href="#comment-8779">#</a>
 </p>
 </li>
@@ -303,11 +303,11 @@ Uwe on August 30 2010, 04:39 <a href="#comment-8779">#</a>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -332,13 +332,13 @@ Uwe on August 30 2010, 04:39 <a href="#comment-8779">#</a>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

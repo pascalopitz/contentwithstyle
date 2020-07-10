@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -84,8 +84,8 @@ require_once 'Zend/View/Helper/PartialLoop.php';
 class Extended_Helper_PartialLoop extends Zend_View_Helper_PartialLoop {
 
 	public $view;
-	
-	public function setView($view) {		
+
+	public function setView($view) {
 		$this->view = $view;
 		$this->config = Zend_Registry::get('config');
 	}
@@ -93,21 +93,21 @@ class Extended_Helper_PartialLoop extends Zend_View_Helper_PartialLoop {
 	public function partialLoop($path, $array) {
 		return parent::partialLoop($path, $array);
 	}
-	
-	
+
+
 	public function partial($name, $module, $item) {
 		$item['view'] = $this->view;
 		$item['config'] = $this->config;
 		return parent::partial($name, $module, $item);
 	}
 }
-					
+
 </code></pre>
 
 	<p>And voila, we now can access the view from within a partialLoop.</p>
 
 
- 
+
 </div>
 
 
@@ -118,7 +118,7 @@ class Extended_Helper_PartialLoop extends Zend_View_Helper_PartialLoop {
 <div class="comment-text">I thought the whole point of partial is to make a separate scope for the rendered view. At least I wouldn&#8217;t override the default partialLoop with one that doesn&#8217;t, since it could break some views if I&#8217;m reusing things from elsewhere.<br />
 <br />
 foreach with $this->render would probably do exactly the same, except allow you to access the variables without any mods.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://codeutopia.net" rel="nofollow">Jani Hartikainen</a> on September 8 2008, 02:22 <a href="#comment-3806">#</a>
 </p>
 </li>
@@ -133,19 +133,19 @@ I decided to use this hack as my own convention, as I nearly every time found my
 <br />
 There&#8217;s no supersolution here, and like with most stuff: If this doesn&#8217;t work for you, then basically don&#8217;t use it.<br />
 But even then I think this is a good insight into how you can manipulate Zends built in functionality by extending classes rather than messing about with the core files.</div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on September 8 2008, 02:37 <a href="#comment-3807">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on September 8 2008, 02:37 <a href="#comment-3807">#</a>
 </p>
 </li>
 <li class="odd" id="comment-7022">
 <div class="comment-text">For same reasons as Pascal mentioned, I wanted this feature. Thanks a lot.</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 under on October 3 2009, 10:29 <a href="#comment-7022">#</a>
 </p>
 </li>
 <li class="even" id="comment-6552">
 <div class="comment-text">thank you for this, it helps me a lot!</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://www.nouron.de.vu" rel="nofollow">cotoyomi</a> on August 2 2009, 22:55 <a href="#comment-6552">#</a>
 </p>
 </li>
@@ -156,23 +156,23 @@ under on October 3 2009, 10:29 <a href="#comment-7022">#</a>
 class My_View_Helper_ExtendedPartialLoop extends Zend_View_Helper_PartialLoop
 {
 	public $view;
-	
+
 	public function __construct()
 	{
                 // Parent doesn\'t have a constructor so we don\'t call it.
 		$this-&gt;setObjectKey(\'object\');
 	}
-	
+
 	public function setView(Zend_View_Interface $view)
-	{		
+	{
 		$this-&gt;view = $view;
 	}
-	
+
 	public function ExtendedPartialLoop($path, $array)
 	{
 		return parent::partialLoop($path, $array);
 	}
-	
+
 	public function partial($name, $module, $item)
 	{
 		$objectKey = $this-&gt;getObjectKey();
@@ -189,12 +189,12 @@ class My_View_Helper_ExtendedPartialLoop extends Zend_View_Helper_PartialLoop
                         // Throw whatever exception you use for these cases.
 			throw new ProgrammingError();
 		}
-		
+
 		return parent::partial($name, $module, $item);
 	}
 }
 </code></pre></div>
-<p class="comment-info">by 
+<p class="comment-info">by
 Borje on March 25 2010, 08:27 <a href="#comment-8246">#</a>
 </p>
 </li>
@@ -203,11 +203,11 @@ Borje on March 25 2010, 08:27 <a href="#comment-8246">#</a>
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -232,13 +232,13 @@ Borje on March 25 2010, 08:27 <a href="#comment-8246">#</a>
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">

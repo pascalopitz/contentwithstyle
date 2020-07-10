@@ -27,7 +27,7 @@
     </head>
 
     <body class="article">
-    
+
         <div class="header">
             <div class="inner">
                 <ul class="clearfix">
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="title-row">
     <div>
         <strong>Content with Style</strong>
         <p>Web Technique</p>
-    </div>    
+    </div>
 </div>
 
 
@@ -74,7 +74,7 @@ var fs = require('fs');
 var TestApp = function() {
   var _self = this;
   var counter = 0;
-  
+
   var routes = {
     '/' : function(request, response) {
       response.writeHead(200, {'Content-Type': 'text/html'});
@@ -115,7 +115,7 @@ var TestApp = function() {
       response.end();
       return false;
     }
-    
+
     setTimeout(function() {
       updateLoop.call(this, request, response, current_counter);
     }, 1000);
@@ -123,7 +123,7 @@ var TestApp = function() {
 
   var _requestHandler = function(request, response) {
     sys.puts('request: \'' + request.url + '\'');
-    
+
     if(routes[request.url] === undefined) {
       response.writeHead(404, {'Content-Type': 'text/plain'});
       response.write('not found\n');
@@ -132,7 +132,7 @@ var TestApp = function() {
       routes[request.url].call(this, request, response);
     }
   };
-  
+
   var _updateHandler = function(request, socket, head) {
     sys.puts('update');
   };
@@ -140,15 +140,15 @@ var TestApp = function() {
   var _closeHandler = function() {
     sys.puts('close');
   };
-  
+
   sys.puts('New TestApp');
-  
+
   fs.readFile('./index.html', function (err, data) {
     if (err) throw err;
     _self.indexTemplate = data;
     sys.puts('Template loaded');
   });
-  
+
   var _server = http.createServer().
           addListener('request', _requestHandler)
           .addListener('close', _closeHandler)
@@ -169,7 +169,7 @@ new TestApp();
   &lt;head&gt;
     &lt;title&gt;Long polling test&lt;/title&gt;
   &lt;/head&gt;
-  
+
   &lt;body&gt;
     &lt;p&gt;Long polling test.&lt;/p&gt;
     &lt;p&gt;&lt;textarea id="output"&gt;&lt;/textarea&gt;&lt;/p&gt;
@@ -183,7 +183,7 @@ new TestApp();
           _poll();
         });
       }
-      
+
       $.get('/jsstatus', function(response) {
         $('textarea').text(response);
         _poll();
@@ -241,13 +241,13 @@ Casey, do you mean the counter incrementing? Potentially yes, it would, but it i
 <p>
 If you mean the client side _poll() function, keep in mind that the next function call will only happen on callback, read: when the socket closes. This is only when the counter gets updated.
 </p></div>
-<p class="comment-info">by 
-<a href="http://www.contentwithstyle.co.uk" rel="nofollow">Pascal Opitz</a> on January 26 2011, 12:30 <a href="#comment-9929">#</a>
+<p class="comment-info">by
+<a href="http://contentwithstyle.pascalopitz.com" rel="nofollow">Pascal Opitz</a> on January 26 2011, 12:30 <a href="#comment-9929">#</a>
 </p>
 </li>
 <li class="even" id="comment-9870">
 <div class="comment-text">I\'m not too familiar with recursion in JavaScript, but won\'t the code in the client example eventually throw a stack overflow exception?</div>
-<p class="comment-info">by 
+<p class="comment-info">by
 <a href="http://casedogdesigns.com" rel="nofollow">Casey Watson</a> on January 24 2011, 02:36 <a href="#comment-9870">#</a>
 </p>
 </li>
@@ -256,11 +256,11 @@ If you mean the client side _poll() function, keep in mind that the next functio
 </div>
 
             </div>
-            
+
             <div class="sidebar">
                 <div class="box info">
     <h2>Content with Style?</h2>
-    
+
     <p>
         Content with Style is a London based blog, focusing on web technology and related topics.
     </p>
@@ -285,13 +285,13 @@ If you mean the client side _poll() function, keep in mind that the next functio
             </div>
 
             <div class="ads">
-    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "6443", "ggtid" : "DE2FD893095652A23D9C0260BC54FDA5"  }  </script>
+    <script type="text/javascript" src="http://www.globalgiving.org/javascript/widget/widget.js">  { "projectids" : "46642"  }  </script>
 </div>
 
         </div>
 
         <ul>
-          
+
         </ul>
 
         <div class="footer">
